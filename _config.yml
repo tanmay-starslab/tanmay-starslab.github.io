@@ -336,3 +336,27 @@ compress_html:
   clippings: all
   ignore:
     envs: development
+
+
+
+nav:
+  - title: "Home"
+    url: /
+
+  -title: "Research"
+    url: /research/
+
+  - title: "CV"
+    url: /cv/
+
+  - title: "Personal"
+    url: /personal/
+
+  - title: "Useful Links"
+    url: /useful-links/
+
+  - title: "Publications"
+    url: /publications/
+    
+  - title: "Blog"
+    url: /blog/
