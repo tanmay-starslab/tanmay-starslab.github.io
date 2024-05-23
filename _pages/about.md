@@ -7,12 +7,12 @@ redirect_from:
   - /about/
   - /about.html
 header:
-  overlay_image: milky_way.jpg
+  overlay_image: mw_glimpse.jpeg
 ---
 
 <!-- 
 <figure style="width: 350px" class="align-right">
-  <img src="/images/headshot_tanmay.JPG" alt="">
+  <img src="/images/headshot_tanmay" alt="">
   <figcaption>It's me!</figcaption>
 </figure>  -->
 
