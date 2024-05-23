@@ -22,7 +22,7 @@ repository               : "tanmay-starslab/tanmay-starslab.github.io"
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "/tanmay-starslab.github.io/images/headshot_tanmay.jpeg"
+  avatar           : "headshot_tanmay.jpeg"
   name             : "Tanmay Singh"
   pronouns         : # example: "she/her"  
   bio              : "Astrophysics PhD student at Arizona State University "
