@@ -339,24 +339,24 @@ compress_html:
 
 
 
-nav:
-  - title: "Home"
-    url: /
+# nav:
+#   - title: "Home"
+#     url: /
 
-  - title: "Research"
-    url: /research/
+#   - title: "Research"
+#     url: /research/
 
-  - title: "CV"
-    url: /cv/
+#   - title: "CV"
+#     url: /cv/
 
-  - title: "Personal"
-    url: /personal/
+#   - title: "Personal"
+#     url: /personal/
 
-  - title: "Useful Links"
-    url: /useful-links/
+#   - title: "Useful Links"
+#     url: /useful-links/
 
-  - title: "Publications"
-    url: /publications/
+#   - title: "Publications"
+#     url: /publications/
 
-  - title: "Blog"
-    url: /blog/
+#   - title: "Blog"
+#     url: /blog/
