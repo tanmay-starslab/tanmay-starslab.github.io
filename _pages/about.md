@@ -12,7 +12,7 @@ header:
 
 <!-- 
 <figure style="width: 350px" class="align-right">
-  <img src="/images/headshot_tanmay" alt="">
+  <img src="/images/headshot_tanmay.jpeg" alt="">
   <figcaption>It's me!</figcaption>
 </figure>  -->
 
