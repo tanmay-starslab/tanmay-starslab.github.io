@@ -4,7 +4,7 @@ title: "Personal"
 permalink: /personal/
 author_profile: true
 header:
-  overlay_image: /personal/canyon_pano.jpg
+  overlay_image: canyon_pano.jpg
 ---
 
 {% include base_path %}

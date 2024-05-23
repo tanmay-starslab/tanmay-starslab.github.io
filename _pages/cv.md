@@ -6,7 +6,7 @@ author_profile: true
 redirect_from:
   - /resume
 header:
-  overlay_image: galaxy4.jpg
+  overlay_image: galaxy2.jpg
 ---
 
 {% include base_path %}
