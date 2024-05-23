@@ -22,7 +22,7 @@ repository               : "tanmay-starslab/tanmay-starslab.github.io"
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "profile.png"
+  avatar           : "/tanmay-starslab.github.io/images/headshot_tanmay.jpeg"
   name             : "Tanmay Singh"
   pronouns         : # example: "she/her"  
   bio              : "Astrophysics PhD student at Arizona State University "
@@ -114,7 +114,7 @@ atom_feed:
 
 
 # SEO Related
-google_site_verification :
+google_site_verification : google8a90f455e275e207.html
 bing_site_verification   :
 alexa_site_verification  :
 yandex_site_verification :
@@ -138,7 +138,7 @@ social:
 
 # Analytics
 analytics:
-  provider               :  "false" # false (default), "google", "google-universal", "google-analytics-4", "custom"
+  provider               :  "google-universal" # false (default), "google", "google-universal", "google-analytics-4", "custom"
   google:
     tracking_id          :
 

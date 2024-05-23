@@ -11,10 +11,10 @@ header:
 ---
 
 
-<figure style="width: 350px" class="align-right">
+<!-- <figure style="width: 350px" class="align-right">
   <img src="/tanmay-starslab.github.io/images/headshot_tanmay.jpeg" alt="">
   <figcaption>It's me!</figcaption>
-</figure> 
+</figure>  -->
 
 I am Tanmay Singh, currently a first year PhD student in the [School of Earth and Space exploration](https://sese.asu.edu/) at [Arizona State University](https://en.wikipedia.org/wiki/Arizona_State_University), advised by [Prof. Sanchayeeta Borthakur](http://borthakur.asu.edu/index.html). My research interests lie broadly in galaxy formation and processes that impact their evolution. You can read more about my research projects here. 
 
