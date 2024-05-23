@@ -343,7 +343,7 @@ nav:
   - title: "Home"
     url: /
 
-  -title: "Research"
+  - title: "Research"
     url: /research/
 
   - title: "CV"
@@ -357,6 +357,6 @@ nav:
 
   - title: "Publications"
     url: /publications/
-    
+
   - title: "Blog"
     url: /blog/
