@@ -1,7 +1,7 @@
 ---
 layout: archive
 title: "Useful Links"
-permalink: /useful-links/
+permalink: /usefullinks/
 author_profile: true
 header:
   overlay_image: galaxy6.jpg
