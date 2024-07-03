@@ -50,7 +50,7 @@ Astronomy and Astrophysics
 [**EAGLE Project**](http://icc.dur.ac.uk/Eagle/): Simulation aimed at understanding how galaxies form and evolve.  
 [**L-Galaxies Project**](https://lgalaxiespublicrelease.github.io/): Semi-analytic models of galaxy formation built upon dark matter simulation only such as [Millenium.](https://wwwmpa.mpa-garching.mpg.de/galform/virgo/millennium/)  
 
-Programming Links
+### Programming Links
 -----------------
 
 [**Stack Overflow**](https://stackoverflow.com): Question and answer website for professional and enthusiast programmers.  
@@ -69,7 +69,85 @@ Programming Links
 [**Mendeley**](https://www.mendeley.com/download-reference-manager): Online reference manager to manage and share research papers and also to generate bibiliographies (semi-free).  
 [**Zotero**](https://www.zotero.org/): Free and open-source reference management software.  
 
-General Links
+### Online Courses in Astronomy
+
+[**Scientific Computing in Astronomy**](https://www.krittika.org): Krittika Astronomy Club, IITB  
+[**GROWTH Astronomy School 2020**](https://www.astro.caltech.edu): Caltech  
+[**ZTF Summer School 2022**](https://www.astro.caltech.edu): Caltech  
+[**Summer school and Refresher course in Astronomy & Astrophysics 2020**](https://www.iucaa.in): Inter-University Centre for Astronomy and Astrophysics (IUCAA)  
+[**Radio Astronomy Winter School 2020**](https://www.ncra.tifr.res.in): National Centre for Radio Astrophysics - Tata Institute of Fundamental Research (NCRA-TIFR)  
+[**GW@Home**](https://www.ligo.in): LIGO-India & IUCAA  
+[**Data-Driven Astronomy**](https://www.coursera.org): Coursera  
+[**Observational Astronomy**](https://www.sheffield.ac.uk): Dr. Stuart Littlefair, University of Sheffield
+
+### Scientific Python & Astronomy
+
+[**Python for Astronomers**](https://python4astronomers.github.io):  
+[**Python Programming And Numerical Methods: A Guide For Engineers And Scientists**](https://pythonnumericalmethods.berkeley.edu): UC Berkeley  
+[**A Beginner’s Guide to Working with Astronomical Data**](https://www.mpi-hd.mpg.de): Markus Pössel, Max Planck Institute for Astronomy  
+[**Python Data Science Handbook**](https://jakevdp.github.io/PythonDataScienceHandbook):  
+[**Explorable Physics**](https://explorableexplanations.com):  
+[**MCMC (Markov Chain Monte Carlo): A (very) Beginner’s Guide**](https://twiecki.io/blog/2015/11/10/mcmc-sampling):  
+[**Blender for Scientists - Complete Intro to 3D**](https://blender.scientific-coding.org):  
+[**3D Scientific Visualization with Blender**](https://www.springer.com): Brian R. Kent  
+[**A Simple Guide to Beautiful Visualizations in Python**](https://towardsdatascience.com): Frank Andrade  
+[**Learn AstroPy**](https://www.astropy.org):  
+
+### Useful YouTube Videos & Channels
+
+[**3Blue1Brown**](https://www.youtube.com/channel/UCYO_jab_esuFRV4b17AJtAw): Concepts of Mathematics visualized at its best!  
+[**Constellations | Seeker**](https://www.youtube.com/playlist?list=PLdEL4G3AsvXWjpXjC3JDFK0mUq3TduHRW): Sarafina Nance, UCB  
+[**Your Daily Equation with Brian Greene**](https://www.youtube.com/playlist?list=PL9-7H-T7CCNIjW9IPjaE3MkVQ0Mn2g2FP):  
+[**The Maths of General Relativity**](https://www.youtube.com/playlist?list=PL4v3LOMJfJYjO0gxBqn5iA8rtNObBv_G5):  
+[**Dr. Becky (Astrophysicist)**](https://www.youtube.com/channel/UCYNbYGl89UUowy8oXkipC-Q):  
+[**Life Around Science**](https://www.youtube.com/playlist?list=PL-0PCdPzk6t80PyxDXQ4m1fJFL0Vo1Kwn):  
+[**Crashcourse**](https://www.youtube.com/user/crashcourse):  
+[**Kurzgesagt – In a Nutshell**](https://www.youtube.com/user/Kurzgesagt):  
+[**A Stellar History of Modern Astronomy**](https://www.youtube.com/playlist?list=PL7DoTbSe9kGnqufgb0GpFkakg8cLf2PFO): Emily Levesque, University of Washington  
+[**Daily Life of an Astrophysicist**](https://www.youtube.com/playlist?list=PLzkhgibjP8h_1rXNjUK-olKo1--QWwSbj): Dr. Becky, Oxford University  
+[**Life of an IUCAA Astrophysics Research Scholar**](https://www.youtube.com/playlist?list=PLdEL4G3AsvXWE-g-3-3Gpg7LC8yBmyKhN): Parisee Shirke, IUCAA  
+[**A day in the life of an Astronomer**](https://www.youtube.com/playlist?list=PLzkhgibjP8h-RsJpJ2A5gA3hvTMxdheqA): South African Astronomical Observatory  
+[**Be An Astrophysicist**](https://www.youtube.com/playlist?list=PLdEL4G3AsvXWIQSRfA1NU6q-ZIb9dW06F): Colleen Hoon, ANU  
+
+### Useful Websites & Articles
+
+[**Astrobites**](https://astrobites.org): Briefing research papers for undergrads  
+[**How to make an Astrophysicist**](https://www.howtobecomeanastronomer.com): A resourceful website for astronomical resources and opportunities  
+[**You and Your Research**](https://www.youtube.com/watch?v=a1zDuOPkMSw): [Article][YouTube Video], Richard Hamming  
+[**Astronomy in Everyday Life**](https://www.iau.org/public/themes/astronomy_in_everyday_life/): IAU  
+[**Why is astronomy important?**](https://www.space.com/11558-why-astronomy-important.html): Ask a Spaceman!, Paul M. Sutter  
+[**Astronomy in our daily lives**](https://www.asc-csa.gc.ca/eng/sciences/astronomy-in-everyday-life.asp): Canadian Space Agency  
+[**Constellations**](https://www.constellation-guide.com): (suggested by Tina & Stacy Martin)  
+[**Sleeping Under Stars & Planets**](https://www.sleepingunderstars.com): (suggested by Payton & Michelle Bass)  
+[**How to send and reply to Email**](https://matt.might.net/articles/how-to-email/): Matt Might  
+[**ArXiv**](https://arxiv.org): Free distribution service and an open-access archive for Scholarly Articles & Research Papers  
+[**NASA/ADS**](https://ui.adsabs.harvard.edu): Digital library portal for researchers in Astronomy and Physics  
+
+### Graduate School Advice and Admissions
+
+[**The illustrated guide to a Ph.D.**](http://matt.might.net/articles/phd-school-in-pictures/): Matt Might, University of Utah  
+[**Questions to Ask as a Prospective Graduate Student**](https://www.caltech.edu/about/news/questions-ask-prospective-graduate-student-45306): Ryan Rubenzahl, Caltech  
+[**Ph.D. Admission Series**](https://www.lilianhorin.com/): Lilian Horin, Harvard  
+[**Ph.D. Guide**](https://astrophysicsgirl.com): Astrophysics Girl  
+[**Honest advice for the Astronomy grad school application process**](https://www.utcaas.com/honest-advice-for-the-astronomy-grad-school-application-process/):  
+[**Tips for Applying to Graduate School in Astronomy**](https://www.as.utexas.edu): University of Texas at Austin  
+[**Guide to Graduate School**](https://astrobites.org): Astrobites  
+[**Funded Masters Programmes**](https://astrophysicsgirl.com): Astrophysics Girl  
+[**All about PhD applications**](https://lucylai.com): Lucy Lai  
+[**Statement of Purpose for Graduate School**](https://meche.mit.edu): MIT MechE Comm Lab  
+[**Another Annotated Example: CS PhD Statement of Purpose**](https://eugenielai.com): Eugenie Y. Lai  
+[**Personal Statements and Statements of Purpose**](https://www.grad.ucla.edu): UCLA  
+
+### DIY: Personal Website
+
+[**Website with Wix**](https://www.wix.com):  
+[**GitHub Pages with Jekyll**](https://jekyllrb.com):  
+[**Website with GitHub/Gitlab**](https://wowchemy.com): Wowchemy  
+[**Gitfolio**](https://github.com/imfunniee/gitfolio): A website for your GitHub Repos  
+[**Creating a simple and effective academic personal website**](https://www.elsevier.com): Elsevier  
+[**Personal Academic Webpages: How-To's and Tips for a Better Site**](https://career.berkeley.edu): University of California, Berkeley  
+
+### General Links
 -------------
 
 [**Wikipedia**](https://www.wikipedia.org/): Free online encyclopedia.  

@@ -2,6 +2,20 @@
 layout: archive
 title: "Publications"
 permalink: /publications/
+header:
+  overlay_image: galaxy1.jpg
+author_profile: true
+---
+
+{% include base_path %}
+
+<!-- <h1>Publications</h1> -->
+<p>Currently, there are no publications to display. Please check back later for updates on my latest research and publications.</p>
+
+<!-- ---
+layout: archive
+title: "Publications"
+permalink: /publications/
 author_profile: true
 ---
 
@@ -13,4 +27,4 @@ author_profile: true
 
 {% for post in site.publications reversed %}
   {% include archive-single.html %}
-{% endfor %}
+{% endfor %} -->
