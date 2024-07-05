@@ -13,7 +13,7 @@ header:
 
 
 <h2>Personal Interests</h2>
-<p>Outside of my academic life, I have a diverse range of interests that keep me engaged and inspired. One of my favorite pastimes is playing chess. I would be happy to connect if you also play on chess.com; my username is <a href="https://www.chess.com/member/voyager97">Voyager972</a>. Reading books is another passion of mine, particularly pop-science and non-fiction.</p>
+<p>Outside of my academic life, I have a diverse range of interests that keep me engaged and inspired. One of my favorite pastimes is playing chess. I would be happy to connect if you also play on chess.com; my username is <a href="https://www.chess.com/member/voyager972">Voyager972</a>. Reading books is another passion of mine, particularly pop-science and non-fiction.</p>
 
 <p>I have a keen interest in geopolitics and geography. Music (and singing) plays a significant role in my life as well; I particularly enjoy listening ghazals, Sufi music, and old Hindi songs.</p>
 
