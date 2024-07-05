@@ -4,7 +4,7 @@ title: "Useful Links"
 permalink: /usefullinks/
 author_profile: true
 header:
-  overlay_image: galaxy6.jpg
+  overlay_image: galaxy.jpg
 ---
 
 {% include base_path %}
