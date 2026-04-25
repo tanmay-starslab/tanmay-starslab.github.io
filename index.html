@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tanmay Singh | Astrophysics PhD Student</title>
+  <meta name="description" content="Academic website of Tanmay Singh, an Astrophysics PhD student at Arizona State University working on galaxy evolution, cosmological simulations, synthetic spectroscopy, and computational astrophysics.">
+  <meta name="keywords" content="Tanmay Singh, astrophysics, galaxy evolution, circumgalactic medium, cosmological simulations, synthetic spectroscopy, Arizona State University">
+  <meta name="author" content="Tanmay Singh">
+
+  <meta property="og:title" content="Tanmay Singh | Astrophysics PhD Student">
+  <meta property="og:description" content="Astrophysics PhD student at Arizona State University studying galaxy evolution, diffuse gas around galaxies, simulations, and synthetic spectroscopy.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tanmay-starslab.github.io/">
+  <meta property="og:image" content="https://tanmay-starslab.github.io/images/headshot_tanmay.jpeg">
+
+  <link rel="icon" href="images/favicon/favicon.ico">
+  <link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/css/snapfolio-astro.css" rel="stylesheet">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Tanmay Singh",
+    "jobTitle": "Astrophysics PhD Student",
+    "affiliation": {
+      "@type": "CollegeOrUniversity",
+      "name": "Arizona State University"
+    },
+    "email": "mailto:tsingh65@asu.edu",
+    "url": "https://tanmay-starslab.github.io/",
+    "image": "https://tanmay-starslab.github.io/images/headshot_tanmay.jpeg",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Tempe",
+      "addressRegion": "AZ",
+      "addressCountry": "US"
+    },
+    "sameAs": [
+      "https://github.com/tanmay-starslab",
+      "https://www.linkedin.com/in/tanmay-singh-21574a1aa/",
+      "https://www.instagram.com/newhorizons_2/",
+      "https://x.com/TanmayS32807693"
+    ]
+  }
+  </script>
+
+  <!-- =======================================================
+  * Template Name: SnapFolio
+  * Template URL: https://bootstrapmade.com/snapfolio-bootstrap-portfolio-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  * Adapted for Tanmay Singh's academic astrophysics website.
+  ======================================================== -->
+</head>
+
+<body class="index-page">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <header id="header" class="site-header" aria-label="Primary navigation">
+    <button class="header-toggle d-xl-none" type="button" aria-label="Open navigation" aria-controls="navmenu" aria-expanded="false">
+      <i class="bi bi-list" aria-hidden="true"></i>
+    </button>
+
+    <div class="header-container">
+      <a class="brand-lockup" href="#home" aria-label="Tanmay Singh home">
+        <span class="brand-mark">TS</span>
+        <span>
+          <strong>Tanmay Singh</strong>
+          <small>Astrophysics PhD Student</small>
+        </span>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="#home" class="active"><i class="bi bi-house navicon" aria-hidden="true"></i><span>Home</span></a></li>
+          <li><a href="#about"><i class="bi bi-person navicon" aria-hidden="true"></i><span>About</span></a></li>
+          <li><a href="#research"><i class="bi bi-stars navicon" aria-hidden="true"></i><span>Research</span></a></li>
+          <li><a href="#projects"><i class="bi bi-grid-3x3-gap navicon" aria-hidden="true"></i><span>Projects</span></a></li>
+          <li><a href="#publications"><i class="bi bi-journal-text navicon" aria-hidden="true"></i><span>Publications</span></a></li>
+          <li><a href="#experience"><i class="bi bi-diagram-3 navicon" aria-hidden="true"></i><span>Experience</span></a></li>
+          <li><a href="#talks"><i class="bi bi-easel2 navicon" aria-hidden="true"></i><span>Talks</span></a></li>
+          <li><a href="#beyond"><i class="bi bi-moon-stars navicon" aria-hidden="true"></i><span>Beyond Research</span></a></li>
+          <li><a href="#contact"><i class="bi bi-envelope navicon" aria-hidden="true"></i><span>Contact</span></a></li>
+        </ul>
+      </nav>
+
+      <div class="social-links" aria-label="Social links">
+        <a href="mailto:tsingh65@asu.edu" aria-label="Email Tanmay Singh"><i class="bi bi-envelope" aria-hidden="true"></i></a>
+        <a href="https://github.com/tanmay-starslab" target="_blank" rel="noopener" aria-label="Tanmay Singh on GitHub"><i class="bi bi-github" aria-hidden="true"></i></a>
+        <a href="https://www.linkedin.com/in/tanmay-singh-21574a1aa/" target="_blank" rel="noopener" aria-label="Tanmay Singh on LinkedIn"><i class="bi bi-linkedin" aria-hidden="true"></i></a>
+        <a href="https://x.com/TanmayS32807693" target="_blank" rel="noopener" aria-label="Tanmay Singh on X"><i class="bi bi-twitter-x" aria-hidden="true"></i></a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="main">
+    <section id="home" class="hero section" aria-labelledby="hero-title">
+      <div class="hero-gradient" aria-hidden="true"></div>
+      <div class="container">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-7 reveal">
+            <p class="eyebrow">School of Earth and Space Exploration · Arizona State University</p>
+            <h1 id="hero-title">Tanmay Singh</h1>
+            <p class="hero-role">Astrophysics PhD Student</p>
+            <p class="hero-subtitle">I study galaxy evolution and the diffuse gas surrounding galaxies using cosmological simulations, synthetic spectroscopy, and data-driven analysis.</p>
+            <div class="hero-actions" aria-label="Primary actions">
+              <a class="btn btn-primary" href="#research"><i class="bi bi-stars" aria-hidden="true"></i> View Research</a>
+              <a class="btn btn-outline" href="#publications"><i class="bi bi-journal-text" aria-hidden="true"></i> Publications</a>
+              <button class="btn btn-muted" type="button" disabled title="CV PDF path pending">
+                <i class="bi bi-file-earmark-arrow-down" aria-hidden="true"></i> Download CV
+              </button>
+            </div>
+            <div class="hero-links" aria-label="Profile links">
+              <a href="mailto:tsingh65@asu.edu">tsingh65@asu.edu</a>
+              <a href="https://github.com/tanmay-starslab" target="_blank" rel="noopener">GitHub</a>
+              <a href="https://www.linkedin.com/in/tanmay-singh-21574a1aa/" target="_blank" rel="noopener">LinkedIn</a>
+            </div>
+          </div>
+
+          <div class="col-lg-5 reveal">
+            <div class="profile-orbit">
+              <div class="profile-frame">
+                <img src="images/headshot_tanmay.jpeg" alt="Portrait of Tanmay Singh" class="profile-image">
+              </div>
+              <div class="orbit-card orbit-card-top">
+                <span>Focus</span>
+                <strong>Galaxy evolution</strong>
+              </div>
+              <div class="orbit-card orbit-card-bottom">
+                <span>Methods</span>
+                <strong>Simulations + spectra</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section about" aria-labelledby="about-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">About</p>
+          <h2 id="about-title">Computational astrophysics across galaxies and their environments.</h2>
+        </div>
+
+        <div class="row g-4 align-items-stretch">
+          <div class="col-lg-5 reveal">
+            <article class="glass-card identity-card h-100">
+              <img src="images/mw_glimpse.jpeg" alt="Milky Way night-sky background" class="identity-backdrop">
+              <div class="identity-content">
+                <img src="images/headshot_tanmay.jpeg" alt="Tanmay Singh" class="identity-avatar">
+                <h3>Tanmay Singh</h3>
+                <p>PhD student in Astrophysics at Arizona State University, working in the STARs Lab.</p>
+                <dl class="quick-facts">
+                  <div><dt>Location</dt><dd>Tempe, Arizona</dd></div>
+                  <div><dt>Affiliation</dt><dd>School of Earth and Space Exploration</dd></div>
+                  <div><dt>Lab</dt><dd>STARs Lab</dd></div>
+                  <div><dt>Advisor</dt><dd>Prof. Sanchayeeta Borthakur</dd></div>
+                </dl>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-lg-7 reveal">
+            <article class="glass-card h-100">
+              <p>I am a PhD student in Astrophysics at Arizona State University's School of Earth and Space Exploration. My research focuses on extragalactic astrophysics, computational astrophysics, and the diffuse gas surrounding galaxies, especially the circumgalactic and intragroup medium.</p>
+              <p>I use large-scale simulations, synthetic spectroscopy, observational comparisons, and statistical tools to study how galaxies evolve and interact with their environments. I am also interested in machine learning, simulation-based inference, image processing, and scientific software development for astronomy.</p>
+              <p>Before ASU, I completed a B.Tech. in Engineering Physics at the Indian Institute of Technology Delhi in July 2023 and worked as a visiting student at the Raman Research Institute in Bangalore from May to July 2022.</p>
+
+              <div class="tag-cloud" aria-label="Research and technical skills">
+                <span>Python</span>
+                <span>Scientific Computing</span>
+                <span>Cosmological Simulations</span>
+                <span>Synthetic Spectroscopy</span>
+                <span>HPC</span>
+                <span>Machine Learning</span>
+                <span>Statistical Modeling</span>
+                <span>Image Processing</span>
+                <span>LaTeX</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="research" class="section research" aria-labelledby="research-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Research</p>
+          <h2 id="research-title">Diffuse gas, feedback, and the baryon cycle.</h2>
+          <p>My current work connects simulations and observables to understand how galaxies exchange matter and energy with their surroundings.</p>
+        </div>
+
+        <div class="research-grid">
+          <article class="glass-card research-card reveal">
+            <i class="bi bi-cloud-haze2" aria-hidden="true"></i>
+            <h3>Circumgalactic and Intragroup Medium</h3>
+            <p>Studying the diffuse gas around galaxies and galaxy groups to understand how baryons cycle through galaxies and their environments.</p>
+          </article>
+          <article class="glass-card research-card reveal">
+            <i class="bi bi-cpu" aria-hidden="true"></i>
+            <h3>Cosmological Simulations</h3>
+            <p>Using large-scale simulations, including IllustrisTNG and SIMBA, to connect galaxy formation physics, feedback, and gas structure.</p>
+          </article>
+          <article class="glass-card research-card reveal">
+            <i class="bi bi-activity" aria-hidden="true"></i>
+            <h3>Synthetic Spectroscopy</h3>
+            <p>Generating mock quasar absorption spectra and forward-modeled observables for direct comparison with telescope data.</p>
+          </article>
+          <article class="glass-card research-card reveal">
+            <i class="bi bi-bar-chart-line" aria-hidden="true"></i>
+            <h3>Data-Driven Astrophysics</h3>
+            <p>Developing computational and statistical tools, including machine learning and simulation-based inference, for astronomical datasets.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="section projects" aria-labelledby="projects-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Projects</p>
+          <h2 id="projects-title">Selected research and computational work.</h2>
+        </div>
+
+        <div class="project-grid">
+          <article class="project-card reveal">
+            <div class="project-visual visual-ovi" aria-hidden="true"></div>
+            <div class="project-body">
+              <h3>Synthetic Absorption Spectroscopy of Galaxy Groups</h3>
+              <p>Forward-modeling absorption spectra through simulated galaxy groups to compare diffuse gas predictions with observations.</p>
+              <div class="tag-cloud"><span>CGM</span><span>IGrM</span><span>Synthetic Spectra</span><span>Simulations</span></div>
+            </div>
+          </article>
+          <article class="project-card reveal">
+            <div class="project-visual visual-group" aria-hidden="true"></div>
+            <div class="project-body">
+              <h3>O VI in the Intragroup Medium</h3>
+              <p>Studying the distribution, covering fraction, and kinematics of highly ionized oxygen in galaxy group environments.</p>
+              <div class="tag-cloud"><span>Galaxy Groups</span><span>O VI</span><span>Feedback</span><span>Baryon Cycle</span></div>
+            </div>
+          </article>
+          <article class="project-card reveal">
+            <div class="project-visual visual-mgii" aria-hidden="true"></div>
+            <div class="project-body">
+              <h3>Mg II Absorbers and Galaxy Environments</h3>
+              <p>Connecting cool gas absorption in mock quasar spectra to galaxies in simulations, with attention to outflows, disks, and accretion.</p>
+              <div class="tag-cloud"><span>Mg II</span><span>IGM</span><span>CGM</span><span>Quasar Spectra</span></div>
+            </div>
+          </article>
+          <article class="project-card reveal">
+            <div class="project-visual visual-blog" aria-hidden="true"></div>
+            <div class="project-body">
+              <h3>Probabilistic Spectral Classification</h3>
+              <p>Using Bayesian logic and probabilistic graphical models to classify AGN and supernova spectra under incomplete information.</p>
+              <div class="tag-cloud"><span>AGN</span><span>Supernovae</span><span>BLOG</span><span>Classification</span></div>
+            </div>
+          </article>
+          <article class="project-card reveal">
+            <div class="project-visual visual-site" aria-hidden="true"></div>
+            <div class="project-body">
+              <h3>Submillimeter Site Quality Analysis</h3>
+              <p>Analyzing atmospheric conditions and radiative transfer for potential submillimeter telescope sites in India.</p>
+              <div class="tag-cloud"><span>Submillimeter Astronomy</span><span>ERA5</span><span>Radiative Transfer</span><span>Site Testing</span></div>
+            </div>
+          </article>
+          <article class="project-card reveal">
+            <div class="project-visual visual-solar" aria-hidden="true"></div>
+            <div class="project-body">
+              <h3>Earlier Physics Research</h3>
+              <p>Undergraduate projects spanning solar coronal magnetic topology, quantum secure communication, acoustic waves, and cold atomic collisions.</p>
+              <div class="tag-cloud"><span>Solar Physics</span><span>QKD</span><span>Image Processing</span><span>Atomic Physics</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="publications" class="section publications" aria-labelledby="publications-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Publications</p>
+          <h2 id="publications-title">Papers and manuscripts.</h2>
+          <p>Only known metadata from the old website context is listed here. Unknown scholarly links are intentionally left out.</p>
+        </div>
+
+        <div class="publication-list">
+          <article class="publication-card reveal">
+            <div class="publication-meta">
+              <span>Published</span>
+              <span>The Astronomical Journal</span>
+            </div>
+            <h3>Site Quality Analysis for an Indian Submillimeter Telescope: A Reanalysis-Based Approach</h3>
+            <p>A reanalysis-based atmospheric site-quality study for Indian submillimeter astronomy using ERA5 precipitable water vapor and radiative-transfer modeling.</p>
+            <div class="publication-actions">
+              <a class="chip-link" href="https://doi.org/10.3847/1538-3881/ae5e4e" target="_blank" rel="noopener">DOI</a>
+            </div>
+          </article>
+
+          <article class="publication-card placeholder-card reveal">
+            <div class="publication-meta">
+              <span>Status placeholder</span>
+              <span>Update manually</span>
+            </div>
+            <h3>Synthetic O VI absorption in galaxy groups from cosmological simulations</h3>
+            <p>A simulation-observation comparison of O VI absorption in galaxy group environments using forward-modeled synthetic spectroscopy.</p>
+            <div class="publication-actions">
+              <span class="chip-link disabled-chip">DOI pending</span>
+              <span class="chip-link disabled-chip">arXiv pending</span>
+              <span class="chip-link disabled-chip">ADS pending</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience" class="section experience" aria-labelledby="experience-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Experience</p>
+          <h2 id="experience-title">Academic path and teaching.</h2>
+        </div>
+
+        <div class="timeline">
+          <article class="timeline-item reveal">
+            <span class="timeline-date">2023 - Present</span>
+            <div class="timeline-content">
+              <h3>PhD Student in Astrophysics</h3>
+              <p class="timeline-org">Arizona State University · School of Earth and Space Exploration · STARs Lab</p>
+              <p>Research in extragalactic astrophysics, galaxy evolution, cosmological simulations, synthetic spectroscopy, and diffuse gas in galaxy environments.</p>
+            </div>
+          </article>
+          <article class="timeline-item reveal">
+            <span class="timeline-date">Spring 2024</span>
+            <div class="timeline-content">
+              <h3>AST 112 Lab Lead</h3>
+              <p class="timeline-org">Arizona State University · School of Earth and Space Exploration</p>
+              <p>Led three sections of an introductory astronomy lab focused on hands-on experiments and observations that reinforce lecture concepts.</p>
+            </div>
+          </article>
+          <article class="timeline-item reveal">
+            <span class="timeline-date">May - July 2022</span>
+            <div class="timeline-content">
+              <h3>Visiting Student</h3>
+              <p class="timeline-org">Raman Research Institute · Bangalore</p>
+              <p>Worked as a visiting student before beginning graduate study at ASU.</p>
+            </div>
+          </article>
+          <article class="timeline-item reveal">
+            <span class="timeline-date">2019 - 2023</span>
+            <div class="timeline-content">
+              <h3>B.Tech. in Engineering Physics</h3>
+              <p class="timeline-org">Indian Institute of Technology Delhi</p>
+              <p>Undergraduate training and research spanning engineering physics, quantum cryptography, atomic and molecular physics, solar physics, and submillimeter astronomy.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="talks" class="section talks" aria-labelledby="talks-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Talks & Posters</p>
+          <h2 id="talks-title">Selected presentations and editable placeholders.</h2>
+          <p>The old talks collection contains template samples, so these entries use only context-approved presentation topics.</p>
+        </div>
+
+        <div class="talk-grid">
+          <article class="glass-card compact-card reveal">
+            <h3>PhD Qualification Exam Presentation</h3>
+            <p>Synthetic O VI absorption in galaxy groups and simulation comparison with COS-IGrM.</p>
+          </article>
+          <article class="glass-card compact-card reveal">
+            <h3>Classification of AGN and Supernova Spectra using BLOG</h3>
+            <p>Probabilistic classification using Bayesian logic for transient and spectroscopic datasets.</p>
+          </article>
+          <article class="glass-card compact-card reveal">
+            <h3>Journal Club</h3>
+            <p>Molecular gas stacks of z~1.6 cluster galaxies.</p>
+          </article>
+          <article class="glass-card compact-card reveal">
+            <h3>Summer School / Poster</h3>
+            <p>Enhancing synthetic absorption spectroscopy capabilities for large AREPO-based cosmological simulations.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="beyond" class="section beyond" aria-labelledby="beyond-title">
+      <div class="container">
+        <div class="beyond-panel reveal">
+          <div>
+            <p class="eyebrow">Beyond Research</p>
+            <h2 id="beyond-title">A quantitative science and a visual exploration of the universe.</h2>
+          </div>
+          <p>Beyond research, I enjoy astrophotography, chess, scientific visualization, reading pop-science and non-fiction, geopolitics, geography, and music. These interests shape how I think about astronomy as both a rigorous science and a way of seeing the universe.</p>
+          <a class="inline-link" href="https://www.chess.com/member/voyager972" target="_blank" rel="noopener">Chess.com profile</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact" aria-labelledby="contact-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Contact</p>
+          <h2 id="contact-title">Connect about astrophysics, simulations, and spectra.</h2>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-lg-5 reveal">
+            <article class="glass-card contact-card h-100">
+              <h3>Tanmay Singh</h3>
+              <p>Astrophysics PhD Student<br>Arizona State University<br>Tempe, Arizona</p>
+              <a class="contact-link" href="mailto:tsingh65@asu.edu"><i class="bi bi-envelope" aria-hidden="true"></i> tsingh65@asu.edu</a>
+            </article>
+          </div>
+          <div class="col-lg-7 reveal">
+            <div class="contact-grid">
+              <a class="contact-tile" href="mailto:tsingh65@asu.edu">
+                <i class="bi bi-envelope" aria-hidden="true"></i>
+                <span>Email</span>
+                <strong>tsingh65@asu.edu</strong>
+              </a>
+              <a class="contact-tile" href="https://github.com/tanmay-starslab" target="_blank" rel="noopener">
+                <i class="bi bi-github" aria-hidden="true"></i>
+                <span>GitHub</span>
+                <strong>tanmay-starslab</strong>
+              </a>
+              <a class="contact-tile" href="https://www.linkedin.com/in/tanmay-singh-21574a1aa/" target="_blank" rel="noopener">
+                <i class="bi bi-linkedin" aria-hidden="true"></i>
+                <span>LinkedIn</span>
+                <strong>tanmay-singh-21574a1aa</strong>
+              </a>
+              <a class="contact-tile" href="https://tanmay-starslab.github.io/" target="_blank" rel="noopener">
+                <i class="bi bi-globe2" aria-hidden="true"></i>
+                <span>Website</span>
+                <strong>tanmay-starslab.github.io</strong>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="footer" class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="year">2026</span> Tanmay Singh. Designed by <a href="https://bootstrapmade.com/" target="_blank" rel="noopener">BootstrapMade</a>; adapted with a dark astrophysics theme.</p>
+    </div>
+  </footer>
+
+  <a href="#home" class="scroll-top" aria-label="Back to top"><i class="bi bi-arrow-up-short" aria-hidden="true"></i></a>
+
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/snapfolio-astro.js"></script>
+</body>
+
+</html>
