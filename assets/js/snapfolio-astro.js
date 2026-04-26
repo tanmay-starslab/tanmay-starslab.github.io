@@ -22,12 +22,21 @@
   let introHoldTimer = null;
   let introCompleteTimer = null;
   let introSkipTimer = null;
+  const introSkipOptions = { capture: true, passive: false };
+
+  function bindIntroSkip() {
+    introEvents.forEach((eventName) => window.addEventListener(eventName, skipIntro, introSkipOptions));
+  }
+
+  function unbindIntroSkip() {
+    introEvents.forEach((eventName) => window.removeEventListener(eventName, skipIntro, true));
+  }
 
   function completeIntro() {
     if (!body || !body.classList.contains("intro-active")) return;
     body.classList.remove("intro-active", "intro-hold", "intro-moving", "intro-skipped");
     body.classList.add("intro-complete");
-    introEvents.forEach((eventName) => window.removeEventListener(eventName, skipIntro));
+    unbindIntroSkip();
   }
 
   function startIntroMove() {
@@ -36,27 +45,31 @@
     body.classList.add("intro-moving");
   }
 
-  function skipIntro() {
+  function skipIntro(event) {
     if (!body || !body.classList.contains("intro-active")) return;
+    if (event) {
+      if (event.cancelable) event.preventDefault();
+      event.stopPropagation();
+    }
     window.clearTimeout(introHoldTimer);
     window.clearTimeout(introCompleteTimer);
     window.clearTimeout(introSkipTimer);
     body.classList.remove("intro-hold");
     body.classList.add("intro-moving", "intro-skipped");
-    introSkipTimer = window.setTimeout(completeIntro, 620);
+    introSkipTimer = window.setTimeout(completeIntro, window.innerWidth < 1200 ? 520 : 620);
   }
 
   if (body && body.classList.contains("intro-active")) {
     if (reduceMotion) {
       completeIntro();
     } else if (window.innerWidth < 1200) {
-      introHoldTimer = window.setTimeout(startIntroMove, 450);
-      introCompleteTimer = window.setTimeout(completeIntro, 1150);
-      introEvents.forEach((eventName) => window.addEventListener(eventName, skipIntro, { passive: true }));
+      introHoldTimer = window.setTimeout(startIntroMove, 2600);
+      introCompleteTimer = window.setTimeout(completeIntro, 3950);
+      bindIntroSkip();
     } else {
       introHoldTimer = window.setTimeout(startIntroMove, 2800);
       introCompleteTimer = window.setTimeout(completeIntro, 5000);
-      introEvents.forEach((eventName) => window.addEventListener(eventName, skipIntro, { passive: true }));
+      bindIntroSkip();
     }
   }
 
