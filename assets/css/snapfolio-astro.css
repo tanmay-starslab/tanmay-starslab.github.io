@@ -76,8 +76,8 @@ body::before {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background: url("../../images/boxImage_TNG100-1_stars-coldens_3840.png") center / cover no-repeat;
-  opacity: 0.2;
+  background: url("../../images/TNG50_protocluster_z1_dm_gasvel_4k.png") center / cover no-repeat;
+  opacity: 0.9;
   filter: brightness(1.35) contrast(1.15) saturate(1.12);
   mix-blend-mode: screen;
 }
