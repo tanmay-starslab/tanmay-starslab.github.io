@@ -17,7 +17,7 @@
   const year = document.querySelector("#year");
   const timeline = document.querySelector("[data-timeline]");
   const timelineItems = document.querySelectorAll(".timeline-item");
-  const body = document.body;
+  const body = document.documentElement;
   const introEvents = ["click", "wheel", "keydown", "touchstart"];
   let introHoldTimer = null;
   let introCompleteTimer = null;

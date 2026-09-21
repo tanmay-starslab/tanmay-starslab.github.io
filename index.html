@@ -52,9 +52,29 @@
   * License: https://bootstrapmade.com/license/
   * Adapted for Tanmay Singh's academic astrophysics website.
   ======================================================== -->
+  <script>
+    /* The intro is progressive enhancement. The classes that hide page content
+       are added here by script rather than shipped in the HTML, so if scripting
+       is unavailable the page renders fully visible instead of blank. The
+       timeout is a failsafe for when snapfolio-astro.js is blocked or throws. */
+    (function () {
+      var el = document.documentElement;
+      try {
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        el.classList.add("intro-active", "intro-hold");
+        window.setTimeout(function () {
+          if (!el.classList.contains("intro-active")) return;
+          el.classList.remove("intro-active", "intro-hold", "intro-moving");
+          el.classList.add("intro-complete");
+        }, 6000);
+      } catch (e) {
+        el.classList.remove("intro-active", "intro-hold");
+      }
+    })();
+  </script>
 </head>
 
-<body class="intro-active intro-hold">
+<body>
   <a class="skip-link" href="#main">Skip to main content</a>
   <div class="cosmic-image-bg" aria-hidden="true"></div>
   <div class="cosmic-image-shade" aria-hidden="true"></div>
