@@ -76,7 +76,7 @@ body::before {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background: url("../../images/TNG50_protocluster_z1_dm_gasvel_4k.png") center / cover no-repeat;
+  background: url("../../images/cosmic-bg.webp") center / cover no-repeat;
   opacity: 0.9;
   filter: brightness(1.35) contrast(1.15) saturate(1.12);
   mix-blend-mode: screen;
@@ -1066,11 +1066,11 @@ html.intro-skipped .header-container {
 }
 
 .visual-site {
-  background-image: linear-gradient(135deg, rgba(3, 5, 11, 0.12), rgba(125, 211, 252, 0.18)), url("../../images/milky_way.jpg");
+  background-image: linear-gradient(135deg, rgba(3, 5, 11, 0.12), rgba(125, 211, 252, 0.18)), url("../../images/project-site.webp");
 }
 
 .visual-solar {
-  background-image: linear-gradient(135deg, rgba(3, 5, 11, 0.16), rgba(245, 194, 231, 0.12)), url("../../images/galaxy3.jpg");
+  background-image: linear-gradient(135deg, rgba(3, 5, 11, 0.16), rgba(245, 194, 231, 0.12)), url("../../images/project-solar.webp");
 }
 
 .visual-qkd {
@@ -1081,7 +1081,7 @@ html.intro-skipped .header-container {
 }
 
 .visual-waves {
-  background-image: linear-gradient(135deg, rgba(3, 5, 11, 0.1), rgba(147, 230, 196, 0.12)), url("../../images/galaxy6.jpg");
+  background-image: linear-gradient(135deg, rgba(3, 5, 11, 0.1), rgba(147, 230, 196, 0.12)), url("../../images/project-waves.webp");
 }
 
 .visual-fano {
