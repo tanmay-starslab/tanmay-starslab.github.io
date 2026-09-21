@@ -239,64 +239,29 @@ img {
   will-change: transform, opacity;
 }
 
-body.intro-active {
-  overflow: hidden;
-}
-
-body.intro-hold .header-container,
-body.intro-moving .header-container {
+html.intro-hold .header-container,
+html.intro-moving .header-container {
   background: rgba(5, 7, 13, 0.9);
   border-color: rgba(125, 211, 252, 0.24);
   box-shadow: 0 34px 120px rgba(0, 0, 0, 0.62), 0 0 70px rgba(125, 211, 252, 0.12);
 }
 
-body.intro-hold .header-container {
+html.intro-hold .header-container {
   transform: translate3d(calc(50vw - (var(--header-width) / 2)), 0, 0) scale(1.12);
 }
 
-body.intro-moving .header-container,
-body.intro-complete .header-container {
+html.intro-moving .header-container,
+html.intro-complete .header-container {
   transform: translate3d(0, 0, 0) scale(1);
 }
 
-body.intro-skipped .header-container {
+html.intro-skipped .header-container {
   transition-duration: 560ms;
 }
 
-body.intro-active .main,
-body.intro-active .site-footer {
-  pointer-events: none;
-  opacity: 0;
-  filter: blur(3px);
-  transform: translateY(24px);
-  transition:
-    opacity 1.25s ease,
-    filter 1.25s ease,
-    transform 1.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-body.intro-moving .main,
-body.intro-moving .site-footer {
-  pointer-events: auto;
-  opacity: 1;
-  filter: none;
-  transform: none;
-  transition-delay: 520ms;
-}
-
-body.intro-complete .main,
-body.intro-complete .site-footer {
-  pointer-events: auto;
-  opacity: 1;
-  filter: none;
-  transform: none;
-}
-
-body.intro-skipped .main,
-body.intro-skipped .site-footer {
-  transition-duration: 420ms;
-  transition-delay: 120ms;
-}
+/* The intro no longer touches page content. The header's entrance plays over
+   a page that is already painted and readable, so first contentful paint and
+   LCP are never delayed by it. */
 
 .brand-lockup {
   display: grid;
@@ -1486,27 +1451,27 @@ body.intro-skipped .site-footer {
     transform: translateX(0) !important;
   }
 
-  body:not(.intro-active) .site-header:not(.header-show) .header-container {
+  html:not(.intro-active) .site-header:not(.header-show) .header-container {
     opacity: 1;
     transform: translateX(calc(-100% - 42px)) !important;
   }
 
-  body.intro-hold .site-header .header-container {
+  html.intro-hold .site-header .header-container {
     opacity: 1;
     transform: translateX(calc(50vw - 50% - 18px)) scale(1.02) !important;
   }
 
-  body.intro-moving .site-header .header-container {
+  html.intro-moving .site-header .header-container {
     opacity: 0;
     transform: translateX(calc(-100% - 42px)) !important;
   }
 
-  body.intro-complete .site-header .header-container {
+  html.intro-complete .site-header .header-container {
     opacity: 1;
     transform: translateX(calc(-100% - 42px)) !important;
   }
 
-  body.intro-complete .site-header.header-show .header-container {
+  html.intro-complete .site-header.header-show .header-container {
     transform: translateX(0) !important;
   }
 
@@ -1628,7 +1593,7 @@ body.intro-skipped .site-footer {
     max-height: min(82vh, 620px);
   }
 
-  body.intro-hold .site-header .header-container {
+  html.intro-hold .site-header .header-container {
     transform: translateX(calc(50vw - 50% - 14px)) scale(1) !important;
   }
 
@@ -1752,13 +1717,9 @@ body.intro-skipped .site-footer {
     animation: none !important;
   }
 
-  body.intro-active .site-header,
-  body.intro-active .header-container,
-  body.intro-active .brand-lockup,
-  body.intro-active .main,
-  body.intro-active .site-footer,
-  body.intro-complete .main,
-  body.intro-complete .site-footer {
+  html.intro-active .site-header,
+  html.intro-active .header-container,
+  html.intro-active .brand-lockup {
     filter: none;
     opacity: 1;
     transform: none;
