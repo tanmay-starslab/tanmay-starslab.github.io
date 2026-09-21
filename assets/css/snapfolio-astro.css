@@ -239,10 +239,6 @@ img {
   will-change: transform, opacity;
 }
 
-html.intro-active {
-  overflow: hidden;
-}
-
 html.intro-hold .header-container,
 html.intro-moving .header-container {
   background: rgba(5, 7, 13, 0.9);
@@ -263,40 +259,9 @@ html.intro-skipped .header-container {
   transition-duration: 560ms;
 }
 
-html.intro-active .main,
-html.intro-active .site-footer {
-  pointer-events: none;
-  opacity: 0;
-  filter: blur(3px);
-  transform: translateY(24px);
-  transition:
-    opacity 1.25s ease,
-    filter 1.25s ease,
-    transform 1.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-html.intro-moving .main,
-html.intro-moving .site-footer {
-  pointer-events: auto;
-  opacity: 1;
-  filter: none;
-  transform: none;
-  transition-delay: 520ms;
-}
-
-html.intro-complete .main,
-html.intro-complete .site-footer {
-  pointer-events: auto;
-  opacity: 1;
-  filter: none;
-  transform: none;
-}
-
-html.intro-skipped .main,
-html.intro-skipped .site-footer {
-  transition-duration: 420ms;
-  transition-delay: 120ms;
-}
+/* The intro no longer touches page content. The header's entrance plays over
+   a page that is already painted and readable, so first contentful paint and
+   LCP are never delayed by it. */
 
 .brand-lockup {
   display: grid;
@@ -1754,11 +1719,7 @@ html.intro-skipped .site-footer {
 
   html.intro-active .site-header,
   html.intro-active .header-container,
-  html.intro-active .brand-lockup,
-  html.intro-active .main,
-  html.intro-active .site-footer,
-  html.intro-complete .main,
-  html.intro-complete .site-footer {
+  html.intro-active .brand-lockup {
     filter: none;
     opacity: 1;
     transform: none;

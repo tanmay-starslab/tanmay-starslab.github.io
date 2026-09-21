@@ -63,12 +63,12 @@
     if (reduceMotion) {
       completeIntro();
     } else if (window.innerWidth < 1200) {
-      introHoldTimer = window.setTimeout(startIntroMove, 2600);
-      introCompleteTimer = window.setTimeout(completeIntro, 3950);
+      introHoldTimer = window.setTimeout(startIntroMove, 620);
+      introCompleteTimer = window.setTimeout(completeIntro, 1400);
       bindIntroSkip();
     } else {
-      introHoldTimer = window.setTimeout(startIntroMove, 2800);
-      introCompleteTimer = window.setTimeout(completeIntro, 5000);
+      introHoldTimer = window.setTimeout(startIntroMove, 650);
+      introCompleteTimer = window.setTimeout(completeIntro, 1500);
       bindIntroSkip();
     }
   }
