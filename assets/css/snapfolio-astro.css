@@ -37,6 +37,81 @@
   box-sizing: border-box;
 }
 
+/* Minimal reset. Reproduces the Bootstrap Reboot rules this design actually
+   depended on, now that Bootstrap is no longer loaded. Values match Reboot's
+   rather than being zeroed, so the cascade below behaves exactly as before. */
+body {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+ul,
+ol {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  padding-left: 2rem;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+  margin: 0;
+}
+
+button {
+  background: none;
+  border: 0;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+img,
+svg,
+video,
+canvas {
+  vertical-align: middle;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+b,
+strong {
+  font-weight: bolder;
+}
+
 html {
   scroll-padding-top: 30px;
 }
@@ -445,6 +520,14 @@ body.intro-skipped .site-footer {
   backdrop-filter: blur(20px);
 }
 
+/* Was Bootstrap's .d-xl-none. The toggle only exists below 1200px, where the
+   header collapses to a drawer; at 1200px and up the sidebar is permanent. */
+@media (min-width: 1200px) {
+  .header-toggle {
+    display: none;
+  }
+}
+
 .main,
 .site-footer {
   position: relative;
@@ -458,8 +541,15 @@ body.intro-skipped .site-footer {
   padding: 104px 0;
 }
 
+/* Previously only overrode max-width; width, the 12px gutters and the auto
+   margins came from Bootstrap's .container. Spelled out in full now. */
 .container {
+  width: 100%;
   max-width: 1160px;
+  padding-right: 12px;
+  padding-left: 12px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .section-heading {
@@ -633,6 +723,7 @@ body.intro-skipped .site-footer {
 }
 
 .btn {
+  line-height: 1.5;
   position: relative;
   display: inline-flex;
   gap: 8px;
