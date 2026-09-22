@@ -536,3 +536,14 @@ a:visited { color: var(--rose-dim); }
   letter-spacing: -0.02em;
   color: var(--ink-9);
 }
+
+/* Contact values are unbreakable strings — a Scholar ID, an email, a handle.
+   At 200% zoom they were forcing a 44px horizontal overflow, which is a
+   WCAG 1.4.10 reflow failure. */
+.contact-tile,
+.contact-tile strong,
+.pub-links a,
+.masthead-links a {
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
