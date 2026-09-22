@@ -22,7 +22,7 @@
   <meta name="theme-color" content="#0a0a0a">
   <link rel="preload" href="assets/fonts/source-serif-text.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/source-serif-display.woff2" as="font" type="font/woff2" crossorigin>
-  <link href="assets/css/snapfolio-astro.css" rel="stylesheet">
+  <link href="assets/css/site.css" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: SnapFolio
@@ -31,26 +31,6 @@
   * License: https://bootstrapmade.com/license/
   * Adapted for Tanmay Singh's academic astrophysics website.
   ======================================================== -->
-  <script>
-    /* The intro is progressive enhancement. The classes that hide page content
-       are added here by script rather than shipped in the HTML, so if scripting
-       is unavailable the page renders fully visible instead of blank. The
-       timeout is a failsafe for when site.js is blocked or throws. */
-    (function () {
-      var el = document.documentElement;
-      try {
-        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-        el.classList.add("intro-active","intro-hold");
-        window.setTimeout(function () {
-          if (!el.classList.contains("intro-active")) return;
-          el.classList.remove("intro-active","intro-hold","intro-moving");
-          el.classList.add("intro-complete");
-        }, 2500);
-      } catch (e) {
-        el.classList.remove("intro-active","intro-hold");
-      }
-    })();
-  </script>
 </head>
 
 <body class="useful-links-page">
@@ -84,23 +64,21 @@
         </ul>
       </nav>
 
-      <div class="social-links" aria-label="Profile links">
-        <a href="mailto:tsingh65@asu.edu" aria-label="Email Tanmay Singh"></a>
-        <a href="https://scholar.google.com/citations?user=Sfeb8fMAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Tanmay Singh on Google Scholar"></a>
-        <a href="https://github.com/tanmay-starslab" target="_blank" rel="noopener" aria-label="Tanmay Singh on GitHub"></a>
-        <a href="https://www.linkedin.com/in/tanmay-singh-21574a1aa/" target="_blank" rel="noopener" aria-label="Tanmay Singh on LinkedIn"></a>
+      <div class="header-social" aria-label="Profile links">
+        <a href="mailto:tsingh65@asu.edu" aria-label="Email Tanmay Singh">Email</a>
+        <a href="https://scholar.google.com/citations?user=Sfeb8fMAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Tanmay Singh on Google Scholar">Scholar</a>
+        <a href="https://github.com/tanmay-starslab" target="_blank" rel="noopener" aria-label="Tanmay Singh on GitHub">GitHub</a>
+        <a href="https://www.linkedin.com/in/tanmay-singh-21574a1aa/" target="_blank" rel="noopener" aria-label="Tanmay Singh on LinkedIn">LinkedIn</a>
       </div>
     </div>
   </header>
 
   <main id="main" class="main useful-main">
     <section class="section useful-hero" aria-labelledby="useful-title">
-      <div class="container">
-        <div class="section-heading">
-          <p class="eyebrow">Useful Links</p>
-          <h1 id="useful-title">Useful Links</h1>
-          <p>A collection of astronomy, astrophysics, programming, graduate school, and personal website resources from the previous website.</p>
-        </div>
+      <div class="sheet">
+        <h1 class="page-title" id="useful-title">Useful links</h1>
+        <p class="section-intro">Astronomy, astrophysics, programming, graduate-school and
+          website resources I have found worth keeping.</p>
 
         <div class="useful-links-grid">
           <article class="link-section">
@@ -260,7 +238,7 @@
   </main>
 
   <footer id="footer" class="site-footer">
-    <div class="container">
+    <div class="sheet">
       <p>&copy; <span id="year">2026</span> Tanmay Singh. Designed by <a href="https://bootstrapmade.com/" target="_blank" rel="noopener">BootstrapMade</a>; adapted with a custom astrophysics interface.</p>
     </div>
   </footer>

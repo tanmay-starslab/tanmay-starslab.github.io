@@ -513,3 +513,26 @@ a:visited { color: var(--rose-dim); }
   .masthead .trace .line.weak { animation-delay: 90ms; }
   @keyframes settle { from { transform: scaleY(0); } to { transform: scaleY(1); } }
 }
+
+/* ───────────────────────────────────────────────── useful-links page */
+.link-section { padding-block: var(--s-6); border-top: 1px solid var(--ink-2); }
+.link-section h2 {
+  font-family: "Source Serif Text", Georgia, serif;
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  color: var(--ink-9);
+  margin-bottom: var(--s-3);
+}
+.link-section ul { display: grid; gap: var(--s-2); }
+.link-section li { font-size: var(--fs-small); }
+.link-section li a { color: var(--rose); }
+.link-section li span { display: block; color: var(--ink-7); font-size: var(--fs-data); }
+
+.page-title {
+  font-family: "Source Serif Display", "Source Serif Text", Georgia, serif;
+  font-size: var(--fs-name);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  color: var(--ink-9);
+}
