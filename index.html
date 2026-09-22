@@ -21,28 +21,11 @@
   <link rel="apple-touch-icon" href="images/favicon/apple-touch-icon-180.png">
   <link rel="manifest" href="images/favicon/site.webmanifest">
   <meta name="theme-color" content="#03050b">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="assets/css/snapfolio-astro.css" rel="stylesheet">
 
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Tanmay Singh",
-    "jobTitle": "Astrophysics PhD Student",
-    "affiliation": {
-      "@type": "CollegeOrUniversity",
-      "name": "Arizona State University"
-    },
-    "email": "mailto:tsingh65@asu.edu",
-    "url": "https://tanmay-starslab.github.io/",
-    "image": "https://tanmay-starslab.github.io/images/headshot_tanmay.jpeg",
-    "sameAs": [
-      "https://scholar.google.com/citations?user=Sfeb8fMAAAAJ&hl=en",
-      "https://github.com/tanmay-starslab",
-      "https://www.linkedin.com/in/tanmay-singh-21574a1aa/",
-      "https://x.com/TanmayS32807693",
-      "https://www.instagram.com/newhorizons_2/"
+  {"@context":"https://schema.org","@type":"Person","name":"Tanmay Singh","jobTitle":"Astrophysics PhD Student","affiliation": {"@type":"CollegeOrUniversity","name":"Arizona State University"
+    },"email":"mailto:tsingh65@asu.edu","url":"https://tanmay-starslab.github.io/","image":"https://tanmay-starslab.github.io/images/headshot_tanmay.jpeg","sameAs": ["https://scholar.google.com/citations?user=Sfeb8fMAAAAJ&hl=en","https://github.com/tanmay-starslab","https://www.linkedin.com/in/tanmay-singh-21574a1aa/","https://x.com/TanmayS32807693","https://www.instagram.com/newhorizons_2/"
     ]
   }
   </script>
@@ -58,19 +41,19 @@
     /* The intro is progressive enhancement. The classes that hide page content
        are added here by script rather than shipped in the HTML, so if scripting
        is unavailable the page renders fully visible instead of blank. The
-       timeout is a failsafe for when snapfolio-astro.js is blocked or throws. */
+       timeout is a failsafe for when site.js is blocked or throws. */
     (function () {
       var el = document.documentElement;
       try {
         if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-        el.classList.add("intro-active", "intro-hold");
+        el.classList.add("intro-active","intro-hold");
         window.setTimeout(function () {
           if (!el.classList.contains("intro-active")) return;
-          el.classList.remove("intro-active", "intro-hold", "intro-moving");
+          el.classList.remove("intro-active","intro-hold","intro-moving");
           el.classList.add("intro-complete");
         }, 2500);
       } catch (e) {
-        el.classList.remove("intro-active", "intro-hold");
+        el.classList.remove("intro-active","intro-hold");
       }
     })();
   </script>
@@ -80,12 +63,11 @@
   <a class="skip-link" href="#main">Skip to main content</a>
   <div class="cosmic-image-bg" aria-hidden="true"></div>
   <div class="cosmic-image-shade" aria-hidden="true"></div>
-  <canvas id="galaxy-canvas" aria-hidden="true"></canvas>
   <div class="cosmic-vignette" aria-hidden="true"></div>
 
   <header id="header" class="site-header" aria-label="Primary navigation">
     <button class="header-toggle" type="button" aria-label="Open navigation" aria-controls="navmenu" aria-expanded="false">
-      <i class="bi bi-list" aria-hidden="true"></i>
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
 
     <div class="header-container">
@@ -99,33 +81,32 @@
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="#home" class="active"><i class="bi bi-house navicon" aria-hidden="true"></i><span>Home</span></a></li>
-          <li><a href="#about"><i class="bi bi-person navicon" aria-hidden="true"></i><span>About</span></a></li>
-          <li><a href="#research"><i class="bi bi-stars navicon" aria-hidden="true"></i><span>Research</span></a></li>
-          <li><a href="#past-projects"><i class="bi bi-grid-3x3-gap navicon" aria-hidden="true"></i><span>Past Projects</span></a></li>
-          <li><a href="#publications"><i class="bi bi-journal-text navicon" aria-hidden="true"></i><span>Publications</span></a></li>
-          <li><a href="#timeline"><i class="bi bi-diagram-3 navicon" aria-hidden="true"></i><span>Education</span></a></li>
-          <li><a href="#personal-interests"><i class="bi bi-compass navicon" aria-hidden="true"></i><span>Personal Interests</span></a></li>
-          <li><a href="useful-links.html"><i class="bi bi-link-45deg navicon" aria-hidden="true"></i><span>Useful Links</span></a></li>
-          <li><a href="#contact"><i class="bi bi-envelope navicon" aria-hidden="true"></i><span>Contact</span></a></li>
+          <li><a href="#home" class="active"><span>Home</span></a></li>
+          <li><a href="#about"><span>About</span></a></li>
+          <li><a href="#research"><span>Research</span></a></li>
+          <li><a href="#past-projects"><span>Past Projects</span></a></li>
+          <li><a href="#publications"><span>Publications</span></a></li>
+          <li><a href="#timeline"><span>Education</span></a></li>
+          <li><a href="#personal-interests"><span>Personal Interests</span></a></li>
+          <li><a href="useful-links.html"><span>Useful Links</span></a></li>
+          <li><a href="#contact"><span>Contact</span></a></li>
         </ul>
       </nav>
 
       <div class="social-links" aria-label="Profile links">
-        <a href="mailto:tsingh65@asu.edu" aria-label="Email Tanmay Singh"><i class="bi bi-envelope" aria-hidden="true"></i></a>
-        <a href="https://scholar.google.com/citations?user=Sfeb8fMAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Tanmay Singh on Google Scholar"><i class="bi bi-mortarboard" aria-hidden="true"></i></a>
-        <a href="https://github.com/tanmay-starslab" target="_blank" rel="noopener" aria-label="Tanmay Singh on GitHub"><i class="bi bi-github" aria-hidden="true"></i></a>
-        <a href="https://www.linkedin.com/in/tanmay-singh-21574a1aa/" target="_blank" rel="noopener" aria-label="Tanmay Singh on LinkedIn"><i class="bi bi-linkedin" aria-hidden="true"></i></a>
+        <a href="mailto:tsingh65@asu.edu" aria-label="Email Tanmay Singh"></a>
+        <a href="https://scholar.google.com/citations?user=Sfeb8fMAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Tanmay Singh on Google Scholar"></a>
+        <a href="https://github.com/tanmay-starslab" target="_blank" rel="noopener" aria-label="Tanmay Singh on GitHub"></a>
+        <a href="https://www.linkedin.com/in/tanmay-singh-21574a1aa/" target="_blank" rel="noopener" aria-label="Tanmay Singh on LinkedIn"></a>
       </div>
     </div>
   </header>
 
   <main id="main" class="main">
     <section id="home" class="hero section" aria-labelledby="hero-title">
-      <div class="hero-nebula" aria-hidden="true"></div>
       <div class="container">
         <div class="hero-shell">
-          <div class="hero-copy reveal">
+          <div class="hero-copy">
             <p class="eyebrow">
               <a href="https://www.asu.edu/" target="_blank" rel="noopener">Arizona State University</a>
               <span>|</span>
@@ -140,9 +121,9 @@
               My research interests lie broadly in galaxy formation and processes that impact their evolution.
             </p>
             <div class="hero-actions" aria-label="Primary actions">
-              <a class="btn btn-primary" href="#research"><i class="bi bi-stars" aria-hidden="true"></i> Research</a>
-              <a class="btn btn-outline" href="#publications"><i class="bi bi-journal-text" aria-hidden="true"></i> Publications</a>
-              <a class="btn btn-outline" href="files/cv.pdf" target="_blank" rel="noopener"><i class="bi bi-file-earmark-arrow-down" aria-hidden="true"></i> Download CV</a>
+              <a class="btn btn-primary" href="#research"> Research</a>
+              <a class="btn btn-outline" href="#publications"> Publications</a>
+              <a class="btn btn-outline" href="files/cv.pdf" target="_blank" rel="noopener"> Download CV</a>
             </div>
             <div class="hero-links" aria-label="Quick links">
               <a href="mailto:tsingh65@asu.edu">tsingh65@asu.edu</a>
@@ -152,8 +133,7 @@
             </div>
           </div>
 
-          <figure class="hero-portrait reveal">
-            <div class="portrait-halo" aria-hidden="true"></div>
+          <figure class="hero-portrait">
             <img src="images/headshot-900.webp" alt="Portrait of Tanmay Singh" width="900" height="900" loading="eager" fetchpriority="high" decoding="async">
           </figure>
         </div>
@@ -162,12 +142,12 @@
 
     <section id="about" class="section about" aria-labelledby="about-title">
       <div class="container">
-        <div class="section-heading reveal">
+        <div class="section-heading">
           <p class="eyebrow">About</p>
           <h2 id="about-title">Academic background and current focus.</h2>
         </div>
 
-        <div class="about-panel reveal">
+        <div class="about-panel">
           <div class="about-text">
             <p>
               Prior to coming to ASU, I completed my B.Tech in Engineering Physics from the
@@ -193,13 +173,13 @@
 
     <section id="research" class="section research" aria-labelledby="research-title">
       <div class="container">
-        <div class="section-heading reveal">
+        <div class="section-heading">
           <p class="eyebrow">Research</p>
           <h2 id="research-title">Ongoing research projects.</h2>
         </div>
 
         <div class="research-grid">
-          <article class="research-card featured reveal">
+          <article class="research-card featured">
             <div class="card-glow" aria-hidden="true"></div>
             <span class="card-kicker">IGM / CGM</span>
             <h3>Investigating the IGM and CGM</h3>
@@ -219,7 +199,7 @@
             </div>
           </article>
 
-          <article class="research-card reveal">
+          <article class="research-card">
             <span class="card-kicker">O VI</span>
             <h3>O VI in the Intra-group Medium</h3>
             <p>
@@ -234,7 +214,7 @@
             </div>
           </article>
 
-          <article class="research-card reveal">
+          <article class="research-card">
             <span class="card-kicker">Spectra</span>
             <h3>Spectral Classification of AGN and Supernovae</h3>
             <p>
@@ -249,7 +229,7 @@
             </div>
           </article>
 
-          <article class="research-card reveal">
+          <article class="research-card">
             <span class="card-kicker">Kinematics</span>
             <h3>Kinematics of the Outer Circumgalactic Medium</h3>
             <p>
@@ -268,14 +248,14 @@
 
     <section id="past-projects" class="section past-projects" aria-labelledby="projects-title">
       <div class="container">
-        <div class="section-heading reveal">
+        <div class="section-heading">
           <p class="eyebrow">Past Projects</p>
           <h2 id="projects-title">Earlier research across physics and astronomy.</h2>
           <p>Past work spanning submillimeter astronomy, solar physics, quantum communication, image processing, and atomic collisions.</p>
         </div>
 
         <div class="project-mosaic">
-          <article class="project-card large reveal">
+          <article class="project-card large">
             <div class="project-visual visual-site" aria-hidden="true"></div>
             <div class="project-body">
               <span class="card-kicker">Raman Research Institute</span>
@@ -293,7 +273,7 @@
             </div>
           </article>
 
-          <article class="project-card reveal">
+          <article class="project-card">
             <div class="project-visual visual-solar" aria-hidden="true"></div>
             <div class="project-body">
               <span class="card-kicker">Senior thesis</span>
@@ -311,7 +291,7 @@
             </div>
           </article>
 
-          <article class="project-card reveal">
+          <article class="project-card">
             <div class="project-visual visual-qkd" aria-hidden="true"></div>
             <div class="project-body">
               <span class="card-kicker">SURA project</span>
@@ -328,7 +308,7 @@
             </div>
           </article>
 
-          <article class="project-card reveal">
+          <article class="project-card">
             <div class="project-visual visual-waves" aria-hidden="true"></div>
             <div class="project-body">
               <span class="card-kicker">Solar data</span>
@@ -344,7 +324,7 @@
             </div>
           </article>
 
-          <article class="project-card reveal">
+          <article class="project-card">
             <div class="project-visual visual-fano" aria-hidden="true"></div>
             <div class="project-body">
               <span class="card-kicker">Atomic collisions</span>
@@ -365,20 +345,20 @@
 
     <section id="publications" class="section publications" aria-labelledby="publications-title">
       <div class="container">
-        <div class="section-heading reveal">
+        <div class="section-heading">
           <p class="eyebrow">Publications</p>
           <h2 id="publications-title">Publications and abstracts.</h2>
           <p>Selected entries from Google Scholar and the current CV.</p>
         </div>
 
-        <div class="publication-tools reveal">
+        <div class="publication-tools">
           <a class="btn btn-primary" href="https://scholar.google.com/citations?user=Sfeb8fMAAAAJ&hl=en" target="_blank" rel="noopener">
-            <i class="bi bi-mortarboard" aria-hidden="true"></i> Google Scholar
+             Google Scholar
           </a>
         </div>
 
         <div class="publication-list">
-          <article class="publication-card reveal">
+          <article class="publication-card">
             <div class="publication-meta"><span>2026</span><span>arXiv preprint arXiv:2604.18808</span></div>
             <h3>Analysis of synthetic OVI absorption associated with galaxy groups in SIMBA and TNG50 simulations</h3>
             <p>T Singh, S Borthakur, D Nelson, R Dav&eacute;, T McCabe</p>
@@ -388,7 +368,7 @@
             </div>
           </article>
 
-          <article class="publication-card reveal">
+          <article class="publication-card">
             <div class="publication-meta"><span>2026</span><span>arXiv preprint arXiv:2604.13487</span></div>
             <h3>Site Quality Analysis for an Indian Submillimeter Telescope: A Reanalysis-Based Approach</h3>
             <p>T Singh, MS Rao, RB Thakur</p>
@@ -398,7 +378,7 @@
             </div>
           </article>
 
-          <article class="publication-card reveal">
+          <article class="publication-card">
             <div class="publication-meta"><span>2026</span><span>Indian Journal of Physics</span></div>
             <h3>Scattering angle dependence of Fano resonance profiles in cold atomic collisions analyzed with the complex valued w parameter: T Singh et al.</h3>
             <p>T Singh, RA Singh, F Koike, M Iizawa, Y Azuma</p>
@@ -408,7 +388,7 @@
             </div>
           </article>
 
-          <article class="publication-card reveal">
+          <article class="publication-card">
             <div class="publication-meta"><span>2026</span><span>American Astronomical Society Meeting Abstracts 247, 174.05</span></div>
             <h3>Analysis of synthetic O VI absorption in galaxy groups of SIMBA and IllustrisTNG simulations</h3>
             <p>T Singh, S Borthakur, D Nelson, T McCabe</p>
@@ -422,7 +402,7 @@
 
     <section id="timeline" class="section timeline-section" aria-labelledby="timeline-title">
       <div class="container">
-        <div class="section-heading reveal">
+        <div class="section-heading">
           <p class="eyebrow">Education</p>
           <h2 id="timeline-title">Education</h2>
         </div>
@@ -432,7 +412,7 @@
             <div class="timeline-fill"></div>
           </div>
 
-          <article class="timeline-item reveal">
+          <article class="timeline-item">
             <span class="timeline-date">Aug 2023 - Present</span>
             <div class="timeline-content">
               <h3>Ph.D. in Astrophysics</h3>
@@ -441,7 +421,7 @@
             </div>
           </article>
 
-          <article class="timeline-item reveal">
+          <article class="timeline-item">
             <span class="timeline-date">May 2022 - July 2022</span>
             <div class="timeline-content">
               <h3>Visiting Research Intern</h3>
@@ -450,7 +430,7 @@
             </div>
           </article>
 
-          <article class="timeline-item reveal">
+          <article class="timeline-item">
             <span class="timeline-date">July 2019 - July 2023</span>
             <div class="timeline-content">
               <h3>B.Tech. in Engineering Physics</h3>
@@ -460,7 +440,7 @@
           </article>
         </div>
 
-        <div class="teaching-panel reveal">
+        <div class="teaching-panel">
           <div>
             <p class="eyebrow">Teaching</p>
             <h3>AST 112 Lab</h3>
@@ -475,18 +455,18 @@
 
     <section id="personal-interests" class="section personal-interests" aria-labelledby="personal-title">
       <div class="container">
-        <div class="section-heading reveal">
+        <div class="section-heading">
           <p class="eyebrow">Personal Interests</p>
           <h2 id="personal-title">Personal Interests</h2>
         </div>
 
-        <div class="personal-panel reveal">
+        <div class="personal-panel">
           <div class="interest-grid" aria-label="Interest areas">
-            <span><i class="bi bi-trophy" aria-hidden="true"></i> Chess</span>
-            <span><i class="bi bi-book" aria-hidden="true"></i> Books</span>
-            <span><i class="bi bi-globe-central-south-asia" aria-hidden="true"></i> Geography</span>
-            <span><i class="bi bi-music-note-beamed" aria-hidden="true"></i> Music</span>
-            <span><i class="bi bi-stars" aria-hidden="true"></i> Astrophotography</span>
+            <span> Chess</span>
+            <span> Books</span>
+            <span> Geography</span>
+            <span> Music</span>
+            <span> Astrophotography</span>
           </div>
           <div class="personal-copy">
             <p>Outside of my academic life, I have a diverse range of interests that keep me engaged and inspired. One of my favorite pastimes is playing chess. I would be happy to connect if you also play on chess.com; my username is <a href="https://www.chess.com/member/voyager972" target="_blank" rel="noopener">Voyager972</a>. Reading books is another passion of mine, particularly pop-science and non-fiction.</p>
@@ -503,21 +483,21 @@
 
     <section id="contact" class="section contact" aria-labelledby="contact-title">
       <div class="container">
-        <div class="section-heading reveal">
+        <div class="section-heading">
           <p class="eyebrow">Contact</p>
           <h2 id="contact-title">Get in touch.</h2>
         </div>
 
-        <div class="contact-panel reveal">
+        <div class="contact-panel">
           <div>
             <h3>Tanmay Singh</h3>
             <p>Astrophysics PhD Student at Arizona State University, Tempe, AZ.</p>
           </div>
           <div class="contact-grid">
-            <a class="contact-tile" href="mailto:tsingh65@asu.edu"><i class="bi bi-envelope" aria-hidden="true"></i><span>Email</span><strong>tsingh65@asu.edu</strong></a>
-            <a class="contact-tile" href="https://scholar.google.com/citations?user=Sfeb8fMAAAAJ&hl=en" target="_blank" rel="noopener"><i class="bi bi-mortarboard" aria-hidden="true"></i><span>Google Scholar</span><strong>Sfeb8fMAAAAJ</strong></a>
-            <a class="contact-tile" href="https://github.com/tanmay-starslab" target="_blank" rel="noopener"><i class="bi bi-github" aria-hidden="true"></i><span>GitHub</span><strong>tanmay-starslab</strong></a>
-            <a class="contact-tile" href="https://www.linkedin.com/in/tanmay-singh-21574a1aa/" target="_blank" rel="noopener"><i class="bi bi-linkedin" aria-hidden="true"></i><span>LinkedIn</span><strong>tanmay-singh-21574a1aa</strong></a>
+            <a class="contact-tile" href="mailto:tsingh65@asu.edu"><span>Email</span><strong>tsingh65@asu.edu</strong></a>
+            <a class="contact-tile" href="https://scholar.google.com/citations?user=Sfeb8fMAAAAJ&hl=en" target="_blank" rel="noopener"><span>Google Scholar</span><strong>Sfeb8fMAAAAJ</strong></a>
+            <a class="contact-tile" href="https://github.com/tanmay-starslab" target="_blank" rel="noopener"><span>GitHub</span><strong>tanmay-starslab</strong></a>
+            <a class="contact-tile" href="https://www.linkedin.com/in/tanmay-singh-21574a1aa/" target="_blank" rel="noopener"><span>LinkedIn</span><strong>tanmay-singh-21574a1aa</strong></a>
           </div>
         </div>
       </div>
@@ -530,9 +510,7 @@
     </div>
   </footer>
 
-  <a href="#home" class="scroll-top" aria-label="Back to top"><i class="bi bi-arrow-up-short" aria-hidden="true"></i></a>
-
-  <script src="assets/js/snapfolio-astro.js"></script>
+  <script src="assets/js/site.js"></script>
 </body>
 
 </html>

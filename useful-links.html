@@ -20,7 +20,6 @@
   <link rel="apple-touch-icon" href="images/favicon/apple-touch-icon-180.png">
   <link rel="manifest" href="images/favicon/site.webmanifest">
   <meta name="theme-color" content="#03050b">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="assets/css/snapfolio-astro.css" rel="stylesheet">
 
   <!-- =======================================================
@@ -34,19 +33,19 @@
     /* The intro is progressive enhancement. The classes that hide page content
        are added here by script rather than shipped in the HTML, so if scripting
        is unavailable the page renders fully visible instead of blank. The
-       timeout is a failsafe for when snapfolio-astro.js is blocked or throws. */
+       timeout is a failsafe for when site.js is blocked or throws. */
     (function () {
       var el = document.documentElement;
       try {
         if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-        el.classList.add("intro-active", "intro-hold");
+        el.classList.add("intro-active","intro-hold");
         window.setTimeout(function () {
           if (!el.classList.contains("intro-active")) return;
-          el.classList.remove("intro-active", "intro-hold", "intro-moving");
+          el.classList.remove("intro-active","intro-hold","intro-moving");
           el.classList.add("intro-complete");
         }, 2500);
       } catch (e) {
-        el.classList.remove("intro-active", "intro-hold");
+        el.classList.remove("intro-active","intro-hold");
       }
     })();
   </script>
@@ -56,12 +55,11 @@
   <a class="skip-link" href="#main">Skip to main content</a>
   <div class="cosmic-image-bg" aria-hidden="true"></div>
   <div class="cosmic-image-shade" aria-hidden="true"></div>
-  <canvas id="galaxy-canvas" aria-hidden="true"></canvas>
   <div class="cosmic-vignette" aria-hidden="true"></div>
 
   <header id="header" class="site-header" aria-label="Primary navigation">
     <button class="header-toggle" type="button" aria-label="Open navigation" aria-controls="navmenu" aria-expanded="false">
-      <i class="bi bi-list" aria-hidden="true"></i>
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
 
     <div class="header-container">
@@ -75,23 +73,23 @@
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="index.html#home"><i class="bi bi-house navicon" aria-hidden="true"></i><span>Home</span></a></li>
-          <li><a href="index.html#about"><i class="bi bi-person navicon" aria-hidden="true"></i><span>About</span></a></li>
-          <li><a href="index.html#research"><i class="bi bi-stars navicon" aria-hidden="true"></i><span>Research</span></a></li>
-          <li><a href="index.html#past-projects"><i class="bi bi-grid-3x3-gap navicon" aria-hidden="true"></i><span>Past Projects</span></a></li>
-          <li><a href="index.html#publications"><i class="bi bi-journal-text navicon" aria-hidden="true"></i><span>Publications</span></a></li>
-          <li><a href="index.html#timeline"><i class="bi bi-diagram-3 navicon" aria-hidden="true"></i><span>Education</span></a></li>
-          <li><a href="index.html#personal-interests"><i class="bi bi-compass navicon" aria-hidden="true"></i><span>Personal Interests</span></a></li>
-          <li><a href="useful-links.html" class="active" aria-current="page"><i class="bi bi-link-45deg navicon" aria-hidden="true"></i><span>Useful Links</span></a></li>
-          <li><a href="index.html#contact"><i class="bi bi-envelope navicon" aria-hidden="true"></i><span>Contact</span></a></li>
+          <li><a href="index.html#home"><span>Home</span></a></li>
+          <li><a href="index.html#about"><span>About</span></a></li>
+          <li><a href="index.html#research"><span>Research</span></a></li>
+          <li><a href="index.html#past-projects"><span>Past Projects</span></a></li>
+          <li><a href="index.html#publications"><span>Publications</span></a></li>
+          <li><a href="index.html#timeline"><span>Education</span></a></li>
+          <li><a href="index.html#personal-interests"><span>Personal Interests</span></a></li>
+          <li><a href="useful-links.html" class="active" aria-current="page"><span>Useful Links</span></a></li>
+          <li><a href="index.html#contact"><span>Contact</span></a></li>
         </ul>
       </nav>
 
       <div class="social-links" aria-label="Profile links">
-        <a href="mailto:tsingh65@asu.edu" aria-label="Email Tanmay Singh"><i class="bi bi-envelope" aria-hidden="true"></i></a>
-        <a href="https://scholar.google.com/citations?user=Sfeb8fMAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Tanmay Singh on Google Scholar"><i class="bi bi-mortarboard" aria-hidden="true"></i></a>
-        <a href="https://github.com/tanmay-starslab" target="_blank" rel="noopener" aria-label="Tanmay Singh on GitHub"><i class="bi bi-github" aria-hidden="true"></i></a>
-        <a href="https://www.linkedin.com/in/tanmay-singh-21574a1aa/" target="_blank" rel="noopener" aria-label="Tanmay Singh on LinkedIn"><i class="bi bi-linkedin" aria-hidden="true"></i></a>
+        <a href="mailto:tsingh65@asu.edu" aria-label="Email Tanmay Singh"></a>
+        <a href="https://scholar.google.com/citations?user=Sfeb8fMAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Tanmay Singh on Google Scholar"></a>
+        <a href="https://github.com/tanmay-starslab" target="_blank" rel="noopener" aria-label="Tanmay Singh on GitHub"></a>
+        <a href="https://www.linkedin.com/in/tanmay-singh-21574a1aa/" target="_blank" rel="noopener" aria-label="Tanmay Singh on LinkedIn"></a>
       </div>
     </div>
   </header>
@@ -99,14 +97,14 @@
   <main id="main" class="main useful-main">
     <section class="section useful-hero" aria-labelledby="useful-title">
       <div class="container">
-        <div class="section-heading reveal">
+        <div class="section-heading">
           <p class="eyebrow">Useful Links</p>
           <h1 id="useful-title">Useful Links</h1>
           <p>A collection of astronomy, astrophysics, programming, graduate school, and personal website resources from the previous website.</p>
         </div>
 
         <div class="useful-links-grid">
-          <article class="link-section reveal">
+          <article class="link-section">
             <h2>Astronomy and Astrophysics</h2>
             <h3>General Links</h3>
             <p><a href="https://ui.adsabs.harvard.edu" target="_blank" rel="noopener">NASA/ADS</a>: Online database astronomy and physics papers (freely available).</p>
@@ -118,7 +116,7 @@
             <p><a href="https://www.scimagojr.com/journalrank.php?category=3103" target="_blank" rel="noopener">List of Astronomy Journals</a>: Astronomy journals comparison, based on their impact.</p>
           </article>
 
-          <article class="link-section reveal">
+          <article class="link-section">
             <h2>Astronomical Data Products</h2>
             <p><a href="https://www.sdss.org/future/" target="_blank" rel="noopener">SDSS V</a>: Official SDSS-V website.</p>
             <p><a href="https://www.sdss.org/dr16/" target="_blank" rel="noopener">SDSS Data Release 16</a>: Publicly available SDSS DR16 data and catalogues.</p>
@@ -135,7 +133,7 @@
             <p><a href="https://science.nrao.edu/facilities/vla/archive/index" target="_blank" rel="noopener">VLA Archive</a>: NRAO's Very Large Array archival data.</p>
           </article>
 
-          <article class="link-section reveal">
+          <article class="link-section">
             <h2>Computer Simulations</h2>
             <p><a href="https://www.illustris-project.org" target="_blank" rel="noopener">Illustris Project</a>: Large cosmological simulation of galaxy formation.</p>
             <p><a href="https://www.tng-project.org" target="_blank" rel="noopener">Illustris TNG</a>: Ongoing series of large, cosmological MHD simulations of galaxy formation.</p>
@@ -147,7 +145,7 @@
             <p><a href="https://lgalaxiespublicrelease.github.io/" target="_blank" rel="noopener">L-Galaxies Project</a>: Semi-analytic models of galaxy formation built upon dark matter simulation only such as <a href="https://wwwmpa.mpa-garching.mpg.de/galform/virgo/millennium/" target="_blank" rel="noopener">Millenium.</a></p>
           </article>
 
-          <article class="link-section reveal">
+          <article class="link-section">
             <h2>Programming Links</h2>
             <p><a href="https://stackoverflow.com" target="_blank" rel="noopener">Stack Overflow</a>: Question and answer website for professional and enthusiast programmers.</p>
             <p><a href="https://www.python.org" target="_blank" rel="noopener">Python</a>: Python is an interpreted high-level general-purpose programming language.</p>
@@ -166,7 +164,7 @@
             <p><a href="https://www.zotero.org/" target="_blank" rel="noopener">Zotero</a>: Free and open-source reference management software.</p>
           </article>
 
-          <article class="link-section reveal">
+          <article class="link-section">
             <h2>Online Courses in Astronomy</h2>
             <p><a href="https://www.krittika.org" target="_blank" rel="noopener">Scientific Computing in Astronomy</a>: Krittika Astronomy Club, IITB</p>
             <p><a href="https://www.astro.caltech.edu" target="_blank" rel="noopener">GROWTH Astronomy School 2020</a>: Caltech</p>
@@ -178,7 +176,7 @@
             <p><a href="https://www.sheffield.ac.uk" target="_blank" rel="noopener">Observational Astronomy</a>: Dr. Stuart Littlefair, University of Sheffield</p>
           </article>
 
-          <article class="link-section reveal">
+          <article class="link-section">
             <h2>Scientific Python &amp; Astronomy</h2>
             <p><a href="https://python4astronomers.github.io" target="_blank" rel="noopener">Python for Astronomers</a></p>
             <p><a href="https://pythonnumericalmethods.berkeley.edu" target="_blank" rel="noopener">Python Programming And Numerical Methods: A Guide For Engineers And Scientists</a>: UC Berkeley</p>
@@ -192,7 +190,7 @@
             <p><a href="https://www.astropy.org" target="_blank" rel="noopener">Learn AstroPy</a></p>
           </article>
 
-          <article class="link-section reveal">
+          <article class="link-section">
             <h2>Useful YouTube Videos &amp; Channels</h2>
             <p><a href="https://www.youtube.com/channel/UCYO_jab_esuFRV4b17AJtAw" target="_blank" rel="noopener">3Blue1Brown</a>: Concepts of Mathematics visualized at its best!</p>
             <p><a href="https://www.youtube.com/playlist?list=PLdEL4G3AsvXWjpXjC3JDFK0mUq3TduHRW" target="_blank" rel="noopener">Constellations | Seeker</a>: Sarafina Nance, UCB</p>
@@ -209,7 +207,7 @@
             <p><a href="https://www.youtube.com/playlist?list=PLdEL4G3AsvXWIQSRfA1NU6q-ZIb9dW06F" target="_blank" rel="noopener">Be An Astrophysicist</a>: Colleen Hoon, ANU</p>
           </article>
 
-          <article class="link-section reveal">
+          <article class="link-section">
             <h2>Useful Websites &amp; Articles</h2>
             <p><a href="https://astrobites.org" target="_blank" rel="noopener">Astrobites</a>: Briefing research papers for undergrads</p>
             <p><a href="https://www.howtobecomeanastronomer.com" target="_blank" rel="noopener">How to make an Astrophysicist</a>: A resourceful website for astronomical resources and opportunities</p>
@@ -224,7 +222,7 @@
             <p><a href="https://ui.adsabs.harvard.edu" target="_blank" rel="noopener">NASA/ADS</a>: Digital library portal for researchers in Astronomy and Physics</p>
           </article>
 
-          <article class="link-section reveal">
+          <article class="link-section">
             <h2>Graduate School Advice and Admissions</h2>
             <p><a href="http://matt.might.net/articles/phd-school-in-pictures/" target="_blank" rel="noopener">The illustrated guide to a Ph.D.</a>: Matt Might, University of Utah</p>
             <p><a href="https://www.caltech.edu/about/news/questions-ask-prospective-graduate-student-45306" target="_blank" rel="noopener">Questions to Ask as a Prospective Graduate Student</a>: Ryan Rubenzahl, Caltech</p>
@@ -240,7 +238,7 @@
             <p><a href="https://www.grad.ucla.edu" target="_blank" rel="noopener">Personal Statements and Statements of Purpose</a>: UCLA</p>
           </article>
 
-          <article class="link-section reveal">
+          <article class="link-section">
             <h2>DIY: Personal Website</h2>
             <p><a href="https://www.wix.com" target="_blank" rel="noopener">Website with Wix</a></p>
             <p><a href="https://jekyllrb.com" target="_blank" rel="noopener">GitHub Pages with Jekyll</a></p>
@@ -250,7 +248,7 @@
             <p><a href="https://career.berkeley.edu" target="_blank" rel="noopener">Personal Academic Webpages: How-To's and Tips for a Better Site</a>: University of California, Berkeley</p>
           </article>
 
-          <article class="link-section reveal">
+          <article class="link-section">
             <h2>General Links</h2>
             <p><a href="https://www.wikipedia.org/" target="_blank" rel="noopener">Wikipedia</a>: Free online encyclopedia.</p>
             <p><a href="https://www.springer.com/gp/open-access/books" target="_blank" rel="noopener">Springer Free Books</a>: Free books from Springer, just have a look.</p>
@@ -268,9 +266,7 @@
     </div>
   </footer>
 
-  <a href="#main" class="scroll-top" aria-label="Back to top"><i class="bi bi-arrow-up-short" aria-hidden="true"></i></a>
-
-  <script src="assets/js/snapfolio-astro.js"></script>
+  <script src="assets/js/site.js"></script>
 </body>
 
 </html>
