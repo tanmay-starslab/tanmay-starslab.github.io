@@ -384,7 +384,15 @@ a:visited { color: var(--rose-dim); }
 .pub-authors { margin-top: var(--s-2); font-size: var(--fs-small); color: var(--ink-8); }
 .pub-authors .self { font-weight: 600; color: var(--ink-9); }
 .pub-venue { font-style: italic; font-size: var(--fs-small); color: var(--ink-7); }
-.pub-links { margin-top: var(--s-2); font-size: var(--fs-data); display: flex; gap: var(--s-4); }
+.pub-links {
+  margin-top: var(--s-2);
+  font-size: var(--fs-data);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-4);
+  font-family: "Fira Mono", ui-monospace, monospace;
+}
+.pub-foot { margin-top: var(--s-5); font-size: var(--fs-small); color: var(--ink-7); }
 
 /* ───────────────────────────────────────────────────────── footer */
 .site-footer {
