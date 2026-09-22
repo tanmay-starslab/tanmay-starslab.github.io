@@ -170,75 +170,95 @@
       </div>
     </section>
 
-    <section id="research" class="section research" aria-labelledby="research-title">
+    <section id="research" class="section" aria-labelledby="research-title">
       <div class="sheet">
-        <h2 class="section-title" id="research-title">Ongoing research projects.</h2>
+        <h2 class="section-title" id="research-title">Research</h2>
 
-        <div class="research-grid">
-          <article class="research-card featured">
-            <div class="card-glow" aria-hidden="true"></div>
-            <span class="card-kicker">IGM / CGM</span>
-            <h3>Investigating the IGM and CGM</h3>
-            <p>
-              The intergalactic medium and circumgalactic medium play crucial roles in the formation and evolution of galaxies.
-              One primary research goal is to understand how Mg II absorbers observed in the spectra of background quasars are connected to galaxies.
-            </p>
-            <p>
-              By analyzing mock quasar absorption spectra generated from cosmological simulations such as IllustrisTNG and SIMBA,
-              this work asks whether absorbers originate from outflowing material expelled by star-forming galaxies or from large rotating disks accreting material onto galaxies.
-            </p>
-            <div class="tag-cloud">
-              <span>Mg II absorbers</span>
-              <span>IllustrisTNG</span>
-              <span>SIMBA</span>
-              <span>Mock spectra</span>
-            </div>
-          </article>
+        <article class="entry">
+          <div class="entry-body">
+            <h3 class="entry-title">The intergalactic and circumgalactic medium</h3>
+            <p>The gas between and around galaxies records how they acquire fuel and lose it
+              again. The question here is how the Mg&nbsp;II absorbers seen in the spectra of
+              background quasars connect to the galaxies near the sightline.</p>
+            <p>Analysing mock quasar absorption spectra from IllustrisTNG and SIMBA, this asks
+              whether those absorbers come from outflowing material expelled by star-forming
+              galaxies, or from large rotating disks accreting material onto them.</p>
+          </div>
+          <div class="entry-aside">
+            <figure class="trace" role="img" aria-label="Absorption trace: the Mg two doublet at 2796.35 and 2803.53 angstroms, the shorter-wavelength line about twice as deep.">
+          <svg viewBox="0 0 1000 40" preserveAspectRatio="none" focusable="false">
+            <path class="continuum" d="M0 6 H1000"/>
+            <path class="line" d="M301.5 6 L317.5 30.0 L333.5 6"/>
+            <path class="line weak" d="M660.5 6 L676.5 17.9 L692.5 6"/>
+          </svg>
+          <figcaption class="line-list">Mg&nbsp;II &#955;&#955;2796.35, 2803.53 &#197; &middot; 2790&ndash;2810 &#197;</figcaption>
+        </figure>
+            <dl>
+              <dt>Simulations</dt><dd>IllustrisTNG, SIMBA</dd>
+              <dt>Method</dt><dd>Mock quasar spectra</dd>
+            </dl>
+          </div>
+        </article>
 
-          <article class="research-card">
-            <span class="card-kicker">O VI</span>
-            <h3>O VI in the Intra-group Medium</h3>
-            <p>
-              Compares O VI absorption in synthetic spectra from SIMBA and TNG50 galaxy groups against COS-IGrM observations.
-              The analysis uses matched group samples and observation-like synthetic spectroscopy to study absorber distributions, kinematics, covering fractions, and galaxy associations.
-            </p>
-            <div class="tag-cloud">
-              <span>SIMBA</span>
-              <span>IllustrisTNG</span>
-              <span>COS-IGrM</span>
-              <span>XGBoost</span>
-            </div>
-          </article>
+        <article class="entry">
+          <div class="entry-body">
+            <h3 class="entry-title">O&nbsp;VI in the intragroup medium</h3>
+            <p>Compares O&nbsp;VI absorption in synthetic spectra from SIMBA and TNG50 galaxy
+              groups against COS-IGrM observations, using matched group samples and
+              observation-like synthetic spectroscopy to study absorber distributions,
+              kinematics, covering fractions and galaxy associations.</p>
+          </div>
+          <div class="entry-aside">
+            <figure class="trace" role="img" aria-label="Absorption trace: the O six doublet at 1031.93 and 1037.62 angstroms, the shorter-wavelength line about twice as deep.">
+          <svg viewBox="0 0 1000 40" preserveAspectRatio="none" focusable="false">
+            <path class="continuum" d="M0 6 H1000"/>
+            <path class="line" d="M330.5 6 L346.5 30.0 L362.5 6"/>
+            <path class="line weak" d="M615.0 6 L631.0 17.9 L647.0 6"/>
+          </svg>
+          <figcaption class="line-list">O&nbsp;VI &#955;&#955;1031.93, 1037.62 &#197; &middot; 1025&ndash;1045 &#197;</figcaption>
+        </figure>
+            <dl>
+              <dt>Simulations</dt><dd>SIMBA, TNG50</dd>
+              <dt>Observations</dt><dd>COS-IGrM</dd>
+              <dt>Method</dt><dd>XGBoost feature analysis</dd>
+            </dl>
+          </div>
+        </article>
 
-          <article class="research-card">
-            <span class="card-kicker">Spectra</span>
-            <h3>Spectral Classification of AGN and Supernovae</h3>
-            <p>
-              Distinguishing between spectral signatures of Active Galactic Nuclei and Supernovae is essential for characterizing transient astrophysical events.
-              This work uses Bayesian logic (BLOG) to develop automated methods for spectral classification.
-            </p>
-            <div class="tag-cloud">
-              <span>AGN</span>
-              <span>Supernovae</span>
-              <span>BLOG</span>
-              <span>Classification</span>
-            </div>
-          </article>
+        <article class="entry">
+          <div class="entry-body">
+            <h3 class="entry-title">Kinematics of the outer circumgalactic medium</h3>
+            <p>Investigating co-rotation and counter-rotation of outer CGM gas around L-star
+              galaxies, using sightline-based synthetic spectroscopy in TNG50-1.</p>
+          </div>
+          <div class="entry-aside">
+            <figure class="trace" role="img" aria-label="Absorption trace: silicon three at 1206.50, Lyman alpha at 1215.67 and carbon two at 1334.53 angstroms, Lyman alpha the deepest.">
+          <svg viewBox="0 0 1000 40" preserveAspectRatio="none" focusable="false">
+            <path class="continuum" d="M0 6 H1000"/>
+            <path class="line weak" d="M36.4 6 L46.4 15.6 L56.4 6"/>
+            <path class="line" d="M101.9 6 L111.9 30.0 L121.9 6"/>
+            <path class="line weak" d="M950.9 6 L960.9 13.4 L970.9 6"/>
+          </svg>
+          <figcaption class="line-list">Si&nbsp;III &#955;1206.50 &middot; Ly&#945; &#955;1215.67 &middot; C&nbsp;II &#955;1334.53 &#197;</figcaption>
+        </figure>
+            <dl>
+              <dt>Simulation</dt><dd>TNG50-1</dd>
+              <dt>Method</dt><dd>Sightline spectroscopy</dd>
+            </dl>
+          </div>
+        </article>
 
-          <article class="research-card">
-            <span class="card-kicker">Kinematics</span>
-            <h3>Kinematics of the Outer Circumgalactic Medium</h3>
-            <p>
-              Investigating co-rotation and counter-rotation of outer CGM gas around L-star galaxies using sightline-based synthetic spectroscopy in TNG50-1.
-            </p>
-            <div class="tag-cloud">
-              <span>TNG50-1</span>
-              <span>Ly-alpha</span>
-              <span>C II</span>
-              <span>Si III</span>
-            </div>
-          </article>
-        </div>
+        <article class="entry no-aside">
+          <div class="entry-body">
+            <h3 class="entry-title">Spectral classification of AGN and supernovae</h3>
+            <p>Telling the spectral signatures of active galactic nuclei apart from those of
+              supernovae matters for characterising transient events. This work uses Bayesian
+              logic (BLOG) to build automated classification from emission-line detections,
+              widths and ratios.</p>
+            <p class="entry-note">No absorption trace: this is an emission-line study, so there
+              is nothing for a background source to be absorbed against.</p>
+          </div>
+        </article>
       </div>
     </section>
 
