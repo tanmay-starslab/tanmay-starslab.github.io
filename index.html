@@ -23,7 +23,7 @@
   <meta name="theme-color" content="#0a0a0a">
   <link rel="preload" href="assets/fonts/source-serif-text.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/source-serif-display.woff2" as="font" type="font/woff2" crossorigin>
-  <link href="assets/css/snapfolio-astro.css" rel="stylesheet">
+  <link href="assets/css/site.css" rel="stylesheet">
 
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"Person","name":"Tanmay Singh","jobTitle":"Astrophysics PhD Student","affiliation": {"@type":"CollegeOrUniversity","name":"Arizona State University"
@@ -92,59 +92,59 @@
         </ul>
       </nav>
 
-      <div class="social-links" aria-label="Profile links">
-        <a href="mailto:tsingh65@asu.edu" aria-label="Email Tanmay Singh"></a>
-        <a href="https://scholar.google.com/citations?user=Sfeb8fMAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Tanmay Singh on Google Scholar"></a>
-        <a href="https://github.com/tanmay-starslab" target="_blank" rel="noopener" aria-label="Tanmay Singh on GitHub"></a>
-        <a href="https://www.linkedin.com/in/tanmay-singh-21574a1aa/" target="_blank" rel="noopener" aria-label="Tanmay Singh on LinkedIn"></a>
+      <div class="header-social" aria-label="Profile links">
+        <a href="mailto:tsingh65@asu.edu" aria-label="Email Tanmay Singh">Email</a>
+        <a href="https://scholar.google.com/citations?user=Sfeb8fMAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Tanmay Singh on Google Scholar">Scholar</a>
+        <a href="https://github.com/tanmay-starslab" target="_blank" rel="noopener" aria-label="Tanmay Singh on GitHub">GitHub</a>
+        <a href="https://www.linkedin.com/in/tanmay-singh-21574a1aa/" target="_blank" rel="noopener" aria-label="Tanmay Singh on LinkedIn">LinkedIn</a>
       </div>
     </div>
   </header>
 
   <main id="main" class="main">
-    <section id="home" class="hero section" aria-labelledby="hero-title">
-      <div class="container">
-        <div class="hero-shell">
-          <div class="hero-copy">
-            <p class="eyebrow">
-              <a href="https://www.asu.edu/" target="_blank" rel="noopener">Arizona State University</a>
-              <span>|</span>
-              <a href="https://sese.asu.edu/" target="_blank" rel="noopener">School of Earth and Space Exploration</a>
-            </p>
+    <section id="home" class="masthead section" aria-labelledby="hero-title">
+      <div class="sheet">
+        <div class="masthead-grid">
+          <div class="masthead-body">
             <h1 id="hero-title">Tanmay Singh</h1>
-            <p class="hero-role">Third Year Ph.D. Student | Astrophysics</p>
-            <p class="hero-subtitle">
-              Hi! I am Tanmay, currently a PhD student in the <a href="https://sese.asu.edu/" target="_blank" rel="noopener">School of Earth and Space Exploration</a>
-              at <a href="https://www.asu.edu/" target="_blank" rel="noopener">Arizona State University</a>, advised by
-              <a href="http://borthakur.asu.edu/index.html" target="_blank" rel="noopener">Prof. Sanchayeeta Borthakur</a>.
-              My research interests lie broadly in galaxy formation and processes that impact their evolution.
+            <p class="masthead-role">Fourth-year Ph.D. candidate &middot; Astrophysics &middot; Arizona State University</p>
+            <p class="masthead-lede">
+              I work on the circumgalactic medium &mdash; the diffuse gas around galaxies that records
+              how they acquire fuel and lose it again. Most of my time goes to measuring
+              <span class="mono">O&nbsp;VI</span> absorption in cosmological simulations and asking whether
+              it reproduces what <span class="mono">HST/COS</span> actually sees, with
+              <a href="http://borthakur.asu.edu/index.html" rel="noopener">Sanchayeeta Borthakur</a> at the
+              <a href="https://sese.asu.edu/" rel="noopener">School of Earth and Space Exploration</a>.
             </p>
-            <div class="hero-actions" aria-label="Primary actions">
-              <a class="btn btn-primary" href="#research"> Research</a>
-              <a class="btn btn-outline" href="#publications"> Publications</a>
-              <a class="btn btn-outline" href="files/cv.pdf" target="_blank" rel="noopener"> Download CV</a>
-            </div>
-            <div class="hero-links" aria-label="Quick links">
+            <p class="masthead-links">
+              <a href="files/cv.pdf" rel="noopener">Curriculum vitae</a>
               <a href="mailto:tsingh65@asu.edu">tsingh65@asu.edu</a>
-              <a href="https://scholar.google.com/citations?user=Sfeb8fMAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>
-              <a href="https://github.com/tanmay-starslab" target="_blank" rel="noopener">GitHub</a>
-              <a href="https://www.linkedin.com/in/tanmay-singh-21574a1aa/" target="_blank" rel="noopener">LinkedIn</a>
-            </div>
+              <a href="https://scholar.google.com/citations?user=Sfeb8fMAAAAJ&amp;hl=en" rel="noopener">Google Scholar</a>
+              <a href="https://github.com/tanmay-starslab" rel="noopener">GitHub</a>
+            </p>
           </div>
 
-          <figure class="hero-portrait">
-            <img src="images/headshot-900.webp" alt="Portrait of Tanmay Singh" width="900" height="900" loading="eager" fetchpriority="high" decoding="async">
-          </figure>
+          <div class="masthead-aside">
+            <figure class="plate">
+              <img src="images/headshot-900.webp"
+                   width="900" height="900"
+                   alt="Tanmay Singh"
+                   loading="eager" fetchpriority="high" decoding="sync">
+              <figcaption>
+                <span class="cap-name">Tanmay Singh</span>
+                <span class="cap-meta">Ph.D. candidate, Astrophysics &middot; Arizona State University,
+                  School of Earth and Space Exploration</span>
+              </figcaption>
+            </figure>
+          </div>
         </div>
       </div>
     </section>
 
+
     <section id="about" class="section about" aria-labelledby="about-title">
-      <div class="container">
-        <div class="section-heading">
-          <p class="eyebrow">About</p>
-          <h2 id="about-title">Academic background and current focus.</h2>
-        </div>
+      <div class="sheet">
+        <h2 class="section-title" id="about-title">Academic background and current focus.</h2>
 
         <div class="about-panel">
           <div class="about-text">
@@ -171,11 +171,8 @@
     </section>
 
     <section id="research" class="section research" aria-labelledby="research-title">
-      <div class="container">
-        <div class="section-heading">
-          <p class="eyebrow">Research</p>
-          <h2 id="research-title">Ongoing research projects.</h2>
-        </div>
+      <div class="sheet">
+        <h2 class="section-title" id="research-title">Ongoing research projects.</h2>
 
         <div class="research-grid">
           <article class="research-card featured">
@@ -246,12 +243,9 @@
     </section>
 
     <section id="past-projects" class="section past-projects" aria-labelledby="projects-title">
-      <div class="container">
-        <div class="section-heading">
-          <p class="eyebrow">Past Projects</p>
-          <h2 id="projects-title">Earlier research across physics and astronomy.</h2>
-          <p>Past work spanning submillimeter astronomy, solar physics, quantum communication, image processing, and atomic collisions.</p>
-        </div>
+      <div class="sheet">
+        <h2 class="section-title" id="projects-title">Earlier research across physics and astronomy.</h2>
+        <p class="section-intro">Past work spanning submillimeter astronomy, solar physics, quantum communication, image processing, and atomic collisions.</p>
 
         <div class="project-mosaic">
           <article class="project-card large">
@@ -343,12 +337,9 @@
     </section>
 
     <section id="publications" class="section publications" aria-labelledby="publications-title">
-      <div class="container">
-        <div class="section-heading">
-          <p class="eyebrow">Publications</p>
-          <h2 id="publications-title">Publications and abstracts.</h2>
-          <p>Selected entries from Google Scholar and the current CV.</p>
-        </div>
+      <div class="sheet">
+        <h2 class="section-title" id="publications-title">Publications and abstracts.</h2>
+        <p class="section-intro">Selected entries from Google Scholar and the current CV.</p>
 
         <div class="publication-tools">
           <a class="btn btn-primary" href="https://scholar.google.com/citations?user=Sfeb8fMAAAAJ&hl=en" target="_blank" rel="noopener">
@@ -400,11 +391,8 @@
     </section>
 
     <section id="timeline" class="section timeline-section" aria-labelledby="timeline-title">
-      <div class="container">
-        <div class="section-heading">
-          <p class="eyebrow">Education</p>
-          <h2 id="timeline-title">Education</h2>
-        </div>
+      <div class="sheet">
+        <h2 class="section-title" id="timeline-title">Education</h2>
 
         <div class="timeline" data-timeline>
           <div class="timeline-track" aria-hidden="true">
@@ -441,7 +429,6 @@
 
         <div class="teaching-panel">
           <div>
-            <p class="eyebrow">Teaching</p>
             <h3>AST 112 Lab</h3>
           </div>
           <p><strong>Course:</strong> AST 112 Lab, Lab Lead (3 Sections)</p>
@@ -453,11 +440,8 @@
     </section>
 
     <section id="personal-interests" class="section personal-interests" aria-labelledby="personal-title">
-      <div class="container">
-        <div class="section-heading">
-          <p class="eyebrow">Personal Interests</p>
-          <h2 id="personal-title">Personal Interests</h2>
-        </div>
+      <div class="sheet">
+        <h2 class="section-title" id="personal-title">Personal Interests</h2>
 
         <div class="personal-panel">
           <div class="interest-grid" aria-label="Interest areas">
@@ -481,11 +465,8 @@
     </section>
 
     <section id="contact" class="section contact" aria-labelledby="contact-title">
-      <div class="container">
-        <div class="section-heading">
-          <p class="eyebrow">Contact</p>
-          <h2 id="contact-title">Get in touch.</h2>
-        </div>
+      <div class="sheet">
+        <h2 class="section-title" id="contact-title">Get in touch.</h2>
 
         <div class="contact-panel">
           <div>
@@ -504,7 +485,7 @@
   </main>
 
   <footer id="footer" class="site-footer">
-    <div class="container">
+    <div class="sheet">
       <p>&copy; <span id="year">2026</span> Tanmay Singh. Designed by <a href="https://bootstrapmade.com/" target="_blank" rel="noopener">BootstrapMade</a>; adapted with a custom astrophysics interface.</p>
     </div>
   </footer>
