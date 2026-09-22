@@ -1,0 +1,461 @@
+/* DARK TIME — tanmay-starslab.github.io
+   Deep neutral black as the condition that makes a faint signal readable.
+   Every UI colour is chroma 0.000; the only hue on the page comes from
+   inside the photograph. */
+
+/* ──────────────────────────────────────────────────────────── fonts */
+@font-face {
+  font-family: "Source Serif Text";
+  font-style: normal;
+  font-weight: 300 700;
+  src: url(../fonts/source-serif-text.woff2) format("woff2-variations");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Source Serif Display";
+  font-style: normal;
+  font-weight: 400 700;
+  src: url(../fonts/source-serif-display.woff2) format("woff2-variations");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Source Serif Text";
+  font-style: italic;
+  font-weight: 400;
+  src: url(../fonts/source-serif-italic.woff2) format("woff2");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Fira Mono";
+  font-style: normal;
+  font-weight: 400;
+  src: url(../fonts/fira-mono.woff2) format("woff2");
+  font-display: swap;
+}
+/* Only the glyphs no text font carries. Never extend to Greek — Greek is
+   the serif's job, and a family change mid-word is visible. */
+@font-face {
+  font-family: "ObsMath";
+  font-style: normal;
+  font-weight: 400;
+  src: url(../fonts/obsmath.woff2) format("woff2");
+  font-display: block;
+  unicode-range: U+2299, U+2609, U+2295, U+2297, U+2272, U+2273, U+2207,
+    U+27E8, U+27E9, U+223C, U+2243, U+222B, U+221E, U+221D, U+226A, U+226B,
+    U+22C6, U+22A5, U+2020, U+2030, U+2032, U+2033, U+2282, U+2283, U+2261;
+}
+
+/* ─────────────────────────────────────────────────────────── tokens */
+:root {
+  color-scheme: dark;
+
+  --ink-0: #0a0a0a;
+  --ink-1: #141414;
+  --ink-2: #1c1c1c;
+  --ink-3: #303030;
+  --ink-4: #4a4a4a;
+  --ink-5: #606060;   /* 3.15:1 — floor for meaningful marks, never text */
+  --ink-6: #7a7a7a;   /* 4.61:1 — traces, axis marks */
+  --ink-7: #8a8a8a;   /* 5.73:1 — captions, metadata */
+  --ink-8: #cfcfcf;   /* 12.71:1 — body */
+  --ink-9: #f2f2f2;   /* 17.68:1 — headings */
+
+  --rose: #d0a4b8;       /* 9.13:1 — sampled from the portrait */
+  --rose-dim: #a97e92;   /* 5.74:1 — visited only */
+
+  --r-0: 0;
+  --r-1: 2px;
+  --r-2: 4px;
+  --r-3: 50%;
+
+  --shadow-0: none;
+  --shadow-overlay: 0 24px 60px rgba(0, 0, 0, 0.65);
+
+  --s-1: 0.25rem;  --s-2: 0.5rem;   --s-3: 0.75rem;  --s-4: 1rem;
+  --s-5: 1.5rem;   --s-6: 2.5rem;   --s-7: 4rem;     --s-8: 7rem;
+
+  --fs-name:  clamp(2.25rem,   1.55rem + 2.80vw, 3.500rem);
+  --fs-lede:  clamp(1.25rem,   1.09rem + 0.65vw, 1.500rem);
+  --fs-h2:    clamp(1.50rem,   1.26rem + 0.95vw, 1.875rem);
+  --fs-h3:    clamp(1.125rem,  1.05rem + 0.30vw, 1.250rem);
+  --fs-body:  clamp(1.0625rem, 1.02rem + 0.19vw, 1.1875rem);
+  --fs-small: 0.9375rem;
+  --fs-data:  0.8125rem;
+  --fs-micro: 0.75rem;
+
+  --settle: cubic-bezier(0.16, 0.84, 0.29, 1);
+
+  /* Breakpoints derived from the measure, not borrowed from Apple. */
+  --gutter: clamp(1.25rem, 3.5vw, 3.5rem);
+  --measure: 64ch;
+  --aside: 15rem;
+  --colgap: 3rem;
+  --bleed-max: 82.5rem;
+  --nav-w: 14rem;
+}
+
+/* ──────────────────────────────────────────────────────────── reset */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  background: var(--ink-0);
+  scroll-padding-top: var(--s-6);
+}
+
+body {
+  margin: 0;
+  background: var(--ink-0);
+  color: var(--ink-8);
+  font-family: "ObsMath", "Source Serif Text", Georgia, "Times New Roman", serif;
+  font-size: var(--fs-body);
+  line-height: 1.62;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, p, figure, blockquote, dl, dd { margin: 0; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+img, svg { display: block; max-width: 100%; height: auto; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+table { border-collapse: collapse; }
+b, strong { font-weight: 600; }
+sub { font-size: 0.72em; vertical-align: -0.18em; }
+
+h1, h2, h3 { text-wrap: balance; }
+p, li { text-wrap: pretty; }
+
+a { color: var(--rose); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+a:visited { color: var(--rose-dim); }
+
+::selection { background: var(--rose); color: var(--ink-0); }
+
+:focus-visible {
+  outline: 2px solid var(--rose);
+  outline-offset: 3px;
+  border-radius: var(--r-1);
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: var(--s-3);
+  z-index: 100;
+  padding: var(--s-2) var(--s-4);
+  background: var(--ink-1);
+  color: var(--ink-9);
+}
+.skip-link:focus { left: var(--s-3); }
+
+.mono, .data, .line-list, .pub-year, code {
+  font-family: "Fira Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-variant-ligatures: none;
+}
+.pub-year, .data, time { font-variant-numeric: tabular-nums; }
+
+/* ───────────────────────────────────────────────────────────── grid */
+.sheet {
+  display: grid;
+  grid-template-columns:
+    [bleed-start] minmax(var(--gutter), 1fr)
+    [main-start] minmax(20ch, var(--measure)) [main-end]
+    var(--colgap)
+    [aside-start] minmax(0, var(--aside)) [aside-end]
+    minmax(var(--gutter), 1fr) [bleed-end];
+  column-gap: 0;
+}
+.sheet > * { grid-column: main-start / main-end; }
+.sheet > .full-measure { grid-column: main-start / aside-end; }
+.sheet > .fig-bleed {
+  grid-column: bleed-start / bleed-end;
+  max-width: var(--bleed-max);
+  justify-self: center;
+  width: 100%;
+}
+
+/* Each entry is its own two-column wrapper. As a bare grid child the aside
+   would align to the previous sibling's row and leave a dead gap. */
+.entry {
+  display: grid;
+  grid-column: main-start / aside-end;
+  grid-template-columns: minmax(20ch, var(--measure)) var(--colgap) minmax(0, var(--aside));
+  align-items: start;
+  padding-block: var(--s-6);
+  border-top: 1px solid var(--ink-2);
+}
+.entry > .entry-body { grid-column: 1; }
+.entry > .entry-aside { grid-column: 3; align-self: start; }
+.entry.no-aside > .entry-body { grid-column: 1 / -1; max-width: var(--measure); }
+
+/* ─────────────────────────────────────────────────────────── layout */
+.main { margin-left: var(--nav-w); }
+
+.section { padding-block: var(--s-8); }
+.section + .section { padding-top: 0; }
+
+.section-title {
+  font-family: "Source Serif Text", Georgia, serif;
+  font-size: var(--fs-h2);
+  font-weight: 600;
+  color: var(--ink-9);
+  line-height: 1.2;
+  padding-bottom: var(--s-3);
+  border-bottom: 1px solid var(--ink-3);
+  margin-bottom: var(--s-6);
+}
+
+/* ─────────────────────────────────────────────────────────── header */
+.site-header {
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: var(--nav-w);
+  z-index: 40;
+  border-right: 1px solid var(--ink-2);
+  background: var(--ink-0);
+  overflow-y: auto;
+}
+.header-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: var(--s-6) var(--s-4);
+  gap: var(--s-5);
+}
+.brand-lockup { display: flex; align-items: center; gap: var(--s-3); }
+.brand-mark img {
+  width: 34px; height: 34px;
+  border-radius: var(--r-0);
+  outline: 1px solid var(--ink-3);
+  outline-offset: -0.5px;
+}
+.brand-text strong {
+  display: block;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--ink-9);
+}
+.brand-text span { font-size: var(--fs-data); color: var(--ink-7); }
+
+.navmenu ul { display: flex; flex-direction: column; gap: 1px; }
+.navmenu a {
+  display: block;
+  padding: var(--s-2) var(--s-2);
+  font-size: var(--fs-small);
+  color: var(--ink-7);
+  border-left: 1px solid transparent;
+}
+.navmenu a:hover { color: var(--ink-9); text-decoration: none; }
+.navmenu a.active { color: var(--ink-9); border-left-color: var(--rose); }
+
+.header-social { display: flex; gap: var(--s-3); margin-top: auto; }
+.header-social a { font-size: var(--fs-data); color: var(--ink-7); }
+.section-intro { margin-top: calc(var(--s-3) * -1); margin-bottom: var(--s-6); color: var(--ink-7); font-size: var(--fs-small); }
+
+.header-toggle {
+  position: fixed;
+  top: var(--s-4); right: var(--s-4);
+  z-index: 60;
+  display: none;
+  width: 44px; height: 44px;
+  align-items: center; justify-content: center;
+  color: var(--ink-9);
+  background: var(--ink-1);
+  border: 1px solid var(--ink-3);
+}
+
+/* ───────────────────────────────────────────────────────── masthead */
+.masthead { padding-block: var(--s-8) var(--s-7); }
+.masthead-grid {
+  display: grid;
+  grid-column: main-start / aside-end;
+  grid-template-columns: minmax(20ch, var(--measure)) var(--colgap) minmax(0, var(--aside));
+  align-items: start;
+}
+.masthead-body { grid-column: 1; }
+.masthead-aside { grid-column: 3; }
+
+.masthead h1 {
+  font-family: "Source Serif Display", "Source Serif Text", Georgia, serif;
+  font-size: var(--fs-name);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  color: var(--ink-9);
+}
+.masthead-role {
+  margin-top: var(--s-3);
+  font-size: var(--fs-data);
+  color: var(--ink-7);
+  font-family: "Fira Mono", ui-monospace, monospace;
+}
+.masthead-lede {
+  margin-top: var(--s-5);
+  font-size: var(--fs-lede);
+  line-height: 1.5;
+  color: var(--ink-8);
+}
+.masthead-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-5);
+  margin-top: var(--s-6);
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--ink-2);
+  font-size: var(--fs-small);
+}
+
+/* ──────────────────────────────────────────────────────────── plate */
+.plate {
+  width: 100%;
+  max-width: var(--aside);
+  padding: 12px;
+  background: var(--ink-1);
+  border: 0;
+  border-radius: var(--r-0);
+  box-shadow: var(--shadow-0);
+}
+.plate img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  outline: 1px solid var(--ink-4);
+  outline-offset: -0.5px;
+  border-radius: var(--r-0);
+  /* No filter, no mask, no blend mode. The photo is brighter than the page
+     at its own edge, so there is no seam to hide — only a step to stage. */
+}
+.plate figcaption {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--ink-2);
+}
+.plate .cap-name {
+  display: block;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--ink-9);
+  line-height: 1.3;
+}
+.plate .cap-meta {
+  display: block;
+  margin-top: 4px;
+  font-size: var(--fs-data);
+  line-height: 1.45;
+  color: var(--ink-7);
+}
+
+/* ────────────────────────────────────────────────────────── entries */
+.entry-title {
+  font-family: "Source Serif Text", Georgia, serif;
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  color: var(--ink-9);
+  line-height: 1.3;
+}
+.entry-body p { margin-top: var(--s-3); }
+.entry-aside {
+  font-family: "Fira Mono", ui-monospace, monospace;
+  font-size: var(--fs-data);
+  line-height: 1.6;
+  color: var(--ink-7);
+}
+.entry-aside dt { color: var(--ink-5); }
+.entry-aside dd { margin: 0 0 var(--s-3) 0; color: var(--ink-7); }
+
+/* ───────────────────────────────────────────────────── publications */
+.pub-group + .pub-group { margin-top: var(--s-7); }
+.pub-group > h3 {
+  font-family: "Source Serif Text", Georgia, serif;
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  color: var(--ink-9);
+  padding-bottom: var(--s-3);
+  border-bottom: 1px solid var(--ink-3);
+}
+.pub-row {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  column-gap: var(--s-5);
+  padding-block: var(--s-5);
+  border-bottom: 1px solid var(--ink-2);
+}
+.pub-year { font-size: var(--fs-data); color: var(--ink-7); padding-top: 0.35em; }
+.pub-title { font-size: var(--fs-body); color: var(--ink-9); line-height: 1.4; }
+.pub-authors { margin-top: var(--s-2); font-size: var(--fs-small); color: var(--ink-8); }
+.pub-authors .self { font-weight: 600; color: var(--ink-9); }
+.pub-venue { font-style: italic; font-size: var(--fs-small); color: var(--ink-7); }
+.pub-links { margin-top: var(--s-2); font-size: var(--fs-data); display: flex; gap: var(--s-4); }
+
+/* ───────────────────────────────────────────────────────── footer */
+.site-footer {
+  margin-left: var(--nav-w);
+  padding: var(--s-6) 0 var(--s-7);
+  border-top: 1px solid var(--ink-2);
+  font-size: var(--fs-data);
+  color: var(--ink-7);
+}
+
+/* ──────────────────────────────────────────── reduction: under 60rem */
+@media (max-width: 60rem) {
+  :root { --nav-w: 0rem; }
+
+  .main, .site-footer { margin-left: 0; }
+
+  .sheet {
+    grid-template-columns:
+      [bleed-start] var(--gutter)
+      [main-start aside-start] minmax(0, 1fr) [main-end aside-end]
+      var(--gutter) [bleed-end];
+  }
+  .sheet > *, .sheet > .full-measure { grid-column: main-start / main-end; }
+  .sheet > .fig-bleed { grid-column: bleed-start / bleed-end; }
+
+  .entry, .masthead-grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-column: main-start / main-end;
+  }
+  .entry > .entry-body, .entry > .entry-aside,
+  .masthead-body, .masthead-aside { grid-column: 1; }
+
+  /* The aside reflows directly under its own prose, so the numbers stay
+     attached to the claim they belong to. */
+  .entry-aside {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-4);
+    margin-top: var(--s-4);
+    padding-top: var(--s-3);
+    border-top: 1px solid var(--ink-2);
+  }
+  .entry-aside dd { margin-bottom: 0; }
+
+  .masthead-aside { margin-top: var(--s-6); }
+  .plate { max-width: var(--aside); }
+
+  .header-toggle { display: flex; }
+  .site-header {
+    inset: 0 auto 0 0;
+    width: min(86vw, 20rem);
+    transform: translateX(-101%);
+    transition: transform 280ms var(--settle);
+    box-shadow: var(--shadow-overlay);
+    border-right: 1px solid var(--ink-3);
+  }
+  .site-header.header-show { transform: translateX(0); }
+
+  .section { padding-block: var(--s-7); }
+}
+
+@media (max-width: 30rem) {
+  .pub-row { grid-template-columns: 1fr; row-gap: var(--s-2); }
+  .pub-year { padding-top: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
