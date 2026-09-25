@@ -41,6 +41,27 @@
   --l-glow:  0.660; --c-glow:  0.230;   /* radial washes, bloom, rims */
   --l-wash:  0.430; --c-wash:  0.090;   /* tinted borders, card fills */
 
+  /* Per-hue chroma CEILINGS at text lightness, solved by bisection for the
+     maximum in-gamut chroma. Four of the nine hues — Hα, Na D, the O/B
+     continuum and Hγ — do NOT fit in sRGB at C 0.115 and L 0.845, so without
+     these the browser silently clips them and the frozen-lightness discipline
+     the whole system rests on quietly stops holding. Raising --c-text above
+     a ceiling does literally nothing; it maps straight back. */
+  --cmax-halpha: 0.085; --cmax-gold: 0.106;  --cmax-green: 0.191;
+  --cmax-o3:     0.158; --cmax-cyan: 0.144;  --cmax-magenta: 0.120;
+  --cmax-lya:    0.115; --cmax-violet: 0.083; --cmax-blue: 0.076;
+
+  /* Ready-made text-tier accents, each clamped to its own ceiling. */
+  --a-halpha:  oklch(var(--l-text) min(var(--c-text), var(--cmax-halpha))  var(--h-halpha));
+  --a-gold:    oklch(var(--l-text) min(var(--c-text), var(--cmax-gold))    var(--h-gold));
+  --a-green:   oklch(var(--l-text) min(var(--c-text), var(--cmax-green))   var(--h-green));
+  --a-o3:      oklch(var(--l-text) min(var(--c-text), var(--cmax-o3))      var(--h-o3));
+  --a-cyan:    oklch(var(--l-text) min(var(--c-text), var(--cmax-cyan))    var(--h-cyan));
+  --a-blue:    oklch(var(--l-text) min(var(--c-text), var(--cmax-blue))    var(--h-blue));
+  --a-violet:  oklch(var(--l-text) min(var(--c-text), var(--cmax-violet))  var(--h-violet));
+  --a-magenta: oklch(var(--l-text) min(var(--c-text), var(--cmax-magenta)) var(--h-magenta));
+  --a-lya:     oklch(var(--l-text) min(var(--c-text), var(--cmax-lya))     var(--h-lya));
+
   /* ─────────── MAGMA — the colormap in his own TNG figures ───────────
      Verified against matplotlib's _cm_listed.py. The punchline: magma's zero
      point is #000004, which is --ink-bg to within two 8-bit levels. The page
@@ -76,13 +97,13 @@
   --glow-violet: oklch(var(--l-glow) var(--c-glow) var(--h-violet) / 0.26);
   --text: var(--ink-text);
   --muted: var(--ink-muted);
-  --accent:   oklch(var(--l-text) var(--c-text) var(--h-cyan));
-  --accent-2: oklch(var(--l-text) var(--c-text) var(--h-violet));
-  --accent-3: oklch(var(--l-text) var(--c-text) var(--h-lya));
-  --accent-4: oklch(var(--l-text) var(--c-text) var(--h-blue));
-  --gold:     oklch(var(--l-text) var(--c-text) var(--h-gold));
-  --magenta:  oklch(var(--l-text) var(--c-text) var(--h-magenta));
-  --green:    oklch(var(--l-text) var(--c-text) var(--h-green));
+  --accent:   var(--a-cyan);
+  --accent-2: var(--a-violet);
+  --accent-3: var(--a-lya);
+  --accent-4: var(--a-blue);
+  --gold:     var(--a-gold);
+  --magenta:  var(--a-magenta);
+  --green:    var(--a-green);
   --shadow: 0 28px 90px rgba(0, 0, 0, 0.62);
   --header-width: 310px;
   color-scheme: dark;
@@ -90,20 +111,21 @@
 }
 
 /* One number per component. A new accent is a hue, nothing else. */
-.research-card    { --h: var(--h-cyan);  --dl: 0; }
-.project-card     { --h: var(--h-o3);    --dl: -0.055; }
-.publication-card { --h: var(--h-green); --dl: 0.055; }
-.timeline-content { --h: var(--h-gold);  --dl: 0; }
-.contact-tile     { --h: var(--h-violet); --dl: 0; }
-.link-section     { --h: var(--h-blue);  --dl: 0; }
+.research-card    { --h: var(--h-cyan);   --cmax: var(--cmax-cyan);   --dl: 0; }
+.project-card     { --h: var(--h-o3);     --cmax: var(--cmax-o3);     --dl: -0.055; }
+.publication-card { --h: var(--h-green);  --cmax: var(--cmax-green);  --dl: 0.055; }
+.timeline-content { --h: var(--h-gold);   --cmax: var(--cmax-gold);   --dl: 0; }
+.contact-tile     { --h: var(--h-violet); --cmax: var(--cmax-violet); --dl: 0; }
+.link-section     { --h: var(--h-blue);   --cmax: var(--cmax-blue);   --dl: 0; }
 
 [class*="-card"],
 [class*="-panel"],
 .contact-tile,
 .link-section {
   --h: var(--h-cyan);
+  --cmax: var(--cmax-cyan);
   --dl: 0;
-  --card-accent: oklch(calc(var(--l-text) + var(--dl)) var(--c-text) var(--h));
+  --card-accent: oklch(calc(var(--l-text) + var(--dl)) min(var(--c-text), var(--cmax)) var(--h));
   --accent-glow: oklch(var(--l-glow) var(--c-glow) var(--h) / 0.28);
   --accent-wash: oklch(var(--l-wash) var(--c-wash) var(--h) / 0.55);
 }
