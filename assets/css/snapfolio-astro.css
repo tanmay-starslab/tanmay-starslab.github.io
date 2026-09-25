@@ -2756,7 +2756,17 @@ sub { font-size: 0.72em; vertical-align: -0.18em; }
 #plate-field {
   position: fixed;
   inset: 0;
-  z-index: 1;
+  /* z-index 0, NOT 1. At 1 it tied with .cosmic-image-shade — same value, same
+     root stacking context, so DOM order decided and the nebula painted ON TOP
+     of the contrast scrim it is supposed to sit under, erasing the individual
+     stars in the photograph beneath. 0 puts it above .cosmic-image-bg and below
+     the scrim, which is where an emission layer belongs. */
+  z-index: 0;
+  /* screen, matching .cosmic-image-bg and #galaxy-canvas. The canvas is opaque
+     (alpha: false), so this is the only compositing rule in play: emission is
+     additive light, black contributes nothing, and this layer can never
+     subtract brightness from the star field underneath it. */
+  mix-blend-mode: screen;
   pointer-events: none;
   opacity: 0;
   transition: opacity 900ms var(--ease-out);
@@ -2785,3 +2795,191 @@ html.gl-ready #galaxy-canvas { opacity: 0.34; }   /* 2D stars survive as foregro
    `clip`, not `hidden`: clip creates no scroll container. */
 .split-line { padding-block: 0.18em; display: inline-block; }
 .split-line-mask { overflow: clip !important; margin-block: -0.18em; }
+
+/* ════════════════════════════════════════════════════════ THE SIGHTLINE
+   A live O VI absorption measurement. .ovi-panel is matched by the
+   [class*="-panel"] group, so it inherits the whole glass recipe, the bevel,
+   the pointer glow AND the group's default accent — cyan at L 0.845 — and that
+   default is deliberate rather than lazy.
+
+   A seventh hue was tried first, Ly-α at 340. It does not fit. The six
+   component lightnesses form an even ladder at 0.70 / 0.74 / 0.78 / 0.82 /
+   0.86 / 0.90, a minimum adjacent ΔL of 0.040, which is the only separation
+   dichromacy preserves. A seventh entry either interleaves (L 0.795 sits
+   0.015 from .contact-tile, inside one JND) or extends below the ladder — and
+   extending fails harder: computed against the panel's own surface, oklch(0.66
+   0.115 340) is 2.20:1 and oklch(0.70 0.115 340) is 2.76:1. The slider track
+   and thumb are real controls, so WCAG 1.4.11 wants 3:1, and both miss it.
+   The cyan default is 5:1+ on the same surface, belongs to the research
+   section this instrument measures for, and matches λ1031.93 in the figure. */
+
+.sightline .container { max-width: 1120px; }
+
+.ovi-panel {
+  padding: clamp(1.1rem, 2.6vw, 2rem);
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.6rem);
+}
+
+.ovi-figure { margin: 0; display: grid; gap: 0.85rem; }
+
+/* aspect-ratio, not a fixed height: the figure has to stay a figure at 320px
+   and at 1600px, and a canvas with a fixed height is the usual way that breaks.
+   The floor stops it collapsing to a slot on a phone in landscape. */
+#ovi-canvas {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 7;
+  min-height: 210px;
+  border-radius: 12px;
+  background:
+    linear-gradient(180deg in oklab,
+      color-mix(in oklab, var(--ink-void) 92%, transparent),
+      color-mix(in oklab, var(--ink-void) 74%, transparent));
+}
+
+.ovi-caption { display: grid; gap: 0.5rem; }
+
+.ovi-readout {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: clamp(0.78rem, 1.5vw, 0.9rem);
+  line-height: 1.55;
+  color: var(--ink-text-2);
+  /* min-height of two lines: the caption changes length as the ratio sentence
+     changes, and without this the whole panel reflows under the reader's
+     thumb while they are dragging the slider that causes it. */
+  min-height: 2.9em;
+}
+
+.ovi-method {
+  margin: 0;
+  font-size: 0.74rem;
+  line-height: 1.6;
+  color: var(--ink-muted);
+  max-width: 78ch;
+}
+
+.ovi-controls {
+  display: grid;
+  gap: clamp(0.7rem, 1.6vw, 1.1rem);
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.ovi-control { margin: 0; display: grid; gap: 0.4rem; }
+
+.ovi-control label {
+  font-size: 0.8rem;
+  color: var(--ink-text-2);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5ch;
+  align-items: baseline;
+}
+
+.ovi-unit {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-muted);
+}
+
+/* The track is styled, the thumb is 22px on a 44px-tall input: the pointer
+   target meets 2.5.5 without the control looking like a 44px slab. */
+.ovi-control input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 44px;
+  background: transparent;
+  cursor: ew-resize;
+  /* touch-action is deliberately NOT set. Overriding it here is how a slider
+     inside a scrolling page eats the vertical swipe that the reader meant for
+     the page, and a range input already handles its own horizontal drag. */
+}
+.ovi-control input[type="range"]::-webkit-slider-runnable-track {
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg,
+    color-mix(in oklab, var(--card-accent) 55%, transparent),
+    color-mix(in oklab, var(--ink-dim) 70%, transparent));
+}
+.ovi-control input[type="range"]::-moz-range-track {
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg,
+    color-mix(in oklab, var(--card-accent) 55%, transparent),
+    color-mix(in oklab, var(--ink-dim) 70%, transparent));
+}
+.ovi-control input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px; height: 22px;
+  margin-top: -10px;
+  border-radius: 50%;
+  background: var(--card-accent);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.55), 0 4px 14px -4px var(--card-accent);
+  transition: box-shadow var(--dur-xs) var(--ease-out);
+}
+.ovi-control input[type="range"]::-moz-range-thumb {
+  width: 22px; height: 22px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--card-accent);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.55), 0 4px 14px -4px var(--card-accent);
+}
+.ovi-control input[type="range"]:focus-visible {
+  outline: 2px solid var(--card-accent);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+/* ── the gutter continuum rail ──────────────────────────────────────────
+   The same numbers, 1px wide, running down the page margin: the reader meets
+   the profile in the gutter before they reach the panel that explains it.
+
+   It lives on the RIGHT and starts at 1660px, and both of those are measured
+   rather than chosen. The left gutter is not a gutter — .header-container is a
+   fixed sidebar occupying 18–292px at every desktop width, and an earlier
+   left-anchored version of this rail rendered directly on top of the
+   navigation. The right side is no better until the container stops growing:
+   at 1400px viewport the section container measures 310→1400, i.e. it ends
+   exactly at the viewport edge, with nothing to spare. The container caps at
+   1120px, so free space only opens once main exceeds ~1320px, which is a
+   viewport of roughly 1630. 1660 gives a measured 115px strip; the rail takes
+   26 of it. Below that this element does not exist, which is the correct
+   amount of a decorative instrument to show when there is nowhere to put it. */
+.ovi-rail {
+  position: fixed;
+  right: 44px;
+  top: 50%;
+  translate: 0 -50%;
+  width: 26px;
+  height: min(560px, 62vh);
+  z-index: 3;
+  pointer-events: none;
+  display: none;
+  overflow: visible;
+}
+.ovi-rail path {
+  stroke: var(--a-cyan);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.62;
+}
+@media (min-width: 1660px) {
+  .ovi-rail { display: block; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ovi-rail path { transition: none !important; stroke-dashoffset: 0 !important; }
+}
+
+@media print {
+  .ovi-rail { display: none !important; }
+  .ovi-controls { display: none !important; }
+}
+
+@media (forced-colors: active) {
+  .ovi-rail { display: none; }
+  #ovi-canvas { forced-color-adjust: none; }
+}

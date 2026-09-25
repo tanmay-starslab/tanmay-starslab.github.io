@@ -115,6 +115,7 @@
           <li><a href="#home" class="active"><i class="bi bi-house navicon" aria-hidden="true"></i><span>Home</span></a></li>
           <li><a href="#about"><i class="bi bi-person navicon" aria-hidden="true"></i><span>About</span></a></li>
           <li><a href="#research"><i class="bi bi-stars navicon" aria-hidden="true"></i><span>Research</span></a></li>
+          <li><a href="#sightline"><i class="bi bi-activity navicon" aria-hidden="true"></i><span>Sightline</span></a></li>
           <li><a href="#past-projects"><i class="bi bi-grid-3x3-gap navicon" aria-hidden="true"></i><span>Past Projects</span></a></li>
           <li><a href="#publications"><i class="bi bi-journal-text navicon" aria-hidden="true"></i><span>Publications</span></a></li>
           <li><a href="#timeline"><i class="bi bi-diagram-3 navicon" aria-hidden="true"></i><span>Education</span></a></li>
@@ -133,6 +134,8 @@
     </div>
   </header>
 
+  <svg id="ovi-rail" class="ovi-rail" viewBox="0 0 26 560" preserveAspectRatio="none"
+       aria-hidden="true" focusable="false"><path fill="none" /></svg>
   <main id="main" class="main">
     <section id="home" class="hero section" aria-labelledby="hero-title">
       <div class="hero-nebula" aria-hidden="true"></div>
@@ -145,7 +148,7 @@
               <a href="https://sese.asu.edu/" target="_blank" rel="noopener">School of Earth and Space Exploration</a>
             </p>
             <h1 id="hero-title">Tanmay Singh</h1>
-            <p class="hero-role">Third Year Ph.D. Student | Astrophysics</p>
+            <p class="hero-role">Fourth Year Ph.D. Candidate | Astrophysics</p>
             <p class="hero-subtitle">
               Hi! I am Tanmay, currently a PhD student in the <a href="https://sese.asu.edu/" target="_blank" rel="noopener">School of Earth and Space Exploration</a>
               at <a href="https://www.asu.edu/" target="_blank" rel="noopener">Arizona State University</a>, advised by
@@ -281,6 +284,54 @@
               <span>Si III</span>
             </div>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE SIGHTLINE. Everything here is real HTML: the heading, the caption
+         and both range inputs work with spectrum.js deleted or blocked. What
+         the script adds is the figure, and a canvas that never existed is not
+         a canvas that broke. -->
+    <section id="sightline" class="section sightline" aria-labelledby="sightline-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Instrument</p>
+          <h2 data-split id="sightline-title">A sightline through the halo.</h2>
+        </div>
+
+        <div class="ovi-panel reveal" id="ovi-panel">
+          <figure class="ovi-figure">
+            <canvas id="ovi-canvas" role="img"
+                    aria-label="Synthetic O VI doublet absorption spectrum."></canvas>
+            <figcaption class="ovi-caption">
+              <p class="ovi-readout" id="ovi-readout" aria-live="polite" aria-atomic="true">
+                Drag either control to change the absorber.
+              </p>
+              <p class="ovi-method">
+                O&nbsp;VI &#955;&#955;1031.93, 1037.62 (Morton&nbsp;2003, via VPFIT).
+                Voigt&ndash;Hjerting profile after Tepper-Garc&iacute;a (2006),
+                convolved with a Gaussian line-spread function at
+                R&nbsp;&#8776;&nbsp;18,000 (FWHM 16.7&nbsp;km&nbsp;s&#8315;&#185;),
+                with Poisson noise at S/N&nbsp;&#8776;&nbsp;14 per pixel.
+                Synthetic: a single absorber, not a measurement of a real sightline.
+              </p>
+            </figcaption>
+          </figure>
+
+          <div class="ovi-controls">
+            <p class="ovi-control">
+              <label for="ovi-logn">Column density
+                <span class="ovi-unit">log N(O&nbsp;VI) / cm&#8315;&#178;</span></label>
+              <input type="range" id="ovi-logn" min="12.5" max="15.5" step="0.01" value="14.20"
+                     aria-valuetext="log N(O VI) = 14.20 per square centimetre">
+            </p>
+            <p class="ovi-control">
+              <label for="ovi-b">Doppler parameter
+                <span class="ovi-unit">b / km&nbsp;s&#8315;&#185;</span></label>
+              <input type="range" id="ovi-b" min="15" max="60" step="1" value="25"
+                     aria-valuetext="Doppler b = 25 kilometres per second">
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -555,6 +606,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js" defer></script>
+  <script src="assets/js/spectrum.js" defer></script>
   <script src="assets/js/plate-field.js" defer></script>
   <script src="assets/js/choreography.js" defer></script>
 </body>
