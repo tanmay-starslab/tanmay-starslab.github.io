@@ -16,6 +16,7 @@
   var nInput = document.getElementById("ovi-logn");
   var bInput = document.getElementById("ovi-b");
   var readout = document.getElementById("ovi-readout");
+  var live = document.getElementById("ovi-live");
   if (!canvas || !nInput || !bInput || !readout) return;
 
   var ctx = canvas.getContext("2d");
@@ -32,9 +33,14 @@
   // Tepper-Garcia (2006) MNRAS 369, 2025; erratum 2007 MNRAS 382, 1375.
   function voigtH(a, x) {
     var x2 = x * x, h = Math.exp(-x2);
-    // The 1/x^2 terms diverge at line centre. This guard is the whole
-    // difference between a profile and a NaN down the middle of the figure.
-    if (x2 < 1e-6) return h;
+    // The 1/x^2 terms are singular at exactly x = 0, so a guard is needed.
+    // The threshold is 1e-12, not 1e-6: at 1e-6 the guard fires on real grid
+    // samples (the smallest |x| any shipped grid reaches is 2.8e-5) and
+    // dropping the -2a/sqrt(pi) line-centre term there puts a step of 1.5e-4
+    // in H at |x| = 1e-3. Sub-pixel in the drawn flux, but it is a
+    // discontinuity in a profile, and no sample ever lands on a line centre
+    // anyway — so the guard should catch the true singularity and nothing else.
+    if (x2 < 1e-12) return h;
     var q = 1.5 / x2;
     return h - (a / (Math.sqrt(Math.PI) * x2)) *
       (h * h * (4 * x2 * x2 + 7 * x2 + 4 + q) - q - 1);
@@ -43,7 +49,8 @@
   function tau(L, N, b, dv) {
     // 1.4974e-15 = sqrt(pi) e^2 / (m_e c), in [Angstrom, cm^-2, km/s].
     // Sanity check anyone can run: Ly-alpha (f 0.41640, lam 1215.6701) at
-    // N = 1e13, b = 20 gives tau_0 = 0.3790, the right answer for a ~65 mA line.
+    // N = 1e13, b = 20 gives tau_0 = 0.378996, which is a rest-frame
+    // equivalent width of 47 mA (54.5 mA in the optically-thin limit).
     return 1.4974e-15 * L.f * L.lam * N / b * voigtH(damping(L, b), dv / b);
   }
 
@@ -59,7 +66,10 @@
   // drag. Sampling is capped, and the display interpolates.
   var MIN_DISP = 1.5;
 
-  var W = 0, H = 0, dpr = 1;
+  var W = 0, H = 0, dpr = 1, lastDpr = 0;
+
+  // One realisation of the exposure, on a wavelength grid that never changes.
+  var NOISE_N = 2400, NOISE = new Float64Array(NOISE_N);
   var nSamp = 0, lam = null, model = null, conv = null, noise = null, kern = null;
 
   function gauss(rng) {           // Box-Muller, deterministic
@@ -77,6 +87,11 @@
     };
   }
 
+  (function () {
+    var rng = mulberry(20260925);
+    for (var i = 0; i < NOISE_N; i++) NOISE[i] = gauss(rng);
+  })();
+
   function buildGrid(widthPx) {
     var spanKms = C_KMS * (LAM_HI - LAM_LO) / L1.lam;
     var maxSamples = Math.floor(spanKms / MIN_DISP);
@@ -85,13 +100,19 @@
     model = new Float64Array(nSamp);
     conv = new Float64Array(nSamp);
     noise = new Float64Array(nSamp);
-    var rng = mulberry(20260925);
     for (var i = 0; i < nSamp; i++) {
       lam[i] = LAM_LO + (LAM_HI - LAM_LO) * (i / (nSamp - 1));
-      // Frozen unit deviates. Regenerating these per frame would make the
-      // noise shimmer while the reader drags, which reads as decoration; a
-      // real exposure has one realisation and it stays put.
-      noise[i] = gauss(rng);
+      // The deviates come from a FIXED wavelength grid, interpolated onto
+      // whatever grid this width produces. Drawing them in sample order from a
+      // fixed seed keeps the sequence stable but not the realisation: at 1032
+      // samples deviate 500 sits at 1034.7346 A and at 1031 samples it sits at
+      // 1034.7398, so every one-pixel resize re-mapped all thousand of them and
+      // the noise crawled during a window drag. A real exposure has one
+      // realisation and it stays where it was measured.
+      var t = (i / (nSamp - 1)) * (NOISE_N - 1);
+      var k = Math.floor(t), frac = t - k;
+      if (k >= NOISE_N - 1) { noise[i] = NOISE[NOISE_N - 1]; }
+      else { noise[i] = NOISE[k] + (NOISE[k + 1] - NOISE[k]) * frac; }
     }
     var disp = spanKms / (nSamp - 1);
     var sigPx = LSF_SIGMA / disp;
@@ -207,6 +228,15 @@
     ctx.setLineDash([]);
 
     // the exposure: model + frozen Poisson deviates scaled by sqrt(F)/SNR
+    // Clipped to the plot box. The 0.02 noise floor is deliberate — it gives a
+    // saturated core 3.3px of visible read noise instead of 7e-4px — but it
+    // also takes the trace to -0.013 in flux, which is 4.3px BELOW the zero
+    // axis and into the tick band, with nothing stopping it reaching the
+    // labels at another setting.
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(PAD.l, PAD.t, W - PAD.l - PAD.r, H - PAD.t - PAD.b);
+    ctx.clip();
     ctx.globalAlpha = 0.85; ctx.strokeStyle = MUTED; ctx.lineWidth = 1;
     ctx.beginPath();
     for (var i = 0; i < nSamp; i++) {
@@ -215,6 +245,7 @@
       if (i === 0) ctx.moveTo(x2, y2); else ctx.lineTo(x2, y2);
     }
     ctx.stroke();
+    ctx.restore();
 
     // the model, over the data
     ctx.globalAlpha = 1; ctx.strokeStyle = ACCENT; ctx.lineWidth = 1.6;
@@ -230,11 +261,33 @@
   /* ── state ───────────────────────────────────────────────────────────── */
 
   function depthAt(lamRest) {
-    // nearest sample to line centre, on the CONVOLVED profile — the depth a
-    // spectrograph would record, not the intrinsic optical depth.
+    // Parabolic fit through the three samples bracketing line centre, on the
+    // CONVOLVED profile — the depth a spectrograph records, not the intrinsic
+    // optical depth.
+    //
+    // Taking the single nearest sample instead made the printed ratio a
+    // function of the canvas width. The residual offset from line centre is up
+    // to half a sample and moves INDEPENDENTLY for the two lines, so across
+    // widths 300-2130 the ratio at log N 12.5 ranged 1.926-2.049 — thirteen
+    // different two-decimal strings, some of them ABOVE the oscillator-strength
+    // ceiling of 2.0027, which is physically impossible. Worse, at a fixed
+    // log N 13.63 a three-device-pixel change in canvas width flipped the
+    // caption between "saturating" and "unsaturated" while printing the same
+    // 1.85:1 — and the live region announced the contradiction.
     var idx = Math.round((lamRest - LAM_LO) / (LAM_HI - LAM_LO) * (nSamp - 1));
-    idx = Math.max(0, Math.min(nSamp - 1, idx));
-    return 1 - conv[idx];
+    idx = Math.max(1, Math.min(nSamp - 2, idx));
+    var y0 = conv[idx - 1], y1 = conv[idx], y2 = conv[idx + 1];
+    var den = y0 - 2 * y1 + y2;
+    // den <= 0 means the three samples are collinear or concave-down: no
+    // interior minimum to interpolate, so the nearest sample IS the answer.
+    if (den > 1e-12) {
+      var d = 0.5 * (y0 - y2) / den;            // vertex offset, in samples
+      if (d > -1 && d < 1) {
+        var vertex = y1 - 0.25 * (y0 - y2) * d;
+        return 1 - Math.max(0, Math.min(1, vertex));
+      }
+    }
+    return 1 - y1;
   }
 
   function fmt(x, d) { return x.toFixed(d); }
@@ -242,6 +295,11 @@
   function caption(logN, b) {
     var d1 = depthAt(L1.lam), d2 = depthAt(L2.lam);
     var ratio = d2 > 1e-3 ? d1 / d2 : 1;
+    // Branch on the value the reader is SHOWN, not on the full-precision one.
+    // Otherwise the printed number and the word beside it are computed from
+    // different quantities, and two panels can both read "1.85:1" while one
+    // says unsaturated and the other saturating.
+    ratio = Math.round(ratio * 100) / 100;
     var note;
     // "close to", not "at": f*lambda gives exactly 2.0026, but the measured
     // depth ratio is 1.98 at log N 12.5 and already 1.88 by 13.5. Printing
@@ -264,27 +322,42 @@
   // figure; it must not be able to fall behind the control that drives it.
   // compute() is ~0.15 ms, and announcements are debounced, so this costs
   // nothing measurable.
+  // The VISIBLE caption and the ANNOUNCEMENT are two different jobs with
+  // opposite requirements, and making one DOM node do both forced them into
+  // conflict. Measured on the old single-node version: 40 arrow presses in
+  // 205ms produced 40 live-region mutations — 195 announcements a second,
+  // three times the flood its own comment warned about — because `change`
+  // fires per step during keyboard auto-repeat and published synchronously.
+  // The mirror failure was just as bad: on an input-only stream the trailing
+  // debounce reset on every tick and never fired at all, so the visible number
+  // froze at 13.00 while the curve animated to 14.45 underneath it.
+  //
+  // So: the visible readout updates eagerly, every tick. The live region is a
+  // separate visually-hidden node on a leading+trailing throttle, which fires
+  // at most ~1.7 times a second and always fires last.
   function publishCaption() {
     if (nSamp <= 0) return;
     var lg = parseFloat(nInput.value), b = parseFloat(bInput.value);
     compute(Math.pow(10, lg), b);
-    var text = caption(lg, b);
-    readout.textContent = text;
-    canvas.setAttribute("aria-label", "Synthetic O VI doublet absorption spectrum. " + text);
+    readout.textContent = caption(lg, b);
+    if (rail) drawRail();
+    announce();
   }
 
-  var pendingCaption = 0;
+  var lastSpoken = 0, pendingCaption = 0;
+  var SPEAK_MS = 600;
+  function speak() {
+    lastSpoken = Date.now();
+    if (live) live.textContent = readout.textContent;
+  }
   function announce() {
+    if (!live) return;
+    var wait = SPEAK_MS - (Date.now() - lastSpoken);
     window.clearTimeout(pendingCaption);
-    // Debounced, and fired immediately on `change` (thumb release). Announcing
-    // every `input` tick floods a screen reader with ~60 interruptions a
-    // second, which is worse than no live region at all.
-    pendingCaption = window.setTimeout(publishCaption, 400);
+    if (wait <= 0) speak();
+    else pendingCaption = window.setTimeout(speak, wait);
   }
-  function announceNow() {
-    window.clearTimeout(pendingCaption);
-    publishCaption();
-  }
+  function announceNow() { publishCaption(); }
 
   var dirty = true, rafId = 0, visible = true;
   function schedule() {
@@ -296,6 +369,12 @@
       var logN = parseFloat(nInput.value), b = parseFloat(bInput.value);
       compute(Math.pow(10, logN), b);
       draw(Math.pow(10, logN), b);
+      // drawRail() also runs from publishCaption(), which is ungated. The rail
+      // is position: fixed and visible at every scroll position, so gating it
+      // on #ovi-panel's intersection meant that focusing a slider, scrolling
+      // the panel away and pressing an arrow key left the rail showing a
+      // profile that contradicted the sentence just announced. Measured: the
+      // path data stayed byte-identical across a full sweep of both sliders.
       if (rail) drawRail();
     });
   }
@@ -306,10 +385,19 @@
     if (r.width < 1) return;
     dpr = Math.min(window.devicePixelRatio || 1, 2);
     var w = Math.round(r.width), h = Math.round(r.height);
-    if (w === W && h === H) return;
-    W = w; H = h;
-    canvas.width = Math.round(W * dpr);
-    canvas.height = Math.round(H * dpr);
+    var wantW = Math.round(w * dpr), wantH = Math.round(h * dpr);
+    // Compare against the BACKING STORE, not against remembered CSS numbers.
+    // The old gate was `w === W && h === H` and dpr took part in the transform
+    // but in no invalidation decision. Above ~1430px the canvas box is pinned
+    // by the container's max-width, so dragging the window from a Retina
+    // display to a 1x one changes dpr 2 -> 1 with the CSS box unchanged: the
+    // gate returned, the 2x buffer was kept, and the figure was drawn into its
+    // own top-left quadrant and displayed stretched. Reading canvas.width also
+    // repairs a buffer clobbered from outside, which the closure cannot see.
+    if (canvas.width === wantW && canvas.height === wantH && w === W && h === H) return;
+    W = w; H = h; lastDpr = dpr;
+    canvas.width = wantW;
+    canvas.height = wantH;
     PAD.l = W < 520 ? 44 : 58;
     buildGrid(canvas.width);
     readTokens();
@@ -327,7 +415,7 @@
       "Doppler b = " + fmt(parseFloat(bInput.value), 0) + " kilometres per second");
   }
   [nInput, bInput].forEach(function (el) {
-    el.addEventListener("input", function () { syncValueText(); invalidate(); announce(); });
+    el.addEventListener("input", function () { syncValueText(); invalidate(); publishCaption(); });
     el.addEventListener("change", function () { syncValueText(); invalidate(); announceNow(); });
   });
 
@@ -340,11 +428,16 @@
     }, { rootMargin: "200px" }).observe(panel);
   }
 
-  // A 2D context can be lost too (Chrome does evict them), and the recovery is
-  // a full rebuild: the backing store comes back cleared and undersized.
-  canvas.addEventListener("contextlost", function (e) { e.preventDefault(); }, false);
+  // A 2D context can be lost too (Chrome does evict them). There is NO
+  // preventDefault here, and that is the entire point: canvas-2D inverts the
+  // WebGL idiom. Per the HTML spec the user agent restores a 2D context by
+  // default and preventDefault() OPTS OUT of restoration — so the WebGL
+  // muscle-memory version of this handler guaranteed permanent blankness and
+  // was strictly worse than having no handler at all. The width/height
+  // attributes survive a restore; only the bitmap is cleared, so redrawing is
+  // the whole recovery.
   canvas.addEventListener("contextrestored", function () {
-    W = H = 0; resize(); invalidate();
+    W = H = 0; lastDpr = 0; resize(); invalidate();
   }, false);
 
   if (document.fonts && document.fonts.ready) {
@@ -377,15 +470,26 @@
       d += (i ? "L" : "M") + x.toFixed(2) + " " + y.toFixed(2);
     }
     railPath.setAttribute("d", d);
+    var len = railPath.getTotalLength();
     if (!railPath.dataset.drawn) {
-      var len = railPath.getTotalLength();
       railPath.style.strokeDasharray = len;
       railPath.style.strokeDashoffset = len;
       railPath.getBoundingClientRect();           // force layout before transition
       railPath.style.transition = "stroke-dashoffset 900ms cubic-bezier(.22,1,.36,1)";
       railPath.style.strokeDashoffset = "0";
       railPath.dataset.drawn = "1";
+      return;
     }
+    // The dasharray is re-set on EVERY call, not just the first. Only the
+    // draw-on animation is once-only. Path length is a function of conv[], so
+    // freezing the dasharray at the initial slider values meant a single-value
+    // dash of 591 units against a path that grows to 637 at log N 15.5 / b 15 —
+    // and a single-value dasharray is dash L, gap L, so the last 46 units
+    // (8.2% of the rail, 46 screen pixels) simply stopped being painted. The
+    // same truncation appeared under prefers-reduced-motion, where the CSS
+    // pins the offset but never touches the dasharray.
+    railPath.style.strokeDasharray = len;
+    railPath.style.strokeDashoffset = "0";
   }
 
   readTokens();

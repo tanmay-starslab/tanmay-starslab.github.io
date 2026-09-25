@@ -1116,7 +1116,8 @@ html.intro-skipped .header-container {
 
    brightness capped at 1.12, not 1.20: backdrop-filter never samples outside
    the viewport, so a card crossing the top or bottom edge shows a clamped
-   band, and 1.20 makes it visible during a slow scroll. */.about-panel,
+   band, and 1.20 makes it visible during a slow scroll. */.ovi-panel,
+.about-panel,
 .contact-panel,
 .research-card,
 .project-card,
@@ -1176,6 +1177,7 @@ html.intro-skipped .header-container {
    ignores border-radius); a padded mask-composite pseudo-element can, and it
    respects border-radius: inherit. No markup added — ::before is already the
    wash, ::after was free. */
+.ovi-panel::after,
 .about-panel::after,
 .contact-panel::after,
 .research-card::after,
@@ -1221,6 +1223,7 @@ html.intro-skipped .header-container {
 }
 
 @media (hover: hover) and (pointer: fine) {
+  .ovi-panel:hover::after,
   .about-panel:hover::after,
   .contact-panel:hover::after,
   .research-card:hover::after,
@@ -1246,6 +1249,7 @@ html.intro-skipped .header-container {
 /* Focus affordance must NOT sit inside a hover query: a keyboard user on a
    tablet or a phone with a BT keyboard matches (hover: none) and would get
    no focus ring on any card. */
+.ovi-panel:focus-within::after,
 .about-panel:focus-within::after,
 .contact-panel:focus-within::after,
 .research-card:focus-within::after,
@@ -1266,6 +1270,7 @@ html.intro-skipped .header-container {
   opacity: 1;
 }
 
+.ovi-panel::before,
 .about-panel::before,
 .contact-panel::before,
 .research-card::before,
@@ -1295,6 +1300,7 @@ html.intro-skipped .header-container {
   transition: opacity 240ms ease;
 }
 
+.ovi-panel:hover,
 .about-panel:hover,
 .contact-panel:hover,
 .research-card:hover,
@@ -1321,6 +1327,7 @@ html.intro-skipped .header-container {
   transform: perspective(900px) rotateX(var(--tilt-y, 0deg)) rotateY(var(--tilt-x, 0deg)) translateY(-6px) scale(1.01);
 }
 
+.ovi-panel:hover::before,
 .about-panel:hover::before,
 .contact-panel:hover::before,
 .research-card:hover::before,
@@ -2797,10 +2804,21 @@ html.gl-ready #galaxy-canvas { opacity: 0.34; }   /* 2D stars survive as foregro
 .split-line-mask { overflow: clip !important; margin-block: -0.18em; }
 
 /* ════════════════════════════════════════════════════════ THE SIGHTLINE
-   A live O VI absorption measurement. .ovi-panel is matched by the
-   [class*="-panel"] group, so it inherits the whole glass recipe, the bevel,
-   the pointer glow AND the group's default accent — cyan at L 0.845 — and that
-   default is deliberate rather than lazy.
+   A live O VI absorption measurement.
+
+   .ovi-panel is listed BY NAME in the glass recipe, the bevel ::after, the
+   wash ::before and the hover/focus rules above. An earlier version of this
+   comment claimed it inherited all of that from the [class*="-panel"] group.
+   It does not, and the claim was worth four separate defects. That attribute
+   selector appears exactly once in this file, at line 238, and it sets custom
+   properties and nothing else — every visual rule is an enumerated class list.
+   Measured, the panel had background-image: none, border: 0, border-radius: 0,
+   backdrop-filter: none, box-shadow: none and no ::before or ::after content:
+   a bare transparent rectangle in a page of seventeen glass cards, and the one
+   panel that collapses under forced-colors because it had no border to keep.
+
+   The accent is the group default — cyan at L 0.845 — and THAT part is
+   deliberate.
 
    A seventh hue was tried first, Ly-α at 340. It does not fit. The six
    component lightnesses form an even ladder at 0.70 / 0.74 / 0.78 / 0.82 /
@@ -2846,10 +2864,14 @@ html.gl-ready #galaxy-canvas { opacity: 0.34; }   /* 2D stars survive as foregro
   font-size: clamp(0.78rem, 1.5vw, 0.9rem);
   line-height: 1.55;
   color: var(--ink-text-2);
-  /* min-height of two lines: the caption changes length as the ratio sentence
-     changes, and without this the whole panel reflows under the reader's
-     thumb while they are dragging the slider that causes it. */
-  min-height: 2.9em;
+  /* Three lines. line-height is 1.55, so two lines is 3.10em and the old
+     2.9em floor was 94% of two — it could not hold back even the 1->2 line
+     shift it was written for. Measured across both sliders at ten widths,
+     560-600px was the case that bit: the "unsaturated" branch wraps to three
+     lines and the shorter branches to two, so the panel grew and shrank by
+     19.35px as the column-density slider crossed log N 13.0 — the exact
+     reflow-under-the-thumb this is here to prevent. */
+  min-height: 4.65em;
 }
 
 .ovi-method {
@@ -2955,7 +2977,14 @@ html.gl-ready #galaxy-canvas { opacity: 0.34; }   /* 2D stars survive as foregro
   translate: 0 -50%;
   width: 26px;
   height: min(560px, 62vh);
-  z-index: 3;
+  /* 5, not 3. At 3 this sat BELOW .main (5), .deep-grain (6) and
+     .cosmic-vignette (4) while geometrically INSIDE .main's box, and was
+     visible only because .main, #sightline and #past-projects all happen to
+     compute background-color: transparent with no background-image. Give any
+     section a background and the rail disappears. That is the identical trap
+     already documented for .deep-grain a few hundred lines up, repeated and
+     surviving on luck. */
+  z-index: 5;
   pointer-events: none;
   display: none;
   overflow: visible;
@@ -2977,9 +3006,39 @@ html.gl-ready #galaxy-canvas { opacity: 0.34; }   /* 2D stars survive as foregro
 @media print {
   .ovi-rail { display: none !important; }
   .ovi-controls { display: none !important; }
+  /* The canvas printed as a ~1032x452 near-blank rectangle: its dark backdrop
+     is a CSS background and is dropped by print-color-adjust, while the trace
+     itself is --ink-muted and --a-cyan on white, i.e. about 1.5:1. The global
+     print rule's `color: #111 !important` cannot reach bitmap pixels. The
+     caption and method paragraph carry every number the figure shows, and they
+     print black and read correctly, so nothing is lost by dropping the empty
+     box. */
+  #ovi-canvas { display: none !important; }
 }
 
 @media (forced-colors: active) {
   .ovi-rail { display: none; }
   #ovi-canvas { forced-color-adjust: none; }
 }
+
+
+/* The project had no visually-hidden utility and the sightline needs two: the
+   beam's keyboard instructions and the spectrum's live region. clip-path with a
+   1px box, NOT display:none or visibility:hidden — both of those remove the
+   text from the accessibility tree, which is the only place it was ever for. */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0; border: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Without JS the canvas is a 1032x452 empty box with intrinsic size 300x150,
+   no fallback children and an aria-label announcing a spectrum that was never
+   drawn — assistive tech told there is an image where there is nothing. The
+   heading, the caption, the method paragraph and both labelled sliders are all
+   real HTML and stay; only the empty frames go. */
+html:not(.js) #ovi-canvas { display: none; }
+html:not(.js) .ovi-rail { display: none !important; }

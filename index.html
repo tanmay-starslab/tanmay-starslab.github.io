@@ -69,6 +69,12 @@
          this watchdog disarms the gate and the page renders in full. Without
          it, gating on "some script ran" is not the same as "the reveal system
          works", and the page still ends up blank. */
+      // "js" is unconditional and permanent: it is the hook that lets CSS
+      // hide elements that are meaningless without scripting, such as the
+      // spectrum canvas, which otherwise renders as a 452px empty box
+      // carrying role="img" and a label promising a plot that is not there.
+      // It is deliberately NOT js-reveal, which the watchdog below removes.
+      el.classList.add("js");
       el.classList.add("js-reveal");
       window.setTimeout(function () {
         if (!window.__revealReady) el.classList.remove("js-reveal");
@@ -301,12 +307,21 @@
 
         <div class="ovi-panel reveal" id="ovi-panel">
           <figure class="ovi-figure">
+            <!-- A short, STATIC label. It used to be the full caption, copied
+                 from the paragraph directly below, so a screen reader read the
+                 same sentence twice in a row. The figcaption carries the
+                 numbers; the image only needs to say what it is. -->
             <canvas id="ovi-canvas" role="img"
-                    aria-label="Synthetic O VI doublet absorption spectrum."></canvas>
+                    aria-label="Plot of the O VI doublet absorption profile."></canvas>
             <figcaption class="ovi-caption">
-              <p class="ovi-readout" id="ovi-readout" aria-live="polite" aria-atomic="true">
+              <p class="ovi-readout" id="ovi-readout">
                 Drag either control to change the absorber.
               </p>
+              <!-- The live region is a SEPARATE node from the visible caption.
+                   One node cannot be both eagerly updated for sighted readers
+                   and throttled for screen readers; trying made it fire 195
+                   times a second on keyboard auto-repeat. -->
+              <p class="visually-hidden" id="ovi-live" aria-live="polite" aria-atomic="true"></p>
               <p class="ovi-method">
                 O&nbsp;VI &#955;&#955;1031.93, 1037.62 (Morton&nbsp;2003, via VPFIT).
                 Voigt&ndash;Hjerting profile after Tepper-Garc&iacute;a (2006),
