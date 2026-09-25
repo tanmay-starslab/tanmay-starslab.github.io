@@ -305,6 +305,49 @@
           <h2 data-split id="sightline-title">A sightline through the halo.</h2>
         </div>
 
+        <!-- The map. role="img" with a live-updated label, NEVER
+             role="application" — that hijacks screen-reader navigation and
+             makes every other control on the page unreachable by the reader's
+             normal keys. The beam is a real focusable control with arrow keys,
+             so the sightline is operable without a pointer. -->
+        <figure class="ovi-mapfig reveal">
+          <div class="ovi-map-wrap" id="sightline-map">
+            <canvas id="ovi-map" role="img"
+                    aria-label="Simulated O VI column-density map of a galaxy halo, brightest at the centre and fading to the frame edges."></canvas>
+            <div class="ovi-rvir" aria-hidden="true"></div>
+            <button type="button" class="ovi-beam" id="ovi-beam"
+                    aria-describedby="ovi-probe">
+              <span class="visually-hidden">Quasar sightline position. Use the arrow keys to move it across the halo; hold Shift for fine steps.</span>
+            </button>
+          </div>
+          <figcaption class="ovi-mapcap">
+            <p class="ovi-probe" id="ovi-probe" aria-live="polite" aria-atomic="true">
+              Drag the sightline across the halo.
+            </p>
+            <div class="ovi-bar-row">
+              <div class="ovi-bar">
+                <canvas id="ovi-colorbar" aria-hidden="true"></canvas>
+                <!-- Positioned at the fraction of the stretch each decade
+                     actually occupies, not spaced by a fixed gap. A tick that
+                     does not sit on the colour it names is a broken figure. -->
+                <ul class="ovi-bar-ticks" aria-hidden="true">
+                  <li>10&#185;&#178;</li><li>10&#185;&#179;</li><li>10&#185;&#8308;</li><li>10&#185;&#8309;</li>
+                </ul>
+              </div>
+              <p class="ovi-bar-label">N(O&nbsp;VI) / cm&#8315;&#178;</p>
+            </div>
+            <p class="ovi-method">
+              <strong>Analytic, not a snapshot.</strong> A &#946;-model halo
+              (&#946;&nbsp;=&nbsp;0.77, r<sub>c</sub>&nbsp;=&nbsp;0.25&nbsp;R<sub>vir</sub>)
+              projected in closed form, truncated exponentially beyond
+              1.6&nbsp;R<sub>vir</sub>, with 0.30&nbsp;dex of lognormal scatter.
+              Normalised to log&nbsp;N&nbsp;=&nbsp;14.8 at the centre, falling to
+              13.9 at R<sub>vir</sub> &mdash; the shallow decline COS-Halos measures
+              around star-forming L* galaxies. No simulation data is used here.
+            </p>
+          </figcaption>
+        </figure>
+
         <div class="ovi-panel reveal" id="ovi-panel">
           <figure class="ovi-figure">
             <!-- A short, STATIC label. It used to be the full caption, copied
@@ -621,7 +664,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js" defer></script>
-  <script src="assets/js/spectrum.js" defer></script>
+  <script src="assets/js/spectrum.js?v=1" defer></script>
+  <script src="assets/js/sightline.js?v=2" defer></script>
   <script src="assets/js/plate-field.js" defer></script>
   <script src="assets/js/choreography.js" defer></script>
 </body>

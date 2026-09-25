@@ -3042,3 +3042,128 @@ html.gl-ready #galaxy-canvas { opacity: 0.34; }   /* 2D stars survive as foregro
    real HTML and stay; only the empty frames go. */
 html:not(.js) #ovi-canvas { display: none; }
 html:not(.js) .ovi-rail { display: none !important; }
+
+
+/* ─────────────────────────────────────────── the sightline map
+   The map is generated per pixel in JS at a capped resolution and upscaled by
+   the browser, so the canvas has no border, no card and no background of its
+   own: magma at t = 0 is (0.002, 0.002, 0.014), within two 8-bit levels of the
+   page, and 41% of the frame is measured to sit below the display floor. The
+   figure therefore bleeds into the page with no seam. Give it a border and all
+   of that work is thrown away. */
+.ovi-mapfig { margin: 0 0 clamp(1rem, 2vw, 1.6rem); display: grid; gap: 0.9rem; }
+
+.ovi-map-wrap {
+  position: relative;
+  /* width is capped, NOT height. `aspect-ratio: 1/1` with `max-height: 62vh`
+     loses to the max-height and silently produces a rectangle — measured 512
+     x 213 in a short viewport — which stretches a circular halo into an
+     ellipse and turns the R_vir ring into an oval. Capping the width keeps the
+     box square at every viewport, which is what the field's own coordinates
+     assume. */
+  width: min(100%, 62vh);
+  aspect-ratio: 1 / 1;
+  margin-inline: auto;
+  touch-action: none;              /* the beam is a drag target, not a scroller;
+                                      the page still scrolls everywhere else */
+  cursor: crosshair;
+}
+
+#ovi-map {
+  display: block;
+  width: 100%;
+  height: 100%;
+  image-rendering: auto;           /* the upscale is the point: a column-density
+                                      map is a smooth field, and nearest-neighbour
+                                      would show the generation grid */
+  /* screen, so the figure genuinely bleeds. magma's t=0 is (1,1,4) out of 255,
+     but the page behind it is not black — it carries the nebula and the star
+     field — so source-over still drew a visible dark SQUARE sitting on a
+     lighter page. Under screen the map's black contributes nothing and only
+     the halo's light adds, which is both what emission does and the entire
+     reason the colormap is magma rather than viridis. No border-radius: a
+     rounded corner on a layer that is supposed to have no edge is a
+     contradiction. */
+  mix-blend-mode: screen;
+}
+
+/* R_vir at 1.0 in a frame that runs to 2.4 R_vir half-width: diameter is
+   2/4.8 = 41.67% of the box. */
+.ovi-rvir {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 41.667%; height: 41.667%;
+  translate: -50% -50%;
+  border: 1px dashed color-mix(in oklab, var(--ink-text) 38%, transparent);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.ovi-beam {
+  position: absolute;
+  width: 44px; height: 44px;       /* the target is 44px; only the crosshair shows */
+  translate: -50% -50%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: grab;
+  border-radius: 50%;
+}
+.ovi-beam::before,
+.ovi-beam::after {
+  content: "";
+  position: absolute;
+  background: var(--a-cyan);
+  box-shadow: 0 0 10px color-mix(in oklab, var(--a-cyan) 70%, transparent);
+}
+/* the beam itself: a thin vertical line dropping through the halo */
+.ovi-beam::before { left: 50%; top: -1000px; bottom: -1000px; width: 1px; translate: -50% 0; opacity: 0.5; }
+.ovi-beam::after  { left: 50%; top: 50%; width: 9px; height: 9px; translate: -50% -50%;
+                    border-radius: 50%; }
+.ovi-beam:focus-visible { outline: 2px solid var(--a-cyan); outline-offset: 2px; }
+
+.ovi-mapcap { display: grid; gap: 0.6rem; }
+
+.ovi-probe {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: clamp(0.78rem, 1.5vw, 0.9rem);
+  color: var(--ink-text);
+  min-height: 2.6em;               /* the clamp notice adds a line; reserve it so
+                                      the figure does not reflow under a drag */
+}
+
+.ovi-bar-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.9rem;
+}
+.ovi-bar { position: relative; width: 240px; padding-bottom: 1.1rem; }
+#ovi-colorbar { display: block; width: 240px; height: 10px; border-radius: 2px; }
+.ovi-bar-ticks {
+  margin: 0; padding: 0; list-style: none;
+  font-family: var(--font-mono); font-size: 0.68rem; color: var(--ink-muted);
+}
+/* The stretch runs 12.0 to 15.0, so the four decades sit at 0, 1/3, 2/3 and 1.
+   translate -50% centres each label on its own tick; the end labels are pulled
+   back inside the bar so neither overhangs. */
+.ovi-bar-ticks li {
+  position: absolute;
+  top: 0.9rem;
+  translate: -50% 0;
+  white-space: nowrap;
+}
+.ovi-bar-ticks li:nth-child(1) { left: 0;      translate: 0 0; }
+.ovi-bar-ticks li:nth-child(2) { left: 33.333%; }
+.ovi-bar-ticks li:nth-child(3) { left: 66.667%; }
+.ovi-bar-ticks li:nth-child(4) { left: 100%;   translate: -100% 0; }
+.ovi-bar-label { margin: 0; font-family: var(--font-mono); font-size: 0.68rem; color: var(--ink-muted); }
+
+@media (forced-colors: active) {
+  .ovi-map-wrap { forced-color-adjust: none; }
+  .ovi-beam::before, .ovi-beam::after { background: Highlight; }
+}
+@media print {
+  .ovi-beam { display: none !important; }
+}
