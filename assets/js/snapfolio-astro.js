@@ -335,10 +335,14 @@
 
       card.addEventListener("pointerleave", () => {
         cardEvent = null;   // otherwise a queued frame re-tilts the card
-        card.style.setProperty("--tilt-x", "0deg");
-        card.style.setProperty("--tilt-y", "0deg");
-        card.style.setProperty("--glow-x", "50%");
-        card.style.setProperty("--glow-y", "0%");
+        // removeProperty, not setProperty: an inline value beats every
+        // selector permanently, so setting these back to a literal killed the
+        // :focus-within glow after the first mouse hover. Removing them lets
+        // the registered initial-value and the CSS rules apply again.
+        card.style.removeProperty("--tilt-x");
+        card.style.removeProperty("--tilt-y");
+        card.style.removeProperty("--glow-x");
+        card.style.removeProperty("--glow-y");
       });
     });
   }

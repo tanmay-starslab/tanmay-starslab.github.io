@@ -96,9 +96,11 @@
    teleported frame to frame with zero interpolation. Registering them is the
    cheapest upgrade available in this file.
 
-   inherits: true on the glow pair specifically. With false, the ::before glow
-   breaks on every modern browser, because the pseudo-element reads the
-   PARENT's value. */
+   inherits: true on the glow pair specifically: with false the pseudo-element
+   would NOT see the parent's value and would fall back to the initial one, so
+   the ::before glow stops tracking the cursor. Note that registering also
+   gives these an initial-value, which makes every var(--glow-x, 30%) fallback
+   in this file unreachable — those sites were rewritten to literals. */
 @property --glow-x { syntax: "<percentage>"; inherits: true;  initial-value: 50%; }
 @property --glow-y { syntax: "<percentage>"; inherits: true;  initial-value: 0%; }
 @property --tilt-x { syntax: "<angle>";      inherits: false; initial-value: 0deg; }
@@ -1028,8 +1030,8 @@ html.intro-skipped .header-container {
   pointer-events: none;
   content: "";
   background:
-    radial-gradient(circle at var(--glow-x, 30%) var(--glow-y, 20%), rgba(255, 255, 255, 0.16), transparent 0 1.5px, transparent 2.5px),
-    radial-gradient(circle at calc(var(--glow-x, 30%) + 18%) calc(var(--glow-y, 20%) + 16%), oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.17), transparent 0 1.5px, transparent 2.5px),
+    radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.16), transparent 0 1.5px, transparent 2.5px),
+    radial-gradient(circle at 48% calc(var(--glow-y, 20%) + 16%), oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.17), transparent 0 1.5px, transparent 2.5px),
     linear-gradient(130deg, rgba(255, 255, 255, 0.16), transparent 22%, transparent 74%, oklch(var(--l-text) var(--cmax-lya) var(--h-lya) / 0.1));
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 30px;
@@ -1131,8 +1133,11 @@ html.intro-skipped .header-container {
 .link-card,
 .hover-lift {
   position: relative;
-  isolation: isolate;            /* mandatory, or plus-lighter punches through
-                                    to the nebula */
+  isolation: isolate;            /* strictly redundant — backdrop-filter already
+                                    makes a stacking context — but load-bearing
+                                    under prefers-reduced-transparency, which
+                                    removes backdrop-filter and would otherwise
+                                    let a negative-z child escape to .main */
   overflow: hidden;
   border: 1px solid transparent; /* NOT border: 0 — forced-colors drops
                                     backdrop-filter, box-shadow and pseudo
@@ -1189,7 +1194,10 @@ html.intro-skipped .header-container {
 .hover-lift::after {
   content: "";
   position: absolute;
-  inset: 0;
+  inset: -1px;   /* not 0: inset resolves against the PADDING box, 1px
+                    inside the transparent border, while border-radius:
+                    inherit copies the full 24px — the ring read 1px too
+                    round at each corner */
   border-radius: inherit;
   padding: 1px;
   pointer-events: none;          /* mandatory — these cards contain links */
@@ -1228,27 +1236,33 @@ html.intro-skipped .header-container {
   .education-card:hover::after,
   .personal-card:hover::after,
   .link-card:hover::after,
-  .hover-lift:hover::after,
-  .about-panel:focus-within::after,
-  .contact-panel:focus-within::after,
-  .research-card:focus-within::after,
-  .project-card:focus-within::after,
-  .publication-card:focus-within::after,
-  .timeline-content:focus-within::after,
-  .teaching-panel:focus-within::after,
-  .personal-panel:focus-within::after,
-  .link-section:focus-within::after,
-  .contact-tile:focus-within::after,
-  .fact-grid div:focus-within::after,
-  .glass-panel:focus-within::after,
-  .cosmic-card:focus-within::after,
-  .education-card:focus-within::after,
-  .personal-card:focus-within::after,
-  .link-card:focus-within::after,
-  .hover-lift:focus-within::after {
+  .hover-lift:hover::after {
     opacity: 1;   /* opacity, not padding — padding cannot composite and
-                     re-rasterizes the mask roughly 14 frames per hover */
+                     re-rasterizes the mask */
   }
+}
+
+/* Focus affordance must NOT sit inside a hover query: a keyboard user on a
+   tablet or a phone with a BT keyboard matches (hover: none) and would get
+   no focus ring on any card. */
+.about-panel:focus-within::after,
+.contact-panel:focus-within::after,
+.research-card:focus-within::after,
+.project-card:focus-within::after,
+.publication-card:focus-within::after,
+.timeline-content:focus-within::after,
+.teaching-panel:focus-within::after,
+.personal-panel:focus-within::after,
+.link-section:focus-within::after,
+.contact-tile:focus-within::after,
+.fact-grid div:focus-within::after,
+.glass-panel:focus-within::after,
+.cosmic-card:focus-within::after,
+.education-card:focus-within::after,
+.personal-card:focus-within::after,
+.link-card:focus-within::after,
+.hover-lift:focus-within::after {
+  opacity: 1;
 }
 
 .about-panel::before,
@@ -1867,9 +1881,13 @@ html.intro-skipped .header-container {
 
 html.js-reveal .reveal {
   opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 420ms cubic-bezier(0.22, 1, 0.36, 1),
-              transform 680ms cubic-bezier(0.22, 1, 0.36, 1);
+  translate: 0 22px;
+  /* `translate`, not `transform`: a separate property, so the hover 3D tilt
+     composes with it instead of being overridden.
+     An animation, not a transition: `transition` is a shorthand, and at
+     (0,2,1) this rule was resetting transition-property to opacity,transform
+     and wiping the glass transitions on 17 of the 24 cards that carry
+     .reveal — which made the whole @property registration decorative. */
 }
 
 /* Specificity must clear html.js-reveal .reveal (0,2,1) -- the hero is
@@ -1881,8 +1899,13 @@ html.js-reveal .hero .reveal {
 }
 
 html.js-reveal .reveal.is-visible {
-  opacity: 1;
-  transform: none;
+  animation: revealIn 680ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes revealIn {
+  from { opacity: 0; translate: 0 22px; }
+  60%  { opacity: 1; }
+  to   { opacity: 1; translate: none; }
 }
 
 @media (max-width: 1199px) {
@@ -2161,7 +2184,9 @@ html.js-reveal .reveal.is-visible {
   html.js-reveal .reveal,
   html.js-reveal .reveal.is-visible {
     opacity: 1;
+    translate: none;
     transform: none;
+    animation: none !important;
   }
 
   body::before,
@@ -2297,6 +2322,15 @@ html.js-reveal .reveal.is-visible {
   .timeline-item::before {
     display: none !important;
   }
+
+  /* The bevel ring would print on top of the 1px border print adds. */
+  [class*="-card"]::after,
+  [class*="-panel"]::after,
+  .contact-tile::after,
+  .link-section::after,
+  .fact-grid div::after,
+  .hero-portrait::after,
+  .hero-portrait::before { display: none !important; }
 
   /* The tiles clip their content, so an appended URL would be cut off. */
   .contact-tile a[href^="http"]::after,
@@ -2497,7 +2531,9 @@ sub { font-size: 0.72em; vertical-align: -0.18em; }
 /* Keyboard users currently get none of the glow a mouse gets. */
 [class*="-card"]:focus-within,
 [class*="-panel"]:focus-within,
-.contact-tile:focus-within {
+.contact-tile:focus-within,
+.link-section:focus-within,
+.fact-grid div:focus-within {
   --glow-x: 50%;
   --glow-y: 50%;
 }
@@ -2527,8 +2563,11 @@ sub { font-size: 0.72em; vertical-align: -0.18em; }
 
 .research-card.featured > .card-glow {
   position: absolute;
-  inset: -3px;
-  z-index: -1;
+  inset: 0;          /* -3px was clipped away by the card's overflow: hidden */
+  height: auto;      /* the base rule's height: 300px orphaned this on a
+                        660px card, so the bloom span about a centre ~180px
+                        above the crisp rim's */
+  z-index: 0;        /* -1 painted it UNDER the card's own background */
   border-radius: inherit;
   pointer-events: none;
   background: conic-gradient(from 0deg at 50% 50%,
@@ -2551,13 +2590,18 @@ sub { font-size: 0.72em; vertical-align: -0.18em; }
   [class*="-card"]::after,
   [class*="-panel"]::after,
   .contact-tile::after,
-  .link-section::after { display: none !important; }
+  .link-section::after,
+  .fact-grid div::after { display: none !important; }
 }
 
 @media (prefers-reduced-transparency: reduce) {
+  /* opacity: 1 here made the translucent decoration MORE prominent in the one
+     mode that explicitly asked for less. */
   [class*="-card"]::after,
   [class*="-panel"]::after,
-  .contact-tile::after { opacity: 1; }
+  .contact-tile::after,
+  .link-section::after,
+  .fact-grid div::after { display: none; }
 }
 
 /* ═══════════════════════════════════════════════════ PLATE I
