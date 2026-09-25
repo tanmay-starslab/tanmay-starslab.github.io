@@ -1007,7 +1007,7 @@ html.intro-skipped .header-container {
   box-shadow: var(--shadow), inset 0 1px 0 var(--glass-highlight);
   transform: perspective(1000px) rotateX(var(--tilt-y, 0deg)) rotateY(var(--tilt-x, 0deg)) translate3d(calc(var(--parallax-x, 0) * 0.4px), calc(var(--parallax-y, 0) * 0.4px), 0);
   transition: transform 500ms cubic-bezier(0.19, 1, 0.22, 1), border-color 260ms ease, box-shadow 260ms ease, filter 260ms ease;
-  animation: portraitRim 12s linear infinite;
+  animation: none;
 }
 
 .hero-portrait:hover {
@@ -2558,4 +2558,147 @@ sub { font-size: 0.72em; vertical-align: -0.18em; }
   [class*="-card"]::after,
   [class*="-panel"]::after,
   .contact-tile::after { opacity: 1; }
+}
+
+/* ═══════════════════════════════════════════════════ PLATE I
+   The portrait stays exactly 900x900. No crop, no mask, no clip-path, no
+   fade-to-black bust, no grayscale duotone, no object-fit change. Every
+   transform here is scale / rotate / translate only, which preserves 1:1 by
+   construction rather than by care.
+
+   And none of that is needed: the studio backdrop measures about L 0.20-0.22,
+   BRIGHTER than the #020304 page, so it already reads as a lit object on a
+   dark ground. That is the asset, not the problem. */
+
+.hero-portrait { overflow: visible; }
+
+/* 2. LIGHT TABLE — a warm glow BEHIND the plate, drawn from magma ramp-6/7.
+   The one place this design spends real warmth, and what makes the emulsion
+   read as backlit rather than merely framed. */
+.hero-portrait .plate-light {
+  position: absolute;
+  inset: 8% 6% 14%;
+  z-index: -2;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 45%,
+    var(--ramp-7) 0%, var(--ramp-6) 34%, transparent 72%);
+  filter: blur(34px);
+  opacity: 0.3;
+}
+
+/* 3. HALO — re-authored as a conic ring in magma. */
+.hero-portrait .portrait-halo {
+  position: absolute;
+  inset: -10px;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background: conic-gradient(from 0deg at 50% 50%,
+    var(--ramp-2), var(--ramp-4), var(--ramp-6), var(--ramp-7), var(--ramp-2));
+  filter: blur(16px) saturate(1.1);
+  opacity: 0.22;
+  animation: rimRotate 16s linear infinite;
+  will-change: transform;
+}
+
+/* 5. ONE GLINT, 16s — not two, and not 8s. A fast rotating double-glint ring
+   around a human face is the visual signature of a livestream "live now"
+   avatar badge, and a hiring committee clocks that instantly even without
+   naming it. */
+.hero-portrait::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  background:
+    conic-gradient(from var(--rim-angle) at 50% 50%,
+      transparent 0turn,
+      oklch(0.92 0.09 199) 0.04turn,
+      transparent 0.15turn,
+      transparent 1turn),
+    linear-gradient(180deg in oklab,
+      rgba(255, 255, 255, 0.58),
+      oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.22) 34%,
+      rgba(255, 255, 255, 0.05) 60%,
+      rgba(255, 255, 255, 0.05));
+  background-blend-mode: screen;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask-composite: exclude;
+  opacity: 0.82;
+  animation: rimSweep 16s linear infinite;
+  transition: opacity var(--dur-s) var(--ease-out);
+}
+
+/* Keyboard users get the same lift a mouse gets — they got none before. */
+.hero-portrait:hover::after,
+.hero-portrait:focus-within::after { opacity: 1; }
+
+/* 6. FIDUCIALS — four corner registration marks just outside the frame. */
+.hero-portrait::before {
+  content: "";
+  position: absolute;
+  inset: -9px;
+  pointer-events: none;
+  border-radius: 40px;
+  background:
+    linear-gradient(var(--ink-edge), var(--ink-edge)) 0 0 / 14px 1px no-repeat,
+    linear-gradient(var(--ink-edge), var(--ink-edge)) 0 0 / 1px 14px no-repeat,
+    linear-gradient(var(--ink-edge), var(--ink-edge)) 100% 0 / 14px 1px no-repeat,
+    linear-gradient(var(--ink-edge), var(--ink-edge)) 100% 0 / 1px 14px no-repeat,
+    linear-gradient(var(--ink-edge), var(--ink-edge)) 0 100% / 14px 1px no-repeat,
+    linear-gradient(var(--ink-edge), var(--ink-edge)) 0 100% / 1px 14px no-repeat,
+    linear-gradient(var(--ink-edge), var(--ink-edge)) 100% 100% / 14px 1px no-repeat,
+    linear-gradient(var(--ink-edge), var(--ink-edge)) 100% 100% / 1px 14px no-repeat;
+  opacity: 0.55;
+}
+
+/* 6. PLATE LABEL — this is what converts a headshot into an archival object,
+   and it is the cheapest, highest-yield element in the design. */
+.plate-label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 0.7em;
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid var(--ink-hairline);
+  font-family: var(--font-display);
+  font-variant-caps: all-small-caps;
+  font-variant-numeric: oldstyle-nums;
+  letter-spacing: 0.07em;
+  font-size: 0.86rem;
+  color: var(--ink-muted);
+}
+.plate-label .plate-id {
+  font-family: var(--font-mono);
+  font-variant-caps: normal;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+  color: var(--ink-text);
+}
+.plate-label .plate-dim {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-variant-caps: normal;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.78rem;
+  color: var(--ink-caption);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-portrait::after,
+  .hero-portrait .portrait-halo { animation: none !important; }
+}
+
+@media (forced-colors: active) {
+  .hero-portrait::before,
+  .hero-portrait::after,
+  .hero-portrait .plate-light,
+  .hero-portrait .portrait-halo { display: none !important; }
+  .plate-label { border-top-color: CanvasText; }
 }
