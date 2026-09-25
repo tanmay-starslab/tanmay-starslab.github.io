@@ -69,11 +69,14 @@
          this watchdog disarms the gate and the page renders in full. Without
          it, gating on "some script ran" is not the same as "the reveal system
          works", and the page still ends up blank. */
-      // "js" is unconditional and permanent: it is the hook that lets CSS
-      // hide elements that are meaningless without scripting, such as the
-      // spectrum canvas, which otherwise renders as a 452px empty box
-      // carrying role="img" and a label promising a plot that is not there.
-      // It is deliberately NOT js-reveal, which the watchdog below removes.
+      // "js" is unconditional and permanent: it is the hook that lets CSS hide
+      // elements that are meaningless without scripting. Its only consumers
+      // today are html:not(.js) rules for the PARKED sightline canvas and rail
+      // (see parked/sightline/README.md), so on the page as it currently ships
+      // this class gates nothing — it is kept because removing it would break
+      // that component's restore path, and because the next JS-dependent
+      // element will want it. It is deliberately NOT js-reveal, which the
+      // watchdog below removes.
       el.classList.add("js");
       // The stored motion preference is applied BEFORE first paint. Read it
       // later — from a deferred script — and the reader who asked for no
@@ -130,7 +133,6 @@
           <li><a href="#home" class="active"><i class="bi bi-house navicon" aria-hidden="true"></i><span>Home</span></a></li>
           <li><a href="#about"><i class="bi bi-person navicon" aria-hidden="true"></i><span>About</span></a></li>
           <li><a href="#research"><i class="bi bi-stars navicon" aria-hidden="true"></i><span>Research</span></a></li>
-          <li><a href="#sightline"><i class="bi bi-activity navicon" aria-hidden="true"></i><span>Sightline</span></a></li>
           <li><a href="#past-projects"><i class="bi bi-grid-3x3-gap navicon" aria-hidden="true"></i><span>Past Projects</span></a></li>
           <li><a href="#publications"><i class="bi bi-journal-text navicon" aria-hidden="true"></i><span>Publications</span></a></li>
           <li><a href="#timeline"><i class="bi bi-diagram-3 navicon" aria-hidden="true"></i><span>Education</span></a></li>
@@ -160,8 +162,6 @@
     </div>
   </header>
 
-  <svg id="ovi-rail" class="ovi-rail" viewBox="0 0 26 560" preserveAspectRatio="none"
-       aria-hidden="true" focusable="false"><path fill="none" /></svg>
   <main id="main" class="main">
     <section id="home" class="hero section" aria-labelledby="hero-title">
       <div class="hero-nebula" aria-hidden="true"></div>
@@ -310,111 +310,6 @@
               <span>Si III</span>
             </div>
           </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- THE SIGHTLINE. Everything here is real HTML: the heading, the caption
-         and both range inputs work with spectrum.js deleted or blocked. What
-         the script adds is the figure, and a canvas that never existed is not
-         a canvas that broke. -->
-    <section id="sightline" class="section sightline" aria-labelledby="sightline-title">
-      <div class="container">
-        <div class="section-heading reveal">
-          <p class="eyebrow">Instrument</p>
-          <h2 data-split id="sightline-title">A sightline through the halo.</h2>
-        </div>
-
-        <!-- The map. role="img" with a live-updated label, NEVER
-             role="application" — that hijacks screen-reader navigation and
-             makes every other control on the page unreachable by the reader's
-             normal keys. The beam is a real focusable control with arrow keys,
-             so the sightline is operable without a pointer. -->
-        <figure class="ovi-mapfig reveal">
-          <div class="ovi-map-wrap" id="sightline-map">
-            <canvas id="ovi-map" role="img"
-                    aria-label="Simulated O VI column-density map of a galaxy halo, brightest at the centre and fading to the frame edges."></canvas>
-            <div class="ovi-rvir" aria-hidden="true"></div>
-            <button type="button" class="ovi-beam" id="ovi-beam"
-                    aria-describedby="ovi-probe">
-              <span class="visually-hidden">Quasar sightline position. Use the arrow keys to move it across the halo; hold Shift for fine steps.</span>
-            </button>
-          </div>
-          <figcaption class="ovi-mapcap">
-            <p class="ovi-probe" id="ovi-probe">
-              Drag the sightline across the halo.
-            </p>
-            <!-- Separate from the visible probe, for the same reason the
-                 spectrum's live region is separate: the visible text has to
-                 track the drag, and an announcement must not. -->
-            <p class="visually-hidden" id="ovi-probe-live" aria-live="polite" aria-atomic="true"></p>
-            <div class="ovi-bar-row">
-              <div class="ovi-bar">
-                <canvas id="ovi-colorbar" aria-hidden="true"></canvas>
-                <!-- Positioned at the fraction of the stretch each decade
-                     actually occupies, not spaced by a fixed gap. A tick that
-                     does not sit on the colour it names is a broken figure. -->
-                <ul class="ovi-bar-ticks" aria-hidden="true">
-                  <li>10&#185;&#178;</li><li>10&#185;&#179;</li><li>10&#185;&#8308;</li><li>10&#185;&#8309;</li>
-                </ul>
-              </div>
-              <p class="ovi-bar-label">N(O&nbsp;VI) / cm&#8315;&#178;</p>
-            </div>
-            <p class="ovi-method">
-              <strong>Analytic, not a snapshot.</strong> A &#946;-model halo
-              (&#946;&nbsp;=&nbsp;0.77, r<sub>c</sub>&nbsp;=&nbsp;0.25&nbsp;R<sub>vir</sub>)
-              whose density carries an exponential cut-off at
-              1.9&nbsp;R<sub>vir</sub>, integrated numerically along each line of
-              sight, with 0.30&nbsp;dex of lognormal scatter. Normalised to
-              log&nbsp;N&nbsp;=&nbsp;14.80 at the centre, it falls to 13.78 at
-              R<sub>vir</sub> and 12.18 at the frame edge. No simulation data is
-              used here.
-            </p>
-          </figcaption>
-        </figure>
-
-        <div class="ovi-panel reveal" id="ovi-panel">
-          <figure class="ovi-figure">
-            <!-- A short, STATIC label. It used to be the full caption, copied
-                 from the paragraph directly below, so a screen reader read the
-                 same sentence twice in a row. The figcaption carries the
-                 numbers; the image only needs to say what it is. -->
-            <canvas id="ovi-canvas" role="img"
-                    aria-label="Plot of the O VI doublet absorption profile."></canvas>
-            <figcaption class="ovi-caption">
-              <p class="ovi-readout" id="ovi-readout">
-                Drag either control to change the absorber.
-              </p>
-              <!-- The live region is a SEPARATE node from the visible caption.
-                   One node cannot be both eagerly updated for sighted readers
-                   and throttled for screen readers; trying made it fire 195
-                   times a second on keyboard auto-repeat. -->
-              <p class="visually-hidden" id="ovi-live" aria-live="polite" aria-atomic="true"></p>
-              <p class="ovi-method">
-                O&nbsp;VI &#955;&#955;1031.93, 1037.62 (Morton&nbsp;2003, via VPFIT).
-                Voigt&ndash;Hjerting profile after Tepper-Garc&iacute;a (2006),
-                convolved with a Gaussian line-spread function at
-                R&nbsp;&#8776;&nbsp;18,000 (FWHM 16.7&nbsp;km&nbsp;s&#8315;&#185;),
-                with Poisson noise at S/N&nbsp;&#8776;&nbsp;14 per pixel.
-                Synthetic: a single absorber, not a measurement of a real sightline.
-              </p>
-            </figcaption>
-          </figure>
-
-          <div class="ovi-controls">
-            <p class="ovi-control">
-              <label for="ovi-logn">Column density
-                <span class="ovi-unit">log N(O&nbsp;VI) / cm&#8315;&#178;</span></label>
-              <input type="range" id="ovi-logn" min="12.5" max="15.5" step="0.01" value="14.20"
-                     aria-valuetext="log N(O VI) = 14.20 per square centimetre">
-            </p>
-            <p class="ovi-control">
-              <label for="ovi-b">Doppler parameter
-                <span class="ovi-unit">b / km&nbsp;s&#8315;&#185;</span></label>
-              <input type="range" id="ovi-b" min="15" max="60" step="1" value="25"
-                     aria-valuetext="Doppler b = 25 kilometres per second">
-            </p>
-          </div>
         </div>
       </div>
     </section>
@@ -686,12 +581,10 @@
   <a href="#home" class="scroll-top" aria-label="Back to top"><i class="bi bi-arrow-up-short" aria-hidden="true"></i></a>
 
   <script src="assets/js/motion-toggle.js?v=2" defer></script>
-  <script src="assets/js/snapfolio-astro.js?v=1"></script>
+  <script src="assets/js/snapfolio-astro.js?v=2"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js" defer></script>
-  <script src="assets/js/spectrum.js?v=1" defer></script>
-  <script src="assets/js/sightline.js?v=4" defer></script>
   <script src="assets/js/plate-field.js?v=1" defer></script>
   <script src="assets/js/choreography.js?v=5" defer></script>
 </body>

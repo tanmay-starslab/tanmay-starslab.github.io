@@ -178,8 +178,16 @@
      background IS the bottom of the colormap, and every accent is a step up
      it. Minimum adjacent ΔL is 0.096 across a 0.883 spread, so any two steps
      stay distinguishable under any dichromacy. */
-  /* Declared here and consumed by the spectrum and sightline work, not by
-     the rules below — this block is deliberately ahead of its consumers. */
+  /* CONSUMED BY THE HERO PORTRAIT — .hero-portrait .plate-light and
+     .hero-portrait .portrait-halo, both further down this file, both styling
+     live elements. This comment previously said these were declared for the
+     spectrum and sightline work and had no consumers below it. That was true
+     the day it was written and was falsified seven commits later by PLATE I,
+     which took the tokens without updating it. It matters now: the sightline
+     is parked, so anyone tidying up greps for it, lands here, and reads that
+     nine apparently-dead tokens belong to the parked feature. Deleting them
+     makes both hero gradients invalid at computed-value time — the backlight
+     and the rotating halo silently resolve to transparent, with no error. */
   --ramp-0: #020304; --ramp-1: #1d1147; --ramp-2: #51127c;
   --ramp-3: #832681; --ramp-4: #b73779; --ramp-5: #e75263;
   --ramp-6: #fc8961; --ramp-7: #fec488; --ramp-8: #fcfdbf;
