@@ -124,9 +124,94 @@
     }, 3000);
   }
 
+  /* ── Beat 5: the card catalogue ───────────────────────────────────────
+     #research travels sideways while the page scrolls down. matchMedia gates it
+     at 900px and on reduced-motion, and the revert function puts every inline
+     style back — so the narrow, printed and reduced-motion pages are the
+     original vertical stack and not a stack wearing a dead transform.
+
+     KEYBOARD, stated precisely rather than reassuringly. Right now NO research
+     card contains a focusable element — measured, all four report zero — so:
+       - a sighted keyboard user reaches every card by scrolling, which is what
+         drives the rail, so nothing is unreachable;
+       - a screen reader reads all four from the DOM regardless of the
+         transform, since nothing here is hidden or aria-hidden;
+       - and the focusin handler below therefore never fires today.
+     It stays because these cards are about to gain links (figures, papers), and
+     the day they do, the rail breaks in a way that is invisible to testing: it
+     moves by TRANSFORM, so a panel focused off-screen is, as far as the browser
+     is concerned, already in view — the native scroll-into-view does nothing
+     and the focused card stays invisible with the focus ring off-screen.
+     Converting the panel's offset into a page scroll position is the only thing
+     that works. It is a guard, not a feature, and this comment is the only
+     thing stopping it being read as one. */
+  mm.add("(min-width: 900px) and (prefers-reduced-motion: no-preference)", function () {
+    var rail = document.querySelector("#research .research-grid");
+    var section = document.querySelector("#research");
+    if (!rail || !section) return;
+    var panels = g.utils.toArray("#research .research-card");
+    if (panels.length < 2) return;
+
+    // Travel is MEASURED, not derived from the panel count. The usual recipe
+    // is xPercent: -100 * (n - 1), which is only correct when each panel is
+    // exactly one viewport wide. Here four 520px cards in a 1400px viewport
+    // gave 1560px of tween against 844px of pinned scroll: the rail ran off
+    // the left edge well before the pin released and the reader spent the last
+    // third of the section looking at nothing.
+    // The rail does not start at x = 0 on screen — it starts at the container's
+    // left inset, which is 322px in a 1400px viewport. Leaving that out left the
+    // last card's right edge 242px off-screen at the end of the pin: the reader
+    // scrolls the whole section and never sees the end of the last card.
+    var travel = function () {
+      var inset = rail.parentNode ? rail.parentNode.getBoundingClientRect().left : 0;
+      return Math.max(0, rail.scrollWidth + inset - window.innerWidth + 40);
+    };
+
+    // One transform on the rail, not four on the cards: a single promoted
+    // layer, and it leaves the cards' own transform property free for the
+    // hover tilt.
+    var railTween = g.to(rail, {
+      x: function () { return -travel(); },
+      ease: "none",
+      scrollTrigger: {
+        trigger: section,
+        pin: true,
+        scrub: 1,
+        // end is a FUNCTION so invalidateOnRefresh can re-measure after a
+        // resize or a late font load; a number captured at setup time pins for
+        // the wrong distance the moment anything reflows.
+        end: function () { return "+=" + travel(); },
+        invalidateOnRefresh: true,
+        anticipatePin: 1
+      }
+    });
+
+    function focusRecovery(e) {
+      var panel = e.target.closest(".research-card");
+      if (!panel) return;
+      var st = railTween.scrollTrigger;
+      if (panels.indexOf(panel) < 0 || !st) return;
+      // Progress comes from the panel's own offset, so it stays correct with
+      // unequal panel widths and with the featured card sized differently.
+      var t = travel();
+      var p = t > 0 ? Math.min(1, Math.max(0, panel.offsetLeft / t)) : 0;
+      window.scrollTo({ top: st.start + p * (st.end - st.start), behavior: "auto" });
+    }
+    rail.addEventListener("focusin", focusRecovery);
+
+    return function () {
+      rail.removeEventListener("focusin", focusRecovery);
+      g.set(rail, { clearProps: "all" });
+      g.set(panels, { clearProps: "all" });
+    };
+  });
+
   /* ── Research cards arrive off a 3D floor ─────────────────────────────── */
   mm.add("(min-width: 900px) and (prefers-reduced-motion: no-preference)", function () {
-    var cards = g.utils.toArray("#research .research-card, #past-projects .project-card");
+    // #research is excluded here: above 900px those cards belong to the rail,
+    // and two tweens writing `transform` on one element is how a card ends up
+    // parked at rotateX(-18deg) forever.
+    var cards = g.utils.toArray("#past-projects .project-card");
     if (!cards.length) return;
     g.from(cards, {
       rotateX: -18,

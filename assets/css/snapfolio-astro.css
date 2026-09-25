@@ -3167,3 +3167,53 @@ html:not(.js) .ovi-rail { display: none !important; }
 @media print {
   .ovi-beam { display: none !important; }
 }
+
+/* ══════════════════════════════════════════════ THE CARD CATALOGUE
+   #research becomes a horizontal rail above 900px. Everything here is inside
+   the media query and nothing outside it changes, so the narrow layout, the
+   print layout and the reduced-motion layout are the untouched vertical stack
+   — the rail is an enhancement on top of a page that already worked.
+
+   The 900px floor is not a guess about phones. Below it the cards are already
+   one per row, a horizontal rail would show one panel at a time, and
+   scroll-hijacking a single column is the version of this pattern that people
+   rightly hate. */
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  html.js #research .research-grid {
+    display: flex;
+    width: max-content;
+    gap: 28px;
+    grid-template-columns: none;
+    /* will-change on the rail, not on each card: one promoted layer that moves,
+       instead of four that each get composited separately. */
+    will-change: transform;
+  }
+  html.js #research .research-card,
+  html.js #research .research-card.featured {
+    flex: 0 0 auto;
+    width: min(42vw, 520px);
+    min-height: 460px;
+    grid-row: auto;
+  }
+  /* The rail must be able to leave the container's box horizontally while the
+     container still centres it vertically. overflow-x on <body> is already
+     `clip`, which creates no scroll container, so nothing here can produce a
+     horizontal scrollbar. */
+  html.js #research .container { overflow: visible; }
+}
+
+/* Every fallback surface gets the stack back, explicitly. A transform left
+   behind by a killed tween is the classic way a rail prints as one visible
+   card and three blank pages. */
+@media print {
+  #research .research-grid {
+    display: grid !important;
+    width: auto !important;
+    transform: none !important;
+  }
+  #research .research-card { width: auto !important; transform: none !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #research .research-grid { transform: none !important; }
+  #research .research-card { transform: none !important; }
+}
