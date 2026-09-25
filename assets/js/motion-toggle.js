@@ -56,12 +56,27 @@
     window.location.reload();
   });
 
-  // Storage is shared across tabs; a reader who toggles in one should not find
-  // the other disagreeing when they switch back to it.
+  // Storage is shared across tabs, and this handler RELOADS for exactly the
+  // reason the click handler does. Toggling the class in place produced a state
+  // neither system is built for, both directions measured:
+  //
+  //   off -> on : the class went away, the rail CSS came back as a 2164px flex
+  //               row, but no tween and no pin exist in this tab — two cards
+  //               off-screen behind 1086px of horizontal scroll.
+  //   on -> off : the class landed and froze the rail with transform: none,
+  //               but the PIN survived, so the section sat position: fixed with
+  //               cards 3 and 4 below the fold inside it — unreachable by
+  //               scrolling, and ~1100px of identical frames.
+  //
+  // The guard against reloading a tab that already agrees matters: without it
+  // two tabs can hand the event back and forth.
   window.addEventListener("storage", function (e) {
     if (e.key !== STORE) return;
-    off = stored() === "off";
+    var next = stored() === "off";
+    if (next === off) return;
+    off = next;
     document.documentElement.classList.toggle("motion-off", off);
     paint();
+    window.location.reload();
   });
 })();

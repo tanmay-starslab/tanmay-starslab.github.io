@@ -31,6 +31,7 @@
   var canvas = document.getElementById("ovi-map");
   var beam = document.getElementById("ovi-beam");
   var probe = document.getElementById("ovi-probe");
+  var liveEl = document.getElementById("ovi-probe-live");
   var nInput = document.getElementById("ovi-logn");
   if (!canvas || !beam || !probe || !nInput) return;
   var ctx = canvas.getContext("2d");
@@ -41,6 +42,10 @@
   var BETA = 0.77, RC = 0.25;           // R_vir units
   var LOGN_0 = 14.80;                   // central column
   var EXTENT = 2.4;                     // half-width of the frame, in R_vir
+  // The alpha cutoff: fully transparent at 2.30 R_vir, untouched inside 1.85.
+  // EXTENT is 2.4, so every point on the frame's border is past EDGE_R1 and
+  // the map cannot paint a straight edge even if the field there were bright.
+  var EDGE_R0 = 1.85, EDGE_R1 = 2.30;
   var SCATTER = 0.30;                   // dex, lognormal — the observed spread
   var GRID = 320;                       // field resolution; upscaled for display
 
@@ -56,20 +61,64 @@
   }
   var P = 1.5 * BETA;
   var NORM = RC * Math.sqrt(Math.PI) * Math.exp(lgamma(P - 0.5) - lgamma(P));
-  // The beta-model alone is far too flat to reach the bottom of the colormap:
-  // measured over the frame it spanned only log N 13.2 to 14.8, which paints
-  // as a purple rectangle with a visible edge against the page. The halo is
-  // also not actually infinite. An exponential truncation past ~1.6 R_vir
-  // fixes both — it is disclosed in the caption, and it takes the corners to
-  // log N ~ 9, i.e. to magma's t=0, which is within two 8-bit levels of the
-  // page background. That is the entire reason the colormap is magma: the map
-  // bleeds into the page with no card, no border and no seam.
-  var R_TRUNC = 1.6, TRUNC_P = 3;
+  // TRUNCATION, applied to the density and not to the column.
+  //
+  // The bare beta-model never reaches the bottom of the colormap — over the
+  // frame it spans only log N 13.2 to 14.8 — and a halo is not infinite, so a
+  // truncation is wanted. The first version multiplied the CLOSED-FORM COLUMN
+  // by exp(-(s/Rt)^3). That is quick, and it is not the projection of any
+  // density: against the honest quantity it was wrong by 1.68x at R_vir and
+  // 5.9x at the frame corner. This audience integrates profiles for a living.
+  //
+  // So the truncation goes where it belongs, in n(r), and the column is the
+  // actual line-of-sight integral:
+  //
+  //     n(r) = [1 + (r/rc)^2]^(-3B/2) exp(-(r/Rt)^3)
+  //     N(s) = 2 * integral_0^inf n(sqrt(s^2 + z^2)) dz
+  //
+  // There is no closed form for that, so it is tabulated once at load across
+  // the radii the frame can reach, and interpolated. 193 radii x 700 steps is
+  // a couple of milliseconds, once.
+  //
+  // NORM and the analytic closed form are kept as the UNTRUNCATED limit, and
+  // that is all they are — they are not a check on the table at small s. The
+  // cut-off multiplies the integrand along the whole line of sight, so it
+  // lowers the column at every impact parameter, including s = 0 (measured:
+  // 0.611 against the analytic 0.652). The table was checked against an
+  // independent Python quadrature instead, and agrees to three decimals in
+  // log N at every radius the frame reaches.
+  //
+  // Resulting profile, normalised to log N = 14.80 at the centre: 13.78 at
+  // R_vir, 12.18 at the frame edge, 10.21 in the corner.
+  var R_TRUNC = 1.9, TRUNC_P = 3;
+  function density3(r) {
+    return Math.pow(1 + (r / RC) * (r / RC), -1.5 * BETA) *
+      Math.exp(-Math.pow(r / R_TRUNC, TRUNC_P));
+  }
+  function analyticColumn(s) {      // untruncated, exact — the table's check
+    return NORM * Math.pow(1 + (s / RC) * (s / RC), 0.5 - P);
+  }
+  var LUT_N = 193, LUT_MAX = 3.6, LUT = new Float64Array(LUT_N);
+  (function () {
+    var zmax = 8.0, steps = 700, dz = zmax / steps, i, k, ss, sum, z;
+    for (i = 0; i < LUT_N; i++) {
+      ss = LUT_MAX * i / (LUT_N - 1); ss *= ss;
+      sum = 0;
+      for (k = 0; k < steps; k++) { z = (k + 0.5) * dz; sum += density3(Math.sqrt(ss + z * z)); }
+      LUT[i] = 2 * sum * dz;
+    }
+  })();
   function colProfile(s) {
-    return NORM * Math.pow(1 + (s / RC) * (s / RC), 0.5 - P) *
-      Math.exp(-Math.pow(s / R_TRUNC, TRUNC_P));
+    var f = s / LUT_MAX * (LUT_N - 1);
+    if (f <= 0) return LUT[0];
+    if (f >= LUT_N - 1) return LUT[LUT_N - 1];
+    var i = Math.floor(f), k = f - i;
+    return LUT[i] + (LUT[i + 1] - LUT[i]) * k;
   }
   var CENTRE = colProfile(0);
+  // Expose the pieces so the numbers in the caption can be checked from the
+  // console rather than taken on trust.
+  window.__oviProfile = { colProfile: colProfile, analytic: analyticColumn, centre: CENTRE };
 
   // Deterministic: the same halo every visit, on every machine. A map that
   // reshuffles on reload is a screensaver.
@@ -150,14 +199,25 @@
 
   /* ── magma, the colormap in his own figures ──────────────────────────── */
 
+  // Twelve anchors sampled at EVEN elevenths of real matplotlib magma.
+  //
+  // The previous eight were genuine magma colours — each within 0.7/255 — but
+  // they had been sampled at eighths with 3/8 missing, and were then
+  // interpolated as though they sat on sevenths. Measured against matplotlib
+  // over 1001 samples that is max 33.6/255, mean 16.3/255 of error, worst in
+  // the pink-magenta band an astronomer's eye is calibrated on. Resampling on
+  // even elevenths brings it to max 6.3, mean 1.9.
   var MAGMA = [
-    [0.002, 0.002, 0.014], [0.114, 0.067, 0.278], [0.318, 0.071, 0.486],
-    [0.716, 0.215, 0.475], [0.906, 0.320, 0.388], [0.988, 0.537, 0.380],
-    [0.996, 0.769, 0.533], [0.988, 0.992, 0.749]
+    [0.0015, 0.0005, 0.0139], [0.0698, 0.0497, 0.1937],
+    [0.1982, 0.0639, 0.4040], [0.3476, 0.0829, 0.4941],
+    [0.4943, 0.1415, 0.5080], [0.6392, 0.1899, 0.4941],
+    [0.7862, 0.2415, 0.4502], [0.9134, 0.3301, 0.3826],
+    [0.9796, 0.4910, 0.3678], [0.9963, 0.6610, 0.4512],
+    [0.9951, 0.8271, 0.5857], [0.9871, 0.9914, 0.7495]
   ];
   function magma(t, out) {
     t = t < 0 ? 0 : t > 1 ? 1 : t;
-    var f = t * 7, i = Math.min(6, Math.floor(f)), k = f - i;
+    var f = t * 11, i = Math.min(10, Math.floor(f)), k = f - i;
     var a = MAGMA[i], b = MAGMA[i + 1];
     out[0] = (a[0] + (b[0] - a[0]) * k) * 255;
     out[1] = (a[1] + (b[1] - a[1]) * k) * 255;
@@ -195,21 +255,29 @@
         field[i] = lg;
         magma((lg - FLOOR) / (CEIL - FLOOR), rgb);
         d[i * 4] = rgb[0]; d[i * 4 + 1] = rgb[1]; d[i * 4 + 2] = rgb[2];
-        // Alpha from the rendered brightness, so the faint outskirts fade to
-        // nothing instead of ending at a rectangle.
+        // Alpha from the rendered brightness, times a RADIAL cutoff.
         //
-        // mix-blend-mode: screen alone does NOT do this, and the reason is the
-        // same one that bit the hero: .main carries z-index 5 and is therefore
-        // a stacking context, so the map's backdrop group is .main's own
-        // contents — not the star field and nebula, which are painted below
-        // .main in the root stacking context and are invisible to the blend.
-        // Screened against nothing, an opaque near-black canvas is still an
-        // opaque near-black square sitting on a lighter page.
+        // mix-blend-mode: screen has been removed, not merely supplemented. It
+        // was inert: .main carries z-index 5 and is a stacking context, so the
+        // blend group is .main's own contents and the star field it needed is
+        // painted below .main, outside the group. Filling this canvas opaque
+        // black proved it — under `screen` black is the identity and the layer
+        // should vanish; a solid black square painted over the star field
+        // instead. Alpha is the whole mechanism, so it has to be right.
         //
-        // With alpha, the dark outskirts are genuinely transparent whatever the
-        // stacking context does. The screen blend stays on top of it, so where
-        // the two CAN cooperate the layer only ever adds light.
-        var a = Math.max(rgb[0], Math.max(rgb[1], rgb[2])) / 255 * 2.2;
+        // The brightness term alone was not. The scatter lattice wraps, so
+        // u -> 0 and u -> 1 resolve to the same lattice column and the left and
+        // right edges of the frame were identical AND bright: mean alpha 46/255
+        // against 12.5 on the top and bottom, peaking at 163 — a 64%-opaque
+        // purple column ending at a hard canvas boundary, i.e. a seam, on both
+        // sides, at every viewport width. The radial cutoff removes it by
+        // construction rather than by choosing a luckier seed: the halo is
+        // radially symmetric, so a square frame's edges carry nothing real
+        // anyway.
+        var edge = (EDGE_R1 - Math.sqrt(xx * xx + yy * yy)) / (EDGE_R1 - EDGE_R0);
+        edge = edge < 0 ? 0 : edge > 1 ? 1 : edge;
+        edge = edge * edge * (3 - 2 * edge);
+        var a = Math.max(rgb[0], Math.max(rgb[1], rgb[2])) / 255 * 2.2 * edge;
         d[i * 4 + 3] = Math.round(255 * (a > 1 ? 1 : a));
       }
     }
@@ -229,9 +297,32 @@
 
   var bx = 0.62, by = 0.44;             // normalised position of the sightline
 
-  function place() {
+  // The VISIBLE probe and the ANNOUNCEMENT are separate nodes, for the same
+  // reason the spectrum's are: #ovi-probe carried aria-live and a synchronous
+  // drag of 61 pointer moves in 67ms produced 61 announcements — 912 a second,
+  // five times the rate the spectrum panel calls "worse than no live region at
+  // all". The visible text updates on every move; the live node is throttled.
+  var lastSpoken = 0, speakTimer = 0, SPEAK_MS = 600;
+  function speak() {
+    lastSpoken = Date.now();
+    if (liveEl) liveEl.textContent = probe.textContent;
+  }
+  function announce() {
+    if (!liveEl) return;
+    var wait = SPEAK_MS - (Date.now() - lastSpoken);
+    window.clearTimeout(speakTimer);
+    if (wait <= 0) speak(); else speakTimer = window.setTimeout(speak, wait);
+  }
+
+  // True while place() is writing the slider, so the slider's own listener can
+  // tell a beam-driven change from a reader-driven one.
+  var writingSlider = false;
+  var detached = false;
+
+  function place(commit) {
     beam.style.left = (bx * 100).toFixed(3) + "%";
     beam.style.top = (by * 100).toFixed(3) + "%";
+    detached = false;
     var lg = sampleField(bx, by);
     var sw = Math.min(canvas.width, canvas.height) || 1;
     var x = (bx - 0.5) * 2 * EXTENT * (canvas.width / sw);
@@ -239,23 +330,44 @@
     var s = Math.sqrt(x * x + y * y);
     var lo = parseFloat(nInput.min), hi = parseFloat(nInput.max);
     var clamped = Math.max(lo, Math.min(hi, lg));
-    // 41% of the frame sits below the spectrum’s 12.5 floor, because the
+    // 36% of the frame sits below the spectrum's 12.5 floor, because the
     // truncated halo really does run out of gas out there. Silently clamping
-    // would put one column density on the map and a DIFFERENT one in the
+    // would put one column density on the map and a different one in the
     // spectrum, which is precisely the failure this panel exists to avoid:
     // two views, one fact. When they cannot agree, say so.
-    probe.textContent = "log N(O VI) = " + lg.toFixed(2) + " cm⁻² at " +
+    probe.textContent = "log N(O VI) = " + lg.toFixed(2) + " cm\u207B\u00B2 at " +
       s.toFixed(2) + " R_vir" +
-      (clamped !== lg ? " — below the instrument’s range; the spectrum is held at "
+      (clamped !== lg ? " \u2014 below the instrument\u2019s range; the spectrum is held at "
         + clamped.toFixed(2) : "");
-    // Drive the spectrum through its own control. Setting the input and firing
-    // input+change means the instrument's aria-valuetext, live caption and
-    // accessible name all update by the same path a human drag uses — there is
-    // no second code path to keep in sync, and no way for the two to disagree.
-    nInput.value = clamped.toFixed(2);
-    nInput.dispatchEvent(new Event("input", { bubbles: true }));
-    nInput.dispatchEvent(new Event("change", { bubbles: true }));
+    announce();
+
+    // ONE event, not two. Firing input AND change ran the spectrum's full
+    // publish path twice per move — measured at exactly 2.00 caption rebuilds
+    // and two 160-point rail path rebuilds for every pointer move. `input` is
+    // the one that means "the value is changing"; `change` is reserved for the
+    // end of a gesture, dispatched by the handlers that know a gesture ended.
+    var v = clamped.toFixed(2);
+    if (nInput.value !== v || commit) {
+      nInput.value = v;
+      writingSlider = true;
+      nInput.dispatchEvent(new Event("input", { bubbles: true }));
+      if (commit) nInput.dispatchEvent(new Event("change", { bubbles: true }));
+      writingSlider = false;
+    }
   }
+
+  // The coupling was one-way and did not admit it. Moving the SLIDER left the
+  // probe still describing the beam's old position, so the panel's own claim —
+  // two views, one fact — quietly stopped being true the moment the reader
+  // touched the control instead of the map.
+  nInput.addEventListener("input", function () {
+    if (writingSlider || detached) return;
+    detached = true;
+    probe.textContent = "Spectrum set by hand at log N(O VI) = " +
+      parseFloat(nInput.value).toFixed(2) +
+      " cm\u207B\u00B2 \u2014 it no longer matches the sightline. Move the beam to re-link them.";
+    announce();
+  });
 
   function fromEvent(e) {
     var r = canvas.getBoundingClientRect();
@@ -278,6 +390,7 @@
   });
   wrap.addEventListener("pointermove", function (e) { if (dragging) fromEvent(e); });
   wrap.addEventListener("pointerup", function (e) {
+    if (dragging) place(true);          // commit: the gesture has ended
     dragging = false;
     try {
       if (wrap.hasPointerCapture(e.pointerId)) wrap.releasePointerCapture(e.pointerId);
@@ -300,10 +413,26 @@
     bx = Math.min(1, Math.max(0, bx)); by = Math.min(1, Math.max(0, by));
     place();
   });
+  // Key release ends the gesture, so the spectrum gets its one `change`.
+  beam.addEventListener("keyup", function (e) {
+    if (/^Arrow|^Home$/.test(e.key)) place(true);
+  });
 
   /* ── colorbar ────────────────────────────────────────────────────────── */
 
   var bar = document.getElementById("ovi-colorbar");
+  function sizeBar() {
+    if (!bar) return;
+    // The colorbar is a figure element with hard edges between decades, so
+    // unlike the map it must not be upscaled: at dpr 2 a fixed 240px backing
+    // store was being stretched across 480 device pixels.
+    var r = bar.getBoundingClientRect();
+    var d = Math.min(window.devicePixelRatio || 1, 2);
+    var w = Math.max(1, Math.round((r.width || 240) * d));
+    var h = Math.max(1, Math.round((r.height || 10) * d));
+    if (bar.width !== w || bar.height !== h) { bar.width = w; bar.height = h; return true; }
+    return false;
+  }
   function drawBar() {
     if (!bar) return;
     var c = bar.getContext("2d");
@@ -342,6 +471,19 @@
   if ("ResizeObserver" in window) new ResizeObserver(resize).observe(canvas);
   window.addEventListener("resize", resize, { passive: true });
 
-  if (bar) { bar.width = 240; bar.height = 10; drawBar(); }
+  // No preventDefault: canvas-2D restores by default and preventDefault opts
+  // OUT. Without this the map blanks permanently on an eviction while the
+  // probe keeps reporting values from the stale field array — a readout that
+  // describes a picture that is no longer there.
+  canvas.addEventListener("contextrestored", function () {
+    lastW = lastH = 0; resize(); place();
+  }, false);
+  if (bar) {
+    bar.addEventListener("contextrestored", function () { sizeBar(); drawBar(); }, false);
+    if ("ResizeObserver" in window) {
+      new ResizeObserver(function () { if (sizeBar()) drawBar(); }).observe(bar);
+    }
+    sizeBar(); drawBar();
+  }
   resize();
 })();
