@@ -2756,7 +2756,17 @@ sub { font-size: 0.72em; vertical-align: -0.18em; }
 #plate-field {
   position: fixed;
   inset: 0;
-  z-index: 1;
+  /* z-index 0, NOT 1. At 1 it tied with .cosmic-image-shade — same value, same
+     root stacking context, so DOM order decided and the nebula painted ON TOP
+     of the contrast scrim it is supposed to sit under, erasing the individual
+     stars in the photograph beneath. 0 puts it above .cosmic-image-bg and below
+     the scrim, which is where an emission layer belongs. */
+  z-index: 0;
+  /* screen, matching .cosmic-image-bg and #galaxy-canvas. The canvas is opaque
+     (alpha: false), so this is the only compositing rule in play: emission is
+     additive light, black contributes nothing, and this layer can never
+     subtract brightness from the star field underneath it. */
+  mix-blend-mode: screen;
   pointer-events: none;
   opacity: 0;
   transition: opacity 900ms var(--ease-out);
