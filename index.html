@@ -8,10 +8,6 @@
   <meta name="description" content="Academic website of Tanmay Singh, an Astrophysics PhD student at Arizona State University interested in galaxy formation and evolution.">
   <meta name="keywords" content="Tanmay Singh, astrophysics, galaxy formation, galaxy evolution, circumgalactic medium, O VI, Arizona State University">
   <meta name="author" content="Tanmay Singh">
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Tanmay Singh | Astrophysics">
-  <meta name="twitter:description" content="Ph.D. candidate working on the circumgalactic medium: O VI absorption in cosmological simulations, measured against HST/COS.">
-  <meta name="twitter:image" content="https://tanmay-starslab.github.io/images/headshot-900.webp">
   <link rel="canonical" href="https://tanmay-starslab.github.io/">
 
   <meta property="og:title" content="Tanmay Singh | Astrophysics PhD Student">
@@ -24,14 +20,29 @@
   <link rel="icon" href="images/favicon/favicon-16.png" sizes="16x16" type="image/png">
   <link rel="apple-touch-icon" href="images/favicon/apple-touch-icon-180.png">
   <link rel="manifest" href="images/favicon/site.webmanifest">
-  <meta name="theme-color" content="#0a0a0a">
-  <link rel="preload" href="assets/fonts/source-serif-text.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="assets/fonts/source-serif-display.woff2" as="font" type="font/woff2" crossorigin>
-  <link href="assets/css/site.css" rel="stylesheet">
+  <meta name="theme-color" content="#03050b">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/css/snapfolio-astro.css?v=2" rel="stylesheet">
 
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"Person","name":"Tanmay Singh","jobTitle":"Astrophysics PhD Student","affiliation": {"@type":"CollegeOrUniversity","name":"Arizona State University"
-    },"email":"mailto:tsingh65@asu.edu","url":"https://tanmay-starslab.github.io/","image":"https://tanmay-starslab.github.io/images/headshot_tanmay.jpeg","sameAs": ["https://scholar.google.com/citations?user=Sfeb8fMAAAAJ&hl=en","https://github.com/tanmay-starslab","https://www.linkedin.com/in/tanmay-singh-21574a1aa/","https://x.com/TanmayS32807693","https://www.instagram.com/newhorizons_2/"
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Tanmay Singh",
+    "jobTitle": "Astrophysics PhD Student",
+    "affiliation": {
+      "@type": "CollegeOrUniversity",
+      "name": "Arizona State University"
+    },
+    "email": "mailto:tsingh65@asu.edu",
+    "url": "https://tanmay-starslab.github.io/",
+    "image": "https://tanmay-starslab.github.io/images/headshot_tanmay.jpeg",
+    "sameAs": [
+      "https://scholar.google.com/citations?user=Sfeb8fMAAAAJ&hl=en",
+      "https://github.com/tanmay-starslab",
+      "https://www.linkedin.com/in/tanmay-singh-21574a1aa/",
+      "https://x.com/TanmayS32807693",
+      "https://www.instagram.com/newhorizons_2/"
     ]
   }
   </script>
@@ -47,19 +58,19 @@
     /* The intro is progressive enhancement. The classes that hide page content
        are added here by script rather than shipped in the HTML, so if scripting
        is unavailable the page renders fully visible instead of blank. The
-       timeout is a failsafe for when site.js is blocked or throws. */
+       timeout is a failsafe for when snapfolio-astro.js is blocked or throws. */
     (function () {
       var el = document.documentElement;
       try {
         if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-        el.classList.add("intro-active","intro-hold");
+        el.classList.add("intro-active", "intro-hold");
         window.setTimeout(function () {
           if (!el.classList.contains("intro-active")) return;
-          el.classList.remove("intro-active","intro-hold","intro-moving");
+          el.classList.remove("intro-active", "intro-hold", "intro-moving");
           el.classList.add("intro-complete");
         }, 2500);
       } catch (e) {
-        el.classList.remove("intro-active","intro-hold");
+        el.classList.remove("intro-active", "intro-hold");
       }
     })();
   </script>
@@ -67,10 +78,14 @@
 
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
+  <div class="cosmic-image-bg" aria-hidden="true"></div>
+  <div class="cosmic-image-shade" aria-hidden="true"></div>
+  <canvas id="galaxy-canvas" aria-hidden="true"></canvas>
+  <div class="cosmic-vignette" aria-hidden="true"></div>
 
   <header id="header" class="site-header" aria-label="Primary navigation">
     <button class="header-toggle" type="button" aria-label="Open navigation" aria-controls="navmenu" aria-expanded="false">
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <i class="bi bi-list" aria-hidden="true"></i>
     </button>
 
     <div class="header-container">
@@ -84,73 +99,75 @@
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="#home" class="active"><span>Home</span></a></li>
-          <li><a href="#about"><span>About</span></a></li>
-          <li><a href="#research"><span>Research</span></a></li>
-          <li><a href="#past-projects"><span>Past Projects</span></a></li>
-          <li><a href="#publications"><span>Publications</span></a></li>
-          <li><a href="#timeline"><span>Education</span></a></li>
-          <li><a href="#personal-interests"><span>Personal Interests</span></a></li>
-          <li><a href="useful-links.html"><span>Useful Links</span></a></li>
-          <li><a href="#contact"><span>Contact</span></a></li>
+          <li><a href="#home" class="active"><i class="bi bi-house navicon" aria-hidden="true"></i><span>Home</span></a></li>
+          <li><a href="#about"><i class="bi bi-person navicon" aria-hidden="true"></i><span>About</span></a></li>
+          <li><a href="#research"><i class="bi bi-stars navicon" aria-hidden="true"></i><span>Research</span></a></li>
+          <li><a href="#past-projects"><i class="bi bi-grid-3x3-gap navicon" aria-hidden="true"></i><span>Past Projects</span></a></li>
+          <li><a href="#publications"><i class="bi bi-journal-text navicon" aria-hidden="true"></i><span>Publications</span></a></li>
+          <li><a href="#timeline"><i class="bi bi-diagram-3 navicon" aria-hidden="true"></i><span>Education</span></a></li>
+          <li><a href="#personal-interests"><i class="bi bi-compass navicon" aria-hidden="true"></i><span>Personal Interests</span></a></li>
+          <li><a href="useful-links.html"><i class="bi bi-link-45deg navicon" aria-hidden="true"></i><span>Useful Links</span></a></li>
+          <li><a href="#contact"><i class="bi bi-envelope navicon" aria-hidden="true"></i><span>Contact</span></a></li>
         </ul>
       </nav>
 
-      <div class="header-social" aria-label="Profile links">
-        <a href="mailto:tsingh65@asu.edu" aria-label="Email Tanmay Singh">Email</a>
-        <a href="https://scholar.google.com/citations?user=Sfeb8fMAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Tanmay Singh on Google Scholar">Scholar</a>
-        <a href="https://github.com/tanmay-starslab" target="_blank" rel="noopener" aria-label="Tanmay Singh on GitHub">GitHub</a>
-        <a href="https://www.linkedin.com/in/tanmay-singh-21574a1aa/" target="_blank" rel="noopener" aria-label="Tanmay Singh on LinkedIn">LinkedIn</a>
+      <div class="social-links" aria-label="Profile links">
+        <a href="mailto:tsingh65@asu.edu" aria-label="Email Tanmay Singh"><i class="bi bi-envelope" aria-hidden="true"></i></a>
+        <a href="https://scholar.google.com/citations?user=Sfeb8fMAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Tanmay Singh on Google Scholar"><i class="bi bi-mortarboard" aria-hidden="true"></i></a>
+        <a href="https://github.com/tanmay-starslab" target="_blank" rel="noopener" aria-label="Tanmay Singh on GitHub"><i class="bi bi-github" aria-hidden="true"></i></a>
+        <a href="https://www.linkedin.com/in/tanmay-singh-21574a1aa/" target="_blank" rel="noopener" aria-label="Tanmay Singh on LinkedIn"><i class="bi bi-linkedin" aria-hidden="true"></i></a>
       </div>
     </div>
   </header>
 
   <main id="main" class="main">
-    <section id="home" class="masthead section" aria-labelledby="hero-title">
-      <div class="sheet">
-        <div class="masthead-grid">
-          <div class="masthead-body">
+    <section id="home" class="hero section" aria-labelledby="hero-title">
+      <div class="hero-nebula" aria-hidden="true"></div>
+      <div class="container">
+        <div class="hero-shell">
+          <div class="hero-copy reveal">
+            <p class="eyebrow">
+              <a href="https://www.asu.edu/" target="_blank" rel="noopener">Arizona State University</a>
+              <span>|</span>
+              <a href="https://sese.asu.edu/" target="_blank" rel="noopener">School of Earth and Space Exploration</a>
+            </p>
             <h1 id="hero-title">Tanmay Singh</h1>
-            <p class="masthead-role">Fourth-year Ph.D. candidate &middot; Astrophysics &middot; Arizona State University</p>
-            <p class="masthead-lede">
-              I work on the circumgalactic medium &mdash; the diffuse gas around galaxies that records
-              how they acquire fuel and lose it again. Most of my time goes to measuring
-              <span class="mono">O&nbsp;VI</span> absorption in cosmological simulations and asking whether
-              it reproduces what <span class="mono">HST/COS</span> actually sees, with
-              <a href="http://borthakur.asu.edu/index.html" rel="noopener">Sanchayeeta Borthakur</a> at the
-              <a href="https://sese.asu.edu/" rel="noopener">School of Earth and Space Exploration</a>.
+            <p class="hero-role">Third Year Ph.D. Student | Astrophysics</p>
+            <p class="hero-subtitle">
+              Hi! I am Tanmay, currently a PhD student in the <a href="https://sese.asu.edu/" target="_blank" rel="noopener">School of Earth and Space Exploration</a>
+              at <a href="https://www.asu.edu/" target="_blank" rel="noopener">Arizona State University</a>, advised by
+              <a href="http://borthakur.asu.edu/index.html" target="_blank" rel="noopener">Prof. Sanchayeeta Borthakur</a>.
+              My research interests lie broadly in galaxy formation and processes that impact their evolution.
             </p>
-            <p class="masthead-links">
-              <a href="files/cv.pdf" rel="noopener">Curriculum vitae</a>
+            <div class="hero-actions" aria-label="Primary actions">
+              <a class="btn btn-primary" href="#research"><i class="bi bi-stars" aria-hidden="true"></i> Research</a>
+              <a class="btn btn-outline" href="#publications"><i class="bi bi-journal-text" aria-hidden="true"></i> Publications</a>
+              <a class="btn btn-outline" href="files/cv.pdf" target="_blank" rel="noopener"><i class="bi bi-file-earmark-arrow-down" aria-hidden="true"></i> Download CV</a>
+            </div>
+            <div class="hero-links" aria-label="Quick links">
               <a href="mailto:tsingh65@asu.edu">tsingh65@asu.edu</a>
-              <a href="https://scholar.google.com/citations?user=Sfeb8fMAAAAJ&amp;hl=en" rel="noopener">Google Scholar</a>
-              <a href="https://github.com/tanmay-starslab" rel="noopener">GitHub</a>
-            </p>
+              <a href="https://scholar.google.com/citations?user=Sfeb8fMAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>
+              <a href="https://github.com/tanmay-starslab" target="_blank" rel="noopener">GitHub</a>
+              <a href="https://www.linkedin.com/in/tanmay-singh-21574a1aa/" target="_blank" rel="noopener">LinkedIn</a>
+            </div>
           </div>
 
-          <div class="masthead-aside">
-            <figure class="plate">
-              <img src="images/headshot-900.webp"
-                   width="900" height="900"
-                   alt="Tanmay Singh"
-                   loading="eager" fetchpriority="high" decoding="sync">
-              <figcaption>
-                <span class="cap-name">Tanmay Singh</span>
-                <span class="cap-meta">Ph.D. candidate, Astrophysics &middot; Arizona State University,
-                  School of Earth and Space Exploration</span>
-              </figcaption>
-            </figure>
-          </div>
+          <figure class="hero-portrait reveal">
+            <div class="portrait-halo" aria-hidden="true"></div>
+            <img src="images/headshot-900.webp" alt="Portrait of Tanmay Singh" width="900" height="900" loading="eager" fetchpriority="high" decoding="async">
+          </figure>
         </div>
       </div>
     </section>
 
-
     <section id="about" class="section about" aria-labelledby="about-title">
-      <div class="sheet">
-        <h2 class="section-title" id="about-title">Academic background and current focus.</h2>
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">About</p>
+          <h2 id="about-title">Academic background and current focus.</h2>
+        </div>
 
-        <div class="about-panel">
+        <div class="about-panel reveal">
           <div class="about-text">
             <p>
               Prior to coming to ASU, I completed my B.Tech in Engineering Physics from the
@@ -174,105 +191,91 @@
       </div>
     </section>
 
-    <section id="research" class="section" aria-labelledby="research-title">
-      <div class="sheet">
-        <h2 class="section-title" id="research-title">Research</h2>
+    <section id="research" class="section research" aria-labelledby="research-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Research</p>
+          <h2 id="research-title">Ongoing research projects.</h2>
+        </div>
 
-        <article class="entry">
-          <div class="entry-body">
-            <h3 class="entry-title">The intergalactic and circumgalactic medium</h3>
-            <p>The gas between and around galaxies records how they acquire fuel and lose it
-              again. The question here is how the Mg&nbsp;II absorbers seen in the spectra of
-              background quasars connect to the galaxies near the sightline.</p>
-            <p>Analysing mock quasar absorption spectra from IllustrisTNG and SIMBA, this asks
-              whether those absorbers come from outflowing material expelled by star-forming
-              galaxies, or from large rotating disks accreting material onto them.</p>
-          </div>
-          <div class="entry-aside">
-            <figure class="trace" role="img" aria-label="Absorption trace: the Mg two doublet at 2796.35 and 2803.53 angstroms, the shorter-wavelength line about twice as deep.">
-          <svg viewBox="0 0 1000 40" preserveAspectRatio="none" focusable="false">
-            <path class="continuum" d="M0 6 H1000"/>
-            <path class="line" d="M301.5 6 L317.5 30.0 L333.5 6"/>
-            <path class="line weak" d="M660.5 6 L676.5 17.9 L692.5 6"/>
-          </svg>
-          <figcaption class="line-list">Mg&nbsp;II &#955;&#955;2796.35, 2803.53 &#197; &middot; 2790&ndash;2810 &#197;</figcaption>
-        </figure>
-            <dl>
-              <dt>Simulations</dt><dd>IllustrisTNG, SIMBA</dd>
-              <dt>Method</dt><dd>Mock quasar spectra</dd>
-            </dl>
-          </div>
-        </article>
+        <div class="research-grid">
+          <article class="research-card featured reveal">
+            <div class="card-glow" aria-hidden="true"></div>
+            <span class="card-kicker">IGM / CGM</span>
+            <h3>Investigating the IGM and CGM</h3>
+            <p>
+              The intergalactic medium and circumgalactic medium play crucial roles in the formation and evolution of galaxies.
+              One primary research goal is to understand how Mg II absorbers observed in the spectra of background quasars are connected to galaxies.
+            </p>
+            <p>
+              By analyzing mock quasar absorption spectra generated from cosmological simulations such as IllustrisTNG and SIMBA,
+              this work asks whether absorbers originate from outflowing material expelled by star-forming galaxies or from large rotating disks accreting material onto galaxies.
+            </p>
+            <div class="tag-cloud">
+              <span>Mg II absorbers</span>
+              <span>IllustrisTNG</span>
+              <span>SIMBA</span>
+              <span>Mock spectra</span>
+            </div>
+          </article>
 
-        <article class="entry">
-          <div class="entry-body">
-            <h3 class="entry-title">O&nbsp;VI in the intragroup medium</h3>
-            <p>Compares O&nbsp;VI absorption in synthetic spectra from SIMBA and TNG50 galaxy
-              groups against COS-IGrM observations, using matched group samples and
-              observation-like synthetic spectroscopy to study absorber distributions,
-              kinematics, covering fractions and galaxy associations.</p>
-          </div>
-          <div class="entry-aside">
-            <figure class="trace" role="img" aria-label="Absorption trace: the O six doublet at 1031.93 and 1037.62 angstroms, the shorter-wavelength line about twice as deep.">
-          <svg viewBox="0 0 1000 40" preserveAspectRatio="none" focusable="false">
-            <path class="continuum" d="M0 6 H1000"/>
-            <path class="line" d="M330.5 6 L346.5 30.0 L362.5 6"/>
-            <path class="line weak" d="M615.0 6 L631.0 17.9 L647.0 6"/>
-          </svg>
-          <figcaption class="line-list">O&nbsp;VI &#955;&#955;1031.93, 1037.62 &#197; &middot; 1025&ndash;1045 &#197;</figcaption>
-        </figure>
-            <dl>
-              <dt>Simulations</dt><dd>SIMBA, TNG50</dd>
-              <dt>Observations</dt><dd>COS-IGrM</dd>
-              <dt>Method</dt><dd>XGBoost feature analysis</dd>
-            </dl>
-          </div>
-        </article>
+          <article class="research-card reveal">
+            <span class="card-kicker">O VI</span>
+            <h3>O VI in the Intra-group Medium</h3>
+            <p>
+              Compares O VI absorption in synthetic spectra from SIMBA and TNG50 galaxy groups against COS-IGrM observations.
+              The analysis uses matched group samples and observation-like synthetic spectroscopy to study absorber distributions, kinematics, covering fractions, and galaxy associations.
+            </p>
+            <div class="tag-cloud">
+              <span>SIMBA</span>
+              <span>IllustrisTNG</span>
+              <span>COS-IGrM</span>
+              <span>XGBoost</span>
+            </div>
+          </article>
 
-        <article class="entry">
-          <div class="entry-body">
-            <h3 class="entry-title">Kinematics of the outer circumgalactic medium</h3>
-            <p>Investigating co-rotation and counter-rotation of outer CGM gas around L-star
-              galaxies, using sightline-based synthetic spectroscopy in TNG50-1.</p>
-          </div>
-          <div class="entry-aside">
-            <figure class="trace" role="img" aria-label="Absorption trace: silicon three at 1206.50, Lyman alpha at 1215.67 and carbon two at 1334.53 angstroms, Lyman alpha the deepest.">
-          <svg viewBox="0 0 1000 40" preserveAspectRatio="none" focusable="false">
-            <path class="continuum" d="M0 6 H1000"/>
-            <path class="line weak" d="M36.4 6 L46.4 15.6 L56.4 6"/>
-            <path class="line" d="M101.9 6 L111.9 30.0 L121.9 6"/>
-            <path class="line weak" d="M950.9 6 L960.9 13.4 L970.9 6"/>
-          </svg>
-          <figcaption class="line-list">Si&nbsp;III &#955;1206.50 &middot; Ly&#945; &#955;1215.67 &middot; C&nbsp;II &#955;1334.53 &#197;</figcaption>
-        </figure>
-            <dl>
-              <dt>Simulation</dt><dd>TNG50-1</dd>
-              <dt>Method</dt><dd>Sightline spectroscopy</dd>
-            </dl>
-          </div>
-        </article>
+          <article class="research-card reveal">
+            <span class="card-kicker">Spectra</span>
+            <h3>Spectral Classification of AGN and Supernovae</h3>
+            <p>
+              Distinguishing between spectral signatures of Active Galactic Nuclei and Supernovae is essential for characterizing transient astrophysical events.
+              This work uses Bayesian logic (BLOG) to develop automated methods for spectral classification.
+            </p>
+            <div class="tag-cloud">
+              <span>AGN</span>
+              <span>Supernovae</span>
+              <span>BLOG</span>
+              <span>Classification</span>
+            </div>
+          </article>
 
-        <article class="entry no-aside">
-          <div class="entry-body">
-            <h3 class="entry-title">Spectral classification of AGN and supernovae</h3>
-            <p>Telling the spectral signatures of active galactic nuclei apart from those of
-              supernovae matters for characterising transient events. This work uses Bayesian
-              logic (BLOG) to build automated classification from emission-line detections,
-              widths and ratios.</p>
-            <p class="entry-note">No absorption trace: this is an emission-line study, so there
-              is nothing for a background source to be absorbed against.</p>
-          </div>
-        </article>
+          <article class="research-card reveal">
+            <span class="card-kicker">Kinematics</span>
+            <h3>Kinematics of the Outer Circumgalactic Medium</h3>
+            <p>
+              Investigating co-rotation and counter-rotation of outer CGM gas around L-star galaxies using sightline-based synthetic spectroscopy in TNG50-1.
+            </p>
+            <div class="tag-cloud">
+              <span>TNG50-1</span>
+              <span>Ly-alpha</span>
+              <span>C II</span>
+              <span>Si III</span>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
     <section id="past-projects" class="section past-projects" aria-labelledby="projects-title">
-      <div class="sheet">
-        <h2 class="section-title" id="projects-title">Earlier research across physics and astronomy.</h2>
-        <p class="section-intro">Past work spanning submillimeter astronomy, solar physics, quantum communication, image processing, and atomic collisions.</p>
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Past Projects</p>
+          <h2 id="projects-title">Earlier research across physics and astronomy.</h2>
+          <p>Past work spanning submillimeter astronomy, solar physics, quantum communication, image processing, and atomic collisions.</p>
+        </div>
 
         <div class="project-mosaic">
-          <article class="project-card large">
+          <article class="project-card large reveal">
             <div class="project-visual visual-site" aria-hidden="true"></div>
             <div class="project-body">
               <span class="card-kicker">Raman Research Institute</span>
@@ -290,7 +293,7 @@
             </div>
           </article>
 
-          <article class="project-card">
+          <article class="project-card reveal">
             <div class="project-visual visual-solar" aria-hidden="true"></div>
             <div class="project-body">
               <span class="card-kicker">Senior thesis</span>
@@ -308,7 +311,7 @@
             </div>
           </article>
 
-          <article class="project-card">
+          <article class="project-card reveal">
             <div class="project-visual visual-qkd" aria-hidden="true"></div>
             <div class="project-body">
               <span class="card-kicker">SURA project</span>
@@ -325,7 +328,7 @@
             </div>
           </article>
 
-          <article class="project-card">
+          <article class="project-card reveal">
             <div class="project-visual visual-waves" aria-hidden="true"></div>
             <div class="project-body">
               <span class="card-kicker">Solar data</span>
@@ -341,7 +344,7 @@
             </div>
           </article>
 
-          <article class="project-card">
+          <article class="project-card reveal">
             <div class="project-visual visual-fano" aria-hidden="true"></div>
             <div class="project-body">
               <span class="card-kicker">Atomic collisions</span>
@@ -360,68 +363,76 @@
       </div>
     </section>
 
-    <section id="publications" class="section" aria-labelledby="publications-title">
-      <div class="sheet">
-        <h2 class="section-title" id="publications-title">Publications</h2>
-
-        <div class="pub-group">
-          <h3>Refereed journal articles</h3>
-
-          <div class="pub-row">
-            <div class="pub-year">2026</div>
-            <div>
-              <div class="pub-title">Analysis of synthetic O&nbsp;VI absorption associated with galaxy groups in SIMBA and TNG50 simulations</div>
-              <div class="pub-authors"><span class="self">T. Singh</span>, S. Borthakur, D. Nelson, R. Dav&eacute;, T. McCabe</div>
-              <div class="pub-venue">The Astrophysical Journal, 1003(1), 110</div>
-              <div class="pub-links">
-                <a href="https://doi.org/10.3847/1538-4357/ae632b" rel="noopener">doi:10.3847/1538-4357/ae632b</a>
-                <a href="https://arxiv.org/abs/2604.18808" rel="noopener">arXiv:2604.18808</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="pub-row">
-            <div class="pub-year">2026</div>
-            <div>
-              <div class="pub-title">Site quality analysis for an Indian submillimeter telescope: a reanalysis-based approach</div>
-              <div class="pub-authors"><span class="self">T. Singh</span>, M. Sathyanarayana Rao, R. Basu Thakur</div>
-              <div class="pub-venue">The Astronomical Journal, 171(6), 331</div>
-              <div class="pub-links">
-                <a href="https://arxiv.org/abs/2604.13487" rel="noopener">arXiv:2604.13487</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="pub-row">
-            <div class="pub-year">2026</div>
-            <div>
-              <div class="pub-title">Scattering angle dependence of Fano resonance profiles in cold atomic collisions analyzed with the complex valued <em>w</em> parameter</div>
-              <div class="pub-authors"><span class="self">T. Singh</span>, R. A. Singh, F. Koike, M. Iizawa, Y. Azuma</div>
-              <div class="pub-venue">Indian Journal of Physics, 100, 2179&ndash;2187</div>
-              <div class="pub-links">
-                <a href="https://doi.org/10.1007/s12648-026-03956-2" rel="noopener">doi:10.1007/s12648-026-03956-2</a>
-              </div>
-            </div>
-          </div>
+    <section id="publications" class="section publications" aria-labelledby="publications-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Publications</p>
+          <h2 id="publications-title">Publications and abstracts.</h2>
+          <p>Selected entries from Google Scholar and the current CV.</p>
         </div>
 
-        <p class="pub-foot">
-          A complete list is on <a href="https://scholar.google.com/citations?user=Sfeb8fMAAAAJ&amp;hl=en" rel="noopener">Google Scholar</a>
-          and in the <a href="files/cv.pdf" rel="noopener">CV</a>.
-        </p>
+        <div class="publication-tools reveal">
+          <a class="btn btn-primary" href="https://scholar.google.com/citations?user=Sfeb8fMAAAAJ&hl=en" target="_blank" rel="noopener">
+            <i class="bi bi-mortarboard" aria-hidden="true"></i> Google Scholar
+          </a>
+        </div>
+
+        <div class="publication-list">
+          <article class="publication-card reveal">
+            <div class="publication-meta"><span>2026</span><span>arXiv preprint arXiv:2604.18808</span></div>
+            <h3>Analysis of synthetic OVI absorption associated with galaxy groups in SIMBA and TNG50 simulations</h3>
+            <p>T Singh, S Borthakur, D Nelson, R Dav&eacute;, T McCabe</p>
+            <div class="publication-actions">
+              <a class="chip-link" href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=Sfeb8fMAAAAJ&citation_for_view=Sfeb8fMAAAAJ:2osOgNQ5qMEC" target="_blank" rel="noopener">Scholar</a>
+              <a class="chip-link" href="https://arxiv.org/abs/2604.18808" target="_blank" rel="noopener">arXiv</a>
+            </div>
+          </article>
+
+          <article class="publication-card reveal">
+            <div class="publication-meta"><span>2026</span><span>arXiv preprint arXiv:2604.13487</span></div>
+            <h3>Site Quality Analysis for an Indian Submillimeter Telescope: A Reanalysis-Based Approach</h3>
+            <p>T Singh, MS Rao, RB Thakur</p>
+            <div class="publication-actions">
+              <a class="chip-link" href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=Sfeb8fMAAAAJ&citation_for_view=Sfeb8fMAAAAJ:9yKSN-GCB0IC" target="_blank" rel="noopener">Scholar</a>
+              <a class="chip-link" href="https://arxiv.org/abs/2604.13487" target="_blank" rel="noopener">arXiv</a>
+            </div>
+          </article>
+
+          <article class="publication-card reveal">
+            <div class="publication-meta"><span>2026</span><span>Indian Journal of Physics</span></div>
+            <h3>Scattering angle dependence of Fano resonance profiles in cold atomic collisions analyzed with the complex valued w parameter: T Singh et al.</h3>
+            <p>T Singh, RA Singh, F Koike, M Iizawa, Y Azuma</p>
+            <div class="publication-actions">
+              <a class="chip-link" href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=Sfeb8fMAAAAJ&citation_for_view=Sfeb8fMAAAAJ:u5HHmVD_uO8C" target="_blank" rel="noopener">Scholar</a>
+              <a class="chip-link" href="https://arxiv.org/abs/2507.17674" target="_blank" rel="noopener">arXiv</a>
+            </div>
+          </article>
+
+          <article class="publication-card reveal">
+            <div class="publication-meta"><span>2026</span><span>American Astronomical Society Meeting Abstracts 247, 174.05</span></div>
+            <h3>Analysis of synthetic O VI absorption in galaxy groups of SIMBA and IllustrisTNG simulations</h3>
+            <p>T Singh, S Borthakur, D Nelson, T McCabe</p>
+            <div class="publication-actions">
+              <a class="chip-link" href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=Sfeb8fMAAAAJ&citation_for_view=Sfeb8fMAAAAJ:d1gkVwhDpl0C" target="_blank" rel="noopener">Scholar</a>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
     <section id="timeline" class="section timeline-section" aria-labelledby="timeline-title">
-      <div class="sheet">
-        <h2 class="section-title" id="timeline-title">Education</h2>
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Education</p>
+          <h2 id="timeline-title">Education</h2>
+        </div>
 
         <div class="timeline" data-timeline>
           <div class="timeline-track" aria-hidden="true">
             <div class="timeline-fill"></div>
           </div>
 
-          <article class="timeline-item">
+          <article class="timeline-item reveal">
             <span class="timeline-date">Aug 2023 - Present</span>
             <div class="timeline-content">
               <h3>Ph.D. in Astrophysics</h3>
@@ -430,7 +441,7 @@
             </div>
           </article>
 
-          <article class="timeline-item">
+          <article class="timeline-item reveal">
             <span class="timeline-date">May 2022 - July 2022</span>
             <div class="timeline-content">
               <h3>Visiting Research Intern</h3>
@@ -439,7 +450,7 @@
             </div>
           </article>
 
-          <article class="timeline-item">
+          <article class="timeline-item reveal">
             <span class="timeline-date">July 2019 - July 2023</span>
             <div class="timeline-content">
               <h3>B.Tech. in Engineering Physics</h3>
@@ -449,8 +460,9 @@
           </article>
         </div>
 
-        <div class="teaching-panel">
+        <div class="teaching-panel reveal">
           <div>
+            <p class="eyebrow">Teaching</p>
             <h3>AST 112 Lab</h3>
           </div>
           <p><strong>Course:</strong> AST 112 Lab, Lab Lead (3 Sections)</p>
@@ -462,16 +474,19 @@
     </section>
 
     <section id="personal-interests" class="section personal-interests" aria-labelledby="personal-title">
-      <div class="sheet">
-        <h2 class="section-title" id="personal-title">Personal Interests</h2>
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Personal Interests</p>
+          <h2 id="personal-title">Personal Interests</h2>
+        </div>
 
-        <div class="personal-panel">
+        <div class="personal-panel reveal">
           <div class="interest-grid" aria-label="Interest areas">
-            <span> Chess</span>
-            <span> Books</span>
-            <span> Geography</span>
-            <span> Music</span>
-            <span> Astrophotography</span>
+            <span><i class="bi bi-trophy" aria-hidden="true"></i> Chess</span>
+            <span><i class="bi bi-book" aria-hidden="true"></i> Books</span>
+            <span><i class="bi bi-globe-central-south-asia" aria-hidden="true"></i> Geography</span>
+            <span><i class="bi bi-music-note-beamed" aria-hidden="true"></i> Music</span>
+            <span><i class="bi bi-stars" aria-hidden="true"></i> Astrophotography</span>
           </div>
           <div class="personal-copy">
             <p>Outside of my academic life, I have a diverse range of interests that keep me engaged and inspired. One of my favorite pastimes is playing chess. I would be happy to connect if you also play on chess.com; my username is <a href="https://www.chess.com/member/voyager972" target="_blank" rel="noopener">Voyager972</a>. Reading books is another passion of mine, particularly pop-science and non-fiction.</p>
@@ -487,19 +502,22 @@
     </section>
 
     <section id="contact" class="section contact" aria-labelledby="contact-title">
-      <div class="sheet">
-        <h2 class="section-title" id="contact-title">Get in touch.</h2>
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Contact</p>
+          <h2 id="contact-title">Get in touch.</h2>
+        </div>
 
-        <div class="contact-panel">
+        <div class="contact-panel reveal">
           <div>
             <h3>Tanmay Singh</h3>
             <p>Astrophysics PhD Student at Arizona State University, Tempe, AZ.</p>
           </div>
           <div class="contact-grid">
-            <a class="contact-tile" href="mailto:tsingh65@asu.edu"><span>Email</span><strong>tsingh65@asu.edu</strong></a>
-            <a class="contact-tile" href="https://scholar.google.com/citations?user=Sfeb8fMAAAAJ&hl=en" target="_blank" rel="noopener"><span>Google Scholar</span><strong>Sfeb8fMAAAAJ</strong></a>
-            <a class="contact-tile" href="https://github.com/tanmay-starslab" target="_blank" rel="noopener"><span>GitHub</span><strong>tanmay-starslab</strong></a>
-            <a class="contact-tile" href="https://www.linkedin.com/in/tanmay-singh-21574a1aa/" target="_blank" rel="noopener"><span>LinkedIn</span><strong>tanmay-singh-21574a1aa</strong></a>
+            <a class="contact-tile" href="mailto:tsingh65@asu.edu"><i class="bi bi-envelope" aria-hidden="true"></i><span>Email</span><strong>tsingh65@asu.edu</strong></a>
+            <a class="contact-tile" href="https://scholar.google.com/citations?user=Sfeb8fMAAAAJ&hl=en" target="_blank" rel="noopener"><i class="bi bi-mortarboard" aria-hidden="true"></i><span>Google Scholar</span><strong>Sfeb8fMAAAAJ</strong></a>
+            <a class="contact-tile" href="https://github.com/tanmay-starslab" target="_blank" rel="noopener"><i class="bi bi-github" aria-hidden="true"></i><span>GitHub</span><strong>tanmay-starslab</strong></a>
+            <a class="contact-tile" href="https://www.linkedin.com/in/tanmay-singh-21574a1aa/" target="_blank" rel="noopener"><i class="bi bi-linkedin" aria-hidden="true"></i><span>LinkedIn</span><strong>tanmay-singh-21574a1aa</strong></a>
           </div>
         </div>
       </div>
@@ -507,12 +525,14 @@
   </main>
 
   <footer id="footer" class="site-footer">
-    <div class="sheet">
+    <div class="container">
       <p>&copy; <span id="year">2026</span> Tanmay Singh. Designed by <a href="https://bootstrapmade.com/" target="_blank" rel="noopener">BootstrapMade</a>; adapted with a custom astrophysics interface.</p>
     </div>
   </footer>
 
-  <script src="assets/js/site.js"></script>
+  <a href="#home" class="scroll-top" aria-label="Back to top"><i class="bi bi-arrow-up-short" aria-hidden="true"></i></a>
+
+  <script src="assets/js/snapfolio-astro.js"></script>
 </body>
 
 </html>
