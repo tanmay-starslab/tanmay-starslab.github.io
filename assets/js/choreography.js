@@ -27,10 +27,31 @@
   // 120Hz ProMotion would double GPU work for no perceptual gain here.
   g.ticker.fps(60);
 
-  // The camera. One plain object that both the scroll timelines and the GL
-  // render loop read. ScrollTrigger is NEVER called from inside a rAF.
+  // The camera. One plain object that the scroll timelines write and the GL
+  // render loop reads — plate-field.js picks it up from window.__cam on every
+  // frame, defensively, because this whole file returns early when GSAP is
+  // blocked, the viewport is narrow, or motion is switched off.
+  //
+  // That sentence was previously true only of the first half. Nothing read
+  // __cam: the object was tweened every scroll frame and the shader used
+  // hardcoded constants, so the velocity trail below animated a number with no
+  // consumer. It reads now, and this comment is checkable — grep __cam.
+  //
+  // ScrollTrigger is NEVER called from inside a rAF.
   var cam = { depth: 0, zoom: 1, spread: 1, warmth: 0.62, exposure: 1, trail: 0 };
   window.__cam = cam;
+
+  // The trail bleeds off on the ticker rather than in the scroll callback,
+  // because the moment worth rendering is the one AFTER the reader stops —
+  // and that is precisely when no scroll callback runs. 0.90 per frame reaches
+  // zero in about a second at 60fps, which is roughly how long a flick reads as
+  // still moving.
+  g.ticker.add(function () {
+    if (cam.trail > 0) {
+      cam.trail *= 0.90;
+      if (cam.trail < 0.002) cam.trail = 0;
+    }
+  });
 
   var mm = g.matchMedia();
 
@@ -70,7 +91,14 @@
       scrub: 1.0,
       invalidateOnRefresh: true,
       onUpdate: function (self) {
-        cam.trail = Math.min(Math.abs(self.getVelocity()) / 2400, 1);
+        // RAISE, never assign. onUpdate only fires while the scroll position is
+        // changing, so an assignment latches: stop scrolling and the last
+        // velocity sample is the value forever. Measured before this — trail
+        // sat at 1.00 nine hundred milliseconds after the page had stopped
+        // moving, so "flick and it streaks, stop and it settles" was half a
+        // feature. The decay below is what makes the second half true.
+        var v = Math.min(Math.abs(self.getVelocity()) / 2400, 1);
+        if (v > cam.trail) cam.trail = v;
       }
     }
   })

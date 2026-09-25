@@ -77,6 +77,11 @@
     "uniform vec2  uPointer;\n" +
     "uniform float uExposure;\n" +
     "uniform float uWarmth;\n" +
+    // The scroll camera. See the JS side for why these arrive as uniforms
+    // rather than being baked in.
+    "uniform float uZoom;\n" +
+    "uniform float uDepth;\n" +
+    "uniform float uTrail;\n" +
 
     // sin-free hash: sin-based hashes visibly break on some Adreno and Mali parts.
     "vec3 hash33(vec3 p){ p = fract(p*vec3(0.1031,0.1030,0.0973));\n" +
@@ -149,6 +154,11 @@
     // some older drivers.
     "  for (int i=0;i<64;i++){ if(i>=steps) break;\n" +
     "    vec3 pos = ro + rd*t;\n" +
+    // The trail. Successive samples along the ray are sheared along y, so a
+    // fast scroll smears the field in the direction of travel and a stopped
+    // one does not. It is a shear on an existing loop rather than a second
+    // pass, so it costs one multiply-add per step and nothing else.
+    "    pos.y += uTrail * float(i) * 0.016;\n" +
     "    float d = density(pos,time,oct);\n" +
     "    if (d > 0.002){\n" +
     "      vec3 emis = mix(OIII_TEAL, HA_ROSE, smoothstep(0.0,0.7,d));\n" +
@@ -178,8 +188,8 @@
     "  vec2 dl = uv - uPointer;\n" +
     "  float r2 = dot(dl,dl) + 0.06;\n" +
     "  uv -= dl * (0.018 / r2);\n" +
-    "  vec3 ro = vec3(0.0,0.0,-2.2);\n" +
-    "  vec3 rd = normalize(vec3(uv, 1.25));\n" +
+    "  vec3 ro = vec3(0.0,0.0,-2.2 + uDepth);\n" +
+    "  vec3 rd = normalize(vec3(uv / uZoom, 1.25));\n" +
     "  vec3 c  = nebula(ro, rd, uTime, uSteps, uOct);\n" +
     // Beer-Lambert accumulation is UNBOUNDED: without tonemapping, dense
     // regions clip to white and destroy body-text contrast over the hero.
@@ -203,7 +213,8 @@
   }
 
   var UNIFORMS =
-    ["uRes","uTime","uFrame","uSteps","uOct","uPointer","uExposure","uWarmth"];
+    ["uRes","uTime","uFrame","uSteps","uOct","uPointer","uExposure","uWarmth",
+     "uZoom","uDepth","uTrail"];
   var prog = null, U = {};
   function build() {
     var vs = compile(gl.VERTEX_SHADER, VERT);
@@ -296,8 +307,39 @@
     gl.uniform1i(U.uSteps, STEPS[tier]);
     gl.uniform1i(U.uOct, OCT[tier]);
     gl.uniform2f(U.uPointer, pointer.x, pointer.y);
-    gl.uniform1f(U.uExposure, 3.6);
-    gl.uniform1f(U.uWarmth, 0.62);
+    // THE SCROLL CAMERA, read here and nowhere else.
+    //
+    // choreography.js builds a plain `cam` object, tweens it from its scroll
+    // timelines, and publishes it as window.__cam. Until now nothing read it:
+    // the object was written every frame by three tweens and a getVelocity
+    // callback, and this loop used hardcoded constants. The comment over there
+    // claimed "both the scroll timelines and the GL render loop read" it, which
+    // made a dead global look load-bearing and meant the velocity trail — the
+    // one behaviour that makes the field feel like it has mass — did not exist.
+    //
+    // It is read defensively on every frame rather than captured once, because
+    // choreography.js returns early with no camera at all when GSAP is blocked,
+    // when the viewport is narrow, or when motion is switched off. Absent a
+    // camera these are exactly the constants that shipped before.
+    var cam = window.__cam;
+    var camZoom = 1, camDepth = 0, camTrail = 0;
+    var camExposure = 3.6, camWarmth = 0.62;
+    if (cam) {
+      camExposure = 3.6 * (typeof cam.exposure === "number" ? cam.exposure : 1);
+      camWarmth = typeof cam.warmth === "number" ? cam.warmth : 0.62;
+      camZoom = typeof cam.zoom === "number" ? Math.max(0.5, cam.zoom) : 1;
+      // cam.depth runs to 1200 across the whole document, which is a page-scroll
+      // number, not a scene-scale one. The field lives in roughly unit space and
+      // the hero only occupies the first stretch of that range, so it is scaled
+      // to a fraction of a unit and clamped.
+      camDepth = Math.min(0.8, (cam.depth || 0) * 0.0006);
+      camTrail = Math.min(1, Math.max(0, cam.trail || 0));
+    }
+    gl.uniform1f(U.uExposure, camExposure);
+    gl.uniform1f(U.uWarmth, camWarmth);
+    gl.uniform1f(U.uZoom, camZoom);
+    gl.uniform1f(U.uDepth, camDepth);
+    gl.uniform1f(U.uTrail, camTrail);
     gl.clearColor(0, 0, 0, 1);
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.drawArrays(gl.TRIANGLES, 0, 3);   // no buffers, no attributes, no blending
