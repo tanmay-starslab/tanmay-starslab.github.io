@@ -9,7 +9,11 @@
   if (!window.gsap || !window.ScrollTrigger) return;
 
   var reduceQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-  if (reduceQuery.matches) return;
+  // The page's own motion toggle counts as reduced motion: without this the
+  // pinned rail and every scrub timeline keep running for a reader who turned
+  // motion off, which is the most visible half of the page's movement.
+  if (reduceQuery.matches ||
+      document.documentElement.classList.contains("motion-off")) return;
 
   var g = window.gsap;
   g.registerPlugin(window.ScrollTrigger);

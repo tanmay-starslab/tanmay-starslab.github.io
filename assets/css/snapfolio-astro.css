@@ -2711,13 +2711,24 @@ sub { font-size: 0.72em; vertical-align: -0.18em; }
 
 /* 6. PLATE LABEL — this is what converts a headshot into an archival object,
    and it is the cheapest, highest-yield element in the design. */
+/* The caption gets its OWN surface rather than inheriting whatever the plate
+   happens to be. It is light lettering, and the plate behind it is a lit
+   conic rim over a warm radial — light on light. Measured against the
+   composite it sat at 2.64:1 for the plate number and 1.18:1 for the
+   dimensions, well under the 4.5:1 a caption needs. A scrim is also what the
+   object it is imitating actually has: an archival plate carries its
+   annotation on a printed strip, not floating on the emulsion. */
 .plate-label {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   gap: 0 0.7em;
   margin-top: 14px;
-  padding-top: 10px;
+  padding: 10px 12px 9px;
+  border-radius: 0 0 10px 10px;
+  background: linear-gradient(180deg in oklab,
+    color-mix(in oklab, var(--ink-void) 72%, transparent),
+    color-mix(in oklab, var(--ink-void) 92%, transparent));
   border-top: 1px solid var(--ink-hairline);
   font-family: var(--font-display);
   font-variant-caps: all-small-caps;
@@ -3216,4 +3227,68 @@ html:not(.js) .ovi-rail { display: none !important; }
 @media (prefers-reduced-motion: reduce) {
   #research .research-grid { transform: none !important; }
   #research .research-card { transform: none !important; }
+}
+
+/* ═══════════════════════════════════════════════ THE MOTION TOGGLE
+   The class is set before first paint by the inline head script, so a reader
+   who has asked for a calm page never sees a frame of the intro. */
+.motion-toggle-row { margin: 0.75rem 0 0; }
+
+.motion-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5ch;
+  min-height: 34px;
+  padding: 0.3rem 0.65rem;
+  border: 1px solid color-mix(in oklab, var(--ink-dim) 55%, transparent);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink-muted);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: color var(--dur-xs) var(--ease-out),
+              border-color var(--dur-xs) var(--ease-out);
+}
+.motion-toggle:hover { color: var(--ink-text); border-color: var(--a-cyan); }
+.motion-toggle:focus-visible { outline: 2px solid var(--a-cyan); outline-offset: 3px; }
+/* Pressed state is carried by colour AND by the aria-pressed attribute the
+   button already exposes — never by colour alone. */
+.motion-toggle[aria-pressed="true"] {
+  color: var(--ink-text);
+  border-color: var(--a-cyan);
+  background: color-mix(in oklab, var(--a-cyan) 14%, transparent);
+}
+
+/* The blunt reset. This deliberately mirrors what the reduced-motion media
+   query does rather than re-listing every animated selector: a per-selector
+   copy of a growing file is a list that silently falls out of date, and the
+   failure mode is motion that keeps running for the one reader who asked it
+   not to. 0.001ms rather than 0 so animation `forwards` end states still
+   apply and nothing is left mid-keyframe — in particular .reveal, whose end
+   state is the visible one. */
+html.motion-off *,
+html.motion-off *::before,
+html.motion-off *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  transition-delay: 0s !important;
+}
+html.motion-off { scroll-behavior: auto !important; }
+
+/* The three things the blunt reset cannot reach, because they are not
+   animations: a live WebGL canvas, a pinned horizontal rail, and a 2D
+   starfield that redraws on rAF. */
+html.motion-off #plate-field { display: none !important; }
+html.motion-off #research .research-grid {
+  display: grid !important;
+  width: auto !important;
+  transform: none !important;
+}
+html.motion-off #research .research-card,
+html.motion-off #research .research-card.featured {
+  width: auto !important;
+  transform: none !important;
 }

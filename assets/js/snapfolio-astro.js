@@ -10,11 +10,19 @@
   "use strict";
 
   const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-  let reduceMotion = reduceMotionQuery.matches;
+  // The page's own motion toggle is equivalent to the OS setting here. It is
+  // read once, at load, because the toggle reloads the page when it changes —
+  // there is no mid-session transition to handle for this flag.
+  const motionOptOut = document.documentElement.classList.contains("motion-off");
+  let reduceMotion = reduceMotionQuery.matches || motionOptOut;
   // Read once at load, this never noticed a visitor turning the setting on
   // mid-session. Reveal everything immediately if they do.
   function onReduceMotionChange(e) {
-    reduceMotion = e.matches;
+    // `|| motionOptOut`, not a bare assignment. Without it, a reader who turned
+    // motion off on this page and then switched the OS setting from reduce to
+    // no-preference would have the star field restarted underneath them — the
+    // OS event would clear a flag it never set.
+    reduceMotion = e.matches || motionOptOut;
     if (reduceMotion) {
       document.querySelectorAll(".reveal").forEach((n) => n.classList.add("is-visible"));
     } else if (typeof window.__startGalaxy === "function") {
