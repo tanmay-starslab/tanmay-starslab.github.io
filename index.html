@@ -24,7 +24,7 @@
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link rel="preload" href="assets/fonts/plate-display.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/plate-text.woff2" as="font" type="font/woff2" crossorigin>
-  <link href="assets/css/snapfolio-astro.css?v=2" rel="stylesheet">
+  <link href="assets/css/snapfolio-astro.css?v=3" rel="stylesheet">
 
   <script type="application/ld+json">
   {
@@ -75,6 +75,15 @@
       // carrying role="img" and a label promising a plot that is not there.
       // It is deliberately NOT js-reveal, which the watchdog below removes.
       el.classList.add("js");
+      // The stored motion preference is applied BEFORE first paint. Read it
+      // later — from a deferred script — and the reader who asked for no
+      // motion gets one frame of the intro animation first, which is the
+      // one frame they specifically asked not to see.
+      try {
+        if (window.localStorage && localStorage.getItem("motion") === "off") {
+          el.classList.add("motion-off");
+        }
+      } catch (e) { /* private mode, blocked storage: motion simply stays on */ }
       el.classList.add("js-reveal");
       window.setTimeout(function () {
         if (!window.__revealReady) el.classList.remove("js-reveal");
@@ -130,6 +139,17 @@
           <li><a href="#contact"><i class="bi bi-envelope navicon" aria-hidden="true"></i><span>Contact</span></a></li>
         </ul>
       </nav>
+
+      <!-- A real toggle, not a media query. prefers-reduced-motion is an OS
+           setting, and plenty of people want a calmer version of one page
+           without changing it for their whole machine. aria-pressed carries
+           the state; the label says what the button DOES. -->
+      <p class="motion-toggle-row">
+        <button type="button" class="motion-toggle" id="motion-toggle" aria-pressed="false">
+          <i class="bi bi-activity" aria-hidden="true"></i>
+          <span>Reduce motion</span>
+        </button>
+      </p>
 
       <div class="social-links" aria-label="Profile links">
         <a href="mailto:tsingh65@asu.edu" aria-label="Email Tanmay Singh"><i class="bi bi-envelope" aria-hidden="true"></i></a>
@@ -660,14 +680,15 @@
 
   <a href="#home" class="scroll-top" aria-label="Back to top"><i class="bi bi-arrow-up-short" aria-hidden="true"></i></a>
 
-  <script src="assets/js/snapfolio-astro.js"></script>
+  <script src="assets/js/motion-toggle.js?v=1" defer></script>
+  <script src="assets/js/snapfolio-astro.js?v=1"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js" defer></script>
   <script src="assets/js/spectrum.js?v=1" defer></script>
   <script src="assets/js/sightline.js?v=2" defer></script>
-  <script src="assets/js/plate-field.js" defer></script>
-  <script src="assets/js/choreography.js?v=3" defer></script>
+  <script src="assets/js/plate-field.js?v=1" defer></script>
+  <script src="assets/js/choreography.js?v=4" defer></script>
 </body>
 
 </html>

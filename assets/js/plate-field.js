@@ -16,7 +16,13 @@
   "use strict";
 
   var rm = window.matchMedia("(prefers-reduced-motion: reduce)");
-  if (rm.matches) return;
+  // The page's own motion toggle counts as reduced motion. Checking only the
+  // media query would leave the most expensive thing on the page running for a
+  // reader who explicitly switched motion off.
+  function motionOff() {
+    return rm.matches || document.documentElement.classList.contains("motion-off");
+  }
+  if (motionOff()) return;
 
   var host = document.getElementById("galaxy-canvas");
   if (!host || !host.parentNode) return;
@@ -409,7 +415,7 @@
   canvas.addEventListener("webglcontextrestored", function () {
     if (dead || losses >= 2) return;
     // Reduced motion may have been switched on while the context was gone.
-    if (rm.matches) { giveUp(); return; }
+    if (motionOff()) { giveUp(); return; }
     if (!build()) { giveUp(); return; }
     lastW = lastH = 0;
     resize();
