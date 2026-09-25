@@ -13,12 +13,21 @@
   let reduceMotion = reduceMotionQuery.matches;
   // Read once at load, this never noticed a visitor turning the setting on
   // mid-session. Reveal everything immediately if they do.
-  reduceMotionQuery.addEventListener("change", (e) => {
+  function onReduceMotionChange(e) {
     reduceMotion = e.matches;
     if (reduceMotion) {
       document.querySelectorAll(".reveal").forEach((n) => n.classList.add("is-visible"));
+    } else if (typeof window.__startGalaxy === "function") {
+      window.__startGalaxy();
     }
-  });
+  }
+  // Safari < 14 / iOS < 14 have addListener but not addEventListener here.
+  // Calling the missing one threw and took the whole script with it.
+  if (typeof reduceMotionQuery.addEventListener === "function") {
+    reduceMotionQuery.addEventListener("change", onReduceMotionChange);
+  } else if (typeof reduceMotionQuery.addListener === "function") {
+    reduceMotionQuery.addListener(onReduceMotionChange);
+  }
   const header = document.querySelector("#header");
   const headerToggleBtn = document.querySelector(".header-toggle");
   const navLinks = document.querySelectorAll("#navmenu a[href^='#']");
@@ -165,14 +174,6 @@
   window.addEventListener("resize", updateTimelineFill, { passive: true });
 
   const revealItems = document.querySelectorAll(".reveal");
-  function syncRevealVisibility() {
-    revealItems.forEach((item) => {
-      const rect = item.getBoundingClientRect();
-      if (rect.top < window.innerHeight * 0.92 && rect.bottom > window.innerHeight * 0.04) {
-        item.classList.add("is-visible");
-      }
-    });
-  }
 
   if (reduceMotion || !("IntersectionObserver" in window)) {
     revealItems.forEach((item) => item.classList.add("is-visible"));
@@ -256,8 +257,10 @@
     window.requestAnimationFrame(flushPointer);
   }, { passive: true });
 
-  window.addEventListener("pointerleave", () => {
+  document.documentElement.addEventListener("pointerleave", () => {
     pointer.active = false;
+    pointerQueued = true;   // swallow any frame already queued
+    window.requestAnimationFrame(() => { pointerQueued = false; });
     root.style.setProperty("--parallax-x", "0");
     root.style.setProperty("--parallax-y", "0");
   });
@@ -286,6 +289,7 @@
       }, { passive: true });
 
       card.addEventListener("pointerleave", () => {
+        cardEvent = null;   // otherwise a queued frame re-tilts the card
         card.style.setProperty("--tilt-x", "0deg");
         card.style.setProperty("--tilt-y", "0deg");
         card.style.setProperty("--glow-x", "50%");
@@ -506,10 +510,19 @@
       ctx.globalAlpha = 1;
     }
 
-    if (!reduceMotion) {
-      frame = window.requestAnimationFrame(drawGalaxy);
+    if (reduceMotion) {
+      frame = 0;
+      return;
     }
+    frame = window.requestAnimationFrame(drawGalaxy);
   }
+
+  // Turning prefers-reduced-motion back OFF used to leave the canvas frozen
+  // until a resize, because nothing restarted the loop.
+  window.__startGalaxy = function () {
+    if (reduceMotion || frame) return;
+    frame = window.requestAnimationFrame(drawGalaxy);
+  };
 
   resizeCanvas();
   drawGalaxy();

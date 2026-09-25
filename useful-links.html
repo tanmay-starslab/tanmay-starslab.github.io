@@ -37,6 +37,10 @@
        timeout is a failsafe for when snapfolio-astro.js is blocked or throws. */
     (function () {
       var el = document.documentElement;
+      el.classList.add("js-reveal");
+      window.setTimeout(function () {
+        if (!window.__revealReady) el.classList.remove("js-reveal");
+      }, 2500);
       try {
         if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
         el.classList.add("intro-active", "intro-hold");
