@@ -184,14 +184,38 @@
     });
   }
 
+  // Measured against the VIEWPORT, not against offsetTop.
+  //
+  // offsetTop is a document-space number, and a pinned section does not have a
+  // meaningful one: while ScrollTrigger pins #research it sets the section
+  // `position: fixed` inside a .pin-spacer, so its offsetTop collapses toward 0
+  // while its offsetHeight stays the unpinned value. Measured, that produced
+  // two visible wrongs at once — the Research entry lit up while the reader was
+  // still at the top of the page, and NOTHING was lit for the whole ~1100px the
+  // reader actually spent inside Research.
+  //
+  // getBoundingClientRect is already viewport-relative, so it reports a pinned
+  // section exactly where the reader sees it, and needs no knowledge of the pin
+  // at all. ANCHOR is the same 220px line the old code used, just expressed in
+  // the coordinate space that survives `position: fixed`.
+  const ANCHOR = 220;
   function navmenuScrollspy() {
-    const position = window.scrollY + 220;
+    let best = null, bestTop = -Infinity;
     navLinks.forEach((link) => {
       const section = document.querySelector(link.hash);
-      if (!section) return;
-      const active = position >= section.offsetTop && position < section.offsetTop + section.offsetHeight;
-      link.classList.toggle("active", active);
+      if (!section) { link.classList.remove("active"); return; }
+      const rect = section.getBoundingClientRect();
+      // A pinned section and the one after it can both straddle the anchor for
+      // a frame, so take the lowest section whose top is still above it rather
+      // than lighting both.
+      if (rect.top <= ANCHOR && rect.bottom > ANCHOR && rect.top > bestTop) {
+        best = link; bestTop = rect.top;
+      }
+      link.classList.remove("active");
     });
+    // Above the first section nothing is active, which is correct: the reader
+    // is in the hero, and the hero's own entry claims it on its own terms.
+    if (best) best.classList.add("active");
   }
 
   function updateTimelineFill() {
