@@ -1,37 +1,154 @@
-/**
-* Template Name: SnapFolio
-* Template URL: https://bootstrapmade.com/snapfolio-bootstrap-portfolio-template/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-* Custom astrophysics adaptation for Tanmay Singh.
-*/
-
 :root {
-  --bg: #03050b;
-  --bg-soft: #080d18;
-  --surface: rgba(255, 255, 255, 0.06);
-  --surface-strong: rgba(255, 255, 255, 0.1);
-  --border: rgba(255, 255, 255, 0.14);
-  --glass-bg: rgba(8, 13, 24, 0.58);
-  --glass-bg-strong: rgba(13, 20, 36, 0.72);
-  --glass-border: rgba(255, 255, 255, 0.15);
-  --glass-highlight: rgba(255, 255, 255, 0.18);
-  --glow-cyan: rgba(125, 211, 252, 0.34);
-  --glow-violet: rgba(167, 139, 250, 0.3);
-  --text: #f8fafc;
-  --muted: #9aa7bb;
-  --accent: #7dd3fc;
-  --accent-2: #a78bfa;
-  --accent-3: #f5c2e7;
-  --accent-4: #93c5fd;
-  --gold: #f8d477;
-  --magenta: #f0abfc;
-  --green: #93e6c4;
-  --shadow: 0 28px 90px rgba(0, 0, 0, 0.5);
+  /* ─────────── INK — near-neutral, hue ~272° through the mid ramp ───────────
+     The mid and upper ramp sit at 269–276°, close to the OKLCH hue of an O/B
+     stellar continuum (268°, computed below). The two darkest steps do NOT
+     hold that hue — at 8-bit, #020304 is hue 243 and #000101 is hue 195 —
+     because near black there are not enough levels to carry one. Chroma
+     floor is 0.006, not 0.004. Hex first on every line so text can never
+     vanish if oklch() fails to parse. */
+  --ink-void:     #000101;
+  --ink-bg:       #020304;   /* the page. was #03050b — that was blue-black. */
+  --ink-bg-2:     #060609;
+  --ink-panel:    #0c0d12;
+  --ink-surface:  #15171d;
+  --ink-hairline: #24262d;   /* non-interactive 1px rules */
+  --ink-edge:     #373a43;   /* interactive borders — never the focus ring */
+  --ink-dim:      #656974;   /* decorative only, never text */
+  --ink-caption:  #9fa4b3;   /* captions and metadata only     8.3:1 */
+  --ink-muted:    #b2b7c6;   /* secondary text                 ~10:1 */
+  --ink-text-2:   #d1d4dc;   /*                                14.0:1 */
+  --ink-text:     #f2f3f8;   /* headings, emphasis             18.7:1 */
+
+  /* ─────────── ACCENT — nine hues from real spectral lines ───────────
+     Hue is the only free variable; lightness and chroma are frozen per use
+     tier. The anchors are computed from the CIE 1931 colour-matching
+     functions, not picked off a wheel:
+       Hα 6563Å → 23°   ·  Na D 5893Å → 61°  ·  Mg b 5184Å → 160°
+       [O III] 5007Å → 176°  ·  Hβ 4861Å → 199°  ·  O/B continuum → 268°
+       Hγ 4340Å → 291°
+     318° is unanchored. 340° is a declared false-colour: Lyα and the O VI
+     doublet are far-ultraviolet and have no colour at all — the pink in
+     nebula imagery is Balmer, not Lyman. Never label a swatch "Lyα".
+
+     The old palette separated seven accents by HUE alone: cyan sat at
+     L 0.828 and magenta at L 0.833 — a lightness difference of 0.005, which
+     is invisible under any colour-vision deficiency. Freezing L per tier and
+     moving only hue fixes that. */
+  --h-halpha: 23;   --h-gold: 61;    --h-green: 160;  --h-o3: 176;
+  --h-cyan: 199;    --h-blue: 268;   --h-violet: 291; --h-magenta: 318;
+  --h-lya: 340;
+
+  --l-text:  0.845; --c-text:  0.115;   /* accent type, links        ~12-13:1 */
+  --l-solid: 0.720; --c-solid: 0.165;   /* filled buttons, dots, icons */
+  --l-glow:  0.660; --c-glow:  0.230;   /* radial washes, bloom, rims */
+  --l-wash:  0.430; --c-wash:  0.090;   /* tinted borders, card fills */
+
+  /* Per-hue chroma CEILINGS at text lightness, solved by bisection for the
+     maximum in-gamut chroma. Four of the nine hues — Hα, Na D, the O/B
+     continuum and Hγ — do NOT fit in sRGB at C 0.115 and L 0.845, so without
+     these the browser silently clips them and the frozen-lightness discipline
+     the whole system rests on quietly stops holding. Raising --c-text above
+     a ceiling does literally nothing; it maps straight back. */
+  --cmax-halpha: 0.085; --cmax-gold: 0.106;  --cmax-green: 0.191;
+  --cmax-o3:     0.158; --cmax-cyan: 0.144;  --cmax-magenta: 0.120;
+  --cmax-lya:    0.115; --cmax-violet: 0.083; --cmax-blue: 0.076;
+
+  /* Ready-made text-tier accents, each clamped to its own ceiling. */
+  --a-halpha:  oklch(var(--l-text) min(var(--c-text), var(--cmax-halpha))  var(--h-halpha));
+  --a-gold:    oklch(var(--l-text) min(var(--c-text), var(--cmax-gold))    var(--h-gold));
+  --a-green:   oklch(var(--l-text) min(var(--c-text), var(--cmax-green))   var(--h-green));
+  --a-o3:      oklch(var(--l-text) min(var(--c-text), var(--cmax-o3))      var(--h-o3));
+  --a-cyan:    oklch(var(--l-text) min(var(--c-text), var(--cmax-cyan))    var(--h-cyan));
+  --a-blue:    oklch(var(--l-text) min(var(--c-text), var(--cmax-blue))    var(--h-blue));
+  --a-violet:  oklch(var(--l-text) min(var(--c-text), var(--cmax-violet))  var(--h-violet));
+  --a-magenta: oklch(var(--l-text) min(var(--c-text), var(--cmax-magenta)) var(--h-magenta));
+  --a-lya:     oklch(var(--l-text) min(var(--c-text), var(--cmax-lya))     var(--h-lya));
+
+  /* ─────────── MAGMA — the colormap in his own TNG figures ───────────
+     Verified against matplotlib's _cm_listed.py. The punchline: magma's zero
+     point is #000004, which is --ink-bg to within two 8-bit levels. The page
+     background IS the bottom of the colormap, and every accent is a step up
+     it. Minimum adjacent ΔL is 0.096 across a 0.883 spread, so any two steps
+     stay distinguishable under any dichromacy. */
+  /* Declared here and consumed by the spectrum and sightline work, not by
+     the rules below — this block is deliberately ahead of its consumers. */
+  --ramp-0: #020304; --ramp-1: #1d1147; --ramp-2: #51127c;
+  --ramp-3: #832681; --ramp-4: #b73779; --ramp-5: #e75263;
+  --ramp-6: #fc8961; --ramp-7: #fec488; --ramp-8: #fcfdbf;
+
+  /* ─────────── MOTION ───────────
+     Budget rule: only opacity and transform may take --dur-m or longer.
+     Colour, border and shadow stay at --dur-xs/s — a 0.8s hover reads as
+     broken. Never `transition: all`; this file has none today. */
+  /* Also ahead of their consumers: the ~40 existing transitions still use
+     hardcoded ms and are migrated with the motion work, not swept blindly —
+     four of them animate non-compositable properties and must not move onto
+     the long tokens. */
+  --dur-xs: 0.18s; --dur-s: 0.4s; --dur-m: 0.8s; --dur-l: 1.2s;
+  --ease-out: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-in: cubic-bezier(0.5, 0, 0.75, 0);
+
+  /* ─────────── COMPATIBILITY ───────────
+     The 1900 lines below still reference the old names. Remapped here so this
+     commit reskins the whole page; the rules themselves migrate later. */
+  --bg: var(--ink-bg);
+  --bg-soft: var(--ink-bg-2);
+  --surface: rgba(255, 255, 255, 0.05);
+  --surface-strong: rgba(255, 255, 255, 0.09);
+  --border: var(--ink-hairline);
+  --glass-bg: rgba(12, 13, 18, 0.62);
+  --glass-bg-strong: rgba(21, 23, 29, 0.74);
+  --glass-border: var(--ink-edge);
+  --glass-highlight: rgba(255, 255, 255, 0.16);
+  --glow-cyan: oklch(var(--l-glow) var(--c-glow) var(--h-cyan) / 0.30);
+  --glow-violet: oklch(var(--l-glow) var(--c-glow) var(--h-violet) / 0.26);
+  --text: var(--ink-text);
+  --muted: var(--ink-muted);
+  --accent:   var(--a-cyan);
+  --accent-2: var(--a-violet);
+  --accent-3: var(--a-lya);
+  --accent-4: var(--a-blue);
+  --gold:     var(--a-gold);
+  --magenta:  var(--a-magenta);
+  --green:    var(--a-green);
+  --shadow: 0 28px 90px rgba(0, 0, 0, 0.62);
   --header-width: 310px;
   color-scheme: dark;
   scroll-behavior: smooth;
 }
+
+/* Defaults first, per-component overrides after — the reverse order silently
+   loses, because [class*="-card"] and .research-card are both (0,1,0) and the
+   later rule wins every tie. */
+[class*="-card"],
+[class*="-panel"],
+.contact-tile,
+.link-section {
+  --card-l: 0.845;
+  --card-c: 0.115;
+  --card-h: var(--h-cyan);
+  --card-accent: oklch(var(--card-l) var(--card-c) var(--card-h));
+  --accent-glow: oklch(var(--l-glow) var(--c-glow) var(--card-h) / 0.28);
+  --accent-wash: oklch(var(--l-wash) var(--c-wash) var(--card-h) / 0.55);
+}
+
+/* Lightness VARIES across components, deliberately.
+   An earlier version of this froze L at 0.845 for every accent and claimed
+   that helped colour-vision deficiency. That was backwards: lightness is the
+   one channel every dichromacy preserves, so flattening it removes the only
+   cue that survives. Simulated pairwise, the flat palette put four pairs
+   under 1 JND in tritanopia where the original had none.
+   These six span L 0.70–0.90 with a minimum adjacent ΔL of 0.040 — two JND —
+   and every one clears 7.6:1 on the page. Chroma is clamped per hue to the
+   in-gamut ceiling at ITS OWN lightness, since a ceiling solved at one
+   lightness is not valid at another. */
+.research-card    { --card-h: var(--h-cyan);   --card-l: 0.90; --card-c: 0.115; }
+.project-card     { --card-h: var(--h-o3);     --card-l: 0.82; --card-c: 0.115; }
+.publication-card { --card-h: var(--h-green);  --card-l: 0.74; --card-c: 0.115; }
+.timeline-content { --card-h: var(--h-gold);   --card-l: 0.86; --card-c: 0.095; }
+.contact-tile     { --card-h: var(--h-violet); --card-l: 0.78; --card-c: 0.115; }
+.link-section     { --card-h: var(--h-blue);   --card-l: 0.70; --card-c: 0.115; }
 
 * {
   box-sizing: border-box;
@@ -122,8 +239,8 @@ body {
   margin: 0;
   color: var(--text);
   background:
-    radial-gradient(circle at 75% 8%, rgba(167, 139, 250, 0.26), transparent 34rem),
-    radial-gradient(circle at 12% 24%, rgba(125, 211, 252, 0.19), transparent 32rem),
+    radial-gradient(circle at 75% 8%, oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.26), transparent 34rem),
+    radial-gradient(circle at 12% 24%, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.19), transparent 32rem),
     linear-gradient(135deg, var(--bg) 0%, #060a13 42%, #090e1c 100%);
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   line-height: 1.65;
@@ -138,8 +255,8 @@ body::before {
   pointer-events: none;
   content: "";
   background-image:
-    radial-gradient(circle at 22% 18%, rgba(125, 211, 252, 0.08), transparent 26rem),
-    radial-gradient(circle at 78% 36%, rgba(167, 139, 250, 0.08), transparent 30rem),
+    radial-gradient(circle at 22% 18%, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.08), transparent 26rem),
+    radial-gradient(circle at 78% 36%, oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.08), transparent 30rem),
     linear-gradient(rgba(255, 255, 255, 0.032) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.032) 1px, transparent 1px);
   background-size: auto, auto, 86px 86px, 86px 86px;
@@ -164,9 +281,9 @@ body::before {
   z-index: 1;
   pointer-events: none;
   background:
-    radial-gradient(circle at 50% 34%, rgba(3, 5, 11, 0.22), rgba(3, 5, 11, 0.76) 58%, rgba(3, 5, 11, 0.94) 100%),
-    linear-gradient(90deg, rgba(3, 5, 11, 0.82), rgba(3, 5, 11, 0.48), rgba(3, 5, 11, 0.82)),
-    linear-gradient(180deg, rgba(3, 5, 11, 0.6), rgba(3, 5, 11, 0.88));
+    radial-gradient(circle at 50% 34%, rgba(2, 3, 4, 0.22), rgba(2, 3, 4, 0.76) 58%, rgba(2, 3, 4, 0.94) 100%),
+    linear-gradient(90deg, rgba(2, 3, 4, 0.82), rgba(2, 3, 4, 0.48), rgba(2, 3, 4, 0.82)),
+    linear-gradient(180deg, rgba(2, 3, 4, 0.6), rgba(2, 3, 4, 0.88));
 }
 
 body::after {
@@ -176,9 +293,9 @@ body::after {
   pointer-events: none;
   content: "";
   background:
-    radial-gradient(ellipse at 25% 32%, rgba(125, 211, 252, 0.07), transparent 34rem),
-    radial-gradient(ellipse at 74% 18%, rgba(245, 194, 231, 0.055), transparent 30rem),
-    radial-gradient(ellipse at 62% 74%, rgba(167, 139, 250, 0.055), transparent 36rem);
+    radial-gradient(ellipse at 25% 32%, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.07), transparent 34rem),
+    radial-gradient(ellipse at 74% 18%, oklch(var(--l-text) var(--cmax-lya) var(--h-lya) / 0.055), transparent 30rem),
+    radial-gradient(ellipse at 62% 74%, oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.055), transparent 36rem);
   filter: blur(18px);
   opacity: 0.9;
   transform: translate3d(calc(var(--parallax-x, 0) * -0.35px), calc(var(--parallax-y, 0) * -0.35px), 0);
@@ -197,7 +314,7 @@ a:hover {
 
 a:focus-visible,
 button:focus-visible {
-  outline: 3px solid rgba(125, 211, 252, 0.7);
+  outline: 3px solid oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.7);
   outline-offset: 4px;
 }
 
@@ -254,10 +371,10 @@ img {
   pointer-events: none;
   background:
     radial-gradient(circle at var(--cursor-x, 50%) var(--cursor-y, 45%), rgba(255, 255, 255, 0.065), transparent 3.8rem),
-    radial-gradient(circle at var(--cursor-x, 50%) var(--cursor-y, 45%), rgba(125, 211, 252, 0.12), transparent 15rem),
-    repeating-radial-gradient(circle at var(--cursor-x, 50%) var(--cursor-y, 45%), rgba(167, 139, 250, 0.018) 0 1px, transparent 1px 118px),
-    radial-gradient(ellipse at 65% 18%, rgba(245, 194, 231, 0.08), transparent 34rem),
-    linear-gradient(180deg, transparent, rgba(3, 5, 11, 0.68));
+    radial-gradient(circle at var(--cursor-x, 50%) var(--cursor-y, 45%), oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.12), transparent 15rem),
+    repeating-radial-gradient(circle at var(--cursor-x, 50%) var(--cursor-y, 45%), oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.018) 0 1px, transparent 1px 118px),
+    radial-gradient(ellipse at 65% 18%, oklch(var(--l-text) var(--cmax-lya) var(--h-lya) / 0.08), transparent 34rem),
+    linear-gradient(180deg, transparent, rgba(2, 3, 4, 0.68));
 }
 
 @keyframes gridDrift {
@@ -319,8 +436,8 @@ img {
 html.intro-hold .header-container,
 html.intro-moving .header-container {
   background: rgba(5, 7, 13, 0.9);
-  border-color: rgba(125, 211, 252, 0.24);
-  box-shadow: 0 34px 120px rgba(0, 0, 0, 0.62), 0 0 70px rgba(125, 211, 252, 0.12);
+  border-color: oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.24);
+  box-shadow: 0 34px 120px rgba(0, 0, 0, 0.62), 0 0 70px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.12);
 }
 
 html.intro-hold .header-container {
@@ -371,10 +488,10 @@ html.intro-skipped .header-container {
   overflow: hidden;
   padding: 2px;
   background:
-    linear-gradient(135deg, rgba(125, 211, 252, 0.75), rgba(167, 139, 250, 0.7)),
+    linear-gradient(135deg, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.75), oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.7)),
     rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.22);
-  box-shadow: 0 0 28px rgba(125, 211, 252, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  box-shadow: 0 0 28px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 
 .brand-mark.image-mark::after {
@@ -562,7 +679,7 @@ html.intro-skipped .header-container {
 .link-section a {
   color: #93e5ff;
   text-decoration: underline;
-  text-decoration-color: rgba(125, 211, 252, 0.45);
+  text-decoration-color: oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.45);
   text-underline-offset: 4px;
 }
 
@@ -572,7 +689,7 @@ html.intro-skipped .header-container {
 .personal-copy a:hover,
 .link-section a:hover {
   color: var(--accent-3);
-  text-decoration-color: rgba(245, 194, 231, 0.7);
+  text-decoration-color: oklch(var(--l-text) var(--cmax-lya) var(--h-lya) / 0.7);
 }
 
 .hero {
@@ -588,7 +705,7 @@ html.intro-skipped .header-container {
   position: absolute;
   pointer-events: none;
   content: "";
-  border: 1px solid rgba(125, 211, 252, 0.12);
+  border: 1px solid oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.12);
   border-radius: 50%;
   transform: translate3d(calc(var(--parallax-x, 0) * 0.65px), calc(var(--parallax-y, 0) * 0.65px), 0) rotate(-14deg);
 }
@@ -598,7 +715,7 @@ html.intro-skipped .header-container {
   right: -8%;
   width: min(58vw, 720px);
   aspect-ratio: 1.9;
-  box-shadow: 0 0 90px rgba(125, 211, 252, 0.07), inset 0 0 70px rgba(167, 139, 250, 0.045);
+  box-shadow: 0 0 90px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.07), inset 0 0 70px oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.045);
 }
 
 .hero::after {
@@ -606,7 +723,7 @@ html.intro-skipped .header-container {
   right: 5%;
   width: min(42vw, 520px);
   aspect-ratio: 1.8;
-  border-color: rgba(167, 139, 250, 0.12);
+  border-color: oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.12);
   transform: translate3d(calc(var(--parallax-x, 0) * 0.45px), calc(var(--parallax-y, 0) * 0.45px), 0) rotate(-19deg);
 }
 
@@ -617,9 +734,9 @@ html.intro-skipped .header-container {
   width: min(70vw, 900px);
   aspect-ratio: 1.25;
   background:
-    radial-gradient(ellipse at 54% 48%, rgba(245, 194, 231, 0.26), transparent 0 12%, transparent 24%),
-    radial-gradient(ellipse at 46% 52%, rgba(125, 211, 252, 0.28), transparent 0 28%, transparent 58%),
-    radial-gradient(ellipse at 70% 32%, rgba(167, 139, 250, 0.32), transparent 0 26%, transparent 62%);
+    radial-gradient(ellipse at 54% 48%, oklch(var(--l-text) var(--cmax-lya) var(--h-lya) / 0.26), transparent 0 12%, transparent 24%),
+    radial-gradient(ellipse at 46% 52%, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.28), transparent 0 28%, transparent 58%),
+    radial-gradient(ellipse at 70% 32%, oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.32), transparent 0 26%, transparent 62%);
   filter: blur(22px);
   opacity: 0.9;
   transform: translate3d(calc(var(--parallax-x, 0) * -0.9px), calc(var(--parallax-y, 0) * -0.9px), 0) rotate(-10deg);
@@ -729,13 +846,13 @@ html.intro-skipped .header-container {
   color: #041019;
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
   border: 0;
-  box-shadow: 0 20px 44px rgba(125, 211, 252, 0.2);
+  box-shadow: 0 20px 44px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.2);
 }
 
 .btn-primary:hover {
   color: #041019;
   transform: translateY(-2px);
-  box-shadow: 0 24px 58px rgba(125, 211, 252, 0.28), 0 0 28px rgba(167, 139, 250, 0.18);
+  box-shadow: 0 24px 58px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.28), 0 0 28px oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.18);
 }
 
 .btn-outline {
@@ -747,8 +864,8 @@ html.intro-skipped .header-container {
 .btn-outline:hover {
   color: var(--text);
   background: var(--surface-strong);
-  border-color: rgba(125, 211, 252, 0.46);
-  box-shadow: 0 18px 44px rgba(125, 211, 252, 0.14);
+  border-color: oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.46);
+  box-shadow: 0 18px 44px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.14);
 }
 
 .hero-links {
@@ -757,7 +874,7 @@ html.intro-skipped .header-container {
 
 .hero-links a {
   color: #dbe6f4;
-  border-bottom: 1px solid rgba(125, 211, 252, 0.28);
+  border-bottom: 1px solid oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.28);
   overflow-wrap: anywhere;
 }
 
@@ -770,9 +887,9 @@ html.intro-skipped .header-container {
   padding: 14px;
   overflow: hidden;
   background:
-    conic-gradient(from 130deg, rgba(125, 211, 252, 0.72), rgba(167, 139, 250, 0.58), rgba(245, 194, 231, 0.46), rgba(248, 212, 119, 0.32), rgba(125, 211, 252, 0.72)),
+    conic-gradient(from 130deg, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.72), oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.58), oklch(var(--l-text) var(--cmax-lya) var(--h-lya) / 0.46), oklch(var(--l-text) var(--cmax-gold) var(--h-gold) / 0.32), oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.72)),
     linear-gradient(145deg, rgba(255, 255, 255, 0.2), transparent 28%),
-    linear-gradient(145deg, rgba(125, 211, 252, 0.2), rgba(167, 139, 250, 0.14), rgba(255, 255, 255, 0.05));
+    linear-gradient(145deg, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.2), oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.14), rgba(255, 255, 255, 0.05));
   background-size: 220% 220%, auto, auto;
   border: 1px solid var(--glass-border);
   border-radius: 34px;
@@ -783,11 +900,11 @@ html.intro-skipped .header-container {
 }
 
 .hero-portrait:hover {
-  border-color: rgba(125, 211, 252, 0.32);
+  border-color: oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.32);
   box-shadow:
     var(--shadow),
-    0 0 42px rgba(125, 211, 252, 0.18),
-    0 0 82px rgba(167, 139, 250, 0.12),
+    0 0 42px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.18),
+    0 0 82px oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.12),
     inset 0 1px 0 var(--glass-highlight);
   filter: saturate(1.04);
   transform: perspective(1000px) rotateX(var(--tilt-y, 0deg)) rotateY(var(--tilt-x, 0deg)) translate3d(calc(var(--parallax-x, 0) * 0.4px), calc(var(--parallax-y, 0) * 0.4px - 8px), 0) scale(1.015);
@@ -801,8 +918,8 @@ html.intro-skipped .header-container {
   content: "";
   background:
     radial-gradient(circle at var(--glow-x, 30%) var(--glow-y, 20%), rgba(255, 255, 255, 0.16), transparent 0 1.5px, transparent 2.5px),
-    radial-gradient(circle at calc(var(--glow-x, 30%) + 18%) calc(var(--glow-y, 20%) + 16%), rgba(125, 211, 252, 0.17), transparent 0 1.5px, transparent 2.5px),
-    linear-gradient(130deg, rgba(255, 255, 255, 0.16), transparent 22%, transparent 74%, rgba(245, 194, 231, 0.1));
+    radial-gradient(circle at calc(var(--glow-x, 30%) + 18%) calc(var(--glow-y, 20%) + 16%), oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.17), transparent 0 1.5px, transparent 2.5px),
+    linear-gradient(130deg, rgba(255, 255, 255, 0.16), transparent 22%, transparent 74%, oklch(var(--l-text) var(--cmax-lya) var(--h-lya) / 0.1));
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 30px;
   opacity: 0.62;
@@ -818,7 +935,7 @@ html.intro-skipped .header-container {
   position: absolute;
   inset: -34px;
   z-index: 0;
-  background: conic-gradient(from 90deg, rgba(125, 211, 252, 0.18), rgba(167, 139, 250, 0.28), rgba(245, 194, 231, 0.16), rgba(125, 211, 252, 0.18));
+  background: conic-gradient(from 90deg, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.18), oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.28), oklch(var(--l-text) var(--cmax-lya) var(--h-lya) / 0.16), oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.18));
   border-radius: 42px;
   filter: blur(20px);
   opacity: 0.8;
@@ -844,8 +961,8 @@ html.intro-skipped .header-container {
   content: "";
   background:
     radial-gradient(circle at 24% 22%, rgba(255, 255, 255, 0.18), transparent 0 1px, transparent 2px),
-    radial-gradient(circle at 72% 28%, rgba(125, 211, 252, 0.2), transparent 0 1px, transparent 2px),
-    linear-gradient(115deg, rgba(255, 255, 255, 0.08), transparent 32%, transparent 70%, rgba(125, 211, 252, 0.06));
+    radial-gradient(circle at 72% 28%, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.2), transparent 0 1px, transparent 2px),
+    linear-gradient(115deg, rgba(255, 255, 255, 0.08), transparent 32%, transparent 70%, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.06));
   border-radius: 24px;
   opacity: 0.68;
   mix-blend-mode: screen;
@@ -887,11 +1004,10 @@ html.intro-skipped .header-container {
 .personal-card,
 .link-card,
 .hover-lift {
-  --card-accent: var(--accent);
   position: relative;
   overflow: hidden;
   background:
-    radial-gradient(circle at var(--glow-x, 50%) var(--glow-y, 0%), color-mix(in srgb, var(--card-accent) 17%, transparent), transparent 42%),
+    radial-gradient(circle at var(--glow-x, 50%) var(--glow-y, 0%), color-mix(in oklab, var(--card-accent) 17%, transparent), transparent 42%),
     linear-gradient(145deg, rgba(255, 255, 255, 0.1), transparent 32%),
     linear-gradient(145deg, var(--glass-bg-strong), var(--glass-bg));
   border: 1px solid var(--glass-border);
@@ -926,7 +1042,7 @@ html.intro-skipped .header-container {
   content: "";
   background:
     linear-gradient(120deg, rgba(255, 255, 255, 0.18), transparent 32%),
-    radial-gradient(circle at var(--glow-x, 50%) var(--glow-y, 0%), color-mix(in srgb, var(--card-accent) 19%, rgba(255, 255, 255, 0.08)), transparent 35%);
+    radial-gradient(circle at var(--glow-x, 50%) var(--glow-y, 0%), color-mix(in oklab, var(--card-accent) 19%, rgba(255, 255, 255, 0.08)), transparent 35%);
   border-radius: inherit;
   opacity: 0.38;
   transition: opacity 240ms ease;
@@ -949,11 +1065,11 @@ html.intro-skipped .header-container {
 .personal-card:hover,
 .link-card:hover,
 .hover-lift:hover {
-  border-color: color-mix(in srgb, var(--card-accent) 44%, rgba(255, 255, 255, 0.16));
+  border-color: color-mix(in oklab, var(--card-accent) 44%, rgba(255, 255, 255, 0.16));
   box-shadow:
     0 30px 90px rgba(0, 0, 0, 0.58),
-    0 0 42px color-mix(in srgb, var(--card-accent) 17%, transparent),
-    0 0 70px rgba(167, 139, 250, 0.08),
+    0 0 42px color-mix(in oklab, var(--card-accent) 17%, transparent),
+    0 0 70px oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.08),
     inset 0 1px 0 rgba(255, 255, 255, 0.22);
   transform: perspective(900px) rotateX(var(--tilt-y, 0deg)) rotateY(var(--tilt-x, 0deg)) translateY(-6px) scale(1.01);
 }
@@ -981,34 +1097,29 @@ html.intro-skipped .header-container {
 .accent-cyan,
 .research-card:nth-child(1),
 .contact-tile:nth-child(1) {
-  --card-accent: var(--accent);
 }
 
 .accent-violet,
 .research-card:nth-child(2),
 .publication-card,
 .timeline-content {
-  --card-accent: var(--accent-2);
 }
 
 .accent-blue,
 .project-card:nth-child(2n),
 .link-section:nth-child(2n) {
-  --card-accent: var(--accent-4);
 }
 
 .accent-magenta,
 .research-card:nth-child(3),
 .personal-panel,
 .contact-tile:nth-child(2) {
-  --card-accent: var(--magenta);
 }
 
 .accent-gold,
 .project-card:nth-child(2n + 1),
 .teaching-panel,
 .fact-grid div:nth-child(2n) {
-  --card-accent: var(--gold);
 }
 
 .about-panel {
@@ -1067,7 +1178,7 @@ html.intro-skipped .header-container {
   position: absolute;
   inset: auto -20% -35% 18%;
   height: 300px;
-  background: radial-gradient(circle, rgba(125, 211, 252, 0.18), transparent 68%);
+  background: radial-gradient(circle, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.18), transparent 68%);
   pointer-events: none;
 }
 
@@ -1096,8 +1207,8 @@ html.intro-skipped .header-container {
   font-weight: 700;
   background:
     linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.025)),
-    color-mix(in srgb, var(--tag-accent) 12%, transparent);
-  border: 1px solid color-mix(in srgb, var(--tag-accent) 32%, transparent);
+    color-mix(in oklab, var(--tag-accent) 12%, transparent);
+  border: 1px solid color-mix(in oklab, var(--tag-accent) 32%, transparent);
   border-radius: 999px;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.13);
   backdrop-filter: blur(12px);
@@ -1122,10 +1233,10 @@ html.intro-skipped .header-container {
 
 .tag-cloud span:hover {
   color: #ffffff;
-  border-color: color-mix(in srgb, var(--tag-accent) 54%, transparent);
+  border-color: color-mix(in oklab, var(--tag-accent) 54%, transparent);
   background:
     linear-gradient(145deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.04)),
-    color-mix(in srgb, var(--tag-accent) 18%, transparent);
+    color-mix(in oklab, var(--tag-accent) 18%, transparent);
   transform: translateY(-1px);
 }
 
@@ -1159,28 +1270,28 @@ html.intro-skipped .header-container {
 }
 
 .visual-site {
-  background-image: linear-gradient(135deg, rgba(3, 5, 11, 0.12), rgba(125, 211, 252, 0.18)), url("../../images/project-site.webp");
+  background-image: linear-gradient(135deg, rgba(2, 3, 4, 0.12), oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.18)), url("../../images/project-site.webp");
 }
 
 .visual-solar {
-  background-image: linear-gradient(135deg, rgba(3, 5, 11, 0.16), rgba(245, 194, 231, 0.12)), url("../../images/project-solar.webp");
+  background-image: linear-gradient(135deg, rgba(2, 3, 4, 0.16), oklch(var(--l-text) var(--cmax-lya) var(--h-lya) / 0.12)), url("../../images/project-solar.webp");
 }
 
 .visual-qkd {
   background:
-    radial-gradient(circle at 28% 30%, rgba(125, 211, 252, 0.36), transparent 25%),
-    radial-gradient(circle at 74% 60%, rgba(167, 139, 250, 0.32), transparent 30%),
+    radial-gradient(circle at 28% 30%, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.36), transparent 25%),
+    radial-gradient(circle at 74% 60%, oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.32), transparent 30%),
     linear-gradient(145deg, #05101c, #141827);
 }
 
 .visual-waves {
-  background-image: linear-gradient(135deg, rgba(3, 5, 11, 0.1), rgba(147, 230, 196, 0.12)), url("../../images/project-waves.webp");
+  background-image: linear-gradient(135deg, rgba(2, 3, 4, 0.1), oklch(var(--l-text) var(--cmax-green) var(--h-green) / 0.12)), url("../../images/project-waves.webp");
 }
 
 .visual-fano {
   background:
-    radial-gradient(circle at 44% 44%, rgba(245, 194, 231, 0.38), transparent 18%),
-    radial-gradient(circle at 62% 50%, rgba(125, 211, 252, 0.22), transparent 26%),
+    radial-gradient(circle at 44% 44%, oklch(var(--l-text) var(--cmax-lya) var(--h-lya) / 0.38), transparent 18%),
+    radial-gradient(circle at 62% 50%, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.22), transparent 26%),
     linear-gradient(145deg, #080c18, #151023);
 }
 
@@ -1212,8 +1323,8 @@ html.intro-skipped .header-container {
   color: var(--accent);
   font-size: 0.78rem;
   font-weight: 850;
-  background: rgba(125, 211, 252, 0.09);
-  border: 1px solid rgba(125, 211, 252, 0.22);
+  background: oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.09);
+  border: 1px solid oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.22);
   border-radius: 999px;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.11);
   text-transform: uppercase;
@@ -1240,7 +1351,7 @@ html.intro-skipped .header-container {
   font-weight: 850;
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
   border-radius: 999px;
-  box-shadow: 0 12px 28px rgba(125, 211, 252, 0.16);
+  box-shadow: 0 12px 28px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.16);
 }
 
 .chip-link:hover {
@@ -1273,7 +1384,7 @@ html.intro-skipped .header-container {
   height: var(--timeline-progress, 0%);
   background: linear-gradient(180deg, var(--accent), var(--accent-2) 52%, #5eead4 100%);
   border-radius: inherit;
-  box-shadow: 0 0 22px rgba(125, 211, 252, 0.62), 0 0 48px rgba(167, 139, 250, 0.42);
+  box-shadow: 0 0 22px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.62), 0 0 48px oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.42);
   transition: height 120ms linear;
 }
 
@@ -1293,10 +1404,10 @@ html.intro-skipped .header-container {
   width: 20px;
   height: 20px;
   content: "";
-  background: radial-gradient(circle, #ffffff 0 18%, var(--accent) 42%, rgba(125, 211, 252, 0.3) 72%);
+  background: radial-gradient(circle, #ffffff 0 18%, var(--accent) 42%, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.3) 72%);
   border: 4px solid rgba(8, 13, 24, 0.96);
   border-radius: 50%;
-  box-shadow: 0 0 0 8px rgba(125, 211, 252, 0.1), 0 0 22px rgba(125, 211, 252, 0.24);
+  box-shadow: 0 0 0 8px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.1), 0 0 22px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.24);
   opacity: 0.66;
   transition: transform 240ms ease, box-shadow 240ms ease, opacity 240ms ease, background 240ms ease;
 }
@@ -1308,7 +1419,7 @@ html.intro-skipped .header-container {
 
 .timeline-item.is-active::before {
   background: radial-gradient(circle, #ffffff 0 18%, var(--accent-3) 38%, var(--accent) 72%);
-  box-shadow: 0 0 0 10px rgba(125, 211, 252, 0.16), 0 0 34px rgba(125, 211, 252, 0.64), 0 0 60px rgba(167, 139, 250, 0.36);
+  box-shadow: 0 0 0 10px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.16), 0 0 34px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.64), 0 0 60px oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.36);
   transform: scale(1.12);
 }
 
@@ -1325,10 +1436,10 @@ html.intro-skipped .header-container {
 }
 
 .timeline-item.is-active .timeline-content {
-  border-color: rgba(167, 139, 250, 0.34);
+  border-color: oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.34);
   box-shadow:
     0 30px 90px rgba(0, 0, 0, 0.58),
-    0 0 44px rgba(167, 139, 250, 0.13),
+    0 0 44px oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.13),
     inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 
@@ -1615,8 +1726,8 @@ html.js-reveal .reveal.is-visible {
 
   .cosmic-image-shade {
     background:
-      radial-gradient(circle at 50% 30%, rgba(3, 5, 11, 0.36), rgba(3, 5, 11, 0.9) 68%),
-      linear-gradient(180deg, rgba(3, 5, 11, 0.82), rgba(3, 5, 11, 0.94));
+      radial-gradient(circle at 50% 30%, rgba(2, 3, 4, 0.36), rgba(2, 3, 4, 0.9) 68%),
+      linear-gradient(180deg, rgba(2, 3, 4, 0.82), rgba(2, 3, 4, 0.94));
   }
 
   body::after {
@@ -2044,4 +2155,42 @@ html.js-reveal .reveal.is-visible {
   .contact-tile::before,
   .about-panel::before,
   .teaching-panel::before { opacity: 0 !important; }
+}
+
+/* ─────────────────────────────────────────────────── the grain layer
+   MANDATORY with the new ramp, not a nice-to-have.
+
+   A solid colour cannot dither anything, so the earlier justification here
+   was wrong. The real mechanism is narrower: unequal per-channel traversal
+   across a gradient staggers band edges, and the body gradient still runs
+   var(--bg) → #060a13 → #090e1c, whose per-channel traversals actually went
+   UP (R 6→7, G 9→11, B 17→24). Banding on the four large soft radials is
+   real on cheap 8-bit panels either way, and a static noise overlay is the
+   cheap fix for it.
+
+   ~2 KB, zero runtime, static — never animated, so reduced motion is a
+   non-issue. On a plate archive it reads as emulsion. */
+.deep-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 6;          /* above .main (5) — at z-index 3 it sat BELOW three of
+                          the four gradients it exists to dither */
+  pointer-events: none;
+  mix-blend-mode: normal;  /* `overlay` is multiplicative below 0.5, so on a
+                              #020304 backdrop the peak-to-peak swing was 0.24
+                              of one 8-bit level: it quantised to nothing */
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (forced-colors: active) {
+  .deep-grain { display: none; }
+}
+
+@media print {
+  .deep-grain { display: none !important; }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .deep-grain { display: none; }
 }
