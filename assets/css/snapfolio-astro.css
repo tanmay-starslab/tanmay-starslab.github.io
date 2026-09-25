@@ -2746,3 +2746,32 @@ sub { font-size: 0.72em; vertical-align: -0.18em; }
   .hero-portrait .portrait-halo { display: none !important; }
   .plate-label { border-top-color: CanvasText; }
 }
+
+/* ═══════════════════════════════════════════════ the plate field
+   The WebGL volume sits under the existing 2D starfield. The 2D canvas stays
+   in the DOM and stays VISIBLE by default; it is only hidden once GL reports
+   a successful first frame, and it comes straight back on context loss or a
+   governor trip. Inverted default, so a GL failure cannot blank the hero. */
+#plate-field {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 900ms var(--ease-out);
+}
+
+html.gl-ready #plate-field { opacity: 1; }
+html.gl-ready #galaxy-canvas { opacity: 0.34; }   /* 2D stars survive as foreground sparkle */
+
+@media (prefers-reduced-motion: reduce) {
+  #plate-field { display: none; }
+}
+
+@media (forced-colors: active) {
+  #plate-field { display: none; }
+}
+
+@media print {
+  #plate-field { display: none !important; }
+}
