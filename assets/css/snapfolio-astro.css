@@ -1879,7 +1879,33 @@ html.js-reveal .reveal.is-visible {
   html,
   body {
     background: #fff !important;
+  }
+
+  /* Headings, tags and most body copy each declare their own dark-theme
+     colour, so they ignore an inherited one and print at ~1.05:1 on white. */
+  *,
+  *::before,
+  *::after {
     color: #111 !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Fixed layers repeat on every printed page. */
+  body::before,
+  body::after,
+  .skip-link { display: none !important; }
+
+  .hero { min-height: 0 !important; }
+  .section { padding: 18px 0 !important; }
+
+  /* Four Scholar URLs are 126 characters with no spaces; print has no
+     horizontal scroll, so they clip without this. */
+  a[href^="http"]::after {
+    overflow-wrap: anywhere;
+    word-break: break-all;
+    font-size: 0.75em;
+    color: #444 !important;
   }
 
   .main,
@@ -1963,6 +1989,7 @@ html.js-reveal .reveal.is-visible {
   .portrait-halo,
   .cosmic-vignette,
   .cosmic-image-bg,
+  .cosmic-image-shade,
   #galaxy-canvas,
   .research-card::before,
   .project-card::before,
@@ -1974,7 +2001,17 @@ html.js-reveal .reveal.is-visible {
   .teaching-panel::before { display: none !important; }
 
   a { color: LinkText !important; }
-  :focus-visible { outline: 2px solid Highlight !important; }
+
+  .btn,
+  .btn-primary,
+  .btn-outline,
+  .chip-link {
+    border: 1px solid LinkText !important;
+    background: Canvas !important;
+  }
+
+  /* 3px, not 2px -- this is the mode that most needs a visible ring. */
+  :focus-visible { outline: 3px solid Highlight !important; outline-offset: 4px !important; }
 }
 
 /* Some people disable transparency at the OS level for legibility. */
@@ -1988,6 +2025,10 @@ html.js-reveal .reveal.is-visible {
   .about-panel,
   .personal-panel,
   .link-section,
+  .teaching-panel,
+  .fact-grid div,
+  .tag-cloud span,
+  .header-toggle,
   .header-container {
     backdrop-filter: none !important;
     background: #0b1018 !important;

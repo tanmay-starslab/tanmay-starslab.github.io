@@ -95,16 +95,60 @@
     year.textContent = new Date().getFullYear();
   }
 
+  const drawerQuery = window.matchMedia("(max-width: 1199px)");
+  const headerPanel = document.querySelector(".header-container");
+
+  // Below 1200px the drawer is hidden by transform alone, so its 9 nav links
+  // and 4 social links stayed in the tab order while off-screen -- and the
+  // focus ring went off-screen with them, so a keyboard user lost the
+  // indicator entirely for 13 stops. WCAG 2.4.3 / 2.4.7.
+  function syncDrawerInert(expanded) {
+    if (!headerPanel) return;
+    const collapsed = drawerQuery.matches && !expanded;
+    if ("inert" in HTMLElement.prototype) {
+      headerPanel.inert = collapsed;
+    } else {
+      headerPanel.setAttribute("aria-hidden", String(collapsed));
+      headerPanel.querySelectorAll("a, button").forEach((el) => {
+        if (collapsed) {
+          el.setAttribute("tabindex", "-1");
+        } else {
+          el.removeAttribute("tabindex");
+        }
+      });
+    }
+  }
+
   function setHeaderExpanded(expanded) {
     if (!header || !headerToggleBtn) return;
     header.classList.toggle("header-show", expanded);
     headerToggleBtn.setAttribute("aria-expanded", String(expanded));
+    // The label said "Open navigation" even while open.
+    headerToggleBtn.setAttribute("aria-label", expanded ? "Close navigation" : "Open navigation");
     const icon = headerToggleBtn.querySelector("i");
     if (icon) {
       icon.classList.toggle("bi-list", !expanded);
       icon.classList.toggle("bi-x", expanded);
     }
+    syncDrawerInert(expanded);
+    if (!expanded && headerPanel && headerPanel.contains(document.activeElement)) {
+      headerToggleBtn.focus();
+    }
   }
+
+  syncDrawerInert(header ? header.classList.contains("header-show") : false);
+  if (typeof drawerQuery.addEventListener === "function") {
+    drawerQuery.addEventListener("change", () => {
+      syncDrawerInert(header ? header.classList.contains("header-show") : false);
+    });
+  }
+
+  // Escape did not close the drawer.
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && header && header.classList.contains("header-show")) {
+      setHeaderExpanded(false);
+    }
+  });
 
   if (headerToggleBtn) {
     headerToggleBtn.addEventListener("click", () => {
@@ -249,6 +293,7 @@
     root.style.setProperty("--parallax-y", parallaxY.toFixed(2));
   }
   window.addEventListener("pointermove", (event) => {
+    if (reduceMotion) return;   // otherwise parallax jitters with easing off
     pointer.x = event.clientX;
     pointer.y = event.clientY;
     pointer.active = true;
