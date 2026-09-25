@@ -156,16 +156,28 @@
     var panels = g.utils.toArray("#research .research-card");
     if (panels.length < 2) return;
 
+    // The CSS that turns #research into a 2164px flex row is gated on this
+    // class, and this line is the only place it is added — after GSAP has
+    // loaded, after matchMedia has matched, and immediately before the tween
+    // that moves the rail is created. Gated on html.js instead, a blocked CDN
+    // left two of the four cards off-screen with no scroll affordance and no
+    // keyboard path. The revert below removes it, so dropping below 900px or
+    // switching on reduced motion also returns the stack.
+    document.documentElement.classList.add("rail-ready");
+
     // Travel is MEASURED, not derived from the panel count. The usual recipe
     // is xPercent: -100 * (n - 1), which is only correct when each panel is
     // exactly one viewport wide. Here four 520px cards in a 1400px viewport
     // gave 1560px of tween against 844px of pinned scroll: the rail ran off
     // the left edge well before the pin released and the reader spent the last
     // third of the section looking at nothing.
-    // The rail does not start at x = 0 on screen — it starts at the container's
-    // left inset, which is 322px in a 1400px viewport. Leaving that out left the
-    // last card's right edge 242px off-screen at the end of the pin: the reader
-    // scrolls the whole section and never sees the end of the last card.
+    // The rail does not start at x = 0 on screen — it starts at its parent's
+    // left inset, measured at 310px in a 1400px viewport (the rail's own left
+    // is 322; the container's 12px padding is not part of this quantity, which
+    // is why the last card ends 28px inside the edge rather than the 40 the
+    // constant below suggests). Leaving the inset out entirely left that card's
+    // right edge 242px OFF-screen at the end of the pin: the reader scrolls the
+    // whole section and never sees the end of it.
     var travel = function () {
       var inset = rail.parentNode ? rail.parentNode.getBoundingClientRect().left : 0;
       return Math.max(0, rail.scrollWidth + inset - window.innerWidth + 40);
@@ -204,6 +216,7 @@
     rail.addEventListener("focusin", focusRecovery);
 
     return function () {
+      document.documentElement.classList.remove("rail-ready");
       rail.removeEventListener("focusin", focusRecovery);
       g.set(rail, { clearProps: "all" });
       g.set(panels, { clearProps: "all" });

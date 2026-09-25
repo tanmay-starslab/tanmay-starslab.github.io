@@ -3059,7 +3059,7 @@ html:not(.js) .ovi-rail { display: none !important; }
    The map is generated per pixel in JS at a capped resolution and upscaled by
    the browser, so the canvas has no border, no card and no background of its
    own: magma at t = 0 is (0.002, 0.002, 0.014), within two 8-bit levels of the
-   page, and 41% of the frame is measured to sit below the display floor. The
+   page, and 29% of the frame is measured to be fully transparent. The
    figure therefore bleeds into the page with no seam. Give it a border and all
    of that work is thrown away. */
 .ovi-mapfig { margin: 0 0 clamp(1rem, 2vw, 1.6rem); display: grid; gap: 0.9rem; }
@@ -3075,8 +3075,11 @@ html:not(.js) .ovi-rail { display: none !important; }
   width: min(100%, 62vh);
   aspect-ratio: 1 / 1;
   margin-inline: auto;
-  touch-action: none;              /* the beam is a drag target, not a scroller;
-                                      the page still scrolls everywhere else */
+  /* pan-y, not none. `none` made the map a 354x354 dead zone on a 390x844
+     phone — 42% of the viewport width where a thumb cannot scroll the page.
+     pan-y hands vertical panning back to the browser and keeps the horizontal
+     drag for the beam, which is the axis the beam actually needs. */
+  touch-action: pan-y;
   cursor: crosshair;
 }
 
@@ -3087,15 +3090,15 @@ html:not(.js) .ovi-rail { display: none !important; }
   image-rendering: auto;           /* the upscale is the point: a column-density
                                       map is a smooth field, and nearest-neighbour
                                       would show the generation grid */
-  /* screen, so the figure genuinely bleeds. magma's t=0 is (1,1,4) out of 255,
-     but the page behind it is not black — it carries the nebula and the star
-     field — so source-over still drew a visible dark SQUARE sitting on a
-     lighter page. Under screen the map's black contributes nothing and only
-     the halo's light adds, which is both what emission does and the entire
-     reason the colormap is magma rather than viridis. No border-radius: a
-     rounded corner on a layer that is supposed to have no edge is a
-     contradiction. */
-  mix-blend-mode: screen;
+  /* NO mix-blend-mode, and no border-radius. `screen` was here and it was
+     inert: .main carries z-index 5 and is therefore a stacking context, so the
+     blend group is .main's own contents, and the star field this needed to
+     blend with is painted below .main, outside the group. Proven rather than
+     argued — filling this canvas opaque black should make a `screen` layer
+     vanish entirely, and instead a solid black square painted over the star
+     field. The bleed is done entirely by per-pixel alpha and a radial cutoff
+     in sightline.js, which is why that file, and not this rule, carries the
+     explanation. */
 }
 
 /* R_vir at 1.0 in a frame that runs to 2.4 R_vir half-width: diameter is
@@ -3139,9 +3142,14 @@ html:not(.js) .ovi-rail { display: none !important; }
   margin: 0;
   font-family: var(--font-mono);
   font-size: clamp(0.78rem, 1.5vw, 0.9rem);
+  line-height: 1.55;
   color: var(--ink-text);
-  min-height: 2.6em;               /* the clamp notice adds a line; reserve it so
-                                      the figure does not reflow under a drag */
+  /* Four lines. 2.6em was measured failing at 390px, where the clamp notice
+     wraps to three lines rather than one and the caption block jumped 29.4px
+     every time the beam crossed the 12.5 boundary mid-drag. The manual-override
+     notice is longer again, so the floor is set for the longest of the three
+     strings, not the shortest. */
+  min-height: 6.2em;
 }
 
 .ovi-bar-row {
@@ -3190,7 +3198,16 @@ html:not(.js) .ovi-rail { display: none !important; }
    scroll-hijacking a single column is the version of this pattern that people
    rightly hate. */
 @media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
-  html.js #research .research-grid {
+  /* html.rail-ready, NOT html.js. The gate has to mean "the tween that moves
+     this rail exists", and only choreography.js knows that — it depends on
+     GSAP from a third-party CDN. Gated on html.js alone, a blocked or failed
+     CDN left the rail as a 2164px flex row with no transform and no pin:
+     measured at 1400px, cards 3 and 4 sat entirely outside the viewport,
+     reachable only by a 1086px horizontal page scroll with no affordance and
+     no keyboard path. Half the research section, invisible, because a CDN
+     blipped. The class is added by the same function that creates the tween
+     and removed by its revert. */
+  html.rail-ready #research .research-grid {
     display: flex;
     width: max-content;
     gap: 28px;
@@ -3199,8 +3216,8 @@ html:not(.js) .ovi-rail { display: none !important; }
        instead of four that each get composited separately. */
     will-change: transform;
   }
-  html.js #research .research-card,
-  html.js #research .research-card.featured {
+  html.rail-ready #research .research-card,
+  html.rail-ready #research .research-card.featured {
     flex: 0 0 auto;
     width: min(42vw, 520px);
     min-height: 460px;
@@ -3210,7 +3227,13 @@ html:not(.js) .ovi-rail { display: none !important; }
      container still centres it vertically. overflow-x on <body> is already
      `clip`, which creates no scroll container, so nothing here can produce a
      horizontal scrollbar. */
-  html.js #research .container { overflow: visible; }
+  html.rail-ready #research .container { overflow: visible; }
+  /* M7: clip at the section. overflow-x: clip on <body> does NOT contain this
+     — measured horizontal scroll ranges of 708px at 900, 1206px at 1280 and
+     1086px at 1400, i.e. up to 94% of a viewport of empty page reachable by a
+     two-finger swipe. `clip` rather than `hidden` so no scroll container is
+     created and the pin still works. */
+  html.rail-ready #research { overflow-x: clip; }
 }
 
 /* Every fallback surface gets the stack back, explicitly. A transform left
@@ -3259,6 +3282,14 @@ html:not(.js) .ovi-rail { display: none !important; }
   color: var(--ink-text);
   border-color: var(--a-cyan);
   background: color-mix(in oklab, var(--a-cyan) 14%, transparent);
+}
+/* forced-colors flattens colour, border-colour and background all at once, so
+   the pressed state above becomes invisible in exactly the mode whose users
+   most need this control. A border width and a marker are not colour. */
+@media (forced-colors: active) {
+  .motion-toggle { border-width: 1px; }
+  .motion-toggle[aria-pressed="true"] { border-width: 3px; }
+  .motion-toggle[aria-pressed="true"]::after { content: " \2713"; }
 }
 
 /* The blunt reset. This deliberately mirrors what the reduced-motion media

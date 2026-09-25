@@ -24,7 +24,7 @@
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link rel="preload" href="assets/fonts/plate-display.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/plate-text.woff2" as="font" type="font/woff2" crossorigin>
-  <link href="assets/css/snapfolio-astro.css?v=3" rel="stylesheet">
+  <link href="assets/css/snapfolio-astro.css?v=4" rel="stylesheet">
 
   <script type="application/ld+json">
   {
@@ -341,9 +341,13 @@
             </button>
           </div>
           <figcaption class="ovi-mapcap">
-            <p class="ovi-probe" id="ovi-probe" aria-live="polite" aria-atomic="true">
+            <p class="ovi-probe" id="ovi-probe">
               Drag the sightline across the halo.
             </p>
+            <!-- Separate from the visible probe, for the same reason the
+                 spectrum's live region is separate: the visible text has to
+                 track the drag, and an announcement must not. -->
+            <p class="visually-hidden" id="ovi-probe-live" aria-live="polite" aria-atomic="true"></p>
             <div class="ovi-bar-row">
               <div class="ovi-bar">
                 <canvas id="ovi-colorbar" aria-hidden="true"></canvas>
@@ -359,11 +363,12 @@
             <p class="ovi-method">
               <strong>Analytic, not a snapshot.</strong> A &#946;-model halo
               (&#946;&nbsp;=&nbsp;0.77, r<sub>c</sub>&nbsp;=&nbsp;0.25&nbsp;R<sub>vir</sub>)
-              projected in closed form, truncated exponentially beyond
-              1.6&nbsp;R<sub>vir</sub>, with 0.30&nbsp;dex of lognormal scatter.
-              Normalised to log&nbsp;N&nbsp;=&nbsp;14.8 at the centre, falling to
-              13.9 at R<sub>vir</sub> &mdash; the shallow decline COS-Halos measures
-              around star-forming L* galaxies. No simulation data is used here.
+              whose density carries an exponential cut-off at
+              1.9&nbsp;R<sub>vir</sub>, integrated numerically along each line of
+              sight, with 0.30&nbsp;dex of lognormal scatter. Normalised to
+              log&nbsp;N&nbsp;=&nbsp;14.80 at the centre, it falls to 13.78 at
+              R<sub>vir</sub> and 12.18 at the frame edge. No simulation data is
+              used here.
             </p>
           </figcaption>
         </figure>
@@ -680,15 +685,15 @@
 
   <a href="#home" class="scroll-top" aria-label="Back to top"><i class="bi bi-arrow-up-short" aria-hidden="true"></i></a>
 
-  <script src="assets/js/motion-toggle.js?v=1" defer></script>
+  <script src="assets/js/motion-toggle.js?v=2" defer></script>
   <script src="assets/js/snapfolio-astro.js?v=1"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js" defer></script>
   <script src="assets/js/spectrum.js?v=1" defer></script>
-  <script src="assets/js/sightline.js?v=2" defer></script>
+  <script src="assets/js/sightline.js?v=4" defer></script>
   <script src="assets/js/plate-field.js?v=1" defer></script>
-  <script src="assets/js/choreography.js?v=4" defer></script>
+  <script src="assets/js/choreography.js?v=5" defer></script>
 </body>
 
 </html>
