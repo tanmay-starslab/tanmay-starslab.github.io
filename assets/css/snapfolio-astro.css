@@ -1,3 +1,95 @@
+/* ═══════════════════════════════════════════════════════ type
+   Playfair for display, Literata for text, JetBrains Mono for data.
+   Greek on the display face is delegated to GFS Didot under the SAME family
+   name — Playfair has 4 of 144 Greek glyphs (verified in the binary) and
+   simply cannot set ΛCDM. Both are Didones, so the composite reads as one
+   voice rather than a fallback. Literata carries its own Greek. */
+
+@font-face {
+  font-family: "Plate Display";
+  src: url(../fonts/plate-display.woff2) format("woff2-variations");
+  font-weight: 400 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Plate Display";
+  src: url(../fonts/plate-display-greek.woff2) format("woff2");
+  unicode-range: U+0370-03FF, U+1F00-1FFF;
+  font-weight: 400 700;
+  size-adjust: 96%;    /* GFS Didot upm 1000 vs Playfair 1240 */
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plate Text";
+  src: url(../fonts/plate-text.woff2) format("woff2-variations");
+  font-weight: 300 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Plate Text";
+  src: url(../fonts/plate-text-greek.woff2) format("woff2-variations");
+  unicode-range: U+0370-03FF, U+1F00-1FFF;
+  font-weight: 300 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plate Mono";
+  src: url(../fonts/plate-mono.woff2) format("woff2-variations");
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+/* The math shim is declared LAST and attached to all three families, so M⊙
+   sets in one visual family wherever it appears. font-display: block is right
+   HERE and nowhere else — better to hide one symbol for two frames than to
+   flash a mismatched system ⊙ and reflow. Weight range is explicit, or
+   matching against a variable body weight is underspecified. */
+@font-face {
+  font-family: "Plate Text";
+  src: url(../fonts/math-shim.woff2) format("woff2");
+  unicode-range: U+2299, U+229A, U+2295, U+2297, U+2273, U+2272, U+221D,
+                 U+2248, U+223C, U+27E8, U+27E9, U+2261, U+226A, U+226B;
+  size-adjust: 97%;
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: "Plate Display";
+  src: url(../fonts/math-shim.woff2) format("woff2");
+  unicode-range: U+2299, U+229A, U+2295, U+2297, U+2273, U+2272, U+221D,
+                 U+2248, U+223C, U+27E8, U+27E9, U+2261, U+226A, U+226B;
+  size-adjust: 97%;
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: "Plate Mono";
+  src: url(../fonts/math-shim.woff2) format("woff2");
+  unicode-range: U+2299, U+229A, U+2295, U+2297, U+2273, U+2272, U+221D,
+                 U+2248, U+223C, U+27E8, U+27E9, U+2261, U+226A, U+226B;
+  size-adjust: 97%;
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: block;
+}
+
+/* Metric-matched local fallbacks. The page had zero webfonts before this, so
+   this is where CLS gets newly introduced if it is not handled. */
+@font-face {
+  font-family: "Plate Display Fallback";
+  src: local("Iowan Old Style"), local("Palatino Linotype"), local("Georgia");
+  size-adjust: 92%; ascent-override: 92%; descent-override: 24%; line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Plate Text Fallback";
+  src: local("Charter"), local("Georgia"), local("Times New Roman");
+  size-adjust: 97%; ascent-override: 90%; descent-override: 24%; line-gap-override: 0%;
+}
+
 :root {
   /* ─────────── INK — near-neutral, hue ~272° through the mid ramp ───────────
      The mid and upper ramp sit at 269–276°, close to the OKLCH hue of an O/B
@@ -113,6 +205,10 @@
   --magenta:  var(--a-magenta);
   --green:    var(--a-green);
   --shadow: 0 28px 90px rgba(0, 0, 0, 0.62);
+  --font-display: "Plate Display", "Plate Display Fallback", "Iowan Old Style", Palatino, Georgia, serif;
+  --font-text: "Plate Text", "Plate Text Fallback", Charter, Georgia, "Times New Roman", serif;
+  --font-mono: "Plate Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
   --header-width: 310px;
   color-scheme: dark;
   scroll-behavior: smooth;
@@ -242,7 +338,8 @@ body {
     radial-gradient(circle at 75% 8%, oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.26), transparent 34rem),
     radial-gradient(circle at 12% 24%, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.19), transparent 32rem),
     linear-gradient(135deg, var(--bg) 0%, #060a13 42%, #090e1c 100%);
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--font-text);
+  font-optical-sizing: auto;
   line-height: 1.65;
   overflow-x: hidden;
   overflow-x: clip;
@@ -2194,3 +2291,70 @@ html.js-reveal .reveal.is-visible {
 @media (prefers-reduced-transparency: reduce) {
   .deep-grain { display: none; }
 }
+
+/* ═══════════════════════════════════════════════ type assignments
+   Display on the name and section headings; text everywhere else; mono on
+   anything that is a readout, a wavelength, a year or a catalogue number.
+   Playfair's x-height is 0.413 em against Literata's 0.507, so display sizes
+   are set UP or they read small beside body copy. */
+h1,
+.hero h1,
+.section-heading h2,
+.hero-role {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  text-wrap: balance;
+}
+
+h1,
+.hero h1 { font-size: clamp(3rem, 2.1rem + 3.8vw, 5.25rem); line-height: 1.02; }
+
+h3,
+h4,
+.research-card h3,
+.project-card h3,
+.publication-card h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.006em;
+  text-wrap: balance;
+}
+
+p, li, .hero-subtitle, .publication-card p {
+  font-family: var(--font-text);
+  text-wrap: pretty;
+}
+
+.eyebrow,
+.card-kicker,
+.publication-meta span,
+.timeline-date,
+.tag-cloud span,
+.chip-link,
+.mono,
+.data,
+code,
+kbd {
+  font-family: var(--font-mono);
+  font-variant-ligatures: none;
+}
+
+/* Years, wavelengths and measured values line up in a column. Literata's
+   figures are proportional by default. */
+.timeline-date,
+.publication-meta span,
+time,
+.data,
+table td { font-variant-numeric: tabular-nums; }
+
+/* Real small caps from the binary, not scaled-down capitals. */
+.eyebrow,
+.card-kicker {
+  font-variant-caps: all-small-caps;
+  text-transform: none;    /* small-caps replaces the tracked-out uppercase */
+  letter-spacing: 0.06em;
+}
+
+sub { font-size: 0.72em; vertical-align: -0.18em; }
