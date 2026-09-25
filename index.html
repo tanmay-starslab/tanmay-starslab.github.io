@@ -61,6 +61,16 @@
        timeout is a failsafe for when snapfolio-astro.js is blocked or throws. */
     (function () {
       var el = document.documentElement;
+      /* Arm the scroll-reveal gate, but only provisionally. snapfolio-astro.js
+         sets window.__revealReady once its observer is actually attached; if
+         that never happens -- the script 404s, is cached stale, or throws --
+         this watchdog disarms the gate and the page renders in full. Without
+         it, gating on "some script ran" is not the same as "the reveal system
+         works", and the page still ends up blank. */
+      el.classList.add("js-reveal");
+      window.setTimeout(function () {
+        if (!window.__revealReady) el.classList.remove("js-reveal");
+      }, 2500);
       try {
         if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
         el.classList.add("intro-active", "intro-hold");

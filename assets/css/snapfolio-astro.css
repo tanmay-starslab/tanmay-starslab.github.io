@@ -127,7 +127,7 @@ body {
     linear-gradient(135deg, var(--bg) 0%, #060a13 42%, #090e1c 100%);
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   line-height: 1.65;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body::before {
@@ -1511,10 +1511,21 @@ html.intro-skipped .header-container {
   transform: translateY(0);
 }
 
+/* Visible BY DEFAULT. The hiding is gated behind html.js-reveal, which an
+   inline head script adds — so if the script 404s, is cached stale, or throws,
+   the page renders fully rather than staying blank forever.
+   The durations are deliberately asymmetric: opacity finishes before the
+   transform does, so the element is readable before it stops moving. */
 .reveal {
+  opacity: 1;
+  transform: none;
+}
+
+html.js-reveal .reveal {
   opacity: 0;
   transform: translateY(22px);
-  transition: opacity 620ms ease, transform 620ms ease;
+  transition: opacity 420ms cubic-bezier(0.22, 1, 0.36, 1),
+              transform 680ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .hero .reveal {
@@ -1522,7 +1533,7 @@ html.intro-skipped .header-container {
   transform: none;
 }
 
-.reveal.is-visible {
+html.js-reveal .reveal.is-visible {
   opacity: 1;
   transform: none;
 }
@@ -1837,4 +1848,96 @@ html.intro-skipped .header-container {
   .hero-portrait:hover {
     transform: none;
   }
+}
+
+/* ─────────────────────────────────────────────── environment guards
+   None of these existed in this file. Each one is a mode a real visitor
+   can be in where the design currently has no answer. */
+
+@media print {
+  .site-header,
+  .header-toggle,
+  .scroll-top,
+  .cosmic-image-bg,
+  .cosmic-image-shade,
+  .cosmic-vignette,
+  #galaxy-canvas,
+  .hero-nebula,
+  .card-glow,
+  .portrait-halo {
+    display: none !important;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+    color: #111 !important;
+  }
+
+  .main,
+  .site-footer { margin-left: 0 !important; }
+
+  .reveal { opacity: 1 !important; transform: none !important; }
+
+  a { color: #111 !important; text-decoration: underline; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.8em; }
+
+  .research-card,
+  .project-card,
+  .publication-card,
+  .timeline-content,
+  .contact-panel,
+  .about-panel {
+    background: none !important;
+    border: 1px solid #bbb !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    break-inside: avoid;
+  }
+}
+
+/* Windows High Contrast: backdrop-filter and low-alpha borders vanish
+   entirely, leaving cards with no boundary at all. */
+@media (forced-colors: active) {
+  .research-card,
+  .project-card,
+  .publication-card,
+  .timeline-content,
+  .contact-panel,
+  .contact-tile,
+  .about-panel,
+  .personal-panel,
+  .link-section,
+  .hero-portrait {
+    border: 1px solid CanvasText !important;
+    background: Canvas !important;
+    backdrop-filter: none !important;
+  }
+
+  .card-glow,
+  .hero-nebula,
+  .portrait-halo,
+  .cosmic-vignette { display: none !important; }
+
+  a { color: LinkText !important; }
+  :focus-visible { outline: 2px solid Highlight !important; }
+}
+
+/* Some people disable transparency at the OS level for legibility. */
+@media (prefers-reduced-transparency: reduce) {
+  .research-card,
+  .project-card,
+  .publication-card,
+  .timeline-content,
+  .contact-panel,
+  .contact-tile,
+  .about-panel,
+  .personal-panel,
+  .link-section,
+  .header-container {
+    backdrop-filter: none !important;
+    background: #0b1018 !important;
+  }
+
+  .cosmic-image-bg { opacity: 0.25 !important; }
 }
