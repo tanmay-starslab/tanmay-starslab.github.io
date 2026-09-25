@@ -227,7 +227,8 @@
 
   --header-width: 310px;
   color-scheme: dark;
-  scroll-behavior: smooth;
+  scroll-behavior: auto;   /* was smooth: it makes ScrollTrigger start/end
+                              points drift, and stacks badly with scrub */
 }
 
 /* Defaults first, per-component overrides after — the reverse order silently
@@ -2775,3 +2776,12 @@ html.gl-ready #galaxy-canvas { opacity: 0.34; }   /* 2D stars survive as foregro
 @media print {
   #plate-field { display: none !important; }
 }
+
+/* ════════════════════════════════════════════ split-line masking
+   The padding / negative-margin pair is the detail nobody ships correctly.
+   Without it the mask shears descenders and the tops of Λ, σ, Å and the
+   shim's ⊙ — whose vertical extent arrives from a DIFFERENT font via
+   unicode-range and is the one thing you cannot predict.
+   `clip`, not `hidden`: clip creates no scroll container. */
+.split-line { padding-block: 0.18em; display: inline-block; }
+.split-line-mask { overflow: clip !important; margin-block: -0.18em; }
