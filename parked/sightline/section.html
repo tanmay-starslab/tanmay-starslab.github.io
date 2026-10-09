@@ -1,0 +1,110 @@
+    <!-- THE SIGHTLINE. Everything here is real HTML: the heading, the caption
+         and both range inputs work with spectrum.js deleted or blocked. What
+         the script adds is the figure, and a canvas that never existed is not
+         a canvas that broke. -->
+    <section id="sightline" class="section sightline" aria-labelledby="sightline-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Instrument</p>
+          <h2 data-split id="sightline-title">A sightline through the halo.</h2>
+        </div>
+
+        <!-- The map. role="img" with a live-updated label, NEVER
+             role="application" — that hijacks screen-reader navigation and
+             makes every other control on the page unreachable by the reader's
+             normal keys. The beam is a real focusable control with arrow keys,
+             so the sightline is operable without a pointer. -->
+        <figure class="ovi-mapfig reveal">
+          <div class="ovi-map-wrap" id="sightline-map">
+            <canvas id="ovi-map" role="img"
+                    aria-label="Simulated O VI column-density map of a galaxy halo, brightest at the centre and fading to the frame edges."></canvas>
+            <div class="ovi-rvir" aria-hidden="true"></div>
+            <button type="button" class="ovi-beam" id="ovi-beam"
+                    aria-describedby="ovi-probe">
+              <span class="visually-hidden">Quasar sightline position. Use the arrow keys to move it across the halo; hold Shift for fine steps.</span>
+            </button>
+          </div>
+          <figcaption class="ovi-mapcap">
+            <p class="ovi-probe" id="ovi-probe">
+              Drag the sightline across the halo.
+            </p>
+            <!-- Separate from the visible probe, for the same reason the
+                 spectrum's live region is separate: the visible text has to
+                 track the drag, and an announcement must not. -->
+            <p class="visually-hidden" id="ovi-probe-live" aria-live="polite" aria-atomic="true"></p>
+            <div class="ovi-bar-row">
+              <div class="ovi-bar">
+                <canvas id="ovi-colorbar" aria-hidden="true"></canvas>
+                <!-- Positioned at the fraction of the stretch each decade
+                     actually occupies, not spaced by a fixed gap. A tick that
+                     does not sit on the colour it names is a broken figure. -->
+                <ul class="ovi-bar-ticks" aria-hidden="true">
+                  <li>10&#185;&#178;</li><li>10&#185;&#179;</li><li>10&#185;&#8308;</li><li>10&#185;&#8309;</li>
+                </ul>
+              </div>
+              <p class="ovi-bar-label">N(O&nbsp;VI) / cm&#8315;&#178;</p>
+            </div>
+            <p class="ovi-method">
+              <strong>Analytic, not a snapshot.</strong> A &#946;-model halo
+              (&#946;&nbsp;=&nbsp;0.77, r<sub>c</sub>&nbsp;=&nbsp;0.25&nbsp;R<sub>vir</sub>)
+              whose density carries an exponential cut-off at
+              1.9&nbsp;R<sub>vir</sub>, integrated numerically along each line of
+              sight, with 0.30&nbsp;dex of lognormal scatter. Normalised to
+              log&nbsp;N&nbsp;=&nbsp;14.80 at the centre, it falls to 13.78 at
+              R<sub>vir</sub> and 12.18 at the frame edge. No simulation data is
+              used here.
+            </p>
+          </figcaption>
+        </figure>
+
+        <div class="ovi-panel reveal" id="ovi-panel">
+          <figure class="ovi-figure">
+            <!-- A short, STATIC label. It used to be the full caption, copied
+                 from the paragraph directly below, so a screen reader read the
+                 same sentence twice in a row. The figcaption carries the
+                 numbers; the image only needs to say what it is. -->
+            <canvas id="ovi-canvas" role="img"
+                    aria-label="Plot of the O VI doublet absorption profile."></canvas>
+            <figcaption class="ovi-caption">
+              <p class="ovi-readout" id="ovi-readout">
+                Drag either control to change the absorber.
+              </p>
+              <!-- The live region is a SEPARATE node from the visible caption.
+                   One node cannot be both eagerly updated for sighted readers
+                   and throttled for screen readers; trying made it fire 195
+                   times a second on keyboard auto-repeat. -->
+              <p class="visually-hidden" id="ovi-live" aria-live="polite" aria-atomic="true"></p>
+              <p class="ovi-method">
+                O&nbsp;VI &#955;&#955;1031.93, 1037.62 (Morton&nbsp;2003, via VPFIT).
+                Voigt&ndash;Hjerting profile after Tepper-Garc&iacute;a (2006),
+                convolved with a Gaussian line-spread function at
+                R&nbsp;&#8776;&nbsp;18,000 (FWHM 16.7&nbsp;km&nbsp;s&#8315;&#185;),
+                with Poisson noise at S/N&nbsp;&#8776;&nbsp;14 per pixel.
+                Synthetic: a single absorber, not a measurement of a real sightline.
+              </p>
+            </figcaption>
+          </figure>
+
+          <div class="ovi-controls">
+            <p class="ovi-control">
+              <label for="ovi-logn">Column density
+                <span class="ovi-unit">log N(O&nbsp;VI) / cm&#8315;&#178;</span></label>
+              <input type="range" id="ovi-logn" min="12.5" max="15.5" step="0.01" value="14.20"
+                     aria-valuetext="log N(O VI) = 14.20 per square centimetre">
+            </p>
+            <p class="ovi-control">
+              <label for="ovi-b">Doppler parameter
+                <span class="ovi-unit">b / km&nbsp;s&#8315;&#185;</span></label>
+              <input type="range" id="ovi-b" min="15" max="60" step="1" value="25"
+                     aria-valuetext="Doppler b = 25 kilometres per second">
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<!-- The gutter continuum rail. It lived just before <main> in index.html,
+     outside the landmark so it added no tab stop, and spectrum.js drew its
+     path. Parked with the section because it is the same instrument. -->
+  <svg id="ovi-rail" class="ovi-rail" viewBox="0 0 26 560" preserveAspectRatio="none"
+       aria-hidden="true" focusable="false"><path fill="none" /></svg>

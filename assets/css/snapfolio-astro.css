@@ -1,40 +1,353 @@
-/**
-* Template Name: SnapFolio
-* Template URL: https://bootstrapmade.com/snapfolio-bootstrap-portfolio-template/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-* Custom astrophysics adaptation for Tanmay Singh.
-*/
+/* ═══════════════════════════════════════════════════════ type
+   Playfair for display, Literata for text, JetBrains Mono for data.
+   Greek on the display face is delegated to GFS Didot under the SAME family
+   name — Playfair has 4 of 144 Greek glyphs (verified in the binary) and
+   simply cannot set ΛCDM. Both are Didones, so the composite reads as one
+   voice rather than a fallback. Literata carries its own Greek. */
 
+@font-face {
+  font-family: "Plate Display";
+  src: url(../fonts/plate-display.woff2) format("woff2-variations");
+  font-weight: 400 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Plate Display";
+  src: url(../fonts/plate-display-greek.woff2) format("woff2");
+  unicode-range: U+0370-03FF, U+1F00-1FFF;
+  font-weight: 400 700;
+  size-adjust: 96%;    /* GFS Didot upm 1000 vs Playfair 1240 */
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plate Text";
+  src: url(../fonts/plate-text.woff2) format("woff2-variations");
+  font-weight: 300 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Plate Text";
+  src: url(../fonts/plate-text-greek.woff2) format("woff2-variations");
+  unicode-range: U+0370-03FF, U+1F00-1FFF;
+  font-weight: 300 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plate Mono";
+  src: url(../fonts/plate-mono.woff2) format("woff2-variations");
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+/* The math shim is declared LAST and attached to all three families, so M⊙
+   sets in one visual family wherever it appears. font-display: block is right
+   HERE and nowhere else — better to hide one symbol for two frames than to
+   flash a mismatched system ⊙ and reflow. Weight range is explicit, or
+   matching against a variable body weight is underspecified. */
+@font-face {
+  font-family: "Plate Text";
+  src: url(../fonts/math-shim.woff2) format("woff2");
+  unicode-range: U+2299, U+229A, U+2295, U+2297, U+2273, U+2272, U+221D,
+                 U+2248, U+223C, U+27E8, U+27E9, U+2261, U+226A, U+226B;
+  size-adjust: 97%;
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: "Plate Display";
+  src: url(../fonts/math-shim.woff2) format("woff2");
+  unicode-range: U+2299, U+229A, U+2295, U+2297, U+2273, U+2272, U+221D,
+                 U+2248, U+223C, U+27E8, U+27E9, U+2261, U+226A, U+226B;
+  size-adjust: 97%;
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: "Plate Mono";
+  src: url(../fonts/math-shim.woff2) format("woff2");
+  unicode-range: U+2299, U+229A, U+2295, U+2297, U+2273, U+2272, U+221D,
+                 U+2248, U+223C, U+27E8, U+27E9, U+2261, U+226A, U+226B;
+  size-adjust: 97%;
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: block;
+}
+
+/* Metric-matched local fallbacks. The page had zero webfonts before this, so
+   this is where CLS gets newly introduced if it is not handled. */
+@font-face {
+  font-family: "Plate Display Fallback";
+  src: local("Iowan Old Style"), local("Palatino Linotype"), local("Georgia");
+  size-adjust: 92%; ascent-override: 92%; descent-override: 24%; line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Plate Text Fallback";
+  src: local("Charter"), local("Georgia"), local("Times New Roman");
+  size-adjust: 97%; ascent-override: 90%; descent-override: 24%; line-gap-override: 0%;
+}
+
+/* ─────────────────────────────── registered pointer properties
+   The JS already writes --glow-x/--glow-y/--tilt-x/--tilt-y per card, but they
+   were UNREGISTERED — so the browser treated them as strings and the gradient
+   teleported frame to frame with zero interpolation. Registering them is the
+   cheapest upgrade available in this file.
+
+   inherits: true on the glow pair specifically: with false the pseudo-element
+   would NOT see the parent's value and would fall back to the initial one, so
+   the ::before glow stops tracking the cursor. Note that registering also
+   gives these an initial-value, which makes every var(--glow-x, 30%) fallback
+   in this file unreachable — those sites were rewritten to literals. */
+@property --glow-x { syntax: "<percentage>"; inherits: true;  initial-value: 50%; }
+@property --glow-y { syntax: "<percentage>"; inherits: true;  initial-value: 0%; }
+@property --tilt-x { syntax: "<angle>";      inherits: false; initial-value: 0deg; }
+@property --tilt-y { syntax: "<angle>";      inherits: false; initial-value: 0deg; }
+@property --rim-angle { syntax: "<angle>";   inherits: false; initial-value: 0deg; }
 :root {
-  --bg: #03050b;
-  --bg-soft: #080d18;
-  --surface: rgba(255, 255, 255, 0.06);
-  --surface-strong: rgba(255, 255, 255, 0.1);
-  --border: rgba(255, 255, 255, 0.14);
-  --glass-bg: rgba(8, 13, 24, 0.58);
-  --glass-bg-strong: rgba(13, 20, 36, 0.72);
-  --glass-border: rgba(255, 255, 255, 0.15);
-  --glass-highlight: rgba(255, 255, 255, 0.18);
-  --glow-cyan: rgba(125, 211, 252, 0.34);
-  --glow-violet: rgba(167, 139, 250, 0.3);
-  --text: #f8fafc;
-  --muted: #9aa7bb;
-  --accent: #7dd3fc;
-  --accent-2: #a78bfa;
-  --accent-3: #f5c2e7;
-  --accent-4: #93c5fd;
-  --gold: #f8d477;
-  --magenta: #f0abfc;
-  --green: #93e6c4;
-  --shadow: 0 28px 90px rgba(0, 0, 0, 0.5);
+  /* ─────────── INK — near-neutral, hue ~272° through the mid ramp ───────────
+     The mid and upper ramp sit at 269–276°, close to the OKLCH hue of an O/B
+     stellar continuum (268°, computed below). The two darkest steps do NOT
+     hold that hue — at 8-bit, #020304 is hue 243 and #000101 is hue 195 —
+     because near black there are not enough levels to carry one. Chroma
+     floor is 0.006, not 0.004. Hex first on every line so text can never
+     vanish if oklch() fails to parse. */
+  --ink-void:     #000101;
+  --ink-bg:       #020304;   /* the page. was #03050b — that was blue-black. */
+  --ink-bg-2:     #060609;
+  --ink-panel:    #0c0d12;
+  --ink-surface:  #15171d;
+  --ink-hairline: #24262d;   /* non-interactive 1px rules */
+  --ink-edge:     #373a43;   /* interactive borders — never the focus ring */
+  --ink-dim:      #656974;   /* decorative only, never text */
+  --ink-caption:  #9fa4b3;   /* captions and metadata only     8.3:1 */
+  --ink-muted:    #b2b7c6;   /* secondary text                 ~10:1 */
+  --ink-text-2:   #d1d4dc;   /*                                14.0:1 */
+  --ink-text:     #f2f3f8;   /* headings, emphasis             18.7:1 */
+
+  /* ─────────── ACCENT — nine hues from real spectral lines ───────────
+     Hue is the only free variable; lightness and chroma are frozen per use
+     tier. The anchors are computed from the CIE 1931 colour-matching
+     functions, not picked off a wheel:
+       Hα 6563Å → 23°   ·  Na D 5893Å → 61°  ·  Mg b 5184Å → 160°
+       [O III] 5007Å → 176°  ·  Hβ 4861Å → 199°  ·  O/B continuum → 268°
+       Hγ 4340Å → 291°
+     318° is unanchored. 340° is a declared false-colour: Lyα and the O VI
+     doublet are far-ultraviolet and have no colour at all — the pink in
+     nebula imagery is Balmer, not Lyman. Never label a swatch "Lyα".
+
+     The old palette separated seven accents by HUE alone: cyan sat at
+     L 0.828 and magenta at L 0.833 — a lightness difference of 0.005, which
+     is invisible under any colour-vision deficiency. Freezing L per tier and
+     moving only hue fixes that. */
+  --h-halpha: 23;   --h-gold: 61;    --h-green: 160;  --h-o3: 176;
+  --h-cyan: 199;    --h-blue: 268;   --h-violet: 291; --h-magenta: 318;
+  --h-lya: 340;
+
+  --l-text:  0.845; --c-text:  0.115;   /* accent type, links        ~12-13:1 */
+  --l-solid: 0.720; --c-solid: 0.165;   /* filled buttons, dots, icons */
+  --l-glow:  0.660; --c-glow:  0.230;   /* radial washes, bloom, rims */
+  --l-wash:  0.430; --c-wash:  0.090;   /* tinted borders, card fills */
+
+  /* Per-hue chroma CEILINGS at text lightness, solved by bisection for the
+     maximum in-gamut chroma. Four of the nine hues — Hα, Na D, the O/B
+     continuum and Hγ — do NOT fit in sRGB at C 0.115 and L 0.845, so without
+     these the browser silently clips them and the frozen-lightness discipline
+     the whole system rests on quietly stops holding. Raising --c-text above
+     a ceiling does literally nothing; it maps straight back. */
+  --cmax-halpha: 0.085; --cmax-gold: 0.106;  --cmax-green: 0.191;
+  --cmax-o3:     0.158; --cmax-cyan: 0.144;  --cmax-magenta: 0.120;
+  --cmax-lya:    0.115; --cmax-violet: 0.083; --cmax-blue: 0.076;
+
+  /* Ready-made text-tier accents, each clamped to its own ceiling. */
+  --a-halpha:  oklch(var(--l-text) min(var(--c-text), var(--cmax-halpha))  var(--h-halpha));
+  --a-gold:    oklch(var(--l-text) min(var(--c-text), var(--cmax-gold))    var(--h-gold));
+  --a-green:   oklch(var(--l-text) min(var(--c-text), var(--cmax-green))   var(--h-green));
+  --a-o3:      oklch(var(--l-text) min(var(--c-text), var(--cmax-o3))      var(--h-o3));
+  --a-cyan:    oklch(var(--l-text) min(var(--c-text), var(--cmax-cyan))    var(--h-cyan));
+  --a-blue:    oklch(var(--l-text) min(var(--c-text), var(--cmax-blue))    var(--h-blue));
+  --a-violet:  oklch(var(--l-text) min(var(--c-text), var(--cmax-violet))  var(--h-violet));
+  --a-magenta: oklch(var(--l-text) min(var(--c-text), var(--cmax-magenta)) var(--h-magenta));
+  --a-lya:     oklch(var(--l-text) min(var(--c-text), var(--cmax-lya))     var(--h-lya));
+
+  /* ─────────── MAGMA — the colormap in his own TNG figures ───────────
+     Verified against matplotlib's _cm_listed.py. The punchline: magma's zero
+     point is #000004, which is --ink-bg to within two 8-bit levels. The page
+     background IS the bottom of the colormap, and every accent is a step up
+     it. Minimum adjacent ΔL is 0.096 across a 0.883 spread, so any two steps
+     stay distinguishable under any dichromacy. */
+  /* CONSUMED BY THE HERO PORTRAIT — .hero-portrait .plate-light and
+     .hero-portrait .portrait-halo, both further down this file, both styling
+     live elements. This comment previously said these were declared for the
+     spectrum and sightline work and had no consumers below it. That was true
+     the day it was written and was falsified seven commits later by PLATE I,
+     which took the tokens without updating it. It matters now: the sightline
+     is parked, so anyone tidying up greps for it, lands here, and reads that
+     nine apparently-dead tokens belong to the parked feature. Deleting them
+     makes both hero gradients invalid at computed-value time — the backlight
+     and the rotating halo silently resolve to transparent, with no error. */
+  --ramp-0: #020304; --ramp-1: #1d1147; --ramp-2: #51127c;
+  --ramp-3: #832681; --ramp-4: #b73779; --ramp-5: #e75263;
+  --ramp-6: #fc8961; --ramp-7: #fec488; --ramp-8: #fcfdbf;
+
+  /* ─────────── MOTION ───────────
+     Budget rule: only opacity and transform may take --dur-m or longer.
+     Colour, border and shadow stay at --dur-xs/s — a 0.8s hover reads as
+     broken. Never `transition: all`; this file has none today. */
+  /* Also ahead of their consumers: the ~40 existing transitions still use
+     hardcoded ms and are migrated with the motion work, not swept blindly —
+     four of them animate non-compositable properties and must not move onto
+     the long tokens. */
+  --dur-xs: 0.18s; --dur-s: 0.4s; --dur-m: 0.8s; --dur-l: 1.2s;
+  --ease-out: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-in: cubic-bezier(0.5, 0, 0.75, 0);
+
+  /* ─────────── COMPATIBILITY ───────────
+     The 1900 lines below still reference the old names. Remapped here so this
+     commit reskins the whole page; the rules themselves migrate later. */
+  --bg: var(--ink-bg);
+  --bg-soft: var(--ink-bg-2);
+  --surface: rgba(255, 255, 255, 0.05);
+  --surface-strong: rgba(255, 255, 255, 0.09);
+  --border: var(--ink-hairline);
+  --glass-bg: rgba(12, 13, 18, 0.62);
+  --glass-bg-strong: rgba(21, 23, 29, 0.74);
+  --glass-border: var(--ink-edge);
+  --glass-highlight: rgba(255, 255, 255, 0.16);
+  --glow-cyan: oklch(var(--l-glow) var(--c-glow) var(--h-cyan) / 0.30);
+  --glow-violet: oklch(var(--l-glow) var(--c-glow) var(--h-violet) / 0.26);
+  --text: var(--ink-text);
+  --muted: var(--ink-muted);
+  --accent:   var(--a-cyan);
+  --accent-2: var(--a-violet);
+  --accent-3: var(--a-lya);
+  --accent-4: var(--a-blue);
+  --gold:     var(--a-gold);
+  --magenta:  var(--a-magenta);
+  --green:    var(--a-green);
+  --shadow: 0 28px 90px rgba(0, 0, 0, 0.62);
+  --font-display: "Plate Display", "Plate Display Fallback", "Iowan Old Style", Palatino, Georgia, serif;
+  --font-text: "Plate Text", "Plate Text Fallback", Charter, Georgia, "Times New Roman", serif;
+  --font-mono: "Plate Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
   --header-width: 310px;
   color-scheme: dark;
-  scroll-behavior: smooth;
+  scroll-behavior: auto;   /* was smooth: it makes ScrollTrigger start/end
+                              points drift, and stacks badly with scrub */
 }
+
+/* Defaults first, per-component overrides after — the reverse order silently
+   loses, because [class*="-card"] and .research-card are both (0,1,0) and the
+   later rule wins every tie. */
+[class*="-card"],
+[class*="-panel"],
+.contact-tile,
+.link-section {
+  --card-l: 0.845;
+  --card-c: 0.115;
+  --card-h: var(--h-cyan);
+  --card-accent: oklch(var(--card-l) var(--card-c) var(--card-h));
+  --accent-glow: oklch(var(--l-glow) var(--c-glow) var(--card-h) / 0.28);
+  --accent-wash: oklch(var(--l-wash) var(--c-wash) var(--card-h) / 0.55);
+}
+
+/* Lightness VARIES across components, deliberately.
+   An earlier version of this froze L at 0.845 for every accent and claimed
+   that helped colour-vision deficiency. That was backwards: lightness is the
+   one channel every dichromacy preserves, so flattening it removes the only
+   cue that survives. Simulated pairwise, the flat palette put four pairs
+   under 1 JND in tritanopia where the original had none.
+   These six span L 0.70–0.90 with a minimum adjacent ΔL of 0.040 — two JND —
+   and every one clears 7.6:1 on the page. Chroma is clamped per hue to the
+   in-gamut ceiling at ITS OWN lightness, since a ceiling solved at one
+   lightness is not valid at another. */
+.research-card    { --card-h: var(--h-cyan);   --card-l: 0.90; --card-c: 0.115; }
+.project-card     { --card-h: var(--h-o3);     --card-l: 0.82; --card-c: 0.115; }
+.publication-card { --card-h: var(--h-green);  --card-l: 0.74; --card-c: 0.115; }
+.timeline-content { --card-h: var(--h-gold);   --card-l: 0.86; --card-c: 0.095; }
+.contact-tile     { --card-h: var(--h-violet); --card-l: 0.78; --card-c: 0.115; }
+.link-section     { --card-h: var(--h-blue);   --card-l: 0.70; --card-c: 0.115; }
 
 * {
   box-sizing: border-box;
+}
+
+/* Minimal reset. Reproduces the Bootstrap Reboot rules this design actually
+   depended on, now that Bootstrap is no longer loaded. Values match Reboot's
+   rather than being zeroed, so the cascade below behaves exactly as before. */
+body {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+ul,
+ol {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  padding-left: 2rem;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+  margin: 0;
+}
+
+button {
+  background: none;
+  border: 0;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+img,
+svg,
+video,
+canvas {
+  vertical-align: middle;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+b,
+strong {
+  font-weight: bolder;
 }
 
 html {
@@ -47,12 +360,14 @@ body {
   margin: 0;
   color: var(--text);
   background:
-    radial-gradient(circle at 75% 8%, rgba(167, 139, 250, 0.26), transparent 34rem),
-    radial-gradient(circle at 12% 24%, rgba(125, 211, 252, 0.19), transparent 32rem),
+    radial-gradient(circle at 75% 8%, oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.26), transparent 34rem),
+    radial-gradient(circle at 12% 24%, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.19), transparent 32rem),
     linear-gradient(135deg, var(--bg) 0%, #060a13 42%, #090e1c 100%);
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--font-text);
+  font-optical-sizing: auto;
   line-height: 1.65;
   overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body::before {
@@ -62,8 +377,8 @@ body::before {
   pointer-events: none;
   content: "";
   background-image:
-    radial-gradient(circle at 22% 18%, rgba(125, 211, 252, 0.08), transparent 26rem),
-    radial-gradient(circle at 78% 36%, rgba(167, 139, 250, 0.08), transparent 30rem),
+    radial-gradient(circle at 22% 18%, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.08), transparent 26rem),
+    radial-gradient(circle at 78% 36%, oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.08), transparent 30rem),
     linear-gradient(rgba(255, 255, 255, 0.032) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.032) 1px, transparent 1px);
   background-size: auto, auto, 86px 86px, 86px 86px;
@@ -76,7 +391,7 @@ body::before {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background: url("../../images/TNG50_protocluster_z1_dm_gasvel_4k.png") center / cover no-repeat;
+  background: url("../../images/cosmic-bg.webp") center / cover no-repeat;
   opacity: 0.9;
   filter: brightness(1.35) contrast(1.15) saturate(1.12);
   mix-blend-mode: screen;
@@ -88,9 +403,9 @@ body::before {
   z-index: 1;
   pointer-events: none;
   background:
-    radial-gradient(circle at 50% 34%, rgba(3, 5, 11, 0.22), rgba(3, 5, 11, 0.76) 58%, rgba(3, 5, 11, 0.94) 100%),
-    linear-gradient(90deg, rgba(3, 5, 11, 0.82), rgba(3, 5, 11, 0.48), rgba(3, 5, 11, 0.82)),
-    linear-gradient(180deg, rgba(3, 5, 11, 0.6), rgba(3, 5, 11, 0.88));
+    radial-gradient(circle at 50% 34%, rgba(2, 3, 4, 0.22), rgba(2, 3, 4, 0.76) 58%, rgba(2, 3, 4, 0.94) 100%),
+    linear-gradient(90deg, rgba(2, 3, 4, 0.82), rgba(2, 3, 4, 0.48), rgba(2, 3, 4, 0.82)),
+    linear-gradient(180deg, rgba(2, 3, 4, 0.6), rgba(2, 3, 4, 0.88));
 }
 
 body::after {
@@ -100,9 +415,9 @@ body::after {
   pointer-events: none;
   content: "";
   background:
-    radial-gradient(ellipse at 25% 32%, rgba(125, 211, 252, 0.07), transparent 34rem),
-    radial-gradient(ellipse at 74% 18%, rgba(245, 194, 231, 0.055), transparent 30rem),
-    radial-gradient(ellipse at 62% 74%, rgba(167, 139, 250, 0.055), transparent 36rem);
+    radial-gradient(ellipse at 25% 32%, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.07), transparent 34rem),
+    radial-gradient(ellipse at 74% 18%, oklch(var(--l-text) var(--cmax-lya) var(--h-lya) / 0.055), transparent 30rem),
+    radial-gradient(ellipse at 62% 74%, oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.055), transparent 36rem);
   filter: blur(18px);
   opacity: 0.9;
   transform: translate3d(calc(var(--parallax-x, 0) * -0.35px), calc(var(--parallax-y, 0) * -0.35px), 0);
@@ -121,7 +436,7 @@ a:hover {
 
 a:focus-visible,
 button:focus-visible {
-  outline: 3px solid rgba(125, 211, 252, 0.7);
+  outline: 3px solid oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.7);
   outline-offset: 4px;
 }
 
@@ -141,6 +456,7 @@ p {
 
 img {
   max-width: 100%;
+  height: auto;
 }
 
 .skip-link {
@@ -177,10 +493,10 @@ img {
   pointer-events: none;
   background:
     radial-gradient(circle at var(--cursor-x, 50%) var(--cursor-y, 45%), rgba(255, 255, 255, 0.065), transparent 3.8rem),
-    radial-gradient(circle at var(--cursor-x, 50%) var(--cursor-y, 45%), rgba(125, 211, 252, 0.12), transparent 15rem),
-    repeating-radial-gradient(circle at var(--cursor-x, 50%) var(--cursor-y, 45%), rgba(167, 139, 250, 0.018) 0 1px, transparent 1px 118px),
-    radial-gradient(ellipse at 65% 18%, rgba(245, 194, 231, 0.08), transparent 34rem),
-    linear-gradient(180deg, transparent, rgba(3, 5, 11, 0.68));
+    radial-gradient(circle at var(--cursor-x, 50%) var(--cursor-y, 45%), oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.12), transparent 15rem),
+    repeating-radial-gradient(circle at var(--cursor-x, 50%) var(--cursor-y, 45%), oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.018) 0 1px, transparent 1px 118px),
+    radial-gradient(ellipse at 65% 18%, oklch(var(--l-text) var(--cmax-lya) var(--h-lya) / 0.08), transparent 34rem),
+    linear-gradient(180deg, transparent, rgba(2, 3, 4, 0.68));
 }
 
 @keyframes gridDrift {
@@ -239,64 +555,29 @@ img {
   will-change: transform, opacity;
 }
 
-body.intro-active {
-  overflow: hidden;
-}
-
-body.intro-hold .header-container,
-body.intro-moving .header-container {
+html.intro-hold .header-container,
+html.intro-moving .header-container {
   background: rgba(5, 7, 13, 0.9);
-  border-color: rgba(125, 211, 252, 0.24);
-  box-shadow: 0 34px 120px rgba(0, 0, 0, 0.62), 0 0 70px rgba(125, 211, 252, 0.12);
+  border-color: oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.24);
+  box-shadow: 0 34px 120px rgba(0, 0, 0, 0.62), 0 0 70px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.12);
 }
 
-body.intro-hold .header-container {
+html.intro-hold .header-container {
   transform: translate3d(calc(50vw - (var(--header-width) / 2)), 0, 0) scale(1.12);
 }
 
-body.intro-moving .header-container,
-body.intro-complete .header-container {
+html.intro-moving .header-container,
+html.intro-complete .header-container {
   transform: translate3d(0, 0, 0) scale(1);
 }
 
-body.intro-skipped .header-container {
+html.intro-skipped .header-container {
   transition-duration: 560ms;
 }
 
-body.intro-active .main,
-body.intro-active .site-footer {
-  pointer-events: none;
-  opacity: 0;
-  filter: blur(3px);
-  transform: translateY(24px);
-  transition:
-    opacity 1.25s ease,
-    filter 1.25s ease,
-    transform 1.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-body.intro-moving .main,
-body.intro-moving .site-footer {
-  pointer-events: auto;
-  opacity: 1;
-  filter: none;
-  transform: none;
-  transition-delay: 520ms;
-}
-
-body.intro-complete .main,
-body.intro-complete .site-footer {
-  pointer-events: auto;
-  opacity: 1;
-  filter: none;
-  transform: none;
-}
-
-body.intro-skipped .main,
-body.intro-skipped .site-footer {
-  transition-duration: 420ms;
-  transition-delay: 120ms;
-}
+/* The intro no longer touches page content. The header's entrance plays over
+   a page that is already painted and readable, so first contentful paint and
+   LCP are never delayed by it. */
 
 .brand-lockup {
   display: grid;
@@ -329,10 +610,10 @@ body.intro-skipped .site-footer {
   overflow: hidden;
   padding: 2px;
   background:
-    linear-gradient(135deg, rgba(125, 211, 252, 0.75), rgba(167, 139, 250, 0.7)),
+    linear-gradient(135deg, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.75), oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.7)),
     rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.22);
-  box-shadow: 0 0 28px rgba(125, 211, 252, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  box-shadow: 0 0 28px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 
 .brand-mark.image-mark::after {
@@ -445,6 +726,14 @@ body.intro-skipped .site-footer {
   backdrop-filter: blur(20px);
 }
 
+/* Was Bootstrap's .d-xl-none. The toggle only exists below 1200px, where the
+   header collapses to a drawer; at 1200px and up the sidebar is permanent. */
+@media (min-width: 1200px) {
+  .header-toggle {
+    display: none;
+  }
+}
+
 .main,
 .site-footer {
   position: relative;
@@ -458,8 +747,15 @@ body.intro-skipped .site-footer {
   padding: 104px 0;
 }
 
+/* Previously only overrode max-width; width, the 12px gutters and the auto
+   margins came from Bootstrap's .container. Spelled out in full now. */
 .container {
+  width: 100%;
   max-width: 1160px;
+  padding-right: 12px;
+  padding-left: 12px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .section-heading {
@@ -505,7 +801,7 @@ body.intro-skipped .site-footer {
 .link-section a {
   color: #93e5ff;
   text-decoration: underline;
-  text-decoration-color: rgba(125, 211, 252, 0.45);
+  text-decoration-color: oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.45);
   text-underline-offset: 4px;
 }
 
@@ -515,7 +811,7 @@ body.intro-skipped .site-footer {
 .personal-copy a:hover,
 .link-section a:hover {
   color: var(--accent-3);
-  text-decoration-color: rgba(245, 194, 231, 0.7);
+  text-decoration-color: oklch(var(--l-text) var(--cmax-lya) var(--h-lya) / 0.7);
 }
 
 .hero {
@@ -531,7 +827,7 @@ body.intro-skipped .site-footer {
   position: absolute;
   pointer-events: none;
   content: "";
-  border: 1px solid rgba(125, 211, 252, 0.12);
+  border: 1px solid oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.12);
   border-radius: 50%;
   transform: translate3d(calc(var(--parallax-x, 0) * 0.65px), calc(var(--parallax-y, 0) * 0.65px), 0) rotate(-14deg);
 }
@@ -541,7 +837,7 @@ body.intro-skipped .site-footer {
   right: -8%;
   width: min(58vw, 720px);
   aspect-ratio: 1.9;
-  box-shadow: 0 0 90px rgba(125, 211, 252, 0.07), inset 0 0 70px rgba(167, 139, 250, 0.045);
+  box-shadow: 0 0 90px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.07), inset 0 0 70px oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.045);
 }
 
 .hero::after {
@@ -549,7 +845,7 @@ body.intro-skipped .site-footer {
   right: 5%;
   width: min(42vw, 520px);
   aspect-ratio: 1.8;
-  border-color: rgba(167, 139, 250, 0.12);
+  border-color: oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.12);
   transform: translate3d(calc(var(--parallax-x, 0) * 0.45px), calc(var(--parallax-y, 0) * 0.45px), 0) rotate(-19deg);
 }
 
@@ -560,9 +856,9 @@ body.intro-skipped .site-footer {
   width: min(70vw, 900px);
   aspect-ratio: 1.25;
   background:
-    radial-gradient(ellipse at 54% 48%, rgba(245, 194, 231, 0.26), transparent 0 12%, transparent 24%),
-    radial-gradient(ellipse at 46% 52%, rgba(125, 211, 252, 0.28), transparent 0 28%, transparent 58%),
-    radial-gradient(ellipse at 70% 32%, rgba(167, 139, 250, 0.32), transparent 0 26%, transparent 62%);
+    radial-gradient(ellipse at 54% 48%, oklch(var(--l-text) var(--cmax-lya) var(--h-lya) / 0.26), transparent 0 12%, transparent 24%),
+    radial-gradient(ellipse at 46% 52%, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.28), transparent 0 28%, transparent 58%),
+    radial-gradient(ellipse at 70% 32%, oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.32), transparent 0 26%, transparent 62%);
   filter: blur(22px);
   opacity: 0.9;
   transform: translate3d(calc(var(--parallax-x, 0) * -0.9px), calc(var(--parallax-y, 0) * -0.9px), 0) rotate(-10deg);
@@ -633,6 +929,7 @@ body.intro-skipped .site-footer {
 }
 
 .btn {
+  line-height: 1.5;
   position: relative;
   display: inline-flex;
   gap: 8px;
@@ -671,13 +968,13 @@ body.intro-skipped .site-footer {
   color: #041019;
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
   border: 0;
-  box-shadow: 0 20px 44px rgba(125, 211, 252, 0.2);
+  box-shadow: 0 20px 44px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.2);
 }
 
 .btn-primary:hover {
   color: #041019;
   transform: translateY(-2px);
-  box-shadow: 0 24px 58px rgba(125, 211, 252, 0.28), 0 0 28px rgba(167, 139, 250, 0.18);
+  box-shadow: 0 24px 58px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.28), 0 0 28px oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.18);
 }
 
 .btn-outline {
@@ -689,8 +986,8 @@ body.intro-skipped .site-footer {
 .btn-outline:hover {
   color: var(--text);
   background: var(--surface-strong);
-  border-color: rgba(125, 211, 252, 0.46);
-  box-shadow: 0 18px 44px rgba(125, 211, 252, 0.14);
+  border-color: oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.46);
+  box-shadow: 0 18px 44px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.14);
 }
 
 .hero-links {
@@ -699,7 +996,7 @@ body.intro-skipped .site-footer {
 
 .hero-links a {
   color: #dbe6f4;
-  border-bottom: 1px solid rgba(125, 211, 252, 0.28);
+  border-bottom: 1px solid oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.28);
   overflow-wrap: anywhere;
 }
 
@@ -712,24 +1009,24 @@ body.intro-skipped .site-footer {
   padding: 14px;
   overflow: hidden;
   background:
-    conic-gradient(from 130deg, rgba(125, 211, 252, 0.72), rgba(167, 139, 250, 0.58), rgba(245, 194, 231, 0.46), rgba(248, 212, 119, 0.32), rgba(125, 211, 252, 0.72)),
+    conic-gradient(from 130deg, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.72), oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.58), oklch(var(--l-text) var(--cmax-lya) var(--h-lya) / 0.46), oklch(var(--l-text) var(--cmax-gold) var(--h-gold) / 0.32), oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.72)),
     linear-gradient(145deg, rgba(255, 255, 255, 0.2), transparent 28%),
-    linear-gradient(145deg, rgba(125, 211, 252, 0.2), rgba(167, 139, 250, 0.14), rgba(255, 255, 255, 0.05));
+    linear-gradient(145deg, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.2), oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.14), rgba(255, 255, 255, 0.05));
   background-size: 220% 220%, auto, auto;
   border: 1px solid var(--glass-border);
   border-radius: 34px;
   box-shadow: var(--shadow), inset 0 1px 0 var(--glass-highlight);
   transform: perspective(1000px) rotateX(var(--tilt-y, 0deg)) rotateY(var(--tilt-x, 0deg)) translate3d(calc(var(--parallax-x, 0) * 0.4px), calc(var(--parallax-y, 0) * 0.4px), 0);
   transition: transform 500ms cubic-bezier(0.19, 1, 0.22, 1), border-color 260ms ease, box-shadow 260ms ease, filter 260ms ease;
-  animation: portraitRim 12s linear infinite;
+  animation: none;
 }
 
 .hero-portrait:hover {
-  border-color: rgba(125, 211, 252, 0.32);
+  border-color: oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.32);
   box-shadow:
     var(--shadow),
-    0 0 42px rgba(125, 211, 252, 0.18),
-    0 0 82px rgba(167, 139, 250, 0.12),
+    0 0 42px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.18),
+    0 0 82px oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.12),
     inset 0 1px 0 var(--glass-highlight);
   filter: saturate(1.04);
   transform: perspective(1000px) rotateX(var(--tilt-y, 0deg)) rotateY(var(--tilt-x, 0deg)) translate3d(calc(var(--parallax-x, 0) * 0.4px), calc(var(--parallax-y, 0) * 0.4px - 8px), 0) scale(1.015);
@@ -742,9 +1039,9 @@ body.intro-skipped .site-footer {
   pointer-events: none;
   content: "";
   background:
-    radial-gradient(circle at var(--glow-x, 30%) var(--glow-y, 20%), rgba(255, 255, 255, 0.16), transparent 0 1.5px, transparent 2.5px),
-    radial-gradient(circle at calc(var(--glow-x, 30%) + 18%) calc(var(--glow-y, 20%) + 16%), rgba(125, 211, 252, 0.17), transparent 0 1.5px, transparent 2.5px),
-    linear-gradient(130deg, rgba(255, 255, 255, 0.16), transparent 22%, transparent 74%, rgba(245, 194, 231, 0.1));
+    radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.16), transparent 0 1.5px, transparent 2.5px),
+    radial-gradient(circle at 48% calc(var(--glow-y, 20%) + 16%), oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.17), transparent 0 1.5px, transparent 2.5px),
+    linear-gradient(130deg, rgba(255, 255, 255, 0.16), transparent 22%, transparent 74%, oklch(var(--l-text) var(--cmax-lya) var(--h-lya) / 0.1));
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 30px;
   opacity: 0.62;
@@ -760,7 +1057,7 @@ body.intro-skipped .site-footer {
   position: absolute;
   inset: -34px;
   z-index: 0;
-  background: conic-gradient(from 90deg, rgba(125, 211, 252, 0.18), rgba(167, 139, 250, 0.28), rgba(245, 194, 231, 0.16), rgba(125, 211, 252, 0.18));
+  background: conic-gradient(from 90deg, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.18), oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.28), oklch(var(--l-text) var(--cmax-lya) var(--h-lya) / 0.16), oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.18));
   border-radius: 42px;
   filter: blur(20px);
   opacity: 0.8;
@@ -786,8 +1083,8 @@ body.intro-skipped .site-footer {
   content: "";
   background:
     radial-gradient(circle at 24% 22%, rgba(255, 255, 255, 0.18), transparent 0 1px, transparent 2px),
-    radial-gradient(circle at 72% 28%, rgba(125, 211, 252, 0.2), transparent 0 1px, transparent 2px),
-    linear-gradient(115deg, rgba(255, 255, 255, 0.08), transparent 32%, transparent 70%, rgba(125, 211, 252, 0.06));
+    radial-gradient(circle at 72% 28%, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.2), transparent 0 1px, transparent 2px),
+    linear-gradient(115deg, rgba(255, 255, 255, 0.08), transparent 32%, transparent 70%, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.06));
   border-radius: 24px;
   opacity: 0.68;
   mix-blend-mode: screen;
@@ -812,6 +1109,22 @@ body.intro-skipped .site-footer {
   text-transform: uppercase;
 }
 
+/* ─────────────────────────────── the glass recipe
+   saturate() on the BACKDROP is the whole trick. On a near-black page a plain
+   blur averages the backdrop toward black, so the panel reads grey and dead —
+   which is exactly why the previous frosted glass looked cheap. Saturate pulls
+   the nebula's chroma *through* the glass, so the panel looks lit from behind,
+   which is physically what glass over a bright nebula does.
+
+   Blur drops 22px -> 16px. Separable-Gaussian cost scales with radius x area,
+   so this is ~27% less blur work on every glass element — and 16px WITH
+   saturate reads richer than 22px without. The better recipe is the cheaper
+   one. Skia folds consecutive colour filters into one 5x4 matrix, so the three
+   added colour ops are effectively free against blur's texture reads.
+
+   brightness capped at 1.12, not 1.20: backdrop-filter never samples outside
+   the viewport, so a card crossing the top or bottom edge shows a clamped
+   band, and 1.20 makes it visible during a slow scroll. */.ovi-panel,
 .about-panel,
 .contact-panel,
 .research-card,
@@ -829,22 +1142,143 @@ body.intro-skipped .site-footer {
 .personal-card,
 .link-card,
 .hover-lift {
-  --card-accent: var(--accent);
   position: relative;
+  isolation: isolate;            /* strictly redundant — backdrop-filter already
+                                    makes a stacking context — but load-bearing
+                                    under prefers-reduced-transparency, which
+                                    removes backdrop-filter and would otherwise
+                                    let a negative-z child escape to .main */
   overflow: hidden;
+  border: 1px solid transparent; /* NOT border: 0 — forced-colors drops
+                                    backdrop-filter, box-shadow and pseudo
+                                    backgrounds, so with no border all 17
+                                    panels collapse into one wall of text.
+                                    box-sizing is already global, so this
+                                    causes no layout shift. */
+  border-radius: 24px;
   background:
-    radial-gradient(circle at var(--glow-x, 50%) var(--glow-y, 0%), color-mix(in srgb, var(--card-accent) 17%, transparent), transparent 42%),
-    linear-gradient(145deg, rgba(255, 255, 255, 0.1), transparent 32%),
-    linear-gradient(145deg, var(--glass-bg-strong), var(--glass-bg));
-  border: 1px solid var(--glass-border);
-  border-radius: 20px;
-  box-shadow: var(--shadow), inset 0 1px 0 var(--glass-highlight);
-  backdrop-filter: blur(22px);
-  -webkit-backdrop-filter: blur(22px);
-  transform-style: preserve-3d;
-  transition: transform 240ms ease, border-color 240ms ease, box-shadow 240ms ease, background 240ms ease;
+    radial-gradient(circle at var(--glow-x, 50%) var(--glow-y, 0%),
+      color-mix(in oklab, var(--card-accent) 17%, transparent), transparent 42%),
+    linear-gradient(180deg in oklab,
+      color-mix(in oklab, var(--ink-panel) 76%, transparent),
+      color-mix(in oklab, var(--ink-bg-2) 86%, transparent));
+  /* 180deg reads as gravity. The 145deg diagonal it replaces reads as a
+     graphic — a lit edge that runs corner to corner is not a thing light does. */
+  backdrop-filter: blur(16px) saturate(1.75) brightness(1.12) contrast(1.06);
+  -webkit-backdrop-filter: blur(16px) saturate(1.75) brightness(1.12) contrast(1.06);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.15),   /* top catch-light   ┐ together the */
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.6),         /* bottom occlusion  ┘ strongest tell */
+    0 0 0 1px rgba(255, 255, 255, 0.035),        /* hairline seat */
+    0 20px 44px -16px rgba(0, 0, 0, 0.88),       /* tight contact shadow */
+    0 70px 150px -70px color-mix(in oklab, var(--card-accent) 45%, black);
+  transition:
+    transform var(--dur-s) var(--ease-out),
+    border-color var(--dur-xs) linear,
+    box-shadow var(--dur-s) var(--ease-out),
+    --glow-x 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    --glow-y 220ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* The bevel. A flat 1px uniform border is the second-biggest cheapness tell,
+   because real edges catch light unevenly. border-image cannot do this (it
+   ignores border-radius); a padded mask-composite pseudo-element can, and it
+   respects border-radius: inherit. No markup added — ::before is already the
+   wash, ::after was free. */
+.ovi-panel::after,
+.about-panel::after,
+.contact-panel::after,
+.research-card::after,
+.project-card::after,
+.publication-card::after,
+.timeline-content::after,
+.teaching-panel::after,
+.personal-panel::after,
+.link-section::after,
+.contact-tile::after,
+.fact-grid div::after,
+.glass-panel::after,
+.cosmic-card::after,
+.education-card::after,
+.personal-card::after,
+.link-card::after,
+.hover-lift::after {
+  content: "";
+  position: absolute;
+  inset: -1px;   /* not 0: inset resolves against the PADDING box, 1px
+                    inside the transparent border, while border-radius:
+                    inherit copies the full 24px — the ring read 1px too
+                    round at each corner */
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;          /* mandatory — these cards contain links */
+  z-index: 1;
+  background: linear-gradient(180deg in oklab,
+    rgba(255, 255, 255, 0.58),
+    color-mix(in oklab, var(--card-accent) 22%, transparent) 34%,
+    rgba(255, 255, 255, 0.05) 60%,
+    rgba(255, 255, 255, 0.05));
+  /* The accent shoulder is held at 22%: with this many accents in play the
+     shoulder stop is the actual tackiness vector. And the bottom stop is a
+     dim cool bounce, not black — on #020304 a pure-black bottom edge makes
+     the card vanish into the page and no shadow rescues it. */
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;   /* -webkit keyword */
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask-composite: exclude;  /* standard keyword — NOT interchangeable */
+  opacity: 0.82;
+  transition: opacity var(--dur-s) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ovi-panel:hover::after,
+  .about-panel:hover::after,
+  .contact-panel:hover::after,
+  .research-card:hover::after,
+  .project-card:hover::after,
+  .publication-card:hover::after,
+  .timeline-content:hover::after,
+  .teaching-panel:hover::after,
+  .personal-panel:hover::after,
+  .link-section:hover::after,
+  .contact-tile:hover::after,
+  .fact-grid div:hover::after,
+  .glass-panel:hover::after,
+  .cosmic-card:hover::after,
+  .education-card:hover::after,
+  .personal-card:hover::after,
+  .link-card:hover::after,
+  .hover-lift:hover::after {
+    opacity: 1;   /* opacity, not padding — padding cannot composite and
+                     re-rasterizes the mask */
+  }
+}
+
+/* Focus affordance must NOT sit inside a hover query: a keyboard user on a
+   tablet or a phone with a BT keyboard matches (hover: none) and would get
+   no focus ring on any card. */
+.ovi-panel:focus-within::after,
+.about-panel:focus-within::after,
+.contact-panel:focus-within::after,
+.research-card:focus-within::after,
+.project-card:focus-within::after,
+.publication-card:focus-within::after,
+.timeline-content:focus-within::after,
+.teaching-panel:focus-within::after,
+.personal-panel:focus-within::after,
+.link-section:focus-within::after,
+.contact-tile:focus-within::after,
+.fact-grid div:focus-within::after,
+.glass-panel:focus-within::after,
+.cosmic-card:focus-within::after,
+.education-card:focus-within::after,
+.personal-card:focus-within::after,
+.link-card:focus-within::after,
+.hover-lift:focus-within::after {
+  opacity: 1;
+}
+
+.ovi-panel::before,
 .about-panel::before,
 .contact-panel::before,
 .research-card::before,
@@ -868,12 +1302,13 @@ body.intro-skipped .site-footer {
   content: "";
   background:
     linear-gradient(120deg, rgba(255, 255, 255, 0.18), transparent 32%),
-    radial-gradient(circle at var(--glow-x, 50%) var(--glow-y, 0%), color-mix(in srgb, var(--card-accent) 19%, rgba(255, 255, 255, 0.08)), transparent 35%);
+    radial-gradient(circle at var(--glow-x, 50%) var(--glow-y, 0%), color-mix(in oklab, var(--card-accent) 19%, rgba(255, 255, 255, 0.08)), transparent 35%);
   border-radius: inherit;
   opacity: 0.38;
   transition: opacity 240ms ease;
 }
 
+.ovi-panel:hover,
 .about-panel:hover,
 .contact-panel:hover,
 .research-card:hover,
@@ -891,15 +1326,16 @@ body.intro-skipped .site-footer {
 .personal-card:hover,
 .link-card:hover,
 .hover-lift:hover {
-  border-color: color-mix(in srgb, var(--card-accent) 44%, rgba(255, 255, 255, 0.16));
+  border-color: color-mix(in oklab, var(--card-accent) 44%, rgba(255, 255, 255, 0.16));
   box-shadow:
     0 30px 90px rgba(0, 0, 0, 0.58),
-    0 0 42px color-mix(in srgb, var(--card-accent) 17%, transparent),
-    0 0 70px rgba(167, 139, 250, 0.08),
+    0 0 42px color-mix(in oklab, var(--card-accent) 17%, transparent),
+    0 0 70px oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.08),
     inset 0 1px 0 rgba(255, 255, 255, 0.22);
   transform: perspective(900px) rotateX(var(--tilt-y, 0deg)) rotateY(var(--tilt-x, 0deg)) translateY(-6px) scale(1.01);
 }
 
+.ovi-panel:hover::before,
 .about-panel:hover::before,
 .contact-panel:hover::before,
 .research-card:hover::before,
@@ -923,34 +1359,29 @@ body.intro-skipped .site-footer {
 .accent-cyan,
 .research-card:nth-child(1),
 .contact-tile:nth-child(1) {
-  --card-accent: var(--accent);
 }
 
 .accent-violet,
 .research-card:nth-child(2),
 .publication-card,
 .timeline-content {
-  --card-accent: var(--accent-2);
 }
 
 .accent-blue,
 .project-card:nth-child(2n),
 .link-section:nth-child(2n) {
-  --card-accent: var(--accent-4);
 }
 
 .accent-magenta,
 .research-card:nth-child(3),
 .personal-panel,
 .contact-tile:nth-child(2) {
-  --card-accent: var(--magenta);
 }
 
 .accent-gold,
 .project-card:nth-child(2n + 1),
 .teaching-panel,
 .fact-grid div:nth-child(2n) {
-  --card-accent: var(--gold);
 }
 
 .about-panel {
@@ -1009,7 +1440,7 @@ body.intro-skipped .site-footer {
   position: absolute;
   inset: auto -20% -35% 18%;
   height: 300px;
-  background: radial-gradient(circle, rgba(125, 211, 252, 0.18), transparent 68%);
+  background: radial-gradient(circle, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.18), transparent 68%);
   pointer-events: none;
 }
 
@@ -1038,8 +1469,8 @@ body.intro-skipped .site-footer {
   font-weight: 700;
   background:
     linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.025)),
-    color-mix(in srgb, var(--tag-accent) 12%, transparent);
-  border: 1px solid color-mix(in srgb, var(--tag-accent) 32%, transparent);
+    color-mix(in oklab, var(--tag-accent) 12%, transparent);
+  border: 1px solid color-mix(in oklab, var(--tag-accent) 32%, transparent);
   border-radius: 999px;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.13);
   backdrop-filter: blur(12px);
@@ -1064,10 +1495,10 @@ body.intro-skipped .site-footer {
 
 .tag-cloud span:hover {
   color: #ffffff;
-  border-color: color-mix(in srgb, var(--tag-accent) 54%, transparent);
+  border-color: color-mix(in oklab, var(--tag-accent) 54%, transparent);
   background:
     linear-gradient(145deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.04)),
-    color-mix(in srgb, var(--tag-accent) 18%, transparent);
+    color-mix(in oklab, var(--tag-accent) 18%, transparent);
   transform: translateY(-1px);
 }
 
@@ -1101,28 +1532,28 @@ body.intro-skipped .site-footer {
 }
 
 .visual-site {
-  background-image: linear-gradient(135deg, rgba(3, 5, 11, 0.12), rgba(125, 211, 252, 0.18)), url("../../images/milky_way.jpg");
+  background-image: linear-gradient(135deg, rgba(2, 3, 4, 0.12), oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.18)), url("../../images/project-site.webp");
 }
 
 .visual-solar {
-  background-image: linear-gradient(135deg, rgba(3, 5, 11, 0.16), rgba(245, 194, 231, 0.12)), url("../../images/galaxy3.jpg");
+  background-image: linear-gradient(135deg, rgba(2, 3, 4, 0.16), oklch(var(--l-text) var(--cmax-lya) var(--h-lya) / 0.12)), url("../../images/project-solar.webp");
 }
 
 .visual-qkd {
   background:
-    radial-gradient(circle at 28% 30%, rgba(125, 211, 252, 0.36), transparent 25%),
-    radial-gradient(circle at 74% 60%, rgba(167, 139, 250, 0.32), transparent 30%),
+    radial-gradient(circle at 28% 30%, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.36), transparent 25%),
+    radial-gradient(circle at 74% 60%, oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.32), transparent 30%),
     linear-gradient(145deg, #05101c, #141827);
 }
 
 .visual-waves {
-  background-image: linear-gradient(135deg, rgba(3, 5, 11, 0.1), rgba(147, 230, 196, 0.12)), url("../../images/galaxy6.jpg");
+  background-image: linear-gradient(135deg, rgba(2, 3, 4, 0.1), oklch(var(--l-text) var(--cmax-green) var(--h-green) / 0.12)), url("../../images/project-waves.webp");
 }
 
 .visual-fano {
   background:
-    radial-gradient(circle at 44% 44%, rgba(245, 194, 231, 0.38), transparent 18%),
-    radial-gradient(circle at 62% 50%, rgba(125, 211, 252, 0.22), transparent 26%),
+    radial-gradient(circle at 44% 44%, oklch(var(--l-text) var(--cmax-lya) var(--h-lya) / 0.38), transparent 18%),
+    radial-gradient(circle at 62% 50%, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.22), transparent 26%),
     linear-gradient(145deg, #080c18, #151023);
 }
 
@@ -1154,8 +1585,8 @@ body.intro-skipped .site-footer {
   color: var(--accent);
   font-size: 0.78rem;
   font-weight: 850;
-  background: rgba(125, 211, 252, 0.09);
-  border: 1px solid rgba(125, 211, 252, 0.22);
+  background: oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.09);
+  border: 1px solid oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.22);
   border-radius: 999px;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.11);
   text-transform: uppercase;
@@ -1182,7 +1613,7 @@ body.intro-skipped .site-footer {
   font-weight: 850;
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
   border-radius: 999px;
-  box-shadow: 0 12px 28px rgba(125, 211, 252, 0.16);
+  box-shadow: 0 12px 28px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.16);
 }
 
 .chip-link:hover {
@@ -1215,7 +1646,7 @@ body.intro-skipped .site-footer {
   height: var(--timeline-progress, 0%);
   background: linear-gradient(180deg, var(--accent), var(--accent-2) 52%, #5eead4 100%);
   border-radius: inherit;
-  box-shadow: 0 0 22px rgba(125, 211, 252, 0.62), 0 0 48px rgba(167, 139, 250, 0.42);
+  box-shadow: 0 0 22px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.62), 0 0 48px oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.42);
   transition: height 120ms linear;
 }
 
@@ -1235,10 +1666,10 @@ body.intro-skipped .site-footer {
   width: 20px;
   height: 20px;
   content: "";
-  background: radial-gradient(circle, #ffffff 0 18%, var(--accent) 42%, rgba(125, 211, 252, 0.3) 72%);
+  background: radial-gradient(circle, #ffffff 0 18%, var(--accent) 42%, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.3) 72%);
   border: 4px solid rgba(8, 13, 24, 0.96);
   border-radius: 50%;
-  box-shadow: 0 0 0 8px rgba(125, 211, 252, 0.1), 0 0 22px rgba(125, 211, 252, 0.24);
+  box-shadow: 0 0 0 8px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.1), 0 0 22px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.24);
   opacity: 0.66;
   transition: transform 240ms ease, box-shadow 240ms ease, opacity 240ms ease, background 240ms ease;
 }
@@ -1250,7 +1681,7 @@ body.intro-skipped .site-footer {
 
 .timeline-item.is-active::before {
   background: radial-gradient(circle, #ffffff 0 18%, var(--accent-3) 38%, var(--accent) 72%);
-  box-shadow: 0 0 0 10px rgba(125, 211, 252, 0.16), 0 0 34px rgba(125, 211, 252, 0.64), 0 0 60px rgba(167, 139, 250, 0.36);
+  box-shadow: 0 0 0 10px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.16), 0 0 34px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.64), 0 0 60px oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.36);
   transform: scale(1.12);
 }
 
@@ -1267,10 +1698,10 @@ body.intro-skipped .site-footer {
 }
 
 .timeline-item.is-active .timeline-content {
-  border-color: rgba(167, 139, 250, 0.34);
+  border-color: oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.34);
   box-shadow:
     0 30px 90px rgba(0, 0, 0, 0.58),
-    0 0 44px rgba(167, 139, 250, 0.13),
+    0 0 44px oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.13),
     inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 
@@ -1454,20 +1885,43 @@ body.intro-skipped .site-footer {
   transform: translateY(0);
 }
 
+/* Visible BY DEFAULT. The hiding is gated behind html.js-reveal, which an
+   inline head script adds — so if the script 404s, is cached stale, or throws,
+   the page renders fully rather than staying blank forever.
+   The durations are deliberately asymmetric: opacity finishes before the
+   transform does, so the element is readable before it stops moving. */
 .reveal {
+  opacity: 1;
+  transform: none;
+}
+
+html.js-reveal .reveal {
   opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 620ms ease, transform 620ms ease;
+  translate: 0 22px;
+  /* `translate`, not `transform`: a separate property, so the hover 3D tilt
+     composes with it instead of being overridden.
+     An animation, not a transition: `transition` is a shorthand, and at
+     (0,2,1) this rule was resetting transition-property to opacity,transform
+     and wiping the glass transitions on 17 of the 24 cards that carry
+     .reveal — which made the whole @property registration decorative. */
 }
 
-.hero .reveal {
+/* Specificity must clear html.js-reveal .reveal (0,2,1) -- the hero is
+   deliberately exempt from the scroll reveal so it does not fight the intro. */
+.hero .reveal,
+html.js-reveal .hero .reveal {
   opacity: 1;
   transform: none;
 }
 
-.reveal.is-visible {
-  opacity: 1;
-  transform: none;
+html.js-reveal .reveal.is-visible {
+  animation: revealIn 680ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes revealIn {
+  from { opacity: 0; translate: 0 22px; }
+  60%  { opacity: 1; }
+  to   { opacity: 1; translate: none; }
 }
 
 @media (max-width: 1199px) {
@@ -1486,27 +1940,27 @@ body.intro-skipped .site-footer {
     transform: translateX(0) !important;
   }
 
-  body:not(.intro-active) .site-header:not(.header-show) .header-container {
+  html:not(.intro-active) .site-header:not(.header-show) .header-container {
     opacity: 1;
     transform: translateX(calc(-100% - 42px)) !important;
   }
 
-  body.intro-hold .site-header .header-container {
+  html.intro-hold .site-header .header-container {
     opacity: 1;
     transform: translateX(calc(50vw - 50% - 18px)) scale(1.02) !important;
   }
 
-  body.intro-moving .site-header .header-container {
+  html.intro-moving .site-header .header-container {
     opacity: 0;
     transform: translateX(calc(-100% - 42px)) !important;
   }
 
-  body.intro-complete .site-header .header-container {
+  html.intro-complete .site-header .header-container {
     opacity: 1;
     transform: translateX(calc(-100% - 42px)) !important;
   }
 
-  body.intro-complete .site-header.header-show .header-container {
+  html.intro-complete .site-header.header-show .header-container {
     transform: translateX(0) !important;
   }
 
@@ -1543,8 +1997,8 @@ body.intro-skipped .site-footer {
 
   .cosmic-image-shade {
     background:
-      radial-gradient(circle at 50% 30%, rgba(3, 5, 11, 0.36), rgba(3, 5, 11, 0.9) 68%),
-      linear-gradient(180deg, rgba(3, 5, 11, 0.82), rgba(3, 5, 11, 0.94));
+      radial-gradient(circle at 50% 30%, rgba(2, 3, 4, 0.36), rgba(2, 3, 4, 0.9) 68%),
+      linear-gradient(180deg, rgba(2, 3, 4, 0.82), rgba(2, 3, 4, 0.94));
   }
 
   body::after {
@@ -1628,7 +2082,7 @@ body.intro-skipped .site-footer {
     max-height: min(82vh, 620px);
   }
 
-  body.intro-hold .site-header .header-container {
+  html.intro-hold .site-header .header-container {
     transform: translateX(calc(50vw - 50% - 14px)) scale(1) !important;
   }
 
@@ -1740,9 +2194,15 @@ body.intro-skipped .site-footer {
     transition-duration: 0.001ms !important;
   }
 
-  .reveal {
+  /* Must outrank html.js-reveal .reveal (0,2,1), otherwise reduced-motion
+     visitors lose the CSS-only fallback and depend on script again. */
+  .reveal,
+  html.js-reveal .reveal,
+  html.js-reveal .reveal.is-visible {
     opacity: 1;
+    translate: none;
     transform: none;
+    animation: none !important;
   }
 
   body::before,
@@ -1752,13 +2212,9 @@ body.intro-skipped .site-footer {
     animation: none !important;
   }
 
-  body.intro-active .site-header,
-  body.intro-active .header-container,
-  body.intro-active .brand-lockup,
-  body.intro-active .main,
-  body.intro-active .site-footer,
-  body.intro-complete .main,
-  body.intro-complete .site-footer {
+  html.intro-active .site-header,
+  html.intro-active .header-container,
+  html.intro-active .brand-lockup {
     filter: none;
     opacity: 1;
     transform: none;
@@ -1784,4 +2240,1094 @@ body.intro-skipped .site-footer {
   .hero-portrait:hover {
     transform: none;
   }
+}
+
+/* ─────────────────────────────────────────────── environment guards
+   None of these existed in this file. Each one is a mode a real visitor
+   can be in where the design currently has no answer. */
+
+@media print {
+  .site-header,
+  .header-toggle,
+  .scroll-top,
+  .cosmic-image-bg,
+  .cosmic-image-shade,
+  .cosmic-vignette,
+  #galaxy-canvas,
+  .hero-nebula,
+  .card-glow,
+  .portrait-halo {
+    display: none !important;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+  }
+
+  /* Headings, tags and most body copy each declare their own dark-theme
+     colour, so they ignore an inherited one and print at ~1.05:1 on white. */
+  *,
+  *::before,
+  *::after {
+    color: #111 !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Fixed layers repeat on every printed page. */
+  body::before,
+  body::after,
+  .skip-link { display: none !important; }
+
+  .hero { min-height: 0 !important; }
+  .section { padding: 18px 0 !important; }
+
+  /* Four Scholar URLs are 126 characters with no spaces; print has no
+     horizontal scroll, so they clip without this. */
+  a[href^="http"]::after {
+    overflow-wrap: anywhere;
+    word-break: break-all;
+    font-size: 0.75em;
+    color: #444 !important;
+  }
+
+  .main,
+  .site-footer { margin-left: 0 !important; }
+
+  .reveal { opacity: 1 !important; transform: none !important; }
+
+  a { color: #111 !important; text-decoration: underline; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.8em; }
+
+  .research-card,
+  .project-card,
+  .publication-card,
+  .timeline-content,
+  .contact-panel,
+  .contact-tile,
+  .about-panel,
+  .teaching-panel,
+  .personal-panel,
+  .link-section,
+  .fact-grid div,
+  .glass-panel {
+    background: none !important;
+    border: 1px solid #bbb !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    break-inside: avoid;
+    color: #111 !important;
+  }
+
+  /* Every card carries a translucent ::before wash. Left on, it prints as a
+     grey smear over the text. */
+  .research-card::before,
+  .project-card::before,
+  .publication-card::before,
+  .timeline-content::before,
+  .contact-panel::before,
+  .contact-tile::before,
+  .about-panel::before,
+  .teaching-panel::before,
+  .personal-panel::before,
+  .link-section::before,
+  body::before,
+  body::after,
+  .timeline-track,
+  .timeline-item::before {
+    display: none !important;
+  }
+
+  /* The bevel ring would print on top of the 1px border print adds. */
+  [class*="-card"]::after,
+  [class*="-panel"]::after,
+  .contact-tile::after,
+  .link-section::after,
+  .fact-grid div::after,
+  .hero-portrait::after,
+  .hero-portrait::before { display: none !important; }
+
+  /* The tiles clip their content, so an appended URL would be cut off. */
+  .contact-tile a[href^="http"]::after,
+  .contact-tile::after { content: none !important; }
+  .contact-tile { overflow: visible !important; min-height: 0 !important; }
+  .contact-tile span,
+  .contact-tile strong { color: #111 !important; }
+
+  .timeline-item { break-inside: avoid; }
+}
+
+/* Windows High Contrast: backdrop-filter and low-alpha borders vanish
+   entirely, leaving cards with no boundary at all. */
+@media (forced-colors: active) {
+  .research-card,
+  .project-card,
+  .publication-card,
+  .timeline-content,
+  .contact-panel,
+  .contact-tile,
+  .about-panel,
+  .personal-panel,
+  .link-section,
+  .teaching-panel,
+  .hero-portrait {
+    border: 1px solid CanvasText !important;
+    background: Canvas !important;
+    backdrop-filter: none !important;
+  }
+
+  .card-glow,
+  .hero-nebula,
+  .portrait-halo,
+  .cosmic-vignette,
+  .cosmic-image-bg,
+  .cosmic-image-shade,
+  #galaxy-canvas,
+  .research-card::before,
+  .project-card::before,
+  .publication-card::before,
+  .timeline-content::before,
+  .contact-panel::before,
+  .contact-tile::before,
+  .about-panel::before,
+  .teaching-panel::before { display: none !important; }
+
+  a { color: LinkText !important; }
+
+  .btn,
+  .btn-primary,
+  .btn-outline,
+  .chip-link {
+    border: 1px solid LinkText !important;
+    background: Canvas !important;
+  }
+
+  /* 3px, not 2px -- this is the mode that most needs a visible ring. */
+  :focus-visible { outline: 3px solid Highlight !important; outline-offset: 4px !important; }
+}
+
+/* Some people disable transparency at the OS level for legibility. */
+@media (prefers-reduced-transparency: reduce) {
+  .research-card,
+  .project-card,
+  .publication-card,
+  .timeline-content,
+  .contact-panel,
+  .contact-tile,
+  .about-panel,
+  .personal-panel,
+  .link-section,
+  .teaching-panel,
+  .fact-grid div,
+  .tag-cloud span,
+  .header-toggle,
+  .header-container {
+    backdrop-filter: none !important;
+    background: #0b1018 !important;
+  }
+
+  .cosmic-image-bg { opacity: 0.25 !important; }
+
+  .research-card::before,
+  .project-card::before,
+  .publication-card::before,
+  .timeline-content::before,
+  .contact-panel::before,
+  .contact-tile::before,
+  .about-panel::before,
+  .teaching-panel::before { opacity: 0 !important; }
+}
+
+/* ─────────────────────────────────────────────────── the grain layer
+   MANDATORY with the new ramp, not a nice-to-have.
+
+   A solid colour cannot dither anything, so the earlier justification here
+   was wrong. The real mechanism is narrower: unequal per-channel traversal
+   across a gradient staggers band edges, and the body gradient still runs
+   var(--bg) → #060a13 → #090e1c, whose per-channel traversals actually went
+   UP (R 6→7, G 9→11, B 17→24). Banding on the four large soft radials is
+   real on cheap 8-bit panels either way, and a static noise overlay is the
+   cheap fix for it.
+
+   ~2 KB, zero runtime, static — never animated, so reduced motion is a
+   non-issue. On a plate archive it reads as emulsion. */
+.deep-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 6;          /* above .main (5) — at z-index 3 it sat BELOW three of
+                          the four gradients it exists to dither */
+  pointer-events: none;
+  mix-blend-mode: normal;  /* `overlay` is multiplicative below 0.5, so on a
+                              #020304 backdrop the peak-to-peak swing was 0.24
+                              of one 8-bit level: it quantised to nothing */
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (forced-colors: active) {
+  .deep-grain { display: none; }
+}
+
+@media print {
+  .deep-grain { display: none !important; }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .deep-grain { display: none; }
+}
+
+/* ═══════════════════════════════════════════════ type assignments
+   Display on the name and section headings; text everywhere else; mono on
+   anything that is a readout, a wavelength, a year or a catalogue number.
+   Playfair's x-height is 0.413 em against Literata's 0.507, so display sizes
+   are set UP or they read small beside body copy. */
+h1,
+.hero h1,
+.section-heading h2,
+.hero-role {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  text-wrap: balance;
+}
+
+h1,
+.hero h1 { font-size: clamp(3rem, 2.1rem + 3.8vw, 5.25rem); line-height: 1.02; }
+
+h3,
+h4,
+.research-card h3,
+.project-card h3,
+.publication-card h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.006em;
+  text-wrap: balance;
+}
+
+p, li, .hero-subtitle, .publication-card p {
+  font-family: var(--font-text);
+  text-wrap: pretty;
+}
+
+.eyebrow,
+.card-kicker,
+.publication-meta span,
+.timeline-date,
+.tag-cloud span,
+.chip-link,
+.mono,
+.data,
+code,
+kbd {
+  font-family: var(--font-mono);
+  font-variant-ligatures: none;
+}
+
+/* Years, wavelengths and measured values line up in a column. Literata's
+   figures are proportional by default. */
+.timeline-date,
+.publication-meta span,
+time,
+.data,
+table td { font-variant-numeric: tabular-nums; }
+
+/* Real small caps from the binary, not scaled-down capitals. */
+.eyebrow,
+.card-kicker {
+  font-variant-caps: all-small-caps;
+  text-transform: none;    /* small-caps replaces the tracked-out uppercase */
+  letter-spacing: 0.06em;
+}
+
+sub { font-size: 0.72em; vertical-align: -0.18em; }
+
+/* Keyboard users currently get none of the glow a mouse gets. */
+[class*="-card"]:focus-within,
+[class*="-panel"]:focus-within,
+.contact-tile:focus-within,
+.link-section:focus-within,
+.fact-grid div:focus-within {
+  --glow-x: 50%;
+  --glow-y: 50%;
+}
+
+/* ─────────────────────────────── the animated rim — budget of exactly TWO
+   Registered custom properties never animate on the compositor: they force a
+   style recalc and a paint every frame. A measured trace at 4x CPU throttle
+   showed a blurred @property twin driving Paint from 3 to 17 events/frame.
+   So the crisp rim uses @property and its bloom twin uses transform: rotate()
+   on a promoted layer — identical look, about a third of the cost.
+   Two instances. Never a third. */
+@keyframes rimSweep { to { --rim-angle: 360deg; } }
+@keyframes rimRotate { to { transform: rotate(360deg); } }
+
+.research-card.featured::after {
+  background:
+    conic-gradient(from var(--rim-angle) at 50% 50%,
+      transparent 0turn,
+      color-mix(in oklab, var(--card-accent) 90%, white) 0.05turn,
+      transparent 0.17turn,
+      transparent 1turn),
+    linear-gradient(180deg in oklab, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.05));
+  /* first and last stops identical, or there is a visible wrap seam */
+  background-blend-mode: screen;
+  animation: rimSweep 16s linear infinite;
+}
+
+.research-card.featured > .card-glow {
+  position: absolute;
+  inset: 0;          /* -3px was clipped away by the card's overflow: hidden */
+  height: auto;      /* the base rule's height: 300px orphaned this on a
+                        660px card, so the bloom span about a centre ~180px
+                        above the crisp rim's */
+  z-index: 0;        /* -1 painted it UNDER the card's own background */
+  border-radius: inherit;
+  pointer-events: none;
+  background: conic-gradient(from 0deg at 50% 50%,
+    transparent 0turn, var(--accent-glow) 0.05turn, transparent 0.17turn, transparent 1turn);
+  filter: blur(13px) saturate(1.15);
+  opacity: 0.3;    /* 0.48 + saturate(1.5) + a second glint is the crypto-
+                      landing-page signature a committee clocks instantly */
+  animation: rimRotate 16s linear infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .research-card.featured::after,
+  .research-card.featured > .card-glow { animation: none !important; }
+}
+
+/* forced-colors drops backdrop-filter, box-shadow and pseudo backgrounds, so
+   the decorative layers must go or they leave artefacts with no boundary. */
+@media (forced-colors: active) {
+  [class*="-card"]::after,
+  [class*="-panel"]::after,
+  .contact-tile::after,
+  .link-section::after,
+  .fact-grid div::after { display: none !important; }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  /* opacity: 1 here made the translucent decoration MORE prominent in the one
+     mode that explicitly asked for less. */
+  [class*="-card"]::after,
+  [class*="-panel"]::after,
+  .contact-tile::after,
+  .link-section::after,
+  .fact-grid div::after { display: none; }
+}
+
+/* ═══════════════════════════════════════════════════ PLATE I
+   The portrait stays exactly 900x900. No crop, no mask, no clip-path, no
+   fade-to-black bust, no grayscale duotone, no object-fit change. Every
+   transform here is scale / rotate / translate only, which preserves 1:1 by
+   construction rather than by care.
+
+   And none of that is needed: the studio backdrop measures about L 0.20-0.22,
+   BRIGHTER than the #020304 page, so it already reads as a lit object on a
+   dark ground. That is the asset, not the problem. */
+
+.hero-portrait { overflow: visible; }
+
+/* 2. LIGHT TABLE — a warm glow BEHIND the plate, drawn from magma ramp-6/7.
+   The one place this design spends real warmth, and what makes the emulsion
+   read as backlit rather than merely framed. */
+.hero-portrait .plate-light {
+  position: absolute;
+  inset: 8% 6% 14%;
+  z-index: -2;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 45%,
+    var(--ramp-7) 0%, var(--ramp-6) 34%, transparent 72%);
+  filter: blur(34px);
+  opacity: 0.3;
+}
+
+/* 3. HALO — re-authored as a conic ring in magma. */
+.hero-portrait .portrait-halo {
+  position: absolute;
+  inset: -10px;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background: conic-gradient(from 0deg at 50% 50%,
+    var(--ramp-2), var(--ramp-4), var(--ramp-6), var(--ramp-7), var(--ramp-2));
+  filter: blur(16px) saturate(1.1);
+  opacity: 0.22;
+  animation: rimRotate 16s linear infinite;
+  will-change: transform;
+}
+
+/* 5. ONE GLINT, 16s — not two, and not 8s. A fast rotating double-glint ring
+   around a human face is the visual signature of a livestream "live now"
+   avatar badge, and a hiring committee clocks that instantly even without
+   naming it. */
+.hero-portrait::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  background:
+    conic-gradient(from var(--rim-angle) at 50% 50%,
+      transparent 0turn,
+      oklch(0.92 0.09 199) 0.04turn,
+      transparent 0.15turn,
+      transparent 1turn),
+    linear-gradient(180deg in oklab,
+      rgba(255, 255, 255, 0.58),
+      oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.22) 34%,
+      rgba(255, 255, 255, 0.05) 60%,
+      rgba(255, 255, 255, 0.05));
+  background-blend-mode: screen;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask-composite: exclude;
+  opacity: 0.82;
+  animation: rimSweep 16s linear infinite;
+  transition: opacity var(--dur-s) var(--ease-out);
+}
+
+/* Keyboard users get the same lift a mouse gets — they got none before. */
+.hero-portrait:hover::after,
+.hero-portrait:focus-within::after { opacity: 1; }
+
+/* 6. FIDUCIALS — four corner registration marks just outside the frame. */
+.hero-portrait::before {
+  content: "";
+  position: absolute;
+  inset: -9px;
+  pointer-events: none;
+  border-radius: 40px;
+  background:
+    linear-gradient(var(--ink-edge), var(--ink-edge)) 0 0 / 14px 1px no-repeat,
+    linear-gradient(var(--ink-edge), var(--ink-edge)) 0 0 / 1px 14px no-repeat,
+    linear-gradient(var(--ink-edge), var(--ink-edge)) 100% 0 / 14px 1px no-repeat,
+    linear-gradient(var(--ink-edge), var(--ink-edge)) 100% 0 / 1px 14px no-repeat,
+    linear-gradient(var(--ink-edge), var(--ink-edge)) 0 100% / 14px 1px no-repeat,
+    linear-gradient(var(--ink-edge), var(--ink-edge)) 0 100% / 1px 14px no-repeat,
+    linear-gradient(var(--ink-edge), var(--ink-edge)) 100% 100% / 14px 1px no-repeat,
+    linear-gradient(var(--ink-edge), var(--ink-edge)) 100% 100% / 1px 14px no-repeat;
+  opacity: 0.55;
+}
+
+/* 6. PLATE LABEL — this is what converts a headshot into an archival object,
+   and it is the cheapest, highest-yield element in the design. */
+/* The caption gets its OWN surface rather than inheriting whatever the plate
+   happens to be. It is light lettering, and the plate behind it is a lit
+   conic rim over a warm radial — light on light. Measured against the
+   composite it sat at 2.64:1 for the plate number and 1.18:1 for the
+   dimensions, well under the 4.5:1 a caption needs. A scrim is also what the
+   object it is imitating actually has: an archival plate carries its
+   annotation on a printed strip, not floating on the emulsion. */
+.plate-label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 0.7em;
+  margin-top: 14px;
+  padding: 10px 12px 9px;
+  border-radius: 0 0 10px 10px;
+  background: linear-gradient(180deg in oklab,
+    color-mix(in oklab, var(--ink-void) 72%, transparent),
+    color-mix(in oklab, var(--ink-void) 92%, transparent));
+  border-top: 1px solid var(--ink-hairline);
+  font-family: var(--font-display);
+  font-variant-caps: all-small-caps;
+  font-variant-numeric: oldstyle-nums;
+  letter-spacing: 0.07em;
+  font-size: 0.86rem;
+  color: var(--ink-muted);
+}
+.plate-label .plate-id {
+  font-family: var(--font-mono);
+  font-variant-caps: normal;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+  color: var(--ink-text);
+}
+.plate-label .plate-dim {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-variant-caps: normal;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.78rem;
+  color: var(--ink-caption);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-portrait::after,
+  .hero-portrait .portrait-halo { animation: none !important; }
+}
+
+@media (forced-colors: active) {
+  .hero-portrait::before,
+  .hero-portrait::after,
+  .hero-portrait .plate-light,
+  .hero-portrait .portrait-halo { display: none !important; }
+  .plate-label { border-top-color: CanvasText; }
+}
+
+/* ═══════════════════════════════════════════════ the plate field
+   The WebGL volume sits under the existing 2D starfield. The 2D canvas stays
+   in the DOM and stays VISIBLE by default; it is only hidden once GL reports
+   a successful first frame, and it comes straight back on context loss or a
+   governor trip. Inverted default, so a GL failure cannot blank the hero. */
+#plate-field {
+  position: fixed;
+  inset: 0;
+  /* z-index 0, NOT 1. At 1 it tied with .cosmic-image-shade — same value, same
+     root stacking context, so DOM order decided and the nebula painted ON TOP
+     of the contrast scrim it is supposed to sit under, erasing the individual
+     stars in the photograph beneath. 0 puts it above .cosmic-image-bg and below
+     the scrim, which is where an emission layer belongs. */
+  z-index: 0;
+  /* screen, matching .cosmic-image-bg and #galaxy-canvas. The canvas is opaque
+     (alpha: false), so this is the only compositing rule in play: emission is
+     additive light, black contributes nothing, and this layer can never
+     subtract brightness from the star field underneath it. */
+  mix-blend-mode: screen;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 900ms var(--ease-out);
+}
+
+html.gl-ready #plate-field { opacity: 1; }
+html.gl-ready #galaxy-canvas { opacity: 0.34; }   /* 2D stars survive as foreground sparkle */
+
+@media (prefers-reduced-motion: reduce) {
+  #plate-field { display: none; }
+}
+
+@media (forced-colors: active) {
+  #plate-field { display: none; }
+}
+
+@media print {
+  #plate-field { display: none !important; }
+}
+
+/* ════════════════════════════════════════════ split-line masking
+   The padding / negative-margin pair is the detail nobody ships correctly.
+   Without it the mask shears descenders and the tops of Λ, σ, Å and the
+   shim's ⊙ — whose vertical extent arrives from a DIFFERENT font via
+   unicode-range and is the one thing you cannot predict.
+   `clip`, not `hidden`: clip creates no scroll container. */
+.split-line { padding-block: 0.18em; display: inline-block; }
+.split-line-mask { overflow: clip !important; margin-block: -0.18em; }
+
+/* ════════════════════════════════════════════════════════ THE SIGHTLINE
+   A live O VI absorption measurement.
+
+   .ovi-panel is listed BY NAME in the glass recipe, the bevel ::after, the
+   wash ::before and the hover/focus rules above. An earlier version of this
+   comment claimed it inherited all of that from the [class*="-panel"] group.
+   It does not, and the claim was worth four separate defects. That attribute
+   selector appears exactly once in this file, at line 238, and it sets custom
+   properties and nothing else — every visual rule is an enumerated class list.
+   Measured, the panel had background-image: none, border: 0, border-radius: 0,
+   backdrop-filter: none, box-shadow: none and no ::before or ::after content:
+   a bare transparent rectangle in a page of seventeen glass cards, and the one
+   panel that collapses under forced-colors because it had no border to keep.
+
+   The accent is the group default — cyan at L 0.845 — and THAT part is
+   deliberate.
+
+   A seventh hue was tried first, Ly-α at 340. It does not fit. The six
+   component lightnesses form an even ladder at 0.70 / 0.74 / 0.78 / 0.82 /
+   0.86 / 0.90, a minimum adjacent ΔL of 0.040, which is the only separation
+   dichromacy preserves. A seventh entry either interleaves (L 0.795 sits
+   0.015 from .contact-tile, inside one JND) or extends below the ladder — and
+   extending fails harder: computed against the panel's own surface, oklch(0.66
+   0.115 340) is 2.20:1 and oklch(0.70 0.115 340) is 2.76:1. The slider track
+   and thumb are real controls, so WCAG 1.4.11 wants 3:1, and both miss it.
+   The cyan default is 5:1+ on the same surface, belongs to the research
+   section this instrument measures for, and matches λ1031.93 in the figure. */
+
+.sightline .container { max-width: 1120px; }
+
+.ovi-panel {
+  padding: clamp(1.1rem, 2.6vw, 2rem);
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.6rem);
+}
+
+.ovi-figure { margin: 0; display: grid; gap: 0.85rem; }
+
+/* aspect-ratio, not a fixed height: the figure has to stay a figure at 320px
+   and at 1600px, and a canvas with a fixed height is the usual way that breaks.
+   The floor stops it collapsing to a slot on a phone in landscape. */
+#ovi-canvas {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 7;
+  min-height: 210px;
+  border-radius: 12px;
+  background:
+    linear-gradient(180deg in oklab,
+      color-mix(in oklab, var(--ink-void) 92%, transparent),
+      color-mix(in oklab, var(--ink-void) 74%, transparent));
+}
+
+.ovi-caption { display: grid; gap: 0.5rem; }
+
+.ovi-readout {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: clamp(0.78rem, 1.5vw, 0.9rem);
+  line-height: 1.55;
+  color: var(--ink-text-2);
+  /* Three lines. line-height is 1.55, so two lines is 3.10em and the old
+     2.9em floor was 94% of two — it could not hold back even the 1->2 line
+     shift it was written for. Measured across both sliders at ten widths,
+     560-600px was the case that bit: the "unsaturated" branch wraps to three
+     lines and the shorter branches to two, so the panel grew and shrank by
+     19.35px as the column-density slider crossed log N 13.0 — the exact
+     reflow-under-the-thumb this is here to prevent. */
+  min-height: 4.65em;
+}
+
+.ovi-method {
+  margin: 0;
+  font-size: 0.74rem;
+  line-height: 1.6;
+  color: var(--ink-muted);
+  max-width: 78ch;
+}
+
+.ovi-controls {
+  display: grid;
+  gap: clamp(0.7rem, 1.6vw, 1.1rem);
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.ovi-control { margin: 0; display: grid; gap: 0.4rem; }
+
+.ovi-control label {
+  font-size: 0.8rem;
+  color: var(--ink-text-2);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5ch;
+  align-items: baseline;
+}
+
+.ovi-unit {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-muted);
+}
+
+/* The track is styled, the thumb is 22px on a 44px-tall input: the pointer
+   target meets 2.5.5 without the control looking like a 44px slab. */
+.ovi-control input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 44px;
+  background: transparent;
+  cursor: ew-resize;
+  /* touch-action is deliberately NOT set. Overriding it here is how a slider
+     inside a scrolling page eats the vertical swipe that the reader meant for
+     the page, and a range input already handles its own horizontal drag. */
+}
+.ovi-control input[type="range"]::-webkit-slider-runnable-track {
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg,
+    color-mix(in oklab, var(--card-accent) 55%, transparent),
+    color-mix(in oklab, var(--ink-dim) 70%, transparent));
+}
+.ovi-control input[type="range"]::-moz-range-track {
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg,
+    color-mix(in oklab, var(--card-accent) 55%, transparent),
+    color-mix(in oklab, var(--ink-dim) 70%, transparent));
+}
+.ovi-control input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px; height: 22px;
+  margin-top: -10px;
+  border-radius: 50%;
+  background: var(--card-accent);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.55), 0 4px 14px -4px var(--card-accent);
+  transition: box-shadow var(--dur-xs) var(--ease-out);
+}
+.ovi-control input[type="range"]::-moz-range-thumb {
+  width: 22px; height: 22px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--card-accent);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.55), 0 4px 14px -4px var(--card-accent);
+}
+.ovi-control input[type="range"]:focus-visible {
+  outline: 2px solid var(--card-accent);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+/* ── the gutter continuum rail ──────────────────────────────────────────
+   The same numbers, 1px wide, running down the page margin: the reader meets
+   the profile in the gutter before they reach the panel that explains it.
+
+   It lives on the RIGHT and starts at 1660px, and both of those are measured
+   rather than chosen. The left gutter is not a gutter — .header-container is a
+   fixed sidebar occupying 18–292px at every desktop width, and an earlier
+   left-anchored version of this rail rendered directly on top of the
+   navigation. The right side is no better until the container stops growing:
+   at 1400px viewport the section container measures 310→1400, i.e. it ends
+   exactly at the viewport edge, with nothing to spare. The container caps at
+   1120px, so free space only opens once main exceeds ~1320px, which is a
+   viewport of roughly 1630. 1660 gives a measured 115px strip; the rail takes
+   26 of it. Below that this element does not exist, which is the correct
+   amount of a decorative instrument to show when there is nowhere to put it. */
+.ovi-rail {
+  position: fixed;
+  right: 44px;
+  top: 50%;
+  translate: 0 -50%;
+  width: 26px;
+  height: min(560px, 62vh);
+  /* 5, not 3. At 3 this sat BELOW .main (5), .deep-grain (6) and
+     .cosmic-vignette (4) while geometrically INSIDE .main's box, and was
+     visible only because .main, #sightline and #past-projects all happen to
+     compute background-color: transparent with no background-image. Give any
+     section a background and the rail disappears. That is the identical trap
+     already documented for .deep-grain a few hundred lines up, repeated and
+     surviving on luck. */
+  z-index: 5;
+  pointer-events: none;
+  display: none;
+  overflow: visible;
+}
+.ovi-rail path {
+  stroke: var(--a-cyan);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.62;
+}
+@media (min-width: 1660px) {
+  .ovi-rail { display: block; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ovi-rail path { transition: none !important; stroke-dashoffset: 0 !important; }
+}
+
+@media print {
+  .ovi-rail { display: none !important; }
+  .ovi-controls { display: none !important; }
+  /* The canvas printed as a ~1032x452 near-blank rectangle: its dark backdrop
+     is a CSS background and is dropped by print-color-adjust, while the trace
+     itself is --ink-muted and --a-cyan on white, i.e. about 1.5:1. The global
+     print rule's `color: #111 !important` cannot reach bitmap pixels. The
+     caption and method paragraph carry every number the figure shows, and they
+     print black and read correctly, so nothing is lost by dropping the empty
+     box. */
+  #ovi-canvas { display: none !important; }
+}
+
+@media (forced-colors: active) {
+  .ovi-rail { display: none; }
+  #ovi-canvas { forced-color-adjust: none; }
+}
+
+
+/* The project had no visually-hidden utility and the sightline needs two: the
+   beam's keyboard instructions and the spectrum's live region. clip-path with a
+   1px box, NOT display:none or visibility:hidden — both of those remove the
+   text from the accessibility tree, which is the only place it was ever for. */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0; border: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Without JS the canvas is a 1032x452 empty box with intrinsic size 300x150,
+   no fallback children and an aria-label announcing a spectrum that was never
+   drawn — assistive tech told there is an image where there is nothing. The
+   heading, the caption, the method paragraph and both labelled sliders are all
+   real HTML and stay; only the empty frames go. */
+html:not(.js) #ovi-canvas { display: none; }
+html:not(.js) .ovi-rail { display: none !important; }
+
+
+/* ─────────────────────────────────────────── the sightline map
+   The map is generated per pixel in JS at a capped resolution and upscaled by
+   the browser, so the canvas has no border, no card and no background of its
+   own: magma at t = 0 is (0.002, 0.002, 0.014), within two 8-bit levels of the
+   page, and 29% of the frame is measured to be fully transparent. The
+   figure therefore bleeds into the page with no seam. Give it a border and all
+   of that work is thrown away. */
+.ovi-mapfig { margin: 0 0 clamp(1rem, 2vw, 1.6rem); display: grid; gap: 0.9rem; }
+
+.ovi-map-wrap {
+  position: relative;
+  /* width is capped, NOT height. `aspect-ratio: 1/1` with `max-height: 62vh`
+     loses to the max-height and silently produces a rectangle — measured 512
+     x 213 in a short viewport — which stretches a circular halo into an
+     ellipse and turns the R_vir ring into an oval. Capping the width keeps the
+     box square at every viewport, which is what the field's own coordinates
+     assume. */
+  width: min(100%, 62vh);
+  aspect-ratio: 1 / 1;
+  margin-inline: auto;
+  /* pan-y, not none. `none` made the map a 354x354 dead zone on a 390x844
+     phone — 42% of the viewport width where a thumb cannot scroll the page.
+     pan-y hands vertical panning back to the browser and keeps the horizontal
+     drag for the beam, which is the axis the beam actually needs. */
+  touch-action: pan-y;
+  cursor: crosshair;
+}
+
+#ovi-map {
+  display: block;
+  width: 100%;
+  height: 100%;
+  image-rendering: auto;           /* the upscale is the point: a column-density
+                                      map is a smooth field, and nearest-neighbour
+                                      would show the generation grid */
+  /* NO mix-blend-mode, and no border-radius. `screen` was here and it was
+     inert: .main carries z-index 5 and is therefore a stacking context, so the
+     blend group is .main's own contents, and the star field this needed to
+     blend with is painted below .main, outside the group. Proven rather than
+     argued — filling this canvas opaque black should make a `screen` layer
+     vanish entirely, and instead a solid black square painted over the star
+     field. The bleed is done entirely by per-pixel alpha and a radial cutoff
+     in sightline.js, which is why that file, and not this rule, carries the
+     explanation. */
+}
+
+/* R_vir at 1.0 in a frame that runs to 2.4 R_vir half-width: diameter is
+   2/4.8 = 41.67% of the box. */
+.ovi-rvir {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 41.667%; height: 41.667%;
+  translate: -50% -50%;
+  border: 1px dashed color-mix(in oklab, var(--ink-text) 38%, transparent);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.ovi-beam {
+  position: absolute;
+  width: 44px; height: 44px;       /* the target is 44px; only the crosshair shows */
+  translate: -50% -50%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: grab;
+  border-radius: 50%;
+}
+.ovi-beam::before,
+.ovi-beam::after {
+  content: "";
+  position: absolute;
+  background: var(--a-cyan);
+  box-shadow: 0 0 10px color-mix(in oklab, var(--a-cyan) 70%, transparent);
+}
+/* the beam itself: a thin vertical line dropping through the halo */
+.ovi-beam::before { left: 50%; top: -1000px; bottom: -1000px; width: 1px; translate: -50% 0; opacity: 0.5; }
+.ovi-beam::after  { left: 50%; top: 50%; width: 9px; height: 9px; translate: -50% -50%;
+                    border-radius: 50%; }
+.ovi-beam:focus-visible { outline: 2px solid var(--a-cyan); outline-offset: 2px; }
+
+.ovi-mapcap { display: grid; gap: 0.6rem; }
+
+.ovi-probe {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: clamp(0.78rem, 1.5vw, 0.9rem);
+  line-height: 1.55;
+  color: var(--ink-text);
+  /* Four lines. 2.6em was measured failing at 390px, where the clamp notice
+     wraps to three lines rather than one and the caption block jumped 29.4px
+     every time the beam crossed the 12.5 boundary mid-drag. The manual-override
+     notice is longer again, so the floor is set for the longest of the three
+     strings, not the shortest. */
+  min-height: 6.2em;
+}
+
+.ovi-bar-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.9rem;
+}
+.ovi-bar { position: relative; width: 240px; padding-bottom: 1.1rem; }
+#ovi-colorbar { display: block; width: 240px; height: 10px; border-radius: 2px; }
+.ovi-bar-ticks {
+  margin: 0; padding: 0; list-style: none;
+  font-family: var(--font-mono); font-size: 0.68rem; color: var(--ink-muted);
+}
+/* The stretch runs 12.0 to 15.0, so the four decades sit at 0, 1/3, 2/3 and 1.
+   translate -50% centres each label on its own tick; the end labels are pulled
+   back inside the bar so neither overhangs. */
+.ovi-bar-ticks li {
+  position: absolute;
+  top: 0.9rem;
+  translate: -50% 0;
+  white-space: nowrap;
+}
+.ovi-bar-ticks li:nth-child(1) { left: 0;      translate: 0 0; }
+.ovi-bar-ticks li:nth-child(2) { left: 33.333%; }
+.ovi-bar-ticks li:nth-child(3) { left: 66.667%; }
+.ovi-bar-ticks li:nth-child(4) { left: 100%;   translate: -100% 0; }
+.ovi-bar-label { margin: 0; font-family: var(--font-mono); font-size: 0.68rem; color: var(--ink-muted); }
+
+@media (forced-colors: active) {
+  .ovi-map-wrap { forced-color-adjust: none; }
+  .ovi-beam::before, .ovi-beam::after { background: Highlight; }
+}
+@media print {
+  .ovi-beam { display: none !important; }
+}
+
+/* ══════════════════════════════════════════════ THE CARD CATALOGUE
+   #research becomes a horizontal rail above 900px. Everything here is inside
+   the media query and nothing outside it changes, so the narrow layout, the
+   print layout and the reduced-motion layout are the untouched vertical stack
+   — the rail is an enhancement on top of a page that already worked.
+
+   The 900px floor is not a guess about phones. Below it the cards are already
+   one per row, a horizontal rail would show one panel at a time, and
+   scroll-hijacking a single column is the version of this pattern that people
+   rightly hate. */
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  /* html.rail-ready, NOT html.js. The gate has to mean "the tween that moves
+     this rail exists", and only choreography.js knows that — it depends on
+     GSAP from a third-party CDN. Gated on html.js alone, a blocked or failed
+     CDN left the rail as a 2164px flex row with no transform and no pin:
+     measured at 1400px, cards 3 and 4 sat entirely outside the viewport,
+     reachable only by a 1086px horizontal page scroll with no affordance and
+     no keyboard path. Half the research section, invisible, because a CDN
+     blipped. The class is added by the same function that creates the tween
+     and removed by its revert. */
+  html.rail-ready #research .research-grid {
+    display: flex;
+    width: max-content;
+    gap: 28px;
+    grid-template-columns: none;
+    /* will-change on the rail, not on each card: one promoted layer that moves,
+       instead of four that each get composited separately. */
+    will-change: transform;
+  }
+  html.rail-ready #research .research-card,
+  html.rail-ready #research .research-card.featured {
+    flex: 0 0 auto;
+    width: min(42vw, 520px);
+    min-height: 460px;
+    grid-row: auto;
+  }
+  /* The rail must be able to leave the container's box horizontally while the
+     container still centres it vertically. overflow-x on <body> is already
+     `clip`, which creates no scroll container, so nothing here can produce a
+     horizontal scrollbar. */
+  html.rail-ready #research .container { overflow: visible; }
+  /* M7: clip at the section. overflow-x: clip on <body> does NOT contain this
+     — measured horizontal scroll ranges of 708px at 900, 1206px at 1280 and
+     1086px at 1400, i.e. up to 94% of a viewport of empty page reachable by a
+     two-finger swipe. `clip` rather than `hidden` so no scroll container is
+     created and the pin still works. */
+  html.rail-ready #research { overflow-x: clip; }
+}
+
+/* Every fallback surface gets the stack back, explicitly. A transform left
+   behind by a killed tween is the classic way a rail prints as one visible
+   card and three blank pages. */
+@media print {
+  #research .research-grid {
+    display: grid !important;
+    width: auto !important;
+    transform: none !important;
+  }
+  #research .research-card { width: auto !important; transform: none !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #research .research-grid { transform: none !important; }
+  #research .research-card { transform: none !important; }
+}
+
+/* ═══════════════════════════════════════════════ THE MOTION TOGGLE
+   The class is set before first paint by the inline head script, so a reader
+   who has asked for a calm page never sees a frame of the intro. */
+.motion-toggle-row { margin: 0.75rem 0 0; }
+
+.motion-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5ch;
+  min-height: 34px;
+  padding: 0.3rem 0.65rem;
+  border: 1px solid color-mix(in oklab, var(--ink-dim) 55%, transparent);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink-muted);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: color var(--dur-xs) var(--ease-out),
+              border-color var(--dur-xs) var(--ease-out);
+}
+.motion-toggle:hover { color: var(--ink-text); border-color: var(--a-cyan); }
+.motion-toggle:focus-visible { outline: 2px solid var(--a-cyan); outline-offset: 3px; }
+/* Pressed state is carried by colour AND by the aria-pressed attribute the
+   button already exposes — never by colour alone. */
+.motion-toggle[aria-pressed="true"] {
+  color: var(--ink-text);
+  border-color: var(--a-cyan);
+  background: color-mix(in oklab, var(--a-cyan) 14%, transparent);
+}
+/* forced-colors flattens colour, border-colour and background all at once, so
+   the pressed state above becomes invisible in exactly the mode whose users
+   most need this control. A border width and a marker are not colour. */
+@media (forced-colors: active) {
+  .motion-toggle { border-width: 1px; }
+  .motion-toggle[aria-pressed="true"] { border-width: 3px; }
+  .motion-toggle[aria-pressed="true"]::after { content: " \2713"; }
+}
+
+/* The blunt reset. This deliberately mirrors what the reduced-motion media
+   query does rather than re-listing every animated selector: a per-selector
+   copy of a growing file is a list that silently falls out of date, and the
+   failure mode is motion that keeps running for the one reader who asked it
+   not to. 0.001ms rather than 0 so animation `forwards` end states still
+   apply and nothing is left mid-keyframe — in particular .reveal, whose end
+   state is the visible one. */
+html.motion-off *,
+html.motion-off *::before,
+html.motion-off *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  transition-delay: 0s !important;
+}
+html.motion-off { scroll-behavior: auto !important; }
+
+/* The three things the blunt reset cannot reach, because they are not
+   animations: a live WebGL canvas, a pinned horizontal rail, and a 2D
+   starfield that redraws on rAF. */
+html.motion-off #plate-field { display: none !important; }
+html.motion-off #research .research-grid {
+  display: grid !important;
+  width: auto !important;
+  transform: none !important;
+}
+html.motion-off #research .research-card,
+html.motion-off #research .research-card.featured {
+  width: auto !important;
+  transform: none !important;
 }

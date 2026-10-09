@@ -12,8 +12,8 @@ The live site is a custom one-page academic astrophysics portfolio adapted from 
 - `assets/js/snapfolio-astro.js` - navigation behavior, intro transition, reveal effects, timeline progress, and interactive star/cosmic-web canvas.
 - `assets/vendor/` - Bootstrap and Bootstrap Icons assets used by the static pages.
 - `images/headshot_tanmay.jpeg` - profile photo used in the sidebar and hero.
-- `images/boxImage_TNG100-1_stars-coldens_3840.png` - faint simulation/deep-field background layer.
-- `images/milky_way.jpg`, `images/galaxy3.jpg`, `images/galaxy6.jpg` - project-card visual textures.
+- `images/cosmic-bg.webp` - fixed full-viewport nebula background layer.
+- `images/project-site.webp`, `images/project-solar.webp`, `images/project-waves.webp` - project-card visual textures.
 - `files/cv.pdf` - linked CV.
 
 ## Local Preview
