@@ -24,7 +24,7 @@
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link rel="preload" href="assets/fonts/plate-display.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/plate-text.woff2" as="font" type="font/woff2" crossorigin>
-  <link href="assets/css/snapfolio-astro.css?v=2" rel="stylesheet">
+  <link href="assets/css/snapfolio-astro.css?v=4" rel="stylesheet">
 
   <script type="application/ld+json">
   {
@@ -69,6 +69,24 @@
          this watchdog disarms the gate and the page renders in full. Without
          it, gating on "some script ran" is not the same as "the reveal system
          works", and the page still ends up blank. */
+      // "js" is unconditional and permanent: it is the hook that lets CSS hide
+      // elements that are meaningless without scripting. Its only consumers
+      // today are html:not(.js) rules for the PARKED sightline canvas and rail
+      // (see parked/sightline/README.md), so on the page as it currently ships
+      // this class gates nothing — it is kept because removing it would break
+      // that component's restore path, and because the next JS-dependent
+      // element will want it. It is deliberately NOT js-reveal, which the
+      // watchdog below removes.
+      el.classList.add("js");
+      // The stored motion preference is applied BEFORE first paint. Read it
+      // later — from a deferred script — and the reader who asked for no
+      // motion gets one frame of the intro animation first, which is the
+      // one frame they specifically asked not to see.
+      try {
+        if (window.localStorage && localStorage.getItem("motion") === "off") {
+          el.classList.add("motion-off");
+        }
+      } catch (e) { /* private mode, blocked storage: motion simply stays on */ }
       el.classList.add("js-reveal");
       window.setTimeout(function () {
         if (!window.__revealReady) el.classList.remove("js-reveal");
@@ -124,6 +142,17 @@
         </ul>
       </nav>
 
+      <!-- A real toggle, not a media query. prefers-reduced-motion is an OS
+           setting, and plenty of people want a calmer version of one page
+           without changing it for their whole machine. aria-pressed carries
+           the state; the label says what the button DOES. -->
+      <p class="motion-toggle-row">
+        <button type="button" class="motion-toggle" id="motion-toggle" aria-pressed="false">
+          <i class="bi bi-activity" aria-hidden="true"></i>
+          <span>Reduce motion</span>
+        </button>
+      </p>
+
       <div class="social-links" aria-label="Profile links">
         <a href="mailto:tsingh65@asu.edu" aria-label="Email Tanmay Singh"><i class="bi bi-envelope" aria-hidden="true"></i></a>
         <a href="https://scholar.google.com/citations?user=Sfeb8fMAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Tanmay Singh on Google Scholar"><i class="bi bi-mortarboard" aria-hidden="true"></i></a>
@@ -145,7 +174,7 @@
               <a href="https://sese.asu.edu/" target="_blank" rel="noopener">School of Earth and Space Exploration</a>
             </p>
             <h1 id="hero-title">Tanmay Singh</h1>
-            <p class="hero-role">Third Year Ph.D. Student | Astrophysics</p>
+            <p class="hero-role">Fourth Year Ph.D. Candidate | Astrophysics</p>
             <p class="hero-subtitle">
               Hi! I am Tanmay, currently a PhD student in the <a href="https://sese.asu.edu/" target="_blank" rel="noopener">School of Earth and Space Exploration</a>
               at <a href="https://www.asu.edu/" target="_blank" rel="noopener">Arizona State University</a>, advised by
@@ -183,7 +212,7 @@
       <div class="container">
         <div class="section-heading reveal">
           <p class="eyebrow">About</p>
-          <h2 id="about-title">Academic background and current focus.</h2>
+          <h2 data-split id="about-title">Academic background and current focus.</h2>
         </div>
 
         <div class="about-panel reveal">
@@ -214,7 +243,7 @@
       <div class="container">
         <div class="section-heading reveal">
           <p class="eyebrow">Research</p>
-          <h2 id="research-title">Ongoing research projects.</h2>
+          <h2 data-split id="research-title">Ongoing research projects.</h2>
         </div>
 
         <div class="research-grid">
@@ -289,7 +318,7 @@
       <div class="container">
         <div class="section-heading reveal">
           <p class="eyebrow">Past Projects</p>
-          <h2 id="projects-title">Earlier research across physics and astronomy.</h2>
+          <h2 data-split id="projects-title">Earlier research across physics and astronomy.</h2>
           <p>Past work spanning submillimeter astronomy, solar physics, quantum communication, image processing, and atomic collisions.</p>
         </div>
 
@@ -386,7 +415,7 @@
       <div class="container">
         <div class="section-heading reveal">
           <p class="eyebrow">Publications</p>
-          <h2 id="publications-title">Publications and abstracts.</h2>
+          <h2 data-split id="publications-title">Publications and abstracts.</h2>
           <p>Selected entries from Google Scholar and the current CV.</p>
         </div>
 
@@ -443,7 +472,7 @@
       <div class="container">
         <div class="section-heading reveal">
           <p class="eyebrow">Education</p>
-          <h2 id="timeline-title">Education</h2>
+          <h2 data-split id="timeline-title">Education</h2>
         </div>
 
         <div class="timeline" data-timeline>
@@ -496,7 +525,7 @@
       <div class="container">
         <div class="section-heading reveal">
           <p class="eyebrow">Personal Interests</p>
-          <h2 id="personal-title">Personal Interests</h2>
+          <h2 data-split id="personal-title">Personal Interests</h2>
         </div>
 
         <div class="personal-panel reveal">
@@ -524,7 +553,7 @@
       <div class="container">
         <div class="section-heading reveal">
           <p class="eyebrow">Contact</p>
-          <h2 id="contact-title">Get in touch.</h2>
+          <h2 data-split id="contact-title">Get in touch.</h2>
         </div>
 
         <div class="contact-panel reveal">
@@ -551,7 +580,13 @@
 
   <a href="#home" class="scroll-top" aria-label="Back to top"><i class="bi bi-arrow-up-short" aria-hidden="true"></i></a>
 
-  <script src="assets/js/snapfolio-astro.js"></script>
+  <script src="assets/js/motion-toggle.js?v=2" defer></script>
+  <script src="assets/js/snapfolio-astro.js?v=2"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js" defer></script>
+  <script src="assets/js/plate-field.js?v=2" defer></script>
+  <script src="assets/js/choreography.js?v=7" defer></script>
 </body>
 
 </html>

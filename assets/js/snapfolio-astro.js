@@ -10,11 +10,19 @@
   "use strict";
 
   const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-  let reduceMotion = reduceMotionQuery.matches;
+  // The page's own motion toggle is equivalent to the OS setting here. It is
+  // read once, at load, because the toggle reloads the page when it changes —
+  // there is no mid-session transition to handle for this flag.
+  const motionOptOut = document.documentElement.classList.contains("motion-off");
+  let reduceMotion = reduceMotionQuery.matches || motionOptOut;
   // Read once at load, this never noticed a visitor turning the setting on
   // mid-session. Reveal everything immediately if they do.
   function onReduceMotionChange(e) {
-    reduceMotion = e.matches;
+    // `|| motionOptOut`, not a bare assignment. Without it, a reader who turned
+    // motion off on this page and then switched the OS setting from reduce to
+    // no-preference would have the star field restarted underneath them — the
+    // OS event would clear a flag it never set.
+    reduceMotion = e.matches || motionOptOut;
     if (reduceMotion) {
       document.querySelectorAll(".reveal").forEach((n) => n.classList.add("is-visible"));
     } else if (typeof window.__startGalaxy === "function") {
@@ -176,14 +184,38 @@
     });
   }
 
+  // Measured against the VIEWPORT, not against offsetTop.
+  //
+  // offsetTop is a document-space number, and a pinned section does not have a
+  // meaningful one: while ScrollTrigger pins #research it sets the section
+  // `position: fixed` inside a .pin-spacer, so its offsetTop collapses toward 0
+  // while its offsetHeight stays the unpinned value. Measured, that produced
+  // two visible wrongs at once — the Research entry lit up while the reader was
+  // still at the top of the page, and NOTHING was lit for the whole ~1100px the
+  // reader actually spent inside Research.
+  //
+  // getBoundingClientRect is already viewport-relative, so it reports a pinned
+  // section exactly where the reader sees it, and needs no knowledge of the pin
+  // at all. ANCHOR is the same 220px line the old code used, just expressed in
+  // the coordinate space that survives `position: fixed`.
+  const ANCHOR = 220;
   function navmenuScrollspy() {
-    const position = window.scrollY + 220;
+    let best = null, bestTop = -Infinity;
     navLinks.forEach((link) => {
       const section = document.querySelector(link.hash);
-      if (!section) return;
-      const active = position >= section.offsetTop && position < section.offsetTop + section.offsetHeight;
-      link.classList.toggle("active", active);
+      if (!section) { link.classList.remove("active"); return; }
+      const rect = section.getBoundingClientRect();
+      // A pinned section and the one after it can both straddle the anchor for
+      // a frame, so take the lowest section whose top is still above it rather
+      // than lighting both.
+      if (rect.top <= ANCHOR && rect.bottom > ANCHOR && rect.top > bestTop) {
+        best = link; bestTop = rect.top;
+      }
+      link.classList.remove("active");
     });
+    // Above the first section nothing is active, which is correct: the reader
+    // is in the hero, and the hero's own entry claims it on its own terms.
+    if (best) best.classList.add("active");
   }
 
   function updateTimelineFill() {
@@ -335,10 +367,14 @@
 
       card.addEventListener("pointerleave", () => {
         cardEvent = null;   // otherwise a queued frame re-tilts the card
-        card.style.setProperty("--tilt-x", "0deg");
-        card.style.setProperty("--tilt-y", "0deg");
-        card.style.setProperty("--glow-x", "50%");
-        card.style.setProperty("--glow-y", "0%");
+        // removeProperty, not setProperty: an inline value beats every
+        // selector permanently, so setting these back to a literal killed the
+        // :focus-within glow after the first mouse hover. Removing them lets
+        // the registered initial-value and the CSS rules apply again.
+        card.style.removeProperty("--tilt-x");
+        card.style.removeProperty("--tilt-y");
+        card.style.removeProperty("--glow-x");
+        card.style.removeProperty("--glow-y");
       });
     });
   }

@@ -96,9 +96,11 @@
    teleported frame to frame with zero interpolation. Registering them is the
    cheapest upgrade available in this file.
 
-   inherits: true on the glow pair specifically. With false, the ::before glow
-   breaks on every modern browser, because the pseudo-element reads the
-   PARENT's value. */
+   inherits: true on the glow pair specifically: with false the pseudo-element
+   would NOT see the parent's value and would fall back to the initial one, so
+   the ::before glow stops tracking the cursor. Note that registering also
+   gives these an initial-value, which makes every var(--glow-x, 30%) fallback
+   in this file unreachable — those sites were rewritten to literals. */
 @property --glow-x { syntax: "<percentage>"; inherits: true;  initial-value: 50%; }
 @property --glow-y { syntax: "<percentage>"; inherits: true;  initial-value: 0%; }
 @property --tilt-x { syntax: "<angle>";      inherits: false; initial-value: 0deg; }
@@ -176,8 +178,16 @@
      background IS the bottom of the colormap, and every accent is a step up
      it. Minimum adjacent ΔL is 0.096 across a 0.883 spread, so any two steps
      stay distinguishable under any dichromacy. */
-  /* Declared here and consumed by the spectrum and sightline work, not by
-     the rules below — this block is deliberately ahead of its consumers. */
+  /* CONSUMED BY THE HERO PORTRAIT — .hero-portrait .plate-light and
+     .hero-portrait .portrait-halo, both further down this file, both styling
+     live elements. This comment previously said these were declared for the
+     spectrum and sightline work and had no consumers below it. That was true
+     the day it was written and was falsified seven commits later by PLATE I,
+     which took the tokens without updating it. It matters now: the sightline
+     is parked, so anyone tidying up greps for it, lands here, and reads that
+     nine apparently-dead tokens belong to the parked feature. Deleting them
+     makes both hero gradients invalid at computed-value time — the backlight
+     and the rotating halo silently resolve to transparent, with no error. */
   --ramp-0: #020304; --ramp-1: #1d1147; --ramp-2: #51127c;
   --ramp-3: #832681; --ramp-4: #b73779; --ramp-5: #e75263;
   --ramp-6: #fc8961; --ramp-7: #fec488; --ramp-8: #fcfdbf;
@@ -225,7 +235,8 @@
 
   --header-width: 310px;
   color-scheme: dark;
-  scroll-behavior: smooth;
+  scroll-behavior: auto;   /* was smooth: it makes ScrollTrigger start/end
+                              points drift, and stacks badly with scrub */
 }
 
 /* Defaults first, per-component overrides after — the reverse order silently
@@ -1028,8 +1039,8 @@ html.intro-skipped .header-container {
   pointer-events: none;
   content: "";
   background:
-    radial-gradient(circle at var(--glow-x, 30%) var(--glow-y, 20%), rgba(255, 255, 255, 0.16), transparent 0 1.5px, transparent 2.5px),
-    radial-gradient(circle at calc(var(--glow-x, 30%) + 18%) calc(var(--glow-y, 20%) + 16%), oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.17), transparent 0 1.5px, transparent 2.5px),
+    radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.16), transparent 0 1.5px, transparent 2.5px),
+    radial-gradient(circle at 48% calc(var(--glow-y, 20%) + 16%), oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.17), transparent 0 1.5px, transparent 2.5px),
     linear-gradient(130deg, rgba(255, 255, 255, 0.16), transparent 22%, transparent 74%, oklch(var(--l-text) var(--cmax-lya) var(--h-lya) / 0.1));
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 30px;
@@ -1113,7 +1124,8 @@ html.intro-skipped .header-container {
 
    brightness capped at 1.12, not 1.20: backdrop-filter never samples outside
    the viewport, so a card crossing the top or bottom edge shows a clamped
-   band, and 1.20 makes it visible during a slow scroll. */.about-panel,
+   band, and 1.20 makes it visible during a slow scroll. */.ovi-panel,
+.about-panel,
 .contact-panel,
 .research-card,
 .project-card,
@@ -1131,8 +1143,11 @@ html.intro-skipped .header-container {
 .link-card,
 .hover-lift {
   position: relative;
-  isolation: isolate;            /* mandatory, or plus-lighter punches through
-                                    to the nebula */
+  isolation: isolate;            /* strictly redundant — backdrop-filter already
+                                    makes a stacking context — but load-bearing
+                                    under prefers-reduced-transparency, which
+                                    removes backdrop-filter and would otherwise
+                                    let a negative-z child escape to .main */
   overflow: hidden;
   border: 1px solid transparent; /* NOT border: 0 — forced-colors drops
                                     backdrop-filter, box-shadow and pseudo
@@ -1170,6 +1185,7 @@ html.intro-skipped .header-container {
    ignores border-radius); a padded mask-composite pseudo-element can, and it
    respects border-radius: inherit. No markup added — ::before is already the
    wash, ::after was free. */
+.ovi-panel::after,
 .about-panel::after,
 .contact-panel::after,
 .research-card::after,
@@ -1189,7 +1205,10 @@ html.intro-skipped .header-container {
 .hover-lift::after {
   content: "";
   position: absolute;
-  inset: 0;
+  inset: -1px;   /* not 0: inset resolves against the PADDING box, 1px
+                    inside the transparent border, while border-radius:
+                    inherit copies the full 24px — the ring read 1px too
+                    round at each corner */
   border-radius: inherit;
   padding: 1px;
   pointer-events: none;          /* mandatory — these cards contain links */
@@ -1212,6 +1231,7 @@ html.intro-skipped .header-container {
 }
 
 @media (hover: hover) and (pointer: fine) {
+  .ovi-panel:hover::after,
   .about-panel:hover::after,
   .contact-panel:hover::after,
   .research-card:hover::after,
@@ -1228,29 +1248,37 @@ html.intro-skipped .header-container {
   .education-card:hover::after,
   .personal-card:hover::after,
   .link-card:hover::after,
-  .hover-lift:hover::after,
-  .about-panel:focus-within::after,
-  .contact-panel:focus-within::after,
-  .research-card:focus-within::after,
-  .project-card:focus-within::after,
-  .publication-card:focus-within::after,
-  .timeline-content:focus-within::after,
-  .teaching-panel:focus-within::after,
-  .personal-panel:focus-within::after,
-  .link-section:focus-within::after,
-  .contact-tile:focus-within::after,
-  .fact-grid div:focus-within::after,
-  .glass-panel:focus-within::after,
-  .cosmic-card:focus-within::after,
-  .education-card:focus-within::after,
-  .personal-card:focus-within::after,
-  .link-card:focus-within::after,
-  .hover-lift:focus-within::after {
+  .hover-lift:hover::after {
     opacity: 1;   /* opacity, not padding — padding cannot composite and
-                     re-rasterizes the mask roughly 14 frames per hover */
+                     re-rasterizes the mask */
   }
 }
 
+/* Focus affordance must NOT sit inside a hover query: a keyboard user on a
+   tablet or a phone with a BT keyboard matches (hover: none) and would get
+   no focus ring on any card. */
+.ovi-panel:focus-within::after,
+.about-panel:focus-within::after,
+.contact-panel:focus-within::after,
+.research-card:focus-within::after,
+.project-card:focus-within::after,
+.publication-card:focus-within::after,
+.timeline-content:focus-within::after,
+.teaching-panel:focus-within::after,
+.personal-panel:focus-within::after,
+.link-section:focus-within::after,
+.contact-tile:focus-within::after,
+.fact-grid div:focus-within::after,
+.glass-panel:focus-within::after,
+.cosmic-card:focus-within::after,
+.education-card:focus-within::after,
+.personal-card:focus-within::after,
+.link-card:focus-within::after,
+.hover-lift:focus-within::after {
+  opacity: 1;
+}
+
+.ovi-panel::before,
 .about-panel::before,
 .contact-panel::before,
 .research-card::before,
@@ -1280,6 +1308,7 @@ html.intro-skipped .header-container {
   transition: opacity 240ms ease;
 }
 
+.ovi-panel:hover,
 .about-panel:hover,
 .contact-panel:hover,
 .research-card:hover,
@@ -1306,6 +1335,7 @@ html.intro-skipped .header-container {
   transform: perspective(900px) rotateX(var(--tilt-y, 0deg)) rotateY(var(--tilt-x, 0deg)) translateY(-6px) scale(1.01);
 }
 
+.ovi-panel:hover::before,
 .about-panel:hover::before,
 .contact-panel:hover::before,
 .research-card:hover::before,
@@ -1867,9 +1897,13 @@ html.intro-skipped .header-container {
 
 html.js-reveal .reveal {
   opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 420ms cubic-bezier(0.22, 1, 0.36, 1),
-              transform 680ms cubic-bezier(0.22, 1, 0.36, 1);
+  translate: 0 22px;
+  /* `translate`, not `transform`: a separate property, so the hover 3D tilt
+     composes with it instead of being overridden.
+     An animation, not a transition: `transition` is a shorthand, and at
+     (0,2,1) this rule was resetting transition-property to opacity,transform
+     and wiping the glass transitions on 17 of the 24 cards that carry
+     .reveal — which made the whole @property registration decorative. */
 }
 
 /* Specificity must clear html.js-reveal .reveal (0,2,1) -- the hero is
@@ -1881,8 +1915,13 @@ html.js-reveal .hero .reveal {
 }
 
 html.js-reveal .reveal.is-visible {
-  opacity: 1;
-  transform: none;
+  animation: revealIn 680ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes revealIn {
+  from { opacity: 0; translate: 0 22px; }
+  60%  { opacity: 1; }
+  to   { opacity: 1; translate: none; }
 }
 
 @media (max-width: 1199px) {
@@ -2161,7 +2200,9 @@ html.js-reveal .reveal.is-visible {
   html.js-reveal .reveal,
   html.js-reveal .reveal.is-visible {
     opacity: 1;
+    translate: none;
     transform: none;
+    animation: none !important;
   }
 
   body::before,
@@ -2297,6 +2338,15 @@ html.js-reveal .reveal.is-visible {
   .timeline-item::before {
     display: none !important;
   }
+
+  /* The bevel ring would print on top of the 1px border print adds. */
+  [class*="-card"]::after,
+  [class*="-panel"]::after,
+  .contact-tile::after,
+  .link-section::after,
+  .fact-grid div::after,
+  .hero-portrait::after,
+  .hero-portrait::before { display: none !important; }
 
   /* The tiles clip their content, so an appended URL would be cut off. */
   .contact-tile a[href^="http"]::after,
@@ -2497,7 +2547,9 @@ sub { font-size: 0.72em; vertical-align: -0.18em; }
 /* Keyboard users currently get none of the glow a mouse gets. */
 [class*="-card"]:focus-within,
 [class*="-panel"]:focus-within,
-.contact-tile:focus-within {
+.contact-tile:focus-within,
+.link-section:focus-within,
+.fact-grid div:focus-within {
   --glow-x: 50%;
   --glow-y: 50%;
 }
@@ -2527,8 +2579,11 @@ sub { font-size: 0.72em; vertical-align: -0.18em; }
 
 .research-card.featured > .card-glow {
   position: absolute;
-  inset: -3px;
-  z-index: -1;
+  inset: 0;          /* -3px was clipped away by the card's overflow: hidden */
+  height: auto;      /* the base rule's height: 300px orphaned this on a
+                        660px card, so the bloom span about a centre ~180px
+                        above the crisp rim's */
+  z-index: 0;        /* -1 painted it UNDER the card's own background */
   border-radius: inherit;
   pointer-events: none;
   background: conic-gradient(from 0deg at 50% 50%,
@@ -2551,13 +2606,18 @@ sub { font-size: 0.72em; vertical-align: -0.18em; }
   [class*="-card"]::after,
   [class*="-panel"]::after,
   .contact-tile::after,
-  .link-section::after { display: none !important; }
+  .link-section::after,
+  .fact-grid div::after { display: none !important; }
 }
 
 @media (prefers-reduced-transparency: reduce) {
+  /* opacity: 1 here made the translucent decoration MORE prominent in the one
+     mode that explicitly asked for less. */
   [class*="-card"]::after,
   [class*="-panel"]::after,
-  .contact-tile::after { opacity: 1; }
+  .contact-tile::after,
+  .link-section::after,
+  .fact-grid div::after { display: none; }
 }
 
 /* ═══════════════════════════════════════════════════ PLATE I
@@ -2659,13 +2719,24 @@ sub { font-size: 0.72em; vertical-align: -0.18em; }
 
 /* 6. PLATE LABEL — this is what converts a headshot into an archival object,
    and it is the cheapest, highest-yield element in the design. */
+/* The caption gets its OWN surface rather than inheriting whatever the plate
+   happens to be. It is light lettering, and the plate behind it is a lit
+   conic rim over a warm radial — light on light. Measured against the
+   composite it sat at 2.64:1 for the plate number and 1.18:1 for the
+   dimensions, well under the 4.5:1 a caption needs. A scrim is also what the
+   object it is imitating actually has: an archival plate carries its
+   annotation on a printed strip, not floating on the emulsion. */
 .plate-label {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   gap: 0 0.7em;
   margin-top: 14px;
-  padding-top: 10px;
+  padding: 10px 12px 9px;
+  border-radius: 0 0 10px 10px;
+  background: linear-gradient(180deg in oklab,
+    color-mix(in oklab, var(--ink-void) 72%, transparent),
+    color-mix(in oklab, var(--ink-void) 92%, transparent));
   border-top: 1px solid var(--ink-hairline);
   font-family: var(--font-display);
   font-variant-caps: all-small-caps;
@@ -2701,4 +2772,562 @@ sub { font-size: 0.72em; vertical-align: -0.18em; }
   .hero-portrait .plate-light,
   .hero-portrait .portrait-halo { display: none !important; }
   .plate-label { border-top-color: CanvasText; }
+}
+
+/* ═══════════════════════════════════════════════ the plate field
+   The WebGL volume sits under the existing 2D starfield. The 2D canvas stays
+   in the DOM and stays VISIBLE by default; it is only hidden once GL reports
+   a successful first frame, and it comes straight back on context loss or a
+   governor trip. Inverted default, so a GL failure cannot blank the hero. */
+#plate-field {
+  position: fixed;
+  inset: 0;
+  /* z-index 0, NOT 1. At 1 it tied with .cosmic-image-shade — same value, same
+     root stacking context, so DOM order decided and the nebula painted ON TOP
+     of the contrast scrim it is supposed to sit under, erasing the individual
+     stars in the photograph beneath. 0 puts it above .cosmic-image-bg and below
+     the scrim, which is where an emission layer belongs. */
+  z-index: 0;
+  /* screen, matching .cosmic-image-bg and #galaxy-canvas. The canvas is opaque
+     (alpha: false), so this is the only compositing rule in play: emission is
+     additive light, black contributes nothing, and this layer can never
+     subtract brightness from the star field underneath it. */
+  mix-blend-mode: screen;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 900ms var(--ease-out);
+}
+
+html.gl-ready #plate-field { opacity: 1; }
+html.gl-ready #galaxy-canvas { opacity: 0.34; }   /* 2D stars survive as foreground sparkle */
+
+@media (prefers-reduced-motion: reduce) {
+  #plate-field { display: none; }
+}
+
+@media (forced-colors: active) {
+  #plate-field { display: none; }
+}
+
+@media print {
+  #plate-field { display: none !important; }
+}
+
+/* ════════════════════════════════════════════ split-line masking
+   The padding / negative-margin pair is the detail nobody ships correctly.
+   Without it the mask shears descenders and the tops of Λ, σ, Å and the
+   shim's ⊙ — whose vertical extent arrives from a DIFFERENT font via
+   unicode-range and is the one thing you cannot predict.
+   `clip`, not `hidden`: clip creates no scroll container. */
+.split-line { padding-block: 0.18em; display: inline-block; }
+.split-line-mask { overflow: clip !important; margin-block: -0.18em; }
+
+/* ════════════════════════════════════════════════════════ THE SIGHTLINE
+   A live O VI absorption measurement.
+
+   .ovi-panel is listed BY NAME in the glass recipe, the bevel ::after, the
+   wash ::before and the hover/focus rules above. An earlier version of this
+   comment claimed it inherited all of that from the [class*="-panel"] group.
+   It does not, and the claim was worth four separate defects. That attribute
+   selector appears exactly once in this file, at line 238, and it sets custom
+   properties and nothing else — every visual rule is an enumerated class list.
+   Measured, the panel had background-image: none, border: 0, border-radius: 0,
+   backdrop-filter: none, box-shadow: none and no ::before or ::after content:
+   a bare transparent rectangle in a page of seventeen glass cards, and the one
+   panel that collapses under forced-colors because it had no border to keep.
+
+   The accent is the group default — cyan at L 0.845 — and THAT part is
+   deliberate.
+
+   A seventh hue was tried first, Ly-α at 340. It does not fit. The six
+   component lightnesses form an even ladder at 0.70 / 0.74 / 0.78 / 0.82 /
+   0.86 / 0.90, a minimum adjacent ΔL of 0.040, which is the only separation
+   dichromacy preserves. A seventh entry either interleaves (L 0.795 sits
+   0.015 from .contact-tile, inside one JND) or extends below the ladder — and
+   extending fails harder: computed against the panel's own surface, oklch(0.66
+   0.115 340) is 2.20:1 and oklch(0.70 0.115 340) is 2.76:1. The slider track
+   and thumb are real controls, so WCAG 1.4.11 wants 3:1, and both miss it.
+   The cyan default is 5:1+ on the same surface, belongs to the research
+   section this instrument measures for, and matches λ1031.93 in the figure. */
+
+.sightline .container { max-width: 1120px; }
+
+.ovi-panel {
+  padding: clamp(1.1rem, 2.6vw, 2rem);
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.6rem);
+}
+
+.ovi-figure { margin: 0; display: grid; gap: 0.85rem; }
+
+/* aspect-ratio, not a fixed height: the figure has to stay a figure at 320px
+   and at 1600px, and a canvas with a fixed height is the usual way that breaks.
+   The floor stops it collapsing to a slot on a phone in landscape. */
+#ovi-canvas {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 7;
+  min-height: 210px;
+  border-radius: 12px;
+  background:
+    linear-gradient(180deg in oklab,
+      color-mix(in oklab, var(--ink-void) 92%, transparent),
+      color-mix(in oklab, var(--ink-void) 74%, transparent));
+}
+
+.ovi-caption { display: grid; gap: 0.5rem; }
+
+.ovi-readout {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: clamp(0.78rem, 1.5vw, 0.9rem);
+  line-height: 1.55;
+  color: var(--ink-text-2);
+  /* Three lines. line-height is 1.55, so two lines is 3.10em and the old
+     2.9em floor was 94% of two — it could not hold back even the 1->2 line
+     shift it was written for. Measured across both sliders at ten widths,
+     560-600px was the case that bit: the "unsaturated" branch wraps to three
+     lines and the shorter branches to two, so the panel grew and shrank by
+     19.35px as the column-density slider crossed log N 13.0 — the exact
+     reflow-under-the-thumb this is here to prevent. */
+  min-height: 4.65em;
+}
+
+.ovi-method {
+  margin: 0;
+  font-size: 0.74rem;
+  line-height: 1.6;
+  color: var(--ink-muted);
+  max-width: 78ch;
+}
+
+.ovi-controls {
+  display: grid;
+  gap: clamp(0.7rem, 1.6vw, 1.1rem);
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.ovi-control { margin: 0; display: grid; gap: 0.4rem; }
+
+.ovi-control label {
+  font-size: 0.8rem;
+  color: var(--ink-text-2);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5ch;
+  align-items: baseline;
+}
+
+.ovi-unit {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-muted);
+}
+
+/* The track is styled, the thumb is 22px on a 44px-tall input: the pointer
+   target meets 2.5.5 without the control looking like a 44px slab. */
+.ovi-control input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 44px;
+  background: transparent;
+  cursor: ew-resize;
+  /* touch-action is deliberately NOT set. Overriding it here is how a slider
+     inside a scrolling page eats the vertical swipe that the reader meant for
+     the page, and a range input already handles its own horizontal drag. */
+}
+.ovi-control input[type="range"]::-webkit-slider-runnable-track {
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg,
+    color-mix(in oklab, var(--card-accent) 55%, transparent),
+    color-mix(in oklab, var(--ink-dim) 70%, transparent));
+}
+.ovi-control input[type="range"]::-moz-range-track {
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg,
+    color-mix(in oklab, var(--card-accent) 55%, transparent),
+    color-mix(in oklab, var(--ink-dim) 70%, transparent));
+}
+.ovi-control input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px; height: 22px;
+  margin-top: -10px;
+  border-radius: 50%;
+  background: var(--card-accent);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.55), 0 4px 14px -4px var(--card-accent);
+  transition: box-shadow var(--dur-xs) var(--ease-out);
+}
+.ovi-control input[type="range"]::-moz-range-thumb {
+  width: 22px; height: 22px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--card-accent);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.55), 0 4px 14px -4px var(--card-accent);
+}
+.ovi-control input[type="range"]:focus-visible {
+  outline: 2px solid var(--card-accent);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+/* ── the gutter continuum rail ──────────────────────────────────────────
+   The same numbers, 1px wide, running down the page margin: the reader meets
+   the profile in the gutter before they reach the panel that explains it.
+
+   It lives on the RIGHT and starts at 1660px, and both of those are measured
+   rather than chosen. The left gutter is not a gutter — .header-container is a
+   fixed sidebar occupying 18–292px at every desktop width, and an earlier
+   left-anchored version of this rail rendered directly on top of the
+   navigation. The right side is no better until the container stops growing:
+   at 1400px viewport the section container measures 310→1400, i.e. it ends
+   exactly at the viewport edge, with nothing to spare. The container caps at
+   1120px, so free space only opens once main exceeds ~1320px, which is a
+   viewport of roughly 1630. 1660 gives a measured 115px strip; the rail takes
+   26 of it. Below that this element does not exist, which is the correct
+   amount of a decorative instrument to show when there is nowhere to put it. */
+.ovi-rail {
+  position: fixed;
+  right: 44px;
+  top: 50%;
+  translate: 0 -50%;
+  width: 26px;
+  height: min(560px, 62vh);
+  /* 5, not 3. At 3 this sat BELOW .main (5), .deep-grain (6) and
+     .cosmic-vignette (4) while geometrically INSIDE .main's box, and was
+     visible only because .main, #sightline and #past-projects all happen to
+     compute background-color: transparent with no background-image. Give any
+     section a background and the rail disappears. That is the identical trap
+     already documented for .deep-grain a few hundred lines up, repeated and
+     surviving on luck. */
+  z-index: 5;
+  pointer-events: none;
+  display: none;
+  overflow: visible;
+}
+.ovi-rail path {
+  stroke: var(--a-cyan);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.62;
+}
+@media (min-width: 1660px) {
+  .ovi-rail { display: block; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ovi-rail path { transition: none !important; stroke-dashoffset: 0 !important; }
+}
+
+@media print {
+  .ovi-rail { display: none !important; }
+  .ovi-controls { display: none !important; }
+  /* The canvas printed as a ~1032x452 near-blank rectangle: its dark backdrop
+     is a CSS background and is dropped by print-color-adjust, while the trace
+     itself is --ink-muted and --a-cyan on white, i.e. about 1.5:1. The global
+     print rule's `color: #111 !important` cannot reach bitmap pixels. The
+     caption and method paragraph carry every number the figure shows, and they
+     print black and read correctly, so nothing is lost by dropping the empty
+     box. */
+  #ovi-canvas { display: none !important; }
+}
+
+@media (forced-colors: active) {
+  .ovi-rail { display: none; }
+  #ovi-canvas { forced-color-adjust: none; }
+}
+
+
+/* The project had no visually-hidden utility and the sightline needs two: the
+   beam's keyboard instructions and the spectrum's live region. clip-path with a
+   1px box, NOT display:none or visibility:hidden — both of those remove the
+   text from the accessibility tree, which is the only place it was ever for. */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0; border: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Without JS the canvas is a 1032x452 empty box with intrinsic size 300x150,
+   no fallback children and an aria-label announcing a spectrum that was never
+   drawn — assistive tech told there is an image where there is nothing. The
+   heading, the caption, the method paragraph and both labelled sliders are all
+   real HTML and stay; only the empty frames go. */
+html:not(.js) #ovi-canvas { display: none; }
+html:not(.js) .ovi-rail { display: none !important; }
+
+
+/* ─────────────────────────────────────────── the sightline map
+   The map is generated per pixel in JS at a capped resolution and upscaled by
+   the browser, so the canvas has no border, no card and no background of its
+   own: magma at t = 0 is (0.002, 0.002, 0.014), within two 8-bit levels of the
+   page, and 29% of the frame is measured to be fully transparent. The
+   figure therefore bleeds into the page with no seam. Give it a border and all
+   of that work is thrown away. */
+.ovi-mapfig { margin: 0 0 clamp(1rem, 2vw, 1.6rem); display: grid; gap: 0.9rem; }
+
+.ovi-map-wrap {
+  position: relative;
+  /* width is capped, NOT height. `aspect-ratio: 1/1` with `max-height: 62vh`
+     loses to the max-height and silently produces a rectangle — measured 512
+     x 213 in a short viewport — which stretches a circular halo into an
+     ellipse and turns the R_vir ring into an oval. Capping the width keeps the
+     box square at every viewport, which is what the field's own coordinates
+     assume. */
+  width: min(100%, 62vh);
+  aspect-ratio: 1 / 1;
+  margin-inline: auto;
+  /* pan-y, not none. `none` made the map a 354x354 dead zone on a 390x844
+     phone — 42% of the viewport width where a thumb cannot scroll the page.
+     pan-y hands vertical panning back to the browser and keeps the horizontal
+     drag for the beam, which is the axis the beam actually needs. */
+  touch-action: pan-y;
+  cursor: crosshair;
+}
+
+#ovi-map {
+  display: block;
+  width: 100%;
+  height: 100%;
+  image-rendering: auto;           /* the upscale is the point: a column-density
+                                      map is a smooth field, and nearest-neighbour
+                                      would show the generation grid */
+  /* NO mix-blend-mode, and no border-radius. `screen` was here and it was
+     inert: .main carries z-index 5 and is therefore a stacking context, so the
+     blend group is .main's own contents, and the star field this needed to
+     blend with is painted below .main, outside the group. Proven rather than
+     argued — filling this canvas opaque black should make a `screen` layer
+     vanish entirely, and instead a solid black square painted over the star
+     field. The bleed is done entirely by per-pixel alpha and a radial cutoff
+     in sightline.js, which is why that file, and not this rule, carries the
+     explanation. */
+}
+
+/* R_vir at 1.0 in a frame that runs to 2.4 R_vir half-width: diameter is
+   2/4.8 = 41.67% of the box. */
+.ovi-rvir {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 41.667%; height: 41.667%;
+  translate: -50% -50%;
+  border: 1px dashed color-mix(in oklab, var(--ink-text) 38%, transparent);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.ovi-beam {
+  position: absolute;
+  width: 44px; height: 44px;       /* the target is 44px; only the crosshair shows */
+  translate: -50% -50%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: grab;
+  border-radius: 50%;
+}
+.ovi-beam::before,
+.ovi-beam::after {
+  content: "";
+  position: absolute;
+  background: var(--a-cyan);
+  box-shadow: 0 0 10px color-mix(in oklab, var(--a-cyan) 70%, transparent);
+}
+/* the beam itself: a thin vertical line dropping through the halo */
+.ovi-beam::before { left: 50%; top: -1000px; bottom: -1000px; width: 1px; translate: -50% 0; opacity: 0.5; }
+.ovi-beam::after  { left: 50%; top: 50%; width: 9px; height: 9px; translate: -50% -50%;
+                    border-radius: 50%; }
+.ovi-beam:focus-visible { outline: 2px solid var(--a-cyan); outline-offset: 2px; }
+
+.ovi-mapcap { display: grid; gap: 0.6rem; }
+
+.ovi-probe {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: clamp(0.78rem, 1.5vw, 0.9rem);
+  line-height: 1.55;
+  color: var(--ink-text);
+  /* Four lines. 2.6em was measured failing at 390px, where the clamp notice
+     wraps to three lines rather than one and the caption block jumped 29.4px
+     every time the beam crossed the 12.5 boundary mid-drag. The manual-override
+     notice is longer again, so the floor is set for the longest of the three
+     strings, not the shortest. */
+  min-height: 6.2em;
+}
+
+.ovi-bar-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.9rem;
+}
+.ovi-bar { position: relative; width: 240px; padding-bottom: 1.1rem; }
+#ovi-colorbar { display: block; width: 240px; height: 10px; border-radius: 2px; }
+.ovi-bar-ticks {
+  margin: 0; padding: 0; list-style: none;
+  font-family: var(--font-mono); font-size: 0.68rem; color: var(--ink-muted);
+}
+/* The stretch runs 12.0 to 15.0, so the four decades sit at 0, 1/3, 2/3 and 1.
+   translate -50% centres each label on its own tick; the end labels are pulled
+   back inside the bar so neither overhangs. */
+.ovi-bar-ticks li {
+  position: absolute;
+  top: 0.9rem;
+  translate: -50% 0;
+  white-space: nowrap;
+}
+.ovi-bar-ticks li:nth-child(1) { left: 0;      translate: 0 0; }
+.ovi-bar-ticks li:nth-child(2) { left: 33.333%; }
+.ovi-bar-ticks li:nth-child(3) { left: 66.667%; }
+.ovi-bar-ticks li:nth-child(4) { left: 100%;   translate: -100% 0; }
+.ovi-bar-label { margin: 0; font-family: var(--font-mono); font-size: 0.68rem; color: var(--ink-muted); }
+
+@media (forced-colors: active) {
+  .ovi-map-wrap { forced-color-adjust: none; }
+  .ovi-beam::before, .ovi-beam::after { background: Highlight; }
+}
+@media print {
+  .ovi-beam { display: none !important; }
+}
+
+/* ══════════════════════════════════════════════ THE CARD CATALOGUE
+   #research becomes a horizontal rail above 900px. Everything here is inside
+   the media query and nothing outside it changes, so the narrow layout, the
+   print layout and the reduced-motion layout are the untouched vertical stack
+   — the rail is an enhancement on top of a page that already worked.
+
+   The 900px floor is not a guess about phones. Below it the cards are already
+   one per row, a horizontal rail would show one panel at a time, and
+   scroll-hijacking a single column is the version of this pattern that people
+   rightly hate. */
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  /* html.rail-ready, NOT html.js. The gate has to mean "the tween that moves
+     this rail exists", and only choreography.js knows that — it depends on
+     GSAP from a third-party CDN. Gated on html.js alone, a blocked or failed
+     CDN left the rail as a 2164px flex row with no transform and no pin:
+     measured at 1400px, cards 3 and 4 sat entirely outside the viewport,
+     reachable only by a 1086px horizontal page scroll with no affordance and
+     no keyboard path. Half the research section, invisible, because a CDN
+     blipped. The class is added by the same function that creates the tween
+     and removed by its revert. */
+  html.rail-ready #research .research-grid {
+    display: flex;
+    width: max-content;
+    gap: 28px;
+    grid-template-columns: none;
+    /* will-change on the rail, not on each card: one promoted layer that moves,
+       instead of four that each get composited separately. */
+    will-change: transform;
+  }
+  html.rail-ready #research .research-card,
+  html.rail-ready #research .research-card.featured {
+    flex: 0 0 auto;
+    width: min(42vw, 520px);
+    min-height: 460px;
+    grid-row: auto;
+  }
+  /* The rail must be able to leave the container's box horizontally while the
+     container still centres it vertically. overflow-x on <body> is already
+     `clip`, which creates no scroll container, so nothing here can produce a
+     horizontal scrollbar. */
+  html.rail-ready #research .container { overflow: visible; }
+  /* M7: clip at the section. overflow-x: clip on <body> does NOT contain this
+     — measured horizontal scroll ranges of 708px at 900, 1206px at 1280 and
+     1086px at 1400, i.e. up to 94% of a viewport of empty page reachable by a
+     two-finger swipe. `clip` rather than `hidden` so no scroll container is
+     created and the pin still works. */
+  html.rail-ready #research { overflow-x: clip; }
+}
+
+/* Every fallback surface gets the stack back, explicitly. A transform left
+   behind by a killed tween is the classic way a rail prints as one visible
+   card and three blank pages. */
+@media print {
+  #research .research-grid {
+    display: grid !important;
+    width: auto !important;
+    transform: none !important;
+  }
+  #research .research-card { width: auto !important; transform: none !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #research .research-grid { transform: none !important; }
+  #research .research-card { transform: none !important; }
+}
+
+/* ═══════════════════════════════════════════════ THE MOTION TOGGLE
+   The class is set before first paint by the inline head script, so a reader
+   who has asked for a calm page never sees a frame of the intro. */
+.motion-toggle-row { margin: 0.75rem 0 0; }
+
+.motion-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5ch;
+  min-height: 34px;
+  padding: 0.3rem 0.65rem;
+  border: 1px solid color-mix(in oklab, var(--ink-dim) 55%, transparent);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink-muted);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: color var(--dur-xs) var(--ease-out),
+              border-color var(--dur-xs) var(--ease-out);
+}
+.motion-toggle:hover { color: var(--ink-text); border-color: var(--a-cyan); }
+.motion-toggle:focus-visible { outline: 2px solid var(--a-cyan); outline-offset: 3px; }
+/* Pressed state is carried by colour AND by the aria-pressed attribute the
+   button already exposes — never by colour alone. */
+.motion-toggle[aria-pressed="true"] {
+  color: var(--ink-text);
+  border-color: var(--a-cyan);
+  background: color-mix(in oklab, var(--a-cyan) 14%, transparent);
+}
+/* forced-colors flattens colour, border-colour and background all at once, so
+   the pressed state above becomes invisible in exactly the mode whose users
+   most need this control. A border width and a marker are not colour. */
+@media (forced-colors: active) {
+  .motion-toggle { border-width: 1px; }
+  .motion-toggle[aria-pressed="true"] { border-width: 3px; }
+  .motion-toggle[aria-pressed="true"]::after { content: " \2713"; }
+}
+
+/* The blunt reset. This deliberately mirrors what the reduced-motion media
+   query does rather than re-listing every animated selector: a per-selector
+   copy of a growing file is a list that silently falls out of date, and the
+   failure mode is motion that keeps running for the one reader who asked it
+   not to. 0.001ms rather than 0 so animation `forwards` end states still
+   apply and nothing is left mid-keyframe — in particular .reveal, whose end
+   state is the visible one. */
+html.motion-off *,
+html.motion-off *::before,
+html.motion-off *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  transition-delay: 0s !important;
+}
+html.motion-off { scroll-behavior: auto !important; }
+
+/* The three things the blunt reset cannot reach, because they are not
+   animations: a live WebGL canvas, a pinned horizontal rail, and a 2D
+   starfield that redraws on rAF. */
+html.motion-off #plate-field { display: none !important; }
+html.motion-off #research .research-grid {
+  display: grid !important;
+  width: auto !important;
+  transform: none !important;
+}
+html.motion-off #research .research-card,
+html.motion-off #research .research-card.featured {
+  width: auto !important;
+  transform: none !important;
 }
