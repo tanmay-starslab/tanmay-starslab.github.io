@@ -89,12 +89,14 @@
     if (reduceMotion) {
       completeIntro();
     } else if (window.innerWidth < 1200) {
-      introHoldTimer = window.setTimeout(startIntroMove, 620);
-      introCompleteTimer = window.setTimeout(completeIntro, 1400);
+      introHoldTimer = window.setTimeout(startIntroMove, 460);
+      introCompleteTimer = window.setTimeout(completeIntro, 1320);
       bindIntroSkip();
     } else {
-      introHoldTimer = window.setTimeout(startIntroMove, 650);
-      introCompleteTimer = window.setTimeout(completeIntro, 1500);
+      // 520 + 900 of travel. The old pair held 650 and ran 2000ms of transform,
+      // which is a long time to keep a reader in front of a rectangle.
+      introHoldTimer = window.setTimeout(startIntroMove, 520);
+      introCompleteTimer = window.setTimeout(completeIntro, 1480);
       bindIntroSkip();
     }
   }
