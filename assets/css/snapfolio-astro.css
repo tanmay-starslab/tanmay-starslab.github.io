@@ -1152,6 +1152,29 @@ html.intro-skipped #intro-scrim {
   letter-spacing: 0;
 }
 
+/* ═══════════════════════════════════════════ A DECISION, NOT AN OVERSIGHT
+   The glass recipe below fails three of the taste skill's house rules —
+   gradient, shadow and glass — and it stays anyway. Tanmay was shown the
+   measurement (29 blurred surfaces, 26 shadows at rest, 36 gradients, nearly
+   every remaining failure on the page) together with the argument for removing
+   it, and chose to keep it: stripping the recipe is what turns a dense page
+   into a thin one, and that trade has already been made once on this site and
+   reverted.
+
+   So the gate is run as
+
+       node <skill>/scripts/inspect.mjs index.html --allow gradient,shadow,glass
+
+   which keeps every other rule live. Do not silence those three any other way,
+   and do not quietly delete this recipe to make a report go green — the report
+   is green on them because someone decided, and the decision is recorded here
+   so the next reader can disagree with it on purpose rather than by accident.
+
+   What this costs, stated plainly: glass is currently the single strongest
+   signal that a page was generated rather than designed. Removing it is the
+   largest remaining move available on this page, and it is available whenever
+   he wants it. */
+
 /* ─────────────────────────────── the glass recipe
    saturate() on the BACKDROP is the whole trick. On a near-black page a plain
    blur averages the backdrop toward black, so the panel reads grey and dead —

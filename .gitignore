@@ -12,3 +12,8 @@ node_modules
 package-lock.json
 .DS_Store
 .playwright-cli/
+
+# Tooling output, not site content — these are served verbatim by
+# GitHub Pages if committed, and neither belongs on the public site.
+.taste-skill/    # taste-skill inspector output: screenshots and report.json, regenerated on every run
+.serena/    # serena language-server cache
