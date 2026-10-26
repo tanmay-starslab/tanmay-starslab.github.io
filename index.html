@@ -24,7 +24,7 @@
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link rel="preload" href="assets/fonts/plate-display.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/plate-text.woff2" as="font" type="font/woff2" crossorigin>
-  <link href="assets/css/snapfolio-astro.css?v=4" rel="stylesheet">
+  <link href="assets/css/snapfolio-astro.css?v=5" rel="stylesheet">
 
   <script type="application/ld+json">
   {
@@ -197,6 +197,11 @@
               <a href="https://github.com/tanmay-starslab" target="_blank" rel="noopener">GitHub</a>
               <a href="https://www.linkedin.com/in/tanmay-singh-21574a1aa/" target="_blank" rel="noopener">LinkedIn</a>
             </div>
+            <!-- Filled by cosmos.js with this visit's encounter; stays hidden without script. -->
+            <p class="sky-note" id="sky-note" hidden>
+              <span data-sky-text></span>
+              <button type="button" class="sky-drop">Drop in a dwarf galaxy</button>
+            </p>
           </div>
 
           <figure class="hero-portrait reveal">
@@ -573,11 +578,13 @@
   <a href="#home" class="scroll-top" aria-label="Back to top"><i class="bi bi-arrow-up-short" aria-hidden="true"></i></a>
 
   <script src="assets/js/motion-toggle.js?v=2" defer></script>
-  <script src="assets/js/snapfolio-astro.js?v=2"></script>
+  <script src="assets/js/snapfolio-astro.js?v=3"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js" defer></script>
-  <script src="assets/js/plate-field.js?v=2" defer></script>
+  <!-- Before plate-field.js: it reads the visit seed cosmos.js sets. -->
+  <script src="assets/js/cosmos.js?v=1" defer></script>
+  <script src="assets/js/plate-field.js?v=3" defer></script>
   <script src="assets/js/choreography.js?v=7" defer></script>
 </body>
 

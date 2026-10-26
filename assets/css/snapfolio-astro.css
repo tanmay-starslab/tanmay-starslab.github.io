@@ -492,6 +492,29 @@ img {
   mix-blend-mode: screen;
 }
 
+/* THE NIGHT SKY. cosmos.js draws a new sky on every visit (Milky Way band,
+   dust lanes, nebulae, black-body-coloured stars) and inserts this canvas
+   right after the photograph. It sits under the contrast shade exactly where
+   the photograph did; the photograph stays as the no-script fallback and
+   fades out once the drawn sky is ready. The pointer parallax reuses the
+   --parallax-* properties snapfolio-astro.js already writes. */
+#sky-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0;
+  filter: brightness(1.3) contrast(1.1);
+  transform: translate3d(calc(var(--parallax-x, 0) * -0.55px), calc(var(--parallax-y, 0) * -0.55px), 0) scale(1.03);
+  transition: opacity 1200ms var(--ease-out);
+}
+
+html.sky-ready #sky-canvas { opacity: 1; }
+html.sky-ready .cosmic-image-bg { opacity: 0; transition: opacity 1200ms var(--ease-out); }
+
 .cosmic-vignette {
   position: fixed;
   inset: 0;
@@ -1042,6 +1065,33 @@ html.intro-skipped #intro-scrim {
   border-bottom: 1px solid oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.28);
   overflow-wrap: anywhere;
 }
+
+/* This visit's encounter, written by cosmos.js, and the one control for it. */
+.sky-note {
+  max-width: 58ch;
+  margin: 22px 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.sky-drop {
+  display: inline;
+  margin: 0 0 0 0.35em;
+  padding: 0;
+  font: inherit;
+  color: var(--accent);
+  background: none;
+  border: 0;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  transition: color 180ms ease;
+}
+
+.sky-drop:hover { color: var(--accent-3); }
+.sky-drop:active { color: var(--text); }
 
 .hero-portrait {
   position: relative;
@@ -2044,6 +2094,10 @@ html.js-reveal .reveal.is-visible {
     opacity: 0.06;
   }
 
+  html.sky-ready #sky-canvas {
+    opacity: 0.6;
+  }
+
   .cosmic-image-shade {
     background:
       radial-gradient(circle at 50% 30%, rgba(2, 3, 4, 0.36), rgba(2, 3, 4, 0.9) 68%),
@@ -2285,6 +2339,8 @@ html.js-reveal .reveal.is-visible {
    can be in where the design currently has no answer. */
 
 @media print {
+  #sky-canvas,
+  .sky-note,
   .site-header,
   .header-toggle,
   .scroll-top,
@@ -2465,7 +2521,8 @@ html.js-reveal .reveal.is-visible {
     background: #0b1018 !important;
   }
 
-  .cosmic-image-bg { opacity: 0.25 !important; }
+  .cosmic-image-bg,
+  html.sky-ready #sky-canvas { opacity: 0.25 !important; }
 
   .research-card::before,
   .project-card::before,
@@ -2846,7 +2903,10 @@ sub { font-size: 0.72em; vertical-align: -0.18em; }
 }
 
 html.gl-ready #plate-field { opacity: 1; }
-html.gl-ready #galaxy-canvas { opacity: 0.34; }   /* 2D stars survive as foreground sparkle */
+/* Was 0.34, when this canvas was a spiral of dots kept as sparkle over the GL
+   nebula. It is the galaxy merger now (cosmos.js), the thing the hero is
+   about, so it stays at full strength with the nebula behind it. */
+html.gl-ready #galaxy-canvas { opacity: 0.94; }
 
 @media (prefers-reduced-motion: reduce) {
   #plate-field { display: none; }
