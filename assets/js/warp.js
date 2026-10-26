@@ -38,10 +38,12 @@
   else document.body.appendChild(canvas);
 
   var COARSE = window.matchMedia("(pointer: coarse)").matches;
-  var N = (COARSE || window.innerWidth < 760) ? 360 : 640;
+  // Sparse on purpose: a few hundred streaks read as flight; more read as noise
+  // across the text.
+  var N = (COARSE || window.innerWidth < 760) ? 150 : 260;
   var DEPTH = 1000, NEAR = 8;
   var TRAVEL = DEPTH * 1.8;      // depth units per second at full warp
-  var TRAIL = 0.07;              // a streak is where the star was this many seconds ago
+  var TRAIL = 0.035;             // a streak is where the star was this many seconds ago
   var V_FULL = 4000;             // scroll speed (px/s) that reaches full warp
   var RISE = 0.1, COAST = 0.55;  // time constants (s): quick to spin up, slow to coast down
 
@@ -70,12 +72,15 @@
   }
   for (var i = 0; i < N; i++) { place(i); sz[i] = NEAR + Math.random() * (DEPTH - NEAR); }
 
-  var W = 0, H = 0, dpr = 1, focal = 1;
+  var W = 0, H = 0, dpr = 1, focal = 1, maxLen = 90;
   function layout() {
     W = window.innerWidth; H = window.innerHeight;
     dpr = Math.min(window.devicePixelRatio || 1, COARSE ? 1.5 : 2);
     canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
     focal = Math.max(W, H) / 2;
+    // No streak longer than this: the nearest stars would otherwise draw lines
+    // halfway across the screen, and those are what tire the eye.
+    maxLen = Math.min(W, H) * 0.12;
   }
 
   function smooth(e0, e1, x) { var t = Math.max(0, Math.min(1, (x - e0) / (e1 - e0))); return t * t * (3 - 2 * t); }
@@ -85,7 +90,7 @@
   function draw() {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, W, H);
-    var vis = smooth(0, 0.25, Math.abs(warp));
+    var vis = smooth(0.02, 0.4, Math.abs(warp));
     if (vis < 0.003) return;
     var cx = W / 2, cy = H / 2;
     // The far face fills the screen: a star at (±1, ±1) on it sits on a corner.
@@ -97,14 +102,16 @@
       var X = sx[i] * hx, Y = sy[i] * hy;
       var x1 = cx + X * focal / z, y1 = cy + Y * focal / z;
       var x0 = cx + X * focal / tz, y0 = cy + Y * focal / tz;
+      var dx = x0 - x1, dy = y0 - y1, len = Math.sqrt(dx * dx + dy * dy);
+      if (len > maxLen) { x0 = x1 + dx * maxLen / len; y0 = y1 + dy * maxLen / len; }
       if ((x0 < -20 && x1 < -20) || (x0 > W + 20 && x1 > W + 20) || (y0 < -20 && y1 < -20) || (y0 > H + 20 && y1 > H + 20)) continue;
       var near = 1 - z / DEPTH;
       // Fade in from the far face, so a star arriving there never pops.
-      var a = vis * (0.16 + 0.64 * near * near) * Math.min(1, (DEPTH - z) / (DEPTH * 0.12));
+      var a = vis * (0.12 + 0.43 * near * near) * Math.min(1, (DEPTH - z) / (DEPTH * 0.12));
       if (a < 0.01) continue;
       ctx.globalAlpha = a;
       ctx.strokeStyle = col[i];
-      ctx.lineWidth = 0.6 + 1.7 * near * near;
+      ctx.lineWidth = 0.5 + 0.6 * near * near;
       ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); ctx.stroke();
     }
     ctx.globalAlpha = 1;
