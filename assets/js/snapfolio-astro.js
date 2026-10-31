@@ -390,6 +390,33 @@
   let pixelRatio = 1;
   let frame = null;
 
+  /* THE DEVICE BUDGET. See assets/js/perf-tier.js for how it is decided and
+     for the measurements behind it. A "full" client keeps every number
+     exactly as it shipped; weaker ones get fewer stars, fewer pixels, and
+     none of the neighbour-linking passes — which are the two O(n*k) loops
+     below and by far the most expensive part of this canvas. */
+  const perfTier = window.__perfTier || null;
+  const starCap = perfTier && perfTier.stars ? perfTier.stars : null;
+  const dprCap = perfTier && perfTier.maxDpr ? perfTier.maxDpr : 2;
+  const allowLinks = !perfTier || perfTier.links !== false;
+
+  /* The background wash was rebuilt with createRadialGradient on EVERY
+     frame. Gradient construction allocates and recomputes a colour ramp;
+     nothing about it changes between frames, only on resize. Cached. */
+  let bgGradient = null;
+
+  /* Starfield frame-time governor, armed only on a tiered-down client. The
+     raymarch has one; this loop never did, so a machine that could not
+     afford even the reduced starfield had no way out. Falls back to drawing
+     a single static frame, which keeps the hero looking composed rather
+     than empty. */
+  const governStar = !!(perfTier && perfTier.governStarfield);
+  let starTimes = [];
+  let starGoverned = false;
+  let starPrev = 0;
+  let starWarmUntil = 0;
+  let staticOnly = false;
+
   function makeStar() {
     const arm = Math.random() < 0.72;
     const angle = Math.random() * Math.PI * 2;
@@ -429,9 +456,10 @@
   }
 
   function resizeCanvas() {
-    pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+    pixelRatio = Math.min(window.devicePixelRatio || 1, dprCap);
     width = window.innerWidth;
     height = window.innerHeight;
+    bgGradient = null;
     canvas.width = Math.floor(width * pixelRatio);
     canvas.height = Math.floor(height * pixelRatio);
     canvas.style.width = `${width}px`;
@@ -440,8 +468,14 @@
 
     const baseCount = width < 700 ? 132 : 280;
     const densityCount = Math.floor((width * height) / 6200);
-    const count = reduceMotion ? Math.min(95, densityCount) : Math.min(width < 700 ? 190 : 420, Math.max(baseCount, densityCount));
-    const dustCount = reduceMotion ? 12 : (width < 700 ? 28 : 92);
+    let count = reduceMotion ? Math.min(95, densityCount) : Math.min(width < 700 ? 190 : 420, Math.max(baseCount, densityCount));
+    let dustCount = reduceMotion ? 12 : (width < 700 ? 28 : 92);
+    // The device budget only ever caps; it never raises a count above what
+    // this viewport would have chosen for itself.
+    if (starCap) {
+      count = Math.min(count, starCap);
+      dustCount = Math.min(dustCount, Math.max(8, Math.round(starCap / 6)));
+    }
     stars = Array.from({ length: count }, makeStar);
     dust = Array.from({ length: dustCount }, makeDust);
   }
@@ -501,7 +535,7 @@
   }
 
   function drawFilaments() {
-    if (reduceMotion || width < 720) return;
+    if (reduceMotion || width < 720 || !allowLinks) return;
     const maxDistance = 128;
     for (let i = 0; i < stars.length; i += 2) {
       const a = stars[i];
@@ -527,11 +561,13 @@
   function drawGalaxy() {
     ctx.clearRect(0, 0, width, height);
 
-    const gradient = ctx.createRadialGradient(width * 0.62, height * 0.34, 0, width * 0.62, height * 0.34, Math.max(width, height) * 0.55);
-    gradient.addColorStop(0, "rgba(125, 211, 252, 0.11)");
-    gradient.addColorStop(0.3, "rgba(167, 139, 250, 0.07)");
-    gradient.addColorStop(1, "rgba(3, 5, 11, 0)");
-    ctx.fillStyle = gradient;
+    if (!bgGradient) {
+      bgGradient = ctx.createRadialGradient(width * 0.62, height * 0.34, 0, width * 0.62, height * 0.34, Math.max(width, height) * 0.55);
+      bgGradient.addColorStop(0, "rgba(125, 211, 252, 0.11)");
+      bgGradient.addColorStop(0.3, "rgba(167, 139, 250, 0.07)");
+      bgGradient.addColorStop(1, "rgba(3, 5, 11, 0)");
+    }
+    ctx.fillStyle = bgGradient;
     ctx.fillRect(0, 0, width, height);
     drawDust();
     drawOrbitalArcs();
@@ -568,7 +604,7 @@
     ctx.globalAlpha = 1;
     drawFilaments();
 
-    if (!reduceMotion && width > 720) {
+    if (!reduceMotion && width > 720 && allowLinks) {
       for (let i = 0; i < stars.length; i += 1) {
         const a = stars[i];
         if (Math.abs(a.x - pointer.x) > 180 || Math.abs(a.y - pointer.y) > 180) continue;
@@ -591,10 +627,40 @@
       ctx.globalAlpha = 1;
     }
 
-    if (reduceMotion) {
+    if (reduceMotion || staticOnly) {
       frame = 0;
       return;
     }
+
+    /* GOVERNOR. Measures the interval between presented frames — same
+       reasoning as plate-field.js: self-timing this callback measures
+       almost nothing, because the cost lands in the compositor and in
+       rasterising the paths, not in the JS. Wall-clock throughout, so a
+       slow client is helped sooner rather than later. Armed only where the
+       budget says to; a "full" client is never policed and never changes. */
+    const nowMs = performance.now();
+    if (governStar && !starGoverned) {
+      if (!starWarmUntil) starWarmUntil = nowMs + 1000;
+      if (starPrev && nowMs > starWarmUntil) {
+        starTimes.push(nowMs - starPrev);
+        if (starTimes.length >= 12) {
+          const sorted = starTimes.slice().sort((a, b) => a - b);
+          const med = sorted[sorted.length >> 1];
+          starTimes.length = 0;
+          if (med > 34) {
+            starGoverned = true;
+            // One last pass at the smallest affordable size, then stop.
+            // Leaving a drawn frame up keeps the hero composed instead of
+            // dropping to flat black.
+            staticOnly = true;
+            frame = 0;
+            return;
+          }
+        }
+      }
+      starPrev = nowMs;
+    }
+
     frame = window.requestAnimationFrame(drawGalaxy);
   }
 
