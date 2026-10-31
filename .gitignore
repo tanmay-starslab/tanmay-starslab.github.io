@@ -13,5 +13,14 @@ package-lock.json
 .DS_Store
 .playwright-cli/
 
-# Ignore local editor/assistant tooling config
+# Tooling output, not site content — these are served verbatim by
+# GitHub Pages if committed, and neither belongs on the public site.
+#
+# Each comment is on its own line on purpose: git has no trailing-comment
+# syntax, so "pattern    # why" is read as a literal pattern containing the
+# spaces and the hash, and ignores nothing at all.
+#
+# taste-skill inspector output: screenshots and report.json, regenerated on every run
+.taste-skill/
+# serena language-server cache
 .serena/

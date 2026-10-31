@@ -23,7 +23,7 @@
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link rel="preload" href="assets/fonts/plate-display.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/plate-text.woff2" as="font" type="font/woff2" crossorigin>
-  <link href="assets/css/snapfolio-astro.css?v=2" rel="stylesheet">
+  <link href="assets/css/snapfolio-astro.css?v=7" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: SnapFolio
@@ -56,6 +56,7 @@
       }
     })();
   </script>
+  <script src="assets/js/analytics.js?v=1" async></script>
 </head>
 
 <body class="useful-links-page">
@@ -107,7 +108,6 @@
     <section class="section useful-hero" aria-labelledby="useful-title">
       <div class="container">
         <div class="section-heading reveal">
-          <p class="eyebrow">Useful Links</p>
           <h1 id="useful-title">Useful Links</h1>
           <p>A collection of astronomy, astrophysics, programming, graduate school, and personal website resources from the previous website.</p>
         </div>
@@ -277,7 +277,11 @@
 
   <a href="#main" class="scroll-top" aria-label="Back to top"><i class="bi bi-arrow-up-short" aria-hidden="true"></i></a>
 
-  <script src="assets/js/snapfolio-astro.js"></script>
+  <!-- This page runs the same sky canvas, so it gets the same device budget.
+       Synchronous and first, so the deferred cosmos.js reads it. -->
+  <script src="assets/js/perf-tier.js?v=2"></script>
+  <script src="assets/js/snapfolio-astro.js?v=3"></script>
+  <script src="assets/js/cosmos.js?v=2" defer></script>
 </body>
 
 </html>

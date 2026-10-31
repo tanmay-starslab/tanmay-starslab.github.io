@@ -24,6 +24,23 @@
   }
   if (motionOff()) return;
 
+  // NO USABLE GPU -> DO NOT START.
+  //
+  // Measured: on a software rasteriser this shader renders at 0.4fps with an
+  // unthrottled CPU, and ~1.2fps on a weak one. The governor below does
+  // eventually switch it off, but it reacts in proportion to how slow the
+  // machine is, so the reader sits through exactly the jank it exists to
+  // prevent. Returning here also skips compiling the shader, which is itself
+  // a multi-hundred-millisecond main-thread task on these clients.
+  //
+  // Only a POSITIVE identification of a software renderer (or no WebGL at
+  // all) stops us; an unknown renderer still gets the field, policed by the
+  // governor. See perf-tier.js.
+  // Named perfTier, not tier: this function already has a `tier` (the 1/2
+  // shader quality level) and `var` would have collided with it.
+  var perfTier = window.__perfTier;
+  if (perfTier && perfTier.gl === false) return;
+
   var host = document.getElementById("galaxy-canvas");
   if (!host || !host.parentNode) return;
 
@@ -82,6 +99,9 @@
     "uniform float uZoom;\n" +
     "uniform float uDepth;\n" +
     "uniform float uTrail;\n" +
+    // Per-visit offset into the noise field, so the filaments are laid out
+    // differently on every load (cosmos.js picks the seed; ?seed= reproduces).
+    "uniform vec3  uSeed;\n" +
 
     // sin-free hash: sin-based hashes visibly break on some Adreno and Mali parts.
     "vec3 hash33(vec3 p){ p = fract(p*vec3(0.1031,0.1030,0.0973));\n" +
@@ -117,8 +137,8 @@
     // the same peak density, 26% of the frame is true black sky, the 95th
     // percentile is 76/255 and the mean is 28/255. Filaments, and space between
     // them.
-    "  vec3 q = p + 0.5156*vec3(fbm(p+vec3(0,0,t*0.015),3), fbm(p+5.2,3), fbm(p+9.1,3));\n" +
-    "  float d = fbm(q*1.15,oct) - 0.63;\n" +
+    "  vec3 q = p + 0.5156*vec3(fbm(p+uSeed+vec3(0,0,t*0.015),3), fbm(p+uSeed+5.2,3), fbm(p+uSeed+9.1,3));\n" +
+    "  float d = fbm(q*1.15+uSeed,oct) - 0.63;\n" +
     "  d *= smoothstep(2.6,0.7,length(p.xy));\n" +
     "  return max(d,0.0)*3.2; }\n" +
 
@@ -213,7 +233,7 @@
   }
 
   var UNIFORMS =
-    ["uRes","uTime","uFrame","uSteps","uOct","uPointer","uExposure","uWarmth",
+    ["uRes","uTime","uFrame","uSteps","uOct","uPointer","uExposure","uWarmth","uSeed",
      "uZoom","uDepth","uTrail"];
   var prog = null, U = {};
   function build() {
@@ -269,6 +289,17 @@
   window.addEventListener("resize", resize, { passive: true });
   resize();
 
+  // The same visit seed cosmos.js uses for the sky and the merger (?seed=
+  // reproduces it), turned into an offset of a few tens of units into the
+  // noise field: far enough that no two visits share a filament.
+  var seedVec = (function () {
+    var m = /[?&]seed=(\d+)/.exec(window.location.search), n = m ? (+m[1]) >>> 0 : (window.__cosmosSeed >>> 0) || ((Math.random() * 4294967296) >>> 0);
+    function nx() { n = (Math.imul(n ^ (n >>> 15), 2246822507) + 0x9E3779B9) >>> 0; return n / 4294967296; }
+    return [nx() * 40, nx() * 40, nx() * 40];
+  })();
+  // Start each visit somewhere along the field's slow evolution, not at t = 0.
+  var timeOffset = seedVec[0] * 9;
+
   var pointer = { x: 0, y: 0 };
   function onPointer(e) {
     pointer.x = (e.clientX / window.innerWidth - 0.5) * 1.1;
@@ -289,7 +320,23 @@
   var frame = 0, rafId = 0, prevNow = 0, elapsed = 0, warmMs = 1200;
   var times = [], governed = false;
   var firstFrameDone = false;
-  var WINDOW = 20, TRIP_MS = 28;
+  var WINDOW = 12, TRIP_MS = 28;
+  // A frame this slow is not a measurement problem, it is a verdict. See the
+  // panic path in render(). 180ms is ~5.5fps: far outside anything a capable
+  // machine produces for a decorative shader, and well clear of a one-off
+  // hitch, which the consecutive-frame requirement handles anyway.
+  var PANIC_MS = 180, panic = 0;
+  // THE GOVERNOR'S OWN CLOCK, in real milliseconds.
+  //
+  // It must not be `elapsed`. That accumulates Math.min(delta, 50) so the
+  // animation cannot jump across a pause — correct for uTime, wrong for
+  // scheduling, because a client rendering at 866ms/frame advances it by only
+  // 50ms per frame. The warm-up gate then takes 24 frames (~21 real seconds)
+  // instead of 1.2, and the whole tier-2 -> tier-1 -> off ladder stretches to
+  // over a minute. The governor reacted in inverse proportion to how badly it
+  // was needed. warmUntil is wall-clock, so the ladder now completes in about
+  // the same couple of seconds no matter how slow the machine is.
+  var wallWarmUntil = 0;
 
   function render(now) {
     rafId = 0;
@@ -302,7 +349,7 @@
 
     gl.useProgram(prog);
     gl.uniform2f(U.uRes, canvas.width, canvas.height);
-    gl.uniform1f(U.uTime, elapsed * 0.001);
+    gl.uniform1f(U.uTime, timeOffset + elapsed * 0.001);
     gl.uniform1i(U.uFrame, frame % 64);
     gl.uniform1i(U.uSteps, STEPS[tier]);
     gl.uniform1i(U.uOct, OCT[tier]);
@@ -340,6 +387,7 @@
     gl.uniform1f(U.uZoom, camZoom);
     gl.uniform1f(U.uDepth, camDepth);
     gl.uniform1f(U.uTrail, camTrail);
+    gl.uniform3f(U.uSeed, seedVec[0], seedVec[1], seedVec[2]);
     gl.clearColor(0, 0, 0, 1);
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.drawArrays(gl.TRIANGLES, 0, 3);   // no buffers, no attributes, no blending
@@ -368,15 +416,43 @@
     // Re-arms after a tier drop, so tier 2 -> tier 1 -> off is reachable. A
     // one-shot `governed` flag made the final give-up unreachable on any
     // machine that started at tier 2, i.e. every desktop.
-    if (!governed && prevNow && elapsed > warmMs) {
+    if (!wallWarmUntil) wallWarmUntil = now + warmMs;
+    if (!governed && prevNow) {
+      var dt = now - prevNow;
+      // THE PANIC PATH, for a client that is not merely slow but hopeless.
+      //
+      // The median-of-WINDOW test below needs 12 frames per rung, twice. That
+      // is quick when frames cost 30ms and useless when they cost 800ms: on a
+      // software rasteriser the full ladder took ~22 real seconds even after
+      // the clock was fixed, and the reader spends all of it at ~1fps.
+      //
+      // A frame that takes longer than PANIC_MS is already proof on its own —
+      // no median is going to rescue a number like that. Three CONSECUTIVE
+      // such frames are required, and any healthy frame resets the count, so
+      // an isolated GC pause or a compositor hiccup on a capable machine
+      // cannot trip it. At 1fps this means relief in about three seconds
+      // instead of twenty-two.
+      if (dt > PANIC_MS) {
+        panic++;
+        if (panic >= 3) {
+          panic = 0;
+          times.length = 0;
+          if (tier > 1) { tier = 1; wallWarmUntil = now + 400; }
+          else { governedGiveUp(); return; }
+        }
+      } else if (panic) {
+        panic = 0;
+      }
+    }
+    if (!governed && prevNow && now > wallWarmUntil) {
       times.push(now - prevNow);
       if (times.length >= WINDOW) {
         var sorted = times.slice().sort(function (a, b) { return a - b; });
         var med = sorted[sorted.length >> 1];
         times.length = 0;
         if (med > TRIP_MS) {
-          if (tier > 1) { tier = 1; warmMs = elapsed + 800; }
-          else { governed = true; giveUp(); return; }
+          if (tier > 1) { tier = 1; wallWarmUntil = now + 800; }
+          else { governedGiveUp(); return; }
         }
       }
     }
@@ -400,6 +476,16 @@
     // strictly worse than not recovering at all.
     firstFrameDone = false;
   }
+  // Frame-time give-up, as distinct from a context loss or the motion
+  // toggle: only THIS one is evidence about the machine, so only this one
+  // tells perf-tier.js to apply the software-class CSS degradation. A lost
+  // context says nothing about how fast the client is.
+  function governedGiveUp() {
+    governed = true;
+    if (typeof window.__perfDowngrade === "function") window.__perfDowngrade("plate-field");
+    giveUp();
+  }
+
   function giveUp() {
     if (dead) return;
     dead = true;
