@@ -24,6 +24,23 @@
   }
   if (motionOff()) return;
 
+  // NO USABLE GPU -> DO NOT START.
+  //
+  // Measured: on a software rasteriser this shader renders at 0.4fps with an
+  // unthrottled CPU, and ~1.2fps on a weak one. The governor below does
+  // eventually switch it off, but it reacts in proportion to how slow the
+  // machine is, so the reader sits through exactly the jank it exists to
+  // prevent. Returning here also skips compiling the shader, which is itself
+  // a multi-hundred-millisecond main-thread task on these clients.
+  //
+  // Only a POSITIVE identification of a software renderer (or no WebGL at
+  // all) stops us; an unknown renderer still gets the field, policed by the
+  // governor. See perf-tier.js.
+  // Named perfTier, not tier: this function already has a `tier` (the 1/2
+  // shader quality level) and `var` would have collided with it.
+  var perfTier = window.__perfTier;
+  if (perfTier && perfTier.gl === false) return;
+
   var host = document.getElementById("galaxy-canvas");
   if (!host || !host.parentNode) return;
 
@@ -303,7 +320,23 @@
   var frame = 0, rafId = 0, prevNow = 0, elapsed = 0, warmMs = 1200;
   var times = [], governed = false;
   var firstFrameDone = false;
-  var WINDOW = 20, TRIP_MS = 28;
+  var WINDOW = 12, TRIP_MS = 28;
+  // A frame this slow is not a measurement problem, it is a verdict. See the
+  // panic path in render(). 180ms is ~5.5fps: far outside anything a capable
+  // machine produces for a decorative shader, and well clear of a one-off
+  // hitch, which the consecutive-frame requirement handles anyway.
+  var PANIC_MS = 180, panic = 0;
+  // THE GOVERNOR'S OWN CLOCK, in real milliseconds.
+  //
+  // It must not be `elapsed`. That accumulates Math.min(delta, 50) so the
+  // animation cannot jump across a pause — correct for uTime, wrong for
+  // scheduling, because a client rendering at 866ms/frame advances it by only
+  // 50ms per frame. The warm-up gate then takes 24 frames (~21 real seconds)
+  // instead of 1.2, and the whole tier-2 -> tier-1 -> off ladder stretches to
+  // over a minute. The governor reacted in inverse proportion to how badly it
+  // was needed. warmUntil is wall-clock, so the ladder now completes in about
+  // the same couple of seconds no matter how slow the machine is.
+  var wallWarmUntil = 0;
 
   function render(now) {
     rafId = 0;
@@ -383,14 +416,42 @@
     // Re-arms after a tier drop, so tier 2 -> tier 1 -> off is reachable. A
     // one-shot `governed` flag made the final give-up unreachable on any
     // machine that started at tier 2, i.e. every desktop.
-    if (!governed && prevNow && elapsed > warmMs) {
+    if (!wallWarmUntil) wallWarmUntil = now + warmMs;
+    if (!governed && prevNow) {
+      var dt = now - prevNow;
+      // THE PANIC PATH, for a client that is not merely slow but hopeless.
+      //
+      // The median-of-WINDOW test below needs 12 frames per rung, twice. That
+      // is quick when frames cost 30ms and useless when they cost 800ms: on a
+      // software rasteriser the full ladder took ~22 real seconds even after
+      // the clock was fixed, and the reader spends all of it at ~1fps.
+      //
+      // A frame that takes longer than PANIC_MS is already proof on its own —
+      // no median is going to rescue a number like that. Three CONSECUTIVE
+      // such frames are required, and any healthy frame resets the count, so
+      // an isolated GC pause or a compositor hiccup on a capable machine
+      // cannot trip it. At 1fps this means relief in about three seconds
+      // instead of twenty-two.
+      if (dt > PANIC_MS) {
+        panic++;
+        if (panic >= 3) {
+          panic = 0;
+          times.length = 0;
+          if (tier > 1) { tier = 1; wallWarmUntil = now + 400; }
+          else { governed = true; giveUp(); return; }
+        }
+      } else if (panic) {
+        panic = 0;
+      }
+    }
+    if (!governed && prevNow && now > wallWarmUntil) {
       times.push(now - prevNow);
       if (times.length >= WINDOW) {
         var sorted = times.slice().sort(function (a, b) { return a - b; });
         var med = sorted[sorted.length >> 1];
         times.length = 0;
         if (med > TRIP_MS) {
-          if (tier > 1) { tier = 1; warmMs = elapsed + 800; }
+          if (tier > 1) { tier = 1; wallWarmUntil = now + 800; }
           else { governed = true; giveUp(); return; }
         }
       }
