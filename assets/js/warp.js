@@ -24,6 +24,20 @@
   var rm = window.matchMedia("(prefers-reduced-motion: reduce)");
   if (rm.matches || root.classList.contains("motion-off")) return;
 
+  /* DEVICE BUDGET — see assets/js/perf-tier.js.
+
+     This is a fixed, full-viewport canvas composited with
+     mix-blend-mode: screen and repainted on every scrolled frame. A blend
+     mode over the whole viewport is one of the most expensive things to
+     rasterise in software, and it buys a decorative flight effect. On a
+     client with no usable GPU it does not run at all — which is also what
+     a reduced-motion reader already gets, two lines above.
+
+     A capable machine is untouched; a merely weak one keeps it with fewer
+     streaks, because the cost there is CPU and scales with N. */
+  var perfTier = window.__perfTier || null;
+  if (perfTier && perfTier.name === "minimal") return;
+
   var canvas = document.createElement("canvas");
   if (!canvas.getContext) return;
   var ctx = canvas.getContext("2d");
@@ -41,6 +55,7 @@
   // Sparse on purpose: a few hundred streaks read as flight; more read as noise
   // across the text.
   var N = (COARSE || window.innerWidth < 760) ? 150 : 260;
+  if (perfTier && perfTier.name === "reduced") N = Math.min(N, 90);
   var DEPTH = 1000, NEAR = 8;
   var TRAVEL = DEPTH * 1.8;      // depth units per second at full warp
   var TRAIL = 0.035;             // a streak is where the star was this many seconds ago

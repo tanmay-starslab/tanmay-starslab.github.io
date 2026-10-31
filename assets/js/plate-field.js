@@ -438,7 +438,7 @@
           panic = 0;
           times.length = 0;
           if (tier > 1) { tier = 1; wallWarmUntil = now + 400; }
-          else { governed = true; giveUp(); return; }
+          else { governedGiveUp(); return; }
         }
       } else if (panic) {
         panic = 0;
@@ -452,7 +452,7 @@
         times.length = 0;
         if (med > TRIP_MS) {
           if (tier > 1) { tier = 1; wallWarmUntil = now + 800; }
-          else { governed = true; giveUp(); return; }
+          else { governedGiveUp(); return; }
         }
       }
     }
@@ -476,6 +476,16 @@
     // strictly worse than not recovering at all.
     firstFrameDone = false;
   }
+  // Frame-time give-up, as distinct from a context loss or the motion
+  // toggle: only THIS one is evidence about the machine, so only this one
+  // tells perf-tier.js to apply the software-class CSS degradation. A lost
+  // context says nothing about how fast the client is.
+  function governedGiveUp() {
+    governed = true;
+    if (typeof window.__perfDowngrade === "function") window.__perfDowngrade("plate-field");
+    giveUp();
+  }
+
   function giveUp() {
     if (dead) return;
     dead = true;

@@ -41,6 +41,22 @@
   var rmQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
   function motionOff() { return rmQuery.matches || root.classList.contains("motion-off"); }
 
+  /* DEVICE BUDGET — see assets/js/perf-tier.js for how it is decided.
+
+     This file runs an N-body encounter: 3600 main particles plus 260 dwarfs,
+     sub-stepped, re-projected and redrawn every frame. Measured on the live
+     page, a client with no usable GPU sat at 0.5-5.5fps with up to 27s of
+     total blocking time, and this loop is a large part of that.
+
+     On such a client the simulation does not run at all. That is not a new
+     code path: reduced-motion readers already get "the same random sky and
+     one still frame of the merger", which is a composed, finished-looking
+     hero. Weak clients now get exactly that too, so they see the sky rather
+     than a slideshow of it. A capable machine is untouched. */
+  var perfTier = window.__perfTier || null;
+  var tierName = perfTier ? perfTier.name : "full";
+  var staticSky = tierName === "minimal";
+
   // ---- seed --------------------------------------------------------------
   var seed = (function () {
     var m = /[?&]seed=(\d+)/.exec(window.location.search);
@@ -126,7 +142,8 @@
   function drawSky() {
     var W = window.innerWidth, H = window.innerHeight;
     if (!W || !H) return;
-    var scale = Math.min(window.devicePixelRatio || 1, 1.5);
+    // Fewer pixels is the cheapest win on a weak client; the budget caps it.
+    var scale = Math.min(window.devicePixelRatio || 1, 1.5, perfTier ? perfTier.maxDpr : 1.5);
     skyCanvas.width = Math.round(W * scale);
     skyCanvas.height = Math.round(H * scale);
     var c = skyCanvas.getContext("2d", { alpha: false });
@@ -227,6 +244,10 @@
   var lowCore = (navigator.hardwareConcurrency || 8) <= 4;
   var MAIN_N = (COARSE || lowCore || window.innerWidth < 760) ? 1500 : 3600;
   var DWARF_N = (COARSE || lowCore) ? 140 : 260;
+  // The budget only ever caps. A still frame still has to look like a galaxy,
+  // so the static tier keeps enough particles to read as one.
+  if (tierName === "reduced") { MAIN_N = Math.min(MAIN_N, 900); DWARF_N = Math.min(DWARF_N, 90); }
+  else if (staticSky) { MAIN_N = Math.min(MAIN_N, 600); DWARF_N = Math.min(DWARF_N, 60); }
   var DWARF_SLOTS = 3;
   var TOTAL = MAIN_N + DWARF_N * DWARF_SLOTS;
   var EPS2 = 0.15 * 0.15, KAPPA = 0.25, SPEED = 0.34;
@@ -390,7 +411,7 @@
 
   function layout() {
     W = window.innerWidth; H = window.innerHeight;
-    dpr = Math.min(window.devicePixelRatio || 1, COARSE ? 1.5 : 2);
+    dpr = Math.min(window.devicePixelRatio || 1, COARSE ? 1.5 : 2, perfTier ? perfTier.maxDpr : 2);
     skyHost.width = Math.round(W * dpr); skyHost.height = Math.round(H * dpr);
     skyHost.style.width = W + "px"; skyHost.style.height = H + "px";
     measure();
@@ -545,12 +566,19 @@
   }
 
   // ---- loop -------------------------------------------------------------------
-  var frozen = motionOff(), rafId = 0, prev = 0, shown = !document.hidden, times = [], governed = false;
+  var frozen = motionOff() || staticSky, rafId = 0, prev = 0, shown = !document.hidden, times = [], governed = false;
+  // Governor state. `warmUntil` and the samples are WALL-CLOCK: the old test
+  // fed it dtMs, which is clamped to 50ms, and needed 91 samples before it
+  // would act — about 45 real seconds at 2fps, i.e. it reacted slowest on the
+  // machines that needed it most. It also only ever halved the stars once,
+  // with no further relief if that was not enough.
+  var warmUntil = 0, panic = 0, halved = false;
 
   function frame(now) {
     rafId = 0;
     if (frozen || !shown) return;
-    var dtMs = prev ? Math.min(now - prev, 50) : 16.7; prev = now;
+    var rawDt = prev ? now - prev : 16.7;
+    var dtMs = Math.min(rawDt, 50); prev = now;
     view.yaw += (aim.yaw - view.yaw) * 0.04; view.pitch += (aim.pitch - view.pitch) * 0.04;
 
     var simDt = dtMs / 1000 * SPEED;
@@ -567,21 +595,62 @@
     draw(fade * scrollFade);
     drawMeteors(now);
 
-    // Frame-time governor, as in plate-field.js: if this is hurting the page,
-    // halve the stars rather than drop frames.
-    times.push(dtMs);
-    if (times.length > 90) {
-      times.shift();
-      if (!governed) {
-        var sorted = times.slice().sort(function (p, q) { return p - q; });
-        if (sorted[45] > 24) { governed = true; for (var k = 1; k < MAIN_N; k += 2) live[k] = 0; }
+    // Frame-time governor, matching plate-field.js: if this is hurting the
+    // page, halve the stars rather than drop frames — and if halving is not
+    // enough, settle to the still frame instead of limping forever.
+    if (!governed) {
+      if (!warmUntil) warmUntil = now + 1200;
+
+      // Panic path: a frame this slow is a verdict, not a sample. Three
+      // CONSECUTIVE of them, so one GC pause on a capable machine is ignored.
+      if (rawDt > 180) {
+        panic++;
+        if (panic >= 3) {
+          panic = 0; times.length = 0;
+          if (!halved) { halved = true; thinStars(); warmUntil = now + 600; }
+          else { governed = true; settle(); return; }
+        }
+      } else if (panic) { panic = 0; }
+
+      if (now > warmUntil) {
+        times.push(rawDt);
+        if (times.length >= 24) {
+          var sorted = times.slice().sort(function (p, q) { return p - q; });
+          var med = sorted[sorted.length >> 1];
+          times.length = 0;
+          if (med > 24) {
+            if (!halved) { halved = true; thinStars(); warmUntil = now + 600; }
+            else { governed = true; settle(); return; }
+          }
+        }
       }
     }
     rafId = window.requestAnimationFrame(frame);
   }
   function start() { if (!rafId && !frozen && shown) { prev = 0; rafId = window.requestAnimationFrame(frame); } }
 
-  window.__startGalaxy = function () { frozen = motionOff(); if (!frozen) start(); };
+  // Halve the main population. Kept as a function so the governor's two
+  // entry points (panic and median) cannot drift apart.
+  function thinStars() { for (var k = 1; k < MAIN_N; k += 2) live[k] = 0; }
+
+  // Stop animating and leave the last drawn frame up. The hero keeps a
+  // composed sky rather than going blank — the same end state a
+  // reduced-motion reader gets, reached by measurement instead of a setting.
+  function settle() {
+    frozen = true;
+    if (rafId) { window.cancelAnimationFrame(rafId); rafId = 0; }
+    // Reached only by measurement, so it is also evidence about the client:
+    // tell perf-tier.js, which applies the software-class CSS degradation
+    // that the renderer check could not when the string was hidden.
+    if (typeof window.__perfDowngrade === "function") window.__perfDowngrade("cosmos");
+  }
+
+  // Respects the budget as well as the toggle: a weak client must not be
+  // started by the intro handing control over.
+  window.__startGalaxy = function () {
+    frozen = motionOff() || staticSky || governed;
+    if (!frozen) start();
+  };
 
   function stillFrame() {
     ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, skyHost.width, skyHost.height);

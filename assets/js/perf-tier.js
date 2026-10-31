@@ -131,6 +131,37 @@
 
   window.__perfTier = tier;
 
+  /* MEASURED FALLBACK, for when the renderer string is not available.
+
+     Detection above is deliberately conservative: a privacy-hardened
+     browser (Firefox under resistFingerprinting) hides
+     WEBGL_debug_renderer_info, so glKnown stays false and data-gpu is never
+     set — correct, because guessing "software" would strip the page from
+     capable readers. But a client that IS rendering in software and hides
+     the string then got only half the treatment: the frame-time governors
+     would remove the WebGL field and settle the sky, while the seven
+     infinite CSS animations kept running, which this change measured at
+     8.6fps on their own. The reader stayed stuck there indefinitely.
+
+     So the governors call this when they conclude, by measurement, that the
+     machine cannot sustain the page. It flips the same attribute the
+     renderer check would have set, which is what the CSS keys off — so the
+     animations stop and the glass falls back, by evidence rather than by
+     prediction. Idempotent, and it never un-sets a hardware verdict. */
+  window.__perfDowngrade = function (reason) {
+    var t = window.__perfTier;
+    if (!t || t.downgraded) return;
+    t.downgraded = true;
+    t.softwareGL = true;
+    t.name = "minimal";
+    t.links = false;
+    t.reasons.push("measured:" + (reason || "frame-time"));
+    try {
+      document.documentElement.setAttribute("data-gpu", "software");
+      document.documentElement.setAttribute("data-perf-tier", "minimal");
+    } catch (e) {}
+  };
+
   // A hook for the page and for measurement: lets CSS and a probe see the
   // decision without re-deriving it.
   try {
