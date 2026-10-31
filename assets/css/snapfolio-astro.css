@@ -352,11 +352,17 @@ strong {
 
 html {
   scroll-padding-top: 30px;
+  /* The ground belongs on the root element, not only on the fixed layers that
+     paint over it. Measured before this: html and body both computed
+     rgba(0, 0, 0, 0), so the entire dark page was those layers — and anything
+     outside them (rubber-band overscroll on iOS, the area beyond a short page)
+     fell through to the browser's own canvas. */
+  background-color: var(--ink-void);
 }
 
 body {
   position: relative;
-  min-height: 100vh;
+  min-height: 100svh;
   margin: 0;
   color: var(--text);
   background:
@@ -486,6 +492,42 @@ img {
   mix-blend-mode: screen;
 }
 
+/* THE NIGHT SKY. cosmos.js draws a new sky on every visit (Milky Way band,
+   dust lanes, nebulae, black-body-coloured stars) and inserts this canvas
+   right after the photograph. It sits under the contrast shade exactly where
+   the photograph did; the photograph stays as the no-script fallback and
+   fades out once the drawn sky is ready. The pointer parallax reuses the
+   --parallax-* properties snapfolio-astro.js already writes. */
+#sky-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0;
+  filter: brightness(1.3) contrast(1.1);
+  transform: translate3d(calc(var(--parallax-x, 0) * -0.55px), calc(var(--parallax-y, 0) * -0.55px), 0) scale(1.03);
+  transition: opacity 1200ms var(--ease-out);
+}
+
+html.sky-ready #sky-canvas { opacity: 1; }
+html.sky-ready .cosmic-image-bg { opacity: 0; transition: opacity 1200ms var(--ease-out); }
+
+/* THE WARP. warp.js inserts this just under the merger. It is empty at rest
+   and draws only while the page is being scrolled, so it needs no fade of its
+   own; reduced motion never creates it. */
+#warp-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
 .cosmic-vignette {
   position: fixed;
   inset: 0;
@@ -547,7 +589,7 @@ img {
   -webkit-backdrop-filter: blur(24px);
   transform-origin: center center;
   transition:
-    transform 2s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 900ms cubic-bezier(0.22, 1, 0.36, 1),
     opacity 620ms ease,
     background 260ms ease,
     border-color 260ms ease,
@@ -563,7 +605,10 @@ html.intro-moving .header-container {
 }
 
 html.intro-hold .header-container {
-  transform: translate3d(calc(50vw - (var(--header-width) / 2)), 0, 0) scale(1.12);
+  /* 1.04, not 1.12. With the scrim up the slab is the only lit thing on screen,
+     and a slab blown up by an eighth over a black field reads as a splash
+     screen. The small scale reads as depth instead. */
+  transform: translate3d(calc(50vw - (var(--header-width) / 2)), 0, 0) scale(1.04);
 }
 
 html.intro-moving .header-container,
@@ -575,9 +620,60 @@ html.intro-skipped .header-container {
   transition-duration: 560ms;
 }
 
-/* The intro no longer touches page content. The header's entrance plays over
-   a page that is already painted and readable, so first contentful paint and
-   LCP are never delayed by it. */
+/* ── the arrival scrim ───────────────────────────────────────────────────
+   This is what makes the intro an entrance rather than an exit. Before it, the
+   page sat fully painted and fully lit while a dark slab slid off it: the slab
+   and the page had no relationship, and the move read as something leaving
+   rather than something arriving.
+
+   Now the field is held back and resolves as the slab travels, so the one
+   gesture does both jobs. It is a flat tone lift, not a backdrop blur: blur is
+   the device this page already overuses (57 blurred surfaces measured) and the
+   one most likely to read as generated.
+
+   Cost, stated honestly: this does hold the page back about 1.4s on a first
+   visit, which the previous version deliberately did not. Any key, click,
+   wheel or touch skips it, prefers-reduced-motion never arms it, and the page's
+   own motion toggle never arms it. */
+#intro-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 990;        /* over .main (5) and .deep-grain (6);
+                          under .scroll-top (996) and the slab itself (997) */
+  background-color: var(--ink-void);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  /* The transition lives HERE, on the resting state, not on the moving state.
+     With it declared only under .intro-moving, the scrim lost its transition
+     the instant .intro-complete replaced that class — and since the completion
+     timer can land before the fade has finished, the scrim snapped from full
+     to nothing. Measured: opacity 1.00 at 900ms, 0.00 at 1200ms, with no
+     intermediate frame. On the resting rule every state change animates,
+     including the one that ends the intro.
+     visibility is delayed past the fade so it cannot clip it. */
+  transition:
+    opacity 860ms cubic-bezier(0.22, 1, 0.36, 1) 90ms,
+    visibility 0s linear 950ms;
+}
+html.intro-hold #intro-scrim {
+  opacity: 1;
+  visibility: visible;
+  transition: none;    /* the first frame must already be covered */
+}
+html.intro-moving #intro-scrim {
+  opacity: 0;
+  visibility: visible;
+}
+html.intro-skipped #intro-scrim {
+  transition:
+    opacity 280ms ease,
+    visibility 0s linear 280ms;
+}
+
+/* The intro does not touch page CONTENT: no element is transformed or hidden,
+   so first contentful paint and LCP are never delayed by a layout the script
+   has to undo. The scrim covers; it does not move anything. */
 
 .brand-lockup {
   display: grid;
@@ -644,7 +740,7 @@ html.intro-skipped .header-container {
 
 .brand-lockup small {
   color: var(--muted);
-  font-size: 0.75rem;
+  font-size: 0.82rem;
 }
 
 .navmenu ul {
@@ -775,24 +871,12 @@ html.intro-skipped .header-container {
   font-size: 1.06rem;
 }
 
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  margin-bottom: 14px;
-  color: var(--accent);
-  font-size: 0.78rem;
-  font-weight: 850;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.eyebrow::before {
-  width: 30px;
-  height: 1px;
-  content: "";
-  background: linear-gradient(90deg, var(--accent), var(--accent-2));
-}
+/* .eyebrow is deleted, markup and rule together. It put a tiny uppercase
+   letter-spaced label in the accent colour above every heading, introduced by
+   a 1px gradient rule — four separate generated-page tells stacked in one
+   element, repeated nine times. Every instance also said what the heading
+   underneath it already said ("About" over "Academic background and current
+   focus."), so nothing was lost by removing them. */
 
 .eyebrow a,
 .hero-subtitle a,
@@ -817,7 +901,7 @@ html.intro-skipped .header-container {
 .hero {
   display: flex;
   align-items: center;
-  min-height: 100vh;
+  min-height: 100svh;
   padding: 92px 0;
   overflow: hidden;
 }
@@ -903,9 +987,13 @@ html.intro-skipped .header-container {
 
 .hero-role {
   margin-bottom: 18px;
-  color: var(--accent-3);
-  font-size: clamp(1.2rem, 2.8vw, 2.15rem);
-  font-weight: 700;
+  /* Was --accent-3 (magenta) at up to 34px, which put a third accent hue on the
+     first screen next to the cyan actions and the portrait's rim, and wrapped
+     to two lines at 1440. It is a subtitle, so it is set as one. */
+  color: var(--ink-text-2);
+  font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+  font-weight: 500;
+  letter-spacing: 0.01em;
 }
 
 .hero-subtitle {
@@ -943,21 +1031,10 @@ html.intro-skipped .header-container {
   transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease, background 220ms ease;
 }
 
-.btn::before {
-  position: absolute;
-  inset: 0;
-  content: "";
-  background: linear-gradient(110deg, transparent 0%, rgba(255, 255, 255, 0.32) 48%, transparent 100%);
-  opacity: 0;
-  transform: translateX(-120%);
-  transition: transform 520ms ease, opacity 220ms ease;
-}
-
-.btn:hover::before {
-  opacity: 1;
-  transform: translateX(120%);
-}
-
+/* The shine sweep is deleted. A white gradient travelling across a button on
+   hover is pure template ornament: it says nothing about the control and
+   appears on roughly every generated landing page. The lift and the tone step
+   are the feedback. */
 .btn i,
 .btn span {
   position: relative;
@@ -966,15 +1043,17 @@ html.intro-skipped .header-container {
 
 .btn-primary {
   color: #041019;
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  background: var(--accent);
   border: 0;
-  box-shadow: 0 20px 44px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.2);
 }
 
 .btn-primary:hover {
   color: #041019;
   transform: translateY(-2px);
-  box-shadow: 0 24px 58px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.28), 0 0 28px oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.18);
+  /* A tone step, not a glow. The old rule stacked a 135deg gradient fill, a
+     44px cyan drop glow and a second violet glow on hover — three ornaments on
+     the one element a reader is most likely to look at. */
+  background: color-mix(in oklab, var(--accent) 86%, white);
 }
 
 .btn-outline {
@@ -999,6 +1078,33 @@ html.intro-skipped .header-container {
   border-bottom: 1px solid oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.28);
   overflow-wrap: anywhere;
 }
+
+/* This visit's encounter, written by cosmos.js, and the one control for it. */
+.sky-note {
+  max-width: 58ch;
+  margin: 22px 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.sky-drop {
+  display: inline;
+  margin: 0 0 0 0.35em;
+  padding: 0;
+  font: inherit;
+  color: var(--accent);
+  background: none;
+  border: 0;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  transition: color 180ms ease;
+}
+
+.sky-drop:hover { color: var(--accent-3); }
+.sky-drop:active { color: var(--text); }
 
 .hero-portrait {
   position: relative;
@@ -1102,12 +1208,35 @@ html.intro-skipped .header-container {
 
 .card-kicker {
   display: block;
+  margin-bottom: 0.35rem;
   color: var(--muted);
-  font-size: 0.78rem;
-  font-weight: 850;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0;
 }
+
+/* ═══════════════════════════════════════════ A DECISION, NOT AN OVERSIGHT
+   The glass recipe below fails three of the taste skill's house rules —
+   gradient, shadow and glass — and it stays anyway. Tanmay was shown the
+   measurement (29 blurred surfaces, 26 shadows at rest, 36 gradients, nearly
+   every remaining failure on the page) together with the argument for removing
+   it, and chose to keep it: stripping the recipe is what turns a dense page
+   into a thin one, and that trade has already been made once on this site and
+   reverted.
+
+   So the gate is run as
+
+       node <skill>/scripts/inspect.mjs index.html --allow gradient,shadow,glass
+
+   which keeps every other rule live. Do not silence those three any other way,
+   and do not quietly delete this recipe to make a report go green — the report
+   is green on them because someone decided, and the decision is recorded here
+   so the next reader can disagree with it on purpose rather than by accident.
+
+   What this costs, stated plainly: glass is currently the single strongest
+   signal that a page was generated rather than designed. Removing it is the
+   largest remaining move available on this page, and it is available whenever
+   he wants it. */
 
 /* ─────────────────────────────── the glass recipe
    saturate() on the BACKDROP is the whole trick. On a near-black page a plain
@@ -1409,9 +1538,9 @@ html.intro-skipped .header-container {
 
 .fact-grid dt {
   color: var(--muted);
-  font-size: 0.78rem;
+  font-size: 0.84rem;
   font-weight: 850;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 .fact-grid dd {
@@ -1458,48 +1587,30 @@ html.intro-skipped .header-container {
   margin-top: 20px;
 }
 
+/* These name real things — datasets, codes, instruments — so the words stay.
+   What goes is the packaging: the old rule put a 145deg gradient, a 1px accent
+   outline, an inset highlight, a 12px backdrop blur and a 999px pill radius on
+   every one, then rotated the accent hue through four values by nth-child. Five
+   ornaments and a colour lottery, repeated about twenty-five times down the
+   page, on text that is one or two words long. A flat tone step reads as the
+   same group of things and asks for none of that. */
 .tag-cloud span {
-  --tag-accent: var(--accent);
   display: inline-flex;
   align-items: center;
-  min-height: 32px;
-  padding: 6px 10px;
-  color: #dbeafe;
-  font-size: 0.82rem;
-  font-weight: 700;
-  background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.025)),
-    color-mix(in oklab, var(--tag-accent) 12%, transparent);
-  border: 1px solid color-mix(in oklab, var(--tag-accent) 32%, transparent);
-  border-radius: 999px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.13);
-  backdrop-filter: blur(12px);
-  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, color 180ms ease;
-}
-
-.tag-cloud span:nth-child(2n) {
-  --tag-accent: var(--accent-2);
-}
-
-.tag-cloud span:nth-child(3n) {
-  --tag-accent: var(--green);
-}
-
-.tag-cloud span:nth-child(4n) {
-  --tag-accent: var(--accent-3);
-}
-
-.project-card .tag-cloud span:nth-child(4n + 1) {
-  --tag-accent: var(--gold);
+  min-height: 30px;
+  padding: 5px 10px;
+  color: var(--ink-text-2);
+  font-size: 0.86rem;
+  font-weight: 500;
+  background: color-mix(in oklab, var(--ink-text) 8%, transparent);
+  border: 0;
+  border-radius: 4px;
+  transition: background 180ms ease, color 180ms ease;
 }
 
 .tag-cloud span:hover {
-  color: #ffffff;
-  border-color: color-mix(in oklab, var(--tag-accent) 54%, transparent);
-  background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.04)),
-    color-mix(in oklab, var(--tag-accent) 18%, transparent);
-  transform: translateY(-1px);
+  background: color-mix(in oklab, var(--ink-text) 14%, transparent);
+  color: var(--ink-text);
 }
 
 .project-mosaic {
@@ -1583,13 +1694,13 @@ html.intro-skipped .header-container {
 .publication-meta span {
   padding: 6px 10px;
   color: var(--accent);
-  font-size: 0.78rem;
+  font-size: 0.84rem;
   font-weight: 850;
   background: oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.09);
   border: 1px solid oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.22);
   border-radius: 999px;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.11);
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 .publication-card p {
@@ -1611,14 +1722,16 @@ html.intro-skipped .header-container {
   color: #06121f;
   font-size: 0.85rem;
   font-weight: 850;
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  border-radius: 999px;
-  box-shadow: 0 12px 28px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.16);
+  /* Flat accent. Was a 135deg two-hue gradient under a 28px cyan drop glow,
+     and the hover swapped in a THIRD hue — the same small link rendered in up
+     to three accent colours depending on state. */
+  background: var(--accent);
+  border-radius: 4px;
 }
 
 .chip-link:hover {
   color: #06121f;
-  background: linear-gradient(135deg, var(--accent-3), var(--accent));
+  background: color-mix(in oklab, var(--accent) 86%, white);
   transform: translateY(-2px);
 }
 
@@ -1718,11 +1831,7 @@ html.intro-skipped .header-container {
   padding: clamp(22px, 3vw, 30px);
 }
 
-.teaching-panel .eyebrow {
-  margin-bottom: 10px;
-}
-
-.teaching-panel h3 {
+.teaching-panel.teaching-panel h3 {
   font-size: clamp(1.45rem, 2.4vw, 2.2rem);
 }
 
@@ -1766,7 +1875,7 @@ html.intro-skipped .header-container {
 }
 
 .useful-main {
-  min-height: 100vh;
+  min-height: 100svh;
 }
 
 .useful-hero {
@@ -1796,7 +1905,7 @@ html.intro-skipped .header-container {
   margin: 20px 0 10px;
   color: var(--accent-3);
   font-size: 1rem;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 .link-section p {
@@ -1841,9 +1950,9 @@ html.intro-skipped .header-container {
 
 .contact-tile span {
   color: var(--muted);
-  font-size: 0.78rem;
+  font-size: 0.84rem;
   font-weight: 850;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 .contact-tile strong {
@@ -1852,7 +1961,10 @@ html.intro-skipped .header-container {
 
 .site-footer {
   padding: 28px 0 42px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  /* A 1130px hairline across the foot of the page, replaced by the two things
+     that separate without drawing: a step in ground tone, and room. */
+  background: color-mix(in oklab, var(--ink-void) 70%, transparent);
+  padding-top: 2.75rem;
 }
 
 .site-footer p {
@@ -1995,6 +2107,10 @@ html.js-reveal .reveal.is-visible {
     opacity: 0.06;
   }
 
+  html.sky-ready #sky-canvas {
+    opacity: 0.6;
+  }
+
   .cosmic-image-shade {
     background:
       radial-gradient(circle at 50% 30%, rgba(2, 3, 4, 0.36), rgba(2, 3, 4, 0.9) 68%),
@@ -2112,17 +2228,6 @@ html.js-reveal .reveal.is-visible {
 
   .hero-portrait::before {
     border-radius: 22px;
-  }
-
-  .eyebrow {
-    display: flex;
-    width: min(calc(100vw - 36px), 330px);
-    max-width: min(calc(100vw - 36px), 330px);
-    flex-wrap: wrap;
-    gap: 8px;
-    line-height: 1.45;
-    overflow-wrap: anywhere;
-    word-break: break-word;
   }
 
   .eyebrow::before {
@@ -2247,6 +2352,9 @@ html.js-reveal .reveal.is-visible {
    can be in where the design currently has no answer. */
 
 @media print {
+  #sky-canvas,
+  #warp-canvas,
+  .sky-note,
   .site-header,
   .header-toggle,
   .scroll-top,
@@ -2427,7 +2535,8 @@ html.js-reveal .reveal.is-visible {
     background: #0b1018 !important;
   }
 
-  .cosmic-image-bg { opacity: 0.25 !important; }
+  .cosmic-image-bg,
+  html.sky-ready #sky-canvas { opacity: 0.25 !important; }
 
   .research-card::before,
   .project-card::before,
@@ -2501,6 +2610,7 @@ h4,
 .research-card h3,
 .project-card h3,
 .publication-card h3 {
+  font-size: 1.3rem;
   font-family: var(--font-display);
   font-weight: 600;
   letter-spacing: -0.006em;
@@ -2512,12 +2622,11 @@ p, li, .hero-subtitle, .publication-card p {
   text-wrap: pretty;
 }
 
-.eyebrow,
-.card-kicker,
-.publication-meta span,
-.timeline-date,
-.tag-cloud span,
-.chip-link,
+/* Monospace is for literal code and for data a reader is meant to compare
+   column-wise. It was reaching six UI selectors from here — kickers, tags,
+   publication meta, timeline dates, chip links — which is how a page ends up
+   with a code face as its third typeface and every small label dressed as
+   terminal output. The .mono and .data utilities stay as an explicit opt-in. */
 .mono,
 .data,
 code,
@@ -2534,11 +2643,14 @@ time,
 .data,
 table td { font-variant-numeric: tabular-nums; }
 
-/* Real small caps from the binary, not scaled-down capitals. */
-.eyebrow,
-.card-kicker {
+/* Real small caps from the binary, not scaled-down capitals. Kept for the
+   plate caption, which is imitating a printed archival label and is the one
+   place on the page where that is the point. The card kickers used to be here
+   too; small caps on a subfield name is the same label affectation as the
+   tracked uppercase it replaced. */
+.plate-label {
   font-variant-caps: all-small-caps;
-  text-transform: none;    /* small-caps replaces the tracked-out uppercase */
+  text-transform: none;
   letter-spacing: 0.06em;
 }
 
@@ -2737,7 +2849,8 @@ sub { font-size: 0.72em; vertical-align: -0.18em; }
   background: linear-gradient(180deg in oklab,
     color-mix(in oklab, var(--ink-void) 72%, transparent),
     color-mix(in oklab, var(--ink-void) 92%, transparent));
-  border-top: 1px solid var(--ink-hairline);
+  /* no border-top: the caption already sits on its own darker strip, so the
+     tone step does the separating and the line was drawing it twice */
   font-family: var(--font-display);
   font-variant-caps: all-small-caps;
   font-variant-numeric: oldstyle-nums;
@@ -2746,7 +2859,12 @@ sub { font-size: 0.72em; vertical-align: -0.18em; }
   color: var(--ink-muted);
 }
 .plate-label .plate-id {
-  font-family: var(--font-mono);
+  /* The archival-plate conceit is kept — astronomical plates are real, and it
+     is one of the few things on this page taken from the subject rather than
+     from a template. The monospace is not kept: setting a caption in a code
+     face is costume, and the "900 x 900 px" line that sat beside it was fake
+     metadata that told the reader nothing true. */
+  font-family: inherit;
   font-variant-caps: normal;
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.04em;
@@ -2754,7 +2872,7 @@ sub { font-size: 0.72em; vertical-align: -0.18em; }
 }
 .plate-label .plate-dim {
   margin-left: auto;
-  font-family: var(--font-mono);
+  font-family: inherit;
   font-variant-caps: normal;
   font-variant-numeric: tabular-nums;
   font-size: 0.78rem;
@@ -2799,7 +2917,10 @@ sub { font-size: 0.72em; vertical-align: -0.18em; }
 }
 
 html.gl-ready #plate-field { opacity: 1; }
-html.gl-ready #galaxy-canvas { opacity: 0.34; }   /* 2D stars survive as foreground sparkle */
+/* Was 0.34, when this canvas was a spiral of dots kept as sparkle over the GL
+   nebula. It is the galaxy merger now (cosmos.js), the thing the hero is
+   about, so it stays at full strength with the nebula behind it. */
+html.gl-ready #galaxy-canvas { opacity: 0.94; }
 
 @media (prefers-reduced-motion: reduce) {
   #plate-field { display: none; }
@@ -3275,8 +3396,8 @@ html:not(.js) .ovi-rail { display: none !important; }
   border-radius: 999px;
   background: transparent;
   color: var(--ink-muted);
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-family: inherit;
+  font-size: 0.82rem;
   letter-spacing: 0.02em;
   cursor: pointer;
   transition: color var(--dur-xs) var(--ease-out),

@@ -24,7 +24,7 @@
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link rel="preload" href="assets/fonts/plate-display.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/plate-text.woff2" as="font" type="font/woff2" crossorigin>
-  <link href="assets/css/snapfolio-astro.css?v=4" rel="stylesheet">
+  <link href="assets/css/snapfolio-astro.css?v=6" rel="stylesheet">
 
   <script type="application/ld+json">
   {
@@ -92,22 +92,32 @@
         if (!window.__revealReady) el.classList.remove("js-reveal");
       }, 800);
       try {
+        // BOTH gates. This used to read only the OS setting, so a reader who
+        // had switched motion off on the page itself still got the full intro —
+        // the one animation they had explicitly opted out of, played before
+        // anything else on their first visit.
         if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        if (el.classList.contains("motion-off")) return;
         el.classList.add("intro-active", "intro-hold");
         window.setTimeout(function () {
           if (!el.classList.contains("intro-active")) return;
           el.classList.remove("intro-active", "intro-hold", "intro-moving");
           el.classList.add("intro-complete");
-        }, 2500);
+        }, 1900);
       } catch (e) {
         el.classList.remove("intro-active", "intro-hold");
       }
     })();
   </script>
+  <script src="assets/js/analytics.js?v=1" async></script>
 </head>
 
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
+  <!-- The arrival scrim. Declarative on purpose: it is invisible unless
+       html.intro-active is set, and only the inline head script sets that, so
+       a page without scripting can never be left behind a black rectangle. -->
+  <div id="intro-scrim" aria-hidden="true"></div>
   <div class="cosmic-image-bg" aria-hidden="true"></div>
   <div class="cosmic-image-shade" aria-hidden="true"></div>
   <canvas id="galaxy-canvas" aria-hidden="true"></canvas>
@@ -168,11 +178,6 @@
       <div class="container">
         <div class="hero-shell">
           <div class="hero-copy reveal">
-            <p class="eyebrow">
-              <a href="https://www.asu.edu/" target="_blank" rel="noopener">Arizona State University</a>
-              <span>|</span>
-              <a href="https://sese.asu.edu/" target="_blank" rel="noopener">School of Earth and Space Exploration</a>
-            </p>
             <h1 id="hero-title">Tanmay Singh</h1>
             <p class="hero-role">Fourth Year Ph.D. Candidate | Astrophysics</p>
             <p class="hero-subtitle">
@@ -192,6 +197,11 @@
               <a href="https://github.com/tanmay-starslab" target="_blank" rel="noopener">GitHub</a>
               <a href="https://www.linkedin.com/in/tanmay-singh-21574a1aa/" target="_blank" rel="noopener">LinkedIn</a>
             </div>
+            <!-- Filled by cosmos.js with this visit's encounter; stays hidden without script. -->
+            <p class="sky-note" id="sky-note" hidden>
+              <span data-sky-text></span>
+              <button type="button" class="sky-drop">Drop in a dwarf galaxy</button>
+            </p>
           </div>
 
           <figure class="hero-portrait reveal">
@@ -201,7 +211,6 @@
             <figcaption class="plate-label">
               <span class="plate-id">Plate&nbsp;I</span>
               <span class="plate-meta">T.&nbsp;Singh &middot; ASU SESE &middot; 2026</span>
-              <span class="plate-dim">900 &times; 900 px</span>
             </figcaption>
           </figure>
         </div>
@@ -211,8 +220,7 @@
     <section id="about" class="section about" aria-labelledby="about-title">
       <div class="container">
         <div class="section-heading reveal">
-          <p class="eyebrow">About</p>
-          <h2 data-split id="about-title">Academic background and current focus.</h2>
+          <h2 data-split id="about-title">Background and current focus.</h2>
         </div>
 
         <div class="about-panel reveal">
@@ -242,14 +250,12 @@
     <section id="research" class="section research" aria-labelledby="research-title">
       <div class="container">
         <div class="section-heading reveal">
-          <p class="eyebrow">Research</p>
           <h2 data-split id="research-title">Ongoing research projects.</h2>
         </div>
 
         <div class="research-grid">
           <article class="research-card featured reveal">
             <div class="card-glow" aria-hidden="true"></div>
-            <span class="card-kicker">IGM / CGM</span>
             <h3>Investigating the IGM and CGM</h3>
             <p>
               The intergalactic medium and circumgalactic medium play crucial roles in the formation and evolution of galaxies.
@@ -268,7 +274,6 @@
           </article>
 
           <article class="research-card reveal">
-            <span class="card-kicker">O VI</span>
             <h3>O VI in the Intra-group Medium</h3>
             <p>
               Compares O VI absorption in synthetic spectra from SIMBA and TNG50 galaxy groups against COS-IGrM observations.
@@ -283,7 +288,6 @@
           </article>
 
           <article class="research-card reveal">
-            <span class="card-kicker">Spectra</span>
             <h3>Spectral Classification of AGN and Supernovae</h3>
             <p>
               Distinguishing between spectral signatures of Active Galactic Nuclei and Supernovae is essential for characterizing transient astrophysical events.
@@ -298,7 +302,6 @@
           </article>
 
           <article class="research-card reveal">
-            <span class="card-kicker">Kinematics</span>
             <h3>Kinematics of the Outer Circumgalactic Medium</h3>
             <p>
               Investigating co-rotation and counter-rotation of outer CGM gas around L-star galaxies using sightline-based synthetic spectroscopy in TNG50-1.
@@ -317,8 +320,7 @@
     <section id="past-projects" class="section past-projects" aria-labelledby="projects-title">
       <div class="container">
         <div class="section-heading reveal">
-          <p class="eyebrow">Past Projects</p>
-          <h2 data-split id="projects-title">Earlier research across physics and astronomy.</h2>
+          <h2 data-split id="projects-title">Earlier research.</h2>
           <p>Past work spanning submillimeter astronomy, solar physics, quantum communication, image processing, and atomic collisions.</p>
         </div>
 
@@ -326,8 +328,8 @@
           <article class="project-card large reveal">
             <div class="project-visual visual-site" aria-hidden="true"></div>
             <div class="project-body">
-              <span class="card-kicker">Raman Research Institute</span>
               <h3>Preliminary site quality analysis for an Indian sub-millimeter telescope</h3>
+              <span class="card-kicker">Raman Research Institute</span>
               <p>
                 Evaluated prospective sites in the Ladakh region using global PWV and other datasets from NASA and ECMWF.
                 The work used pandas, NumPy, SciPy, matplotlib, and QGIS for site-quality analysis.
@@ -344,8 +346,8 @@
           <article class="project-card reveal">
             <div class="project-visual visual-solar" aria-hidden="true"></div>
             <div class="project-body">
-              <span class="card-kicker">Senior thesis</span>
               <h3>Magnetic field topology and properties of solar coronal lines</h3>
+              <span class="card-kicker">Senior thesis</span>
               <p>
                 Cleaned and aligned images from the Total Solar Eclipse (2017), retrieved magnetic field lines using RHT and ACF,
                 and compared the topology with Magneto-Hydrodynamics equations.
@@ -362,8 +364,8 @@
           <article class="project-card reveal">
             <div class="project-visual visual-qkd" aria-hidden="true"></div>
             <div class="project-body">
-              <span class="card-kicker">SURA project</span>
               <h3>Post-processing and applications in quantum secure communication</h3>
+              <span class="card-kicker">SURA project</span>
               <p>
                 Developed optimized software for post-processing in entanglement-based Quantum Key Distribution, including reconciliation,
                 cascade variants, privacy amplification, networking, and lab-data verification.
@@ -379,8 +381,8 @@
           <article class="project-card reveal">
             <div class="project-visual visual-waves" aria-hidden="true"></div>
             <div class="project-body">
-              <span class="card-kicker">Solar data</span>
               <h3>Identifying acoustic wave sources on the Sun</h3>
+              <span class="card-kicker">Solar data</span>
               <p>
                 Studied acoustic waves on the solar surface using simulated MURAM data and image-processing techniques such as azimuthal averaging with OpenCV, NumPy, and matplotlib.
               </p>
@@ -395,8 +397,8 @@
           <article class="project-card reveal">
             <div class="project-visual visual-fano" aria-hidden="true"></div>
             <div class="project-body">
-              <span class="card-kicker">Atomic collisions</span>
               <h3>Angular dependence of Fano profile in ultra-cold atomic collisions</h3>
+              <span class="card-kicker">Atomic collisions</span>
               <p>
                 Studied Fano profiles in cold atomic collisions such as H-Kr and analyzed how Fano parameters depend on scattering angle using Python and Code Ocean.
               </p>
@@ -414,7 +416,6 @@
     <section id="publications" class="section publications" aria-labelledby="publications-title">
       <div class="container">
         <div class="section-heading reveal">
-          <p class="eyebrow">Publications</p>
           <h2 data-split id="publications-title">Publications and abstracts.</h2>
           <p>Selected entries from Google Scholar and the current CV.</p>
         </div>
@@ -427,8 +428,8 @@
 
         <div class="publication-list">
           <article class="publication-card reveal">
-            <div class="publication-meta"><span>2026</span><span>arXiv preprint arXiv:2604.18808</span></div>
             <h3>Analysis of synthetic OVI absorption associated with galaxy groups in SIMBA and TNG50 simulations</h3>
+            <div class="publication-meta"><span>2026</span><span>arXiv preprint arXiv:2604.18808</span></div>
             <p>T Singh, S Borthakur, D Nelson, R Dav&eacute;, T McCabe</p>
             <div class="publication-actions">
               <a class="chip-link" href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=Sfeb8fMAAAAJ&citation_for_view=Sfeb8fMAAAAJ:2osOgNQ5qMEC" target="_blank" rel="noopener">Scholar</a>
@@ -437,8 +438,8 @@
           </article>
 
           <article class="publication-card reveal">
-            <div class="publication-meta"><span>2026</span><span>arXiv preprint arXiv:2604.13487</span></div>
             <h3>Site Quality Analysis for an Indian Submillimeter Telescope: A Reanalysis-Based Approach</h3>
+            <div class="publication-meta"><span>2026</span><span>arXiv preprint arXiv:2604.13487</span></div>
             <p>T Singh, MS Rao, RB Thakur</p>
             <div class="publication-actions">
               <a class="chip-link" href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=Sfeb8fMAAAAJ&citation_for_view=Sfeb8fMAAAAJ:9yKSN-GCB0IC" target="_blank" rel="noopener">Scholar</a>
@@ -447,8 +448,8 @@
           </article>
 
           <article class="publication-card reveal">
-            <div class="publication-meta"><span>2026</span><span>Indian Journal of Physics</span></div>
             <h3>Scattering angle dependence of Fano resonance profiles in cold atomic collisions analyzed with the complex valued w parameter: T Singh et al.</h3>
+            <div class="publication-meta"><span>2026</span><span>Indian Journal of Physics</span></div>
             <p>T Singh, RA Singh, F Koike, M Iizawa, Y Azuma</p>
             <div class="publication-actions">
               <a class="chip-link" href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=Sfeb8fMAAAAJ&citation_for_view=Sfeb8fMAAAAJ:u5HHmVD_uO8C" target="_blank" rel="noopener">Scholar</a>
@@ -457,8 +458,8 @@
           </article>
 
           <article class="publication-card reveal">
-            <div class="publication-meta"><span>2026</span><span>American Astronomical Society Meeting Abstracts 247, 174.05</span></div>
             <h3>Analysis of synthetic O VI absorption in galaxy groups of SIMBA and IllustrisTNG simulations</h3>
+            <div class="publication-meta"><span>2026</span><span>American Astronomical Society Meeting Abstracts 247, 174.05</span></div>
             <p>T Singh, S Borthakur, D Nelson, T McCabe</p>
             <div class="publication-actions">
               <a class="chip-link" href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=Sfeb8fMAAAAJ&citation_for_view=Sfeb8fMAAAAJ:d1gkVwhDpl0C" target="_blank" rel="noopener">Scholar</a>
@@ -471,7 +472,6 @@
     <section id="timeline" class="section timeline-section" aria-labelledby="timeline-title">
       <div class="container">
         <div class="section-heading reveal">
-          <p class="eyebrow">Education</p>
           <h2 data-split id="timeline-title">Education</h2>
         </div>
 
@@ -510,7 +510,6 @@
 
         <div class="teaching-panel reveal">
           <div>
-            <p class="eyebrow">Teaching</p>
             <h3>AST 112 Lab</h3>
           </div>
           <p><strong>Course:</strong> AST 112 Lab, Lab Lead (3 Sections)</p>
@@ -524,7 +523,6 @@
     <section id="personal-interests" class="section personal-interests" aria-labelledby="personal-title">
       <div class="container">
         <div class="section-heading reveal">
-          <p class="eyebrow">Personal Interests</p>
           <h2 data-split id="personal-title">Personal Interests</h2>
         </div>
 
@@ -552,7 +550,6 @@
     <section id="contact" class="section contact" aria-labelledby="contact-title">
       <div class="container">
         <div class="section-heading reveal">
-          <p class="eyebrow">Contact</p>
           <h2 data-split id="contact-title">Get in touch.</h2>
         </div>
 
@@ -581,11 +578,14 @@
   <a href="#home" class="scroll-top" aria-label="Back to top"><i class="bi bi-arrow-up-short" aria-hidden="true"></i></a>
 
   <script src="assets/js/motion-toggle.js?v=2" defer></script>
-  <script src="assets/js/snapfolio-astro.js?v=2"></script>
+  <script src="assets/js/snapfolio-astro.js?v=3"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js" defer></script>
-  <script src="assets/js/plate-field.js?v=2" defer></script>
+  <!-- Before plate-field.js: it reads the visit seed cosmos.js sets. -->
+  <script src="assets/js/cosmos.js?v=1" defer></script>
+  <script src="assets/js/warp.js?v=2" defer></script>
+  <script src="assets/js/plate-field.js?v=3" defer></script>
   <script src="assets/js/choreography.js?v=7" defer></script>
 </body>
 

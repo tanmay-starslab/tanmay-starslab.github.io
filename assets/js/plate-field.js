@@ -82,6 +82,9 @@
     "uniform float uZoom;\n" +
     "uniform float uDepth;\n" +
     "uniform float uTrail;\n" +
+    // Per-visit offset into the noise field, so the filaments are laid out
+    // differently on every load (cosmos.js picks the seed; ?seed= reproduces).
+    "uniform vec3  uSeed;\n" +
 
     // sin-free hash: sin-based hashes visibly break on some Adreno and Mali parts.
     "vec3 hash33(vec3 p){ p = fract(p*vec3(0.1031,0.1030,0.0973));\n" +
@@ -117,8 +120,8 @@
     // the same peak density, 26% of the frame is true black sky, the 95th
     // percentile is 76/255 and the mean is 28/255. Filaments, and space between
     // them.
-    "  vec3 q = p + 0.5156*vec3(fbm(p+vec3(0,0,t*0.015),3), fbm(p+5.2,3), fbm(p+9.1,3));\n" +
-    "  float d = fbm(q*1.15,oct) - 0.63;\n" +
+    "  vec3 q = p + 0.5156*vec3(fbm(p+uSeed+vec3(0,0,t*0.015),3), fbm(p+uSeed+5.2,3), fbm(p+uSeed+9.1,3));\n" +
+    "  float d = fbm(q*1.15+uSeed,oct) - 0.63;\n" +
     "  d *= smoothstep(2.6,0.7,length(p.xy));\n" +
     "  return max(d,0.0)*3.2; }\n" +
 
@@ -213,7 +216,7 @@
   }
 
   var UNIFORMS =
-    ["uRes","uTime","uFrame","uSteps","uOct","uPointer","uExposure","uWarmth",
+    ["uRes","uTime","uFrame","uSteps","uOct","uPointer","uExposure","uWarmth","uSeed",
      "uZoom","uDepth","uTrail"];
   var prog = null, U = {};
   function build() {
@@ -269,6 +272,17 @@
   window.addEventListener("resize", resize, { passive: true });
   resize();
 
+  // The same visit seed cosmos.js uses for the sky and the merger (?seed=
+  // reproduces it), turned into an offset of a few tens of units into the
+  // noise field: far enough that no two visits share a filament.
+  var seedVec = (function () {
+    var m = /[?&]seed=(\d+)/.exec(window.location.search), n = m ? (+m[1]) >>> 0 : (window.__cosmosSeed >>> 0) || ((Math.random() * 4294967296) >>> 0);
+    function nx() { n = (Math.imul(n ^ (n >>> 15), 2246822507) + 0x9E3779B9) >>> 0; return n / 4294967296; }
+    return [nx() * 40, nx() * 40, nx() * 40];
+  })();
+  // Start each visit somewhere along the field's slow evolution, not at t = 0.
+  var timeOffset = seedVec[0] * 9;
+
   var pointer = { x: 0, y: 0 };
   function onPointer(e) {
     pointer.x = (e.clientX / window.innerWidth - 0.5) * 1.1;
@@ -302,7 +316,7 @@
 
     gl.useProgram(prog);
     gl.uniform2f(U.uRes, canvas.width, canvas.height);
-    gl.uniform1f(U.uTime, elapsed * 0.001);
+    gl.uniform1f(U.uTime, timeOffset + elapsed * 0.001);
     gl.uniform1i(U.uFrame, frame % 64);
     gl.uniform1i(U.uSteps, STEPS[tier]);
     gl.uniform1i(U.uOct, OCT[tier]);
@@ -340,6 +354,7 @@
     gl.uniform1f(U.uZoom, camZoom);
     gl.uniform1f(U.uDepth, camDepth);
     gl.uniform1f(U.uTrail, camTrail);
+    gl.uniform3f(U.uSeed, seedVec[0], seedVec[1], seedVec[2]);
     gl.clearColor(0, 0, 0, 1);
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.drawArrays(gl.TRIANGLES, 0, 3);   // no buffers, no attributes, no blending
