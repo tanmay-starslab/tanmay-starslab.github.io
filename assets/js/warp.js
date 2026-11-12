@@ -164,7 +164,8 @@
     rafId = window.requestAnimationFrame(frame);
   }
 
-  function start() { if (!rafId && armed && !document.hidden) rafId = window.requestAnimationFrame(frame); }
+  // No warp by day: light mode hides this canvas, so it never starts there.
+  function start() { if (!rafId && armed && !document.hidden && root.getAttribute("data-theme") !== "light") rafId = window.requestAnimationFrame(frame); }
 
   layout();
   window.addEventListener("scroll", start, { passive: true });

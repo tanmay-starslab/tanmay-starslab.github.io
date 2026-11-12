@@ -553,7 +553,7 @@
 
   function frame(now) {
     rafId = 0;
-    if (frozen || !shown) return;
+    if (frozen || !shown || daylight()) return;
     var rawDt = prev ? now - prev : 16.7;
     var dtMs = Math.min(rawDt, 50); prev = now;
     view.yaw += (aim.yaw - view.yaw) * 0.04; view.pitch += (aim.pitch - view.pitch) * 0.04;
@@ -604,7 +604,11 @@
     }
     rafId = window.requestAnimationFrame(frame);
   }
-  function start() { if (!rafId && !frozen && shown) { prev = 0; rafId = window.requestAnimationFrame(frame); } }
+  // Light mode hides this canvas (light-theme.css); the merger stops drawing
+  // too, so a hidden simulation is not still costing a frame budget.
+  function daylight() { return root.getAttribute("data-theme") === "light"; }
+  function start() { if (!rafId && !frozen && shown && !daylight()) { prev = 0; rafId = window.requestAnimationFrame(frame); } }
+  window.addEventListener("themechange", function () { if (!daylight()) start(); });
 
   // Halve the main population. Kept as a function so the governor's two
   // entry points (panic and median) cannot drift apart.

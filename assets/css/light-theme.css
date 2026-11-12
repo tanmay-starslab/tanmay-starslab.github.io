@@ -1,0 +1,223 @@
+/* LIGHT MODE.
+   The page is a night sky by default. This is its daytime reading: a warm
+   paper ground, dark ink, and the same glass cards frosted white instead of
+   smoked. Everything here is scoped to html[data-theme="light"], set before
+   first paint by the head script, so the dark page is untouched.
+
+   What does not come along: the night sky, the galaxy merger, the warp and
+   the nebula are light drawn on black, and on paper they are smudges. They
+   hide, and the scripts that draw them stop (cosmos.js, warp.js; the nebula
+   pauses itself when hidden). */
+
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  /* ink ramp, inverted: paper at the bottom, ink at the top */
+  --ink-void:     #ece6da;
+  --ink-bg:       #f5f1e8;
+  --ink-bg-2:     #efe9dd;
+  --ink-panel:    #fffdf8;
+  --ink-surface:  #ffffff;
+  --ink-hairline: #d9d1c2;
+  --ink-edge:     #bfb5a3;
+  --ink-dim:      #8f8778;
+  --ink-caption:  #57534c;   /* 7.0:1 on the paper */
+  --ink-muted:    #46423d;   /* 9.4:1 */
+  --ink-text-2:   #2b2926;   /* 13.6:1 */
+  --ink-text:     #15141a;   /* 17.2:1 */
+
+  /* Accents keep their hues from the spectral lines; on paper they are set
+     dark instead of bright, so links and tags clear 4.5:1. */
+  --l-text: 0.47;
+  --l-solid: 0.52;
+  --l-glow: 0.62;
+  --l-wash: 0.86;
+
+  --surface: rgba(30, 28, 40, 0.04);
+  --surface-strong: rgba(30, 28, 40, 0.07);
+  --glass-bg: rgba(255, 253, 248, 0.78);
+  --glass-bg-strong: rgba(255, 253, 248, 0.92);
+  --glass-highlight: rgba(255, 255, 255, 0.85);
+  --shadow: 0 22px 60px rgba(60, 45, 20, 0.14);
+}
+
+/* ── the ground ─────────────────────────────────────────────────────────── */
+html[data-theme="light"] body {
+  color: var(--text);
+  background:
+    radial-gradient(circle at 78% 6%, rgba(160, 120, 200, 0.10), transparent 34rem),
+    radial-gradient(circle at 10% 22%, rgba(40, 150, 170, 0.08), transparent 32rem),
+    linear-gradient(180deg, #f7f3ea 0%, #f2ede2 100%);
+}
+
+/* The night layers go. */
+html[data-theme="light"] #sky-canvas,
+html[data-theme="light"] #galaxy-canvas,
+html[data-theme="light"] #warp-canvas,
+html[data-theme="light"] #plate-field,
+html[data-theme="light"] .cosmic-image-bg,
+html[data-theme="light"] .cosmic-image-shade,
+html[data-theme="light"] .cosmic-vignette,
+html[data-theme="light"] .hero-nebula,
+html[data-theme="light"] .hero::before,
+html[data-theme="light"] .hero::after {
+  display: none !important;
+}
+
+html[data-theme="light"] .deep-grain { opacity: 0.35; }
+html[data-theme="light"] #intro-scrim { background: #f5f1e8; }
+
+html[data-theme="light"] p { color: var(--ink-muted); }
+html[data-theme="light"] a { color: var(--accent); }
+
+/* ── sidebar ────────────────────────────────────────────────────────────── */
+html[data-theme="light"] .site-header .header-container {
+  background: rgba(255, 253, 248, 0.86);
+  border-color: var(--ink-hairline);
+  box-shadow: 0 18px 50px rgba(60, 45, 20, 0.12);
+}
+html[data-theme="light"] .navmenu a { color: var(--ink-muted); }
+html[data-theme="light"] .navmenu a:hover,
+html[data-theme="light"] .navmenu a.active {
+  color: var(--ink-text);
+  background: rgba(30, 28, 40, 0.06);
+  border-color: rgba(30, 28, 40, 0.08);
+}
+html[data-theme="light"] .brand-lockup,
+html[data-theme="light"] .brand-lockup * { color: var(--ink-text); }
+html[data-theme="light"] .social-links a {
+  color: var(--ink-text-2);
+  background: rgba(30, 28, 40, 0.04);
+  border-color: var(--ink-hairline);
+}
+html[data-theme="light"] .header-toggle {
+  color: var(--ink-text);
+  background: rgba(255, 253, 248, 0.92);
+  border-color: var(--ink-hairline);
+}
+
+/* ── hero ───────────────────────────────────────────────────────────────── */
+html[data-theme="light"] .hero h1,
+html[data-theme="light"] .hero-role { color: var(--ink-text); }
+html[data-theme="light"] .hero-subtitle { color: var(--ink-text-2); }
+
+html[data-theme="light"] .btn-primary,
+html[data-theme="light"] .btn-primary:hover,
+html[data-theme="light"] .card-button,
+html[data-theme="light"] .card-button:hover,
+html[data-theme="light"] .card-button:focus-visible,
+html[data-theme="light"] .chip-link,
+html[data-theme="light"] .chip-link:hover,
+html[data-theme="light"] .scroll-top {
+  color: #ffffff;
+}
+html[data-theme="light"] .btn-outline {
+  color: var(--ink-text);
+  background: rgba(255, 255, 255, 0.6);
+  border-color: var(--ink-hairline);
+}
+
+/* Glass chips: links in the hero and contact panel, tags, quiet buttons. */
+html[data-theme="light"] .hero-links a,
+html[data-theme="light"] .tag-cloud span,
+html[data-theme="light"] .card-button.is-quiet {
+  color: var(--ink-text-2);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.6));
+  border-color: rgba(30, 28, 40, 0.13);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 1px 2px rgba(60, 45, 20, 0.06);
+}
+html[data-theme="light"] .hero-links a:hover,
+html[data-theme="light"] .hero-links a:focus-visible,
+html[data-theme="light"] .tag-cloud span:hover,
+html[data-theme="light"] .card-button.is-quiet:hover,
+html[data-theme="light"] .card-button.is-quiet:focus-visible {
+  color: var(--ink-text);
+  background: #ffffff;
+  border-color: color-mix(in oklab, var(--accent) 55%, transparent);
+}
+
+/* The portrait plate keeps its own photograph; only its glow softens. */
+html[data-theme="light"] .portrait-halo,
+html[data-theme="light"] .plate-light { opacity: 0.35; }
+
+/* ── cards ──────────────────────────────────────────────────────────────── */
+html[data-theme="light"] :is(.ovi-panel, .about-panel, .contact-panel, .research-card, .project-card,
+  .publication-card, .timeline-content, .teaching-panel, .personal-panel, .link-section,
+  .fact-grid div, .glass-panel, .cosmic-card, .education-card, .personal-card, .link-card, .hover-lift) {
+  background:
+    radial-gradient(circle at var(--glow-x, 50%) var(--glow-y, 0%),
+      color-mix(in oklab, var(--card-accent) 10%, transparent), transparent 46%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(255, 252, 245, 0.72));
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  border-color: rgba(30, 28, 40, 0.1);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 1px 2px rgba(60, 45, 20, 0.06),
+    0 18px 44px -18px rgba(60, 45, 20, 0.22);
+}
+html[data-theme="light"] :is(.about-panel, .research-card, .project-card, .publication-card,
+  .timeline-content, .teaching-panel, .personal-panel, .link-section, .fact-grid div,
+  .glass-panel, .cosmic-card, .education-card, .personal-card, .link-card, .hover-lift):hover {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 2px 4px rgba(60, 45, 20, 0.06),
+    0 28px 60px -22px rgba(60, 45, 20, 0.3);
+}
+html[data-theme="light"] .contact-panel:hover {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 1px 2px rgba(60, 45, 20, 0.06),
+    0 18px 44px -18px rgba(60, 45, 20, 0.22);
+}
+
+/* Headlines: card titles a deep teal, section headings in ink. */
+html[data-theme="light"] .section-heading h2 { color: var(--ink-text); }
+html[data-theme="light"] :is(.research-card, .project-card, .publication-card, .timeline-content,
+  .contact-panel, .teaching-panel) h3 {
+  color: oklch(0.42 0.09 210);
+}
+html[data-theme="light"] .card-kicker,
+html[data-theme="light"] .publication-card p,
+html[data-theme="light"] .timeline-org { color: var(--ink-muted); }
+html[data-theme="light"] .publication-meta span {
+  color: var(--ink-text-2);
+  background: rgba(30, 28, 40, 0.05);
+  border-color: rgba(30, 28, 40, 0.12);
+}
+html[data-theme="light"] .interest-grid span { color: var(--ink-text-2); }
+html[data-theme="light"] .link-section a { color: var(--accent); }
+
+/* Figures: the plates are already white; give them a seat on the paper. */
+html[data-theme="light"] .is-plot .figure-media {
+  box-shadow: 0 0 0 1px rgba(30, 28, 40, 0.1);
+}
+html[data-theme="light"] .card-figure figcaption,
+html[data-theme="light"] .project-figure figcaption { color: var(--ink-caption); }
+html[data-theme="light"] .figure-credit { color: var(--ink-caption); }
+
+/* ── contact form ───────────────────────────────────────────────────────── */
+html[data-theme="light"] .form-field label { color: var(--ink-text-2); }
+html[data-theme="light"] .form-field input,
+html[data-theme="light"] .form-field textarea {
+  color: var(--ink-text);
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(30, 28, 40, 0.18);
+}
+html[data-theme="light"] .form-field input:focus,
+html[data-theme="light"] .form-field textarea:focus {
+  background: #ffffff;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 22%, transparent);
+}
+html[data-theme="light"] .form-status { color: var(--ink-text-2); }
+html[data-theme="light"] .form-status.is-ok { color: oklch(0.45 0.12 160); }
+html[data-theme="light"] .form-status.is-error { color: oklch(0.5 0.17 25); }
+
+/* ── timeline, footer, misc ─────────────────────────────────────────────── */
+html[data-theme="light"] .timeline-date { color: oklch(0.45 0.12 340); }
+html[data-theme="light"] .site-footer {
+  background: rgba(30, 28, 40, 0.04);
+}
+html[data-theme="light"] .site-footer p { color: var(--ink-muted); }
+html[data-theme="light"] ::selection { background: color-mix(in oklab, var(--accent) 30%, white); color: var(--ink-text); }
