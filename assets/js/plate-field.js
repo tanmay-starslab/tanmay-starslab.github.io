@@ -41,6 +41,15 @@
   var perfTier = window.__perfTier;
   if (perfTier && perfTier.gl === false) return;
 
+  // Everything from here on (the canvas, the context, the shader compile) runs
+  // after the first paint, when the browser is idle: see __whenIdle in
+  // perf-tier.js. Context creation and the shader compile are synchronous
+  // main-thread work, and the field only ever fades in over a hero that is
+  // already complete, so there is nothing to gain by doing them first.
+  // The body is deliberately not re-indented, to keep this change reviewable.
+  (window.__whenIdle || function (fn) { fn(); })(function () {
+  if (motionOff()) return;
+
   var host = document.getElementById("galaxy-canvas");
   if (!host || !host.parentNode) return;
 
@@ -558,4 +567,5 @@
   else if (typeof rm.addListener === "function") rm.addListener(onRM);
 
   start();
+  });
 })();
