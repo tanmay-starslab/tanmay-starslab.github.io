@@ -23,9 +23,8 @@
    Antennae-like pair and the next on two long Mice-like tails.
 
    Interactive: the view tilts toward the pointer, and clicking empty sky in
-   the hero (or the caption's button) drops a dwarf galaxy in, which the pair
-   shreds into a stream. When the pair has merged and settled, a new encounter
-   fades in.
+   the hero drops a dwarf galaxy in, which the pair shreds into a stream. When
+   the pair has merged and settled, a new encounter fades in.
 
    ?seed=12345 reproduces a sky exactly. Reduced motion (OS setting or the
    page's toggle) gets the same random sky and one still frame of the merger. */
@@ -330,7 +329,6 @@
     };
     simT = 0; mergedFor = 0; settledFor = 0;
     advance(encounter.join, 0.03);
-    caption();
   }
 
   // Leapfrog (kick-drift-kick). Cores feel each other, plus a drag on their
@@ -512,7 +510,6 @@
     // Teal, so the visitor can follow their own dwarf being torn into a stream.
     seedDisk(start, DWARF_N, c, ax[0] / al, ax[1] / al, ax[2] / al, 0.38, [4, 4, 4], r);
     for (var j = 0; j < DWARF_N; j++) acc[(start + j) * 3] = acc[(start + j) * 3 + 1] = acc[(start + j) * 3 + 2] = 0;
-    caption(true);
   }
 
   function isEmptySky(e) {
@@ -522,26 +519,6 @@
     var sel = window.getSelection && window.getSelection();
     if (sel && !sel.isCollapsed) return false;
     return e.clientY + window.scrollY < heroBottom;
-  }
-
-  // ---- caption --------------------------------------------------------------
-  var note = document.getElementById("sky-note");
-  var noteText = note && note.querySelector("[data-sky-text]");
-  var noteBtn = note && note.querySelector("button");
-  function caption(dwarfAdded) {
-    if (!noteText || !encounter) return;
-    var e = encounter, ratio = (1 / e.q).toFixed(1).replace(/\.0$/, "");
-    var spin = e.pro1 && e.pro2 ? "both disks spinning with the orbit"
-      : !e.pro1 && !e.pro2 ? "both disks spinning against the orbit"
-      : "one disk spinning against the orbit";
-    var deg = Math.round(e.tilt * 180 / Math.PI);
-    var s = "This visit's sky: a 1 : " + ratio + " galaxy merger, " + spin + ", seen " + deg + "° from face-on.";
-    if (e.count > 1) s = "Encounter " + e.count + " of this visit: a 1 : " + ratio + " merger, " + spin + ", seen " + deg + "° from face-on.";
-    if (frozen) s += " Motion is off, so it holds still.";
-    else if (dwarfAdded) s += " A dwarf galaxy is falling in.";
-    noteText.textContent = s;
-    note.hidden = false;
-    if (noteBtn) noteBtn.hidden = frozen;
   }
 
   // ---- loop -------------------------------------------------------------------
@@ -612,17 +589,12 @@
     if (frozen || !isEmptySky(e)) return;
     dropDwarf(e.clientX, e.clientY);
   });
-  if (noteBtn) noteBtn.addEventListener("click", function () {
-    if (frozen) return;
-    var ang = Math.random() * Math.PI * 2;
-    dropDwarf(cx + Math.cos(ang) * S * 4.5, cy + Math.sin(ang) * S * 3);
-  });
 
   document.addEventListener("visibilitychange", function () {
     shown = !document.hidden;
     if (shown) start();
   });
-  function onRM() { frozen = motionOff(); if (frozen) { stillFrame(); caption(); } else { start(); caption(); } }
+  function onRM() { frozen = motionOff(); if (frozen) stillFrame(); else start(); }
   if (typeof rmQuery.addEventListener === "function") rmQuery.addEventListener("change", onRM);
   else if (typeof rmQuery.addListener === "function") rmQuery.addListener(onRM);
 })();
