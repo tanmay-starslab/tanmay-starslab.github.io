@@ -23,7 +23,7 @@
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link rel="preload" href="assets/fonts/plate-display.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/plate-text.woff2" as="font" type="font/woff2" crossorigin>
-  <link href="assets/css/snapfolio-astro.css?v=7" rel="stylesheet">
+  <link href="assets/css/snapfolio-astro.css?v=9" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: SnapFolio
@@ -45,6 +45,19 @@
       }, 800);
       try {
         if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        try {
+          if (window.localStorage && localStorage.getItem("motion") === "off") return;
+        } catch (e) { /* blocked storage: motion stays on */ }
+        /* The arrival plays once per visit. Moving between this page and the
+           home page reloads it; replaying the intro there swung the sidebar
+           card to the middle of the screen and back on every click. */
+        var seen = false;
+        try {
+          seen = window.sessionStorage.getItem("intro-seen") === "1";
+          window.sessionStorage.setItem("intro-seen", "1");
+        } catch (e) { /* blocked storage: fall back to the referrer test */ }
+        var fromSite = document.referrer.indexOf(window.location.origin + "/") === 0;
+        if (seen || fromSite || window.location.hash) return;
         el.classList.add("intro-active", "intro-hold");
         window.setTimeout(function () {
           if (!el.classList.contains("intro-active")) return;
@@ -281,7 +294,7 @@
        Synchronous and first, so the deferred cosmos.js reads it. -->
   <script src="assets/js/perf-tier.js?v=2"></script>
   <script src="assets/js/snapfolio-astro.js?v=3"></script>
-  <script src="assets/js/cosmos.js?v=2" defer></script>
+  <script src="assets/js/cosmos.js?v=3" defer></script>
 </body>
 
 </html>

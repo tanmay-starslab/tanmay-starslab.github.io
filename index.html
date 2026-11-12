@@ -24,7 +24,7 @@
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link rel="preload" href="assets/fonts/plate-display.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/plate-text.woff2" as="font" type="font/woff2" crossorigin>
-  <link href="assets/css/snapfolio-astro.css?v=7" rel="stylesheet">
+  <link href="assets/css/snapfolio-astro.css?v=9" rel="stylesheet">
 
   <script type="application/ld+json">
   {
@@ -98,6 +98,17 @@
         // anything else on their first visit.
         if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
         if (el.classList.contains("motion-off")) return;
+        /* The arrival plays once per visit. Moving between this page and
+           the Useful Links page, or arriving at a #section link, reloads the
+           page; replaying the intro there swung the sidebar card to the
+           middle of the screen and back on every click. */
+        var seen = false;
+        try {
+          seen = window.sessionStorage.getItem("intro-seen") === "1";
+          window.sessionStorage.setItem("intro-seen", "1");
+        } catch (e) { /* blocked storage: fall back to the referrer test */ }
+        var fromSite = document.referrer.indexOf(window.location.origin + "/") === 0;
+        if (seen || fromSite || window.location.hash) return;
         el.classList.add("intro-active", "intro-hold");
         window.setTimeout(function () {
           if (!el.classList.contains("intro-active")) return;
@@ -183,8 +194,8 @@
             <p class="hero-subtitle">
               Hi! I am Tanmay, currently a PhD student in the <a href="https://sese.asu.edu/" target="_blank" rel="noopener">School of Earth and Space Exploration</a>
               at <a href="https://www.asu.edu/" target="_blank" rel="noopener">Arizona State University</a>, advised by
-              <a href="http://borthakur.asu.edu/index.html" target="_blank" rel="noopener">Prof. Sanchayeeta Borthakur</a>.
-              My research interests lie broadly in galaxy formation and processes that impact their evolution.
+              <a href="https://search.asu.edu/profile/3187334" target="_blank" rel="noopener">Prof. Sanchayeeta Borthakur</a>.
+              My research interests lie broadly in galaxy formation and processes that impact their evolution, primarily using cosmological simulations.
             </p>
             <div class="hero-actions" aria-label="Primary actions">
               <a class="btn btn-primary" href="#research"><i class="bi bi-stars" aria-hidden="true"></i> Research</a>
@@ -192,16 +203,11 @@
               <a class="btn btn-outline" href="files/cv.pdf" target="_blank" rel="noopener"><i class="bi bi-file-earmark-arrow-down" aria-hidden="true"></i> Download CV</a>
             </div>
             <div class="hero-links" aria-label="Quick links">
-              <a href="mailto:tsingh65@asu.edu">tsingh65@asu.edu</a>
-              <a href="https://scholar.google.com/citations?user=Sfeb8fMAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>
-              <a href="https://github.com/tanmay-starslab" target="_blank" rel="noopener">GitHub</a>
-              <a href="https://www.linkedin.com/in/tanmay-singh-21574a1aa/" target="_blank" rel="noopener">LinkedIn</a>
+              <a href="mailto:tsingh65@asu.edu"><i class="bi bi-envelope-fill" aria-hidden="true"></i><span>tsingh65@asu.edu</span></a>
+              <a href="https://scholar.google.com/citations?user=Sfeb8fMAAAAJ&hl=en" target="_blank" rel="noopener"><i class="bi bi-mortarboard-fill" aria-hidden="true"></i><span>Google Scholar</span></a>
+              <a href="https://github.com/tanmay-starslab" target="_blank" rel="noopener"><i class="bi bi-github" aria-hidden="true"></i><span>GitHub</span></a>
+              <a href="https://www.linkedin.com/in/tanmay-singh-21574a1aa/" target="_blank" rel="noopener"><i class="bi bi-linkedin" aria-hidden="true"></i><span>LinkedIn</span></a>
             </div>
-            <!-- Filled by cosmos.js with this visit's encounter; stays hidden without script. -->
-            <p class="sky-note" id="sky-note" hidden>
-              <span data-sky-text></span>
-              <button type="button" class="sky-drop">Drop in a dwarf galaxy</button>
-            </p>
           </div>
 
           <figure class="hero-portrait reveal">
@@ -210,7 +216,7 @@
             <img src="images/headshot-900.webp" alt="Portrait of Tanmay Singh" width="900" height="900" loading="eager" fetchpriority="high" decoding="async">
             <figcaption class="plate-label">
               <span class="plate-id">Plate&nbsp;I</span>
-              <span class="plate-meta">T.&nbsp;Singh &middot; ASU SESE &middot; 2026</span>
+              <span class="plate-meta">T.&nbsp;Singh, ASU SESE, 2026</span>
             </figcaption>
           </figure>
         </div>
@@ -220,7 +226,7 @@
     <section id="about" class="section about" aria-labelledby="about-title">
       <div class="container">
         <div class="section-heading reveal">
-          <h2 data-split id="about-title">Background and current focus.</h2>
+          <h2 data-split id="about-title">Background and current focus</h2>
         </div>
 
         <div class="about-panel reveal">
@@ -250,7 +256,7 @@
     <section id="research" class="section research" aria-labelledby="research-title">
       <div class="container">
         <div class="section-heading reveal">
-          <h2 data-split id="research-title">Ongoing research projects.</h2>
+          <h2 data-split id="research-title">Ongoing research projects</h2>
         </div>
 
         <div class="research-grid">
@@ -258,12 +264,12 @@
             <div class="card-glow" aria-hidden="true"></div>
             <h3>Investigating the IGM and CGM</h3>
             <p>
-              The intergalactic medium and circumgalactic medium play crucial roles in the formation and evolution of galaxies.
-              One primary research goal is to understand how Mg II absorbers observed in the spectra of background quasars are connected to galaxies.
+              The intergalactic and circumgalactic media shape how galaxies form and evolve.
+              I want to understand how the Mg II absorbers seen in the spectra of background quasars are connected to galaxies.
             </p>
             <p>
-              By analyzing mock quasar absorption spectra generated from cosmological simulations such as IllustrisTNG and SIMBA,
-              this work asks whether absorbers originate from outflowing material expelled by star-forming galaxies or from large rotating disks accreting material onto galaxies.
+              Using mock quasar absorption spectra generated from cosmological simulations such as <a href="https://www.tng-project.org/" target="_blank" rel="noopener">IllustrisTNG</a> and <a href="http://simba.roe.ac.uk/" target="_blank" rel="noopener">SIMBA</a>,
+              I am asking whether these absorbers come from material blown out by star-forming galaxies or from large rotating disks accreting gas onto them.
             </p>
             <div class="tag-cloud">
               <span>Mg II absorbers</span>
@@ -273,65 +279,75 @@
             </div>
           </article>
 
-          <article class="research-card reveal">
-            <h3>O VI in the Intra-group Medium</h3>
-            <p>
-              Compares O VI absorption in synthetic spectra from SIMBA and TNG50 galaxy groups against COS-IGrM observations.
-              The analysis uses matched group samples and observation-like synthetic spectroscopy to study absorber distributions, kinematics, covering fractions, and galaxy associations.
-            </p>
-            <div class="tag-cloud">
-              <span>SIMBA</span>
-              <span>IllustrisTNG</span>
-              <span>COS-IGrM</span>
-              <span>XGBoost</span>
+          <article class="research-card has-figure reveal">
+            <div class="research-copy">
+              <h3>O VI in the Intra-group Medium</h3>
+              <p>
+                I compare O VI absorption in synthetic quasar spectra of 14 galaxy groups each from <a href="https://www.tng-project.org/data/downloads/TNG50-1/" target="_blank" rel="noopener">TNG50</a> and <a href="http://simba.roe.ac.uk/" target="_blank" rel="noopener">SIMBA</a>, with 90,000 sightlines per group, against the <a href="https://doi.org/10.3847/1538-4357/ac283c" target="_blank" rel="noopener">COS-IGrM survey</a>.
+                Both simulations fall short of the observed covering fraction: 20.6&nbsp;&plusmn;&nbsp;2.6% in TNG50 and 6.0&nbsp;&plusmn;&nbsp;0.8% in SIMBA, against 44&nbsp;&plusmn;&nbsp;5% in COS-IGrM.
+                About 95% of the simulated absorbers are gravitationally bound, and in TNG50 the strongest sit within about 200&nbsp;kpc of star-forming galaxies, which SIMBA does not show.
+                I published this as a first-author paper in <a href="https://doi.org/10.3847/1538-4357/ae632b" target="_blank" rel="noopener">The Astrophysical Journal</a>.
+              </p>
+              <div class="tag-cloud">
+                <span>TNG50</span>
+                <span>SIMBA</span>
+                <span>COS-IGrM</span>
+                <span>HST/COS G130M</span>
+                <span>CLOUDY</span>
+                <span>XGBoost</span>
+              </div>
             </div>
+            <figure class="card-figure is-plot">
+              <a class="figure-media" href="images/research/ovi/ovi-coverfrac-1600.webp" target="_blank" rel="noopener" aria-label="Open the full figure, both panels, in a new tab">
+                <img src="images/research/ovi/ovi-coverfrac-top-800.webp" srcset="images/research/ovi/ovi-coverfrac-top-800.webp 800w, images/research/ovi/ovi-coverfrac-top-1600.webp 1600w" sizes="(min-width: 900px) 460px, 92vw" width="800" height="646" loading="lazy" decoding="async" alt="O VI covering fraction against group halo mass in three bins. In every bin the TNG50 (blue) and SIMBA (red) means fall below the hatched COS-IGrM observations; SIMBA is lowest.">
+              </a>
+              <figcaption>
+                In every halo-mass bin, simulated groups show O VI along fewer sightlines than COS-IGrM observed (hatched): TNG50 in blue, SIMBA in red.
+                <span class="figure-credit">Figure 5 (top panel), Singh et al. 2026, <a href="https://doi.org/10.3847/1538-4357/ae632b" target="_blank" rel="noopener">ApJ 1003, 110</a>; from <a href="https://arxiv.org/abs/2604.18808" target="_blank" rel="noopener">arXiv:2604.18808</a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>.</span>
+              </figcaption>
+            </figure>
           </article>
 
           <article class="research-card reveal">
             <h3>Spectral Classification of AGN and Supernovae</h3>
             <p>
-              Distinguishing between spectral signatures of Active Galactic Nuclei and Supernovae is essential for characterizing transient astrophysical events.
-              This work uses Bayesian logic (BLOG) to develop automated methods for spectral classification.
+              I am building a contingent Bayesian-logic (<a href="https://bayesianlogic.github.io/" target="_blank" rel="noopener">BLOG</a>) model that classifies AGN and supernova spectra from emission-line detections, widths and ratios.
+              The model includes dust attenuation and variability, and a line-fitting and identification pipeline I built informs its priors.
+              I work on this with <a href="https://sidsrivast.github.io/" target="_blank" rel="noopener">Prof. Siddharth Srivastava</a> and <a href="https://search.asu.edu/profile/435640" target="_blank" rel="noopener">Dr. Rolf Jansen</a>.
             </p>
             <div class="tag-cloud">
+              <span>BLOG</span>
               <span>AGN</span>
               <span>Supernovae</span>
-              <span>BLOG</span>
-              <span>Classification</span>
+              <span>Emission-line ratios</span>
+              <span>Dust attenuation</span>
             </div>
           </article>
 
           <article class="research-card reveal">
             <h3>Kinematics of the Outer Circumgalactic Medium</h3>
             <p>
-              Investigating co-rotation and counter-rotation of outer CGM gas around L-star galaxies using sightline-based synthetic spectroscopy in TNG50-1.
+              I am looking for co-rotating and counter-rotating gas in the outer circumgalactic medium of L* galaxies, using sightline-based synthetic spectroscopy in <a href="https://www.tng-project.org/data/downloads/TNG50-1/" target="_blank" rel="noopener">TNG50-1</a>.
+              I have produced about 75,000 synthetic spectra in Ly&alpha;, C&nbsp;II&nbsp;&lambda;1334 and Si&nbsp;III&nbsp;&lambda;1206, and I am now classifying their kinematics and working through the uncertainties.
             </p>
             <div class="tag-cloud">
               <span>TNG50-1</span>
-              <span>Ly-alpha</span>
-              <span>C II</span>
-              <span>Si III</span>
+              <span>Ly&alpha;</span>
+              <span>C II &lambda;1334</span>
+              <span>Si III &lambda;1206</span>
+              <span>Trident</span>
             </div>
           </article>
 
-          <article class="research-card reveal">
-            <span class="card-kicker">Interactive</span>
+          <article class="research-card explorer-card reveal">
             <h3>TNG50 Sightline Explorer</h3>
-            <p>
-              Mock quasar spectra (O VI, H I Ly&beta;, C III) through the CGM of a Milky-Way-mass TNG50-1 galaxy, degraded to any spectrograph resolution and S/N.
-              Pick from 672 precomputed sightlines or request a new geometry, and a Trident ray is cast on demand.
-            </p>
-            <div class="tag-cloud">
-              <span>TNG50-1</span>
-              <span>Trident</span>
-              <span>O VI</span>
-              <span>Forward model</span>
-            </div>
-            <div class="publication-actions">
-              <a class="chip-link" href="https://tanmay-starslab.github.io/cgm-absorber-requirements/tng50/" target="_blank" rel="noopener">Open explorer</a>
-              <a class="chip-link" href="https://tanmay-starslab.github.io/cgm-absorber-requirements/" target="_blank" rel="noopener">Detect &amp; resolve explainer</a>
+            <p>I built this tool to explore mock quasar spectra through the CGM of a <a href="https://www.tng-project.org/data/downloads/TNG50-1/" target="_blank" rel="noopener">TNG50</a> galaxy, at any spectrograph resolution and S/N.</p>
+            <div class="card-actions">
+              <a class="card-button" href="https://tanmay-starslab.github.io/cgm-absorber-requirements/tng50/" target="_blank" rel="noopener"><i class="bi bi-bullseye" aria-hidden="true"></i> Open explorer</a>
+              <a class="card-button is-quiet" href="https://tanmay-starslab.github.io/cgm-absorber-requirements/" target="_blank" rel="noopener"><i class="bi bi-graph-up" aria-hidden="true"></i> Detect &amp; resolve explainer</a>
             </div>
           </article>
+
         </div>
       </div>
     </section>
@@ -339,40 +355,61 @@
     <section id="past-projects" class="section past-projects" aria-labelledby="projects-title">
       <div class="container">
         <div class="section-heading reveal">
-          <h2 data-split id="projects-title">Earlier research.</h2>
+          <h2 data-split id="projects-title">Earlier research</h2>
           <p>Past work spanning submillimeter astronomy, solar physics, quantum communication, image processing, and atomic collisions.</p>
         </div>
 
         <div class="project-mosaic">
           <article class="project-card large reveal">
-            <div class="project-visual visual-site" aria-hidden="true"></div>
+            <figure class="project-figure is-plot">
+              <a class="figure-media" href="images/research/site-quality/site-quality-main-1600.webp" target="_blank" rel="noopener" aria-label="Open the figure full size in a new tab">
+                <img src="images/research/site-quality/site-quality-main-800.webp" srcset="images/research/site-quality/site-quality-main-800.webp 800w, images/research/site-quality/site-quality-main-1600.webp 1600w" sizes="(min-width: 821px) 480px, 92vw" width="800" height="673" loading="lazy" decoding="async" alt="Map of the Ladakh plateau on shaded relief. Bubbles on the ERA5 grid show the share of months with PWV at or below 1 mm, up to about 23%; the largest and reddest lie in the northeast. Site A, Site B, Leh, Merak and Hanle are labelled.">
+              </a>
+              <figcaption>
+                Share of months from 2010 to 2025 with PWV &le; 1&nbsp;mm in each ERA5 grid cell across Ladakh. Sites A and B outdo the cells holding Hanle and Merak.
+                <span class="figure-credit">Figure 6, Singh, Sathyanarayana Rao &amp; Basu Thakur 2026, <a href="https://doi.org/10.3847/1538-3881/ae5e4e" target="_blank" rel="noopener">AJ 171, 331</a>; from <a href="https://arxiv.org/abs/2604.13487" target="_blank" rel="noopener">arXiv:2604.13487</a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>.</span>
+              </figcaption>
+            </figure>
             <div class="project-body">
-              <h3>Preliminary site quality analysis for an Indian sub-millimeter telescope</h3>
+              <h3>Site quality analysis for an Indian submillimeter telescope</h3>
               <span class="card-kicker">Raman Research Institute</span>
               <p>
-                Evaluated prospective sites in the Ladakh region using global PWV and other datasets from NASA and ECMWF.
-                The work used pandas, NumPy, SciPy, matplotlib, and QGIS for site-quality analysis.
+                I mapped precipitable water vapor (PWV) across Ladakh from 184 months of <a href="https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels" target="_blank" rel="noopener">ERA5 reanalysis</a> (2010&ndash;2025), after checking ERA5 against radiometer data at <a href="https://www.iiap.res.in/centers/iao/" target="_blank" rel="noopener">Hanle</a>, Mauna Kea and Chajnantor.
+                Two candidate regions reach PWV &le; 1&nbsp;mm for about 23% and 19% of that period, against about 5% and 8% for the Hanle and Merak grid cells.
+                I began this as a visiting student with <a href="https://www.rri.res.in/people/faculty/mayuri-s-rao" target="_blank" rel="noopener">Prof. Mayuri S. Rao</a> at the <a href="https://www.rri.res.in/" target="_blank" rel="noopener">Raman Research Institute</a> in 2022 and published it as a first-author paper in <a href="https://doi.org/10.3847/1538-3881/ae5e4e" target="_blank" rel="noopener">The Astronomical Journal</a> in 2026.
               </p>
               <div class="tag-cloud">
-                <span>Submillimeter astronomy</span>
+                <span>ERA5</span>
                 <span>PWV</span>
-                <span>ECMWF</span>
-                <span>QGIS</span>
+                <span>am code</span>
+                <span>Ladakh</span>
+                <span>IAO Hanle</span>
               </div>
             </div>
           </article>
 
           <article class="project-card reveal">
-            <div class="project-visual visual-solar" aria-hidden="true"></div>
+            <figure class="project-figure is-photo">
+              <a class="figure-media" href="https://www.eso.org/public/images/eso1822l/" target="_blank" rel="noopener" aria-label="View the original eclipse image at ESO">
+                <img src="images/research/solar-corona/solar-corona-800.webp" srcset="images/research/solar-corona/solar-corona-800.webp 800w, images/research/solar-corona/solar-corona-1600.webp 1600w" sizes="(min-width: 821px) 560px, 92vw" width="800" height="450" loading="lazy" decoding="async" alt="The Moon's dark disc covers the Sun during the 2017 total eclipse; a pale corona of fine radial streamers and loops spreads outward, with small red prominences at the right edge.">
+              </a>
+              <figcaption>
+                The corona at totality, 21 August 2017 (multi-exposure composite); its fine structure traces the Sun's magnetic field.
+                <span class="figure-credit">&ldquo;The total solar eclipse of 21 August 2017&rdquo; by <a href="https://www.eso.org/public/images/eso1822l/" target="_blank" rel="noopener">ESO/P. Hor&aacute;lek/Solar Wind Sherpas project</a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>.</span>
+              </figcaption>
+            </figure>
             <div class="project-body">
-              <h3>Magnetic field topology and properties of solar coronal lines</h3>
-              <span class="card-kicker">Senior thesis</span>
+              <h3>Magnetic field topology in the 2017 eclipse corona</h3>
+              <span class="card-kicker">Senior thesis, IIT Delhi</span>
               <p>
-                Cleaned and aligned images from the Total Solar Eclipse (2017), retrieved magnetic field lines using RHT and ACF,
-                and compared the topology with Magneto-Hydrodynamics equations.
+                I cleaned and aligned images of the <a href="https://eclipse.gsfc.nasa.gov/SEgoogle/SEgoogle2001/SE2017Aug21Tgoogle.html" target="_blank" rel="noopener">2017 total solar eclipse</a> using phase correlation and unsharp masking, then retrieved the corona's closed and open magnetic field lines with the RHT and ACF methods.
+                The aim was to check that topology against the MHD equations.
+                I did this with <a href="https://supritsinghlab.github.io/" target="_blank" rel="noopener">Prof. Suprit Singh</a> in 2022&ndash;2023.
               </p>
               <div class="tag-cloud">
-                <span>Solar physics</span>
+                <span>2017 eclipse</span>
+                <span>Phase correlation</span>
+                <span>Unsharp masking</span>
                 <span>RHT</span>
                 <span>ACF</span>
                 <span>MHD</span>
@@ -381,50 +418,81 @@
           </article>
 
           <article class="project-card reveal">
-            <div class="project-visual visual-qkd" aria-hidden="true"></div>
+            <figure class="project-figure is-photo">
+              <a class="figure-media" href="https://www.pib.gov.in/PressReleasePage.aspx?PRID=2136702" target="_blank" rel="noopener" aria-label="Read the press release about this experiment">
+                <img src="images/research/qkd-lab/qkd-lab.webp" width="699" height="393" loading="lazy" decoding="async" alt="Night view over the IIT Delhi campus: a thin green laser beam crosses the skyline above trees and lit buildings, with a multi-storey building in the foreground at right.">
+              </a>
+              <figcaption>
+                The optical line of sight for Prof. Kanseri's group's entanglement-based free-space QKD link, more than 1&nbsp;km across the IIT Delhi campus (2025).
+                <span class="figure-credit">Photo: <a href="https://www.pib.gov.in/PressReleasePage.aspx?PRID=2136702" target="_blank" rel="noopener">Press Information Bureau</a>, Ministry of Defence (DRDO and IIT Delhi demonstration by the <a href="https://web.iitd.ac.in/~bkanseri/" target="_blank" rel="noopener">Kanseri group</a>), 16 June 2025.</span>
+              </figcaption>
+            </figure>
             <div class="project-body">
-              <h3>Post-processing and applications in quantum secure communication</h3>
-              <span class="card-kicker">SURA project</span>
+              <h3>Post-processing for entanglement-based QKD</h3>
+              <span class="card-kicker">SURA 2021, IIT Delhi</span>
               <p>
-                Developed optimized software for post-processing in entanglement-based Quantum Key Distribution, including reconciliation,
-                cascade variants, privacy amplification, networking, and lab-data verification.
+                I wrote Python software for the post-processing stage of entanglement-based quantum key distribution: several Cascade reconciliation variants, privacy amplification and networking.
+                I verified it on experimental data from <a href="https://web.iitd.ac.in/~bkanseri/" target="_blank" rel="noopener">Prof. Bhaskar Kanseri&rsquo;s lab</a> at <a href="https://physics.iitd.ac.in/" target="_blank" rel="noopener">IIT Delhi</a>.
+                The project was selected for SURA 2021 from 27 proposals in the Physics and Electrical departments, and was recognised for exemplary results.
               </p>
               <div class="tag-cloud">
-                <span>Quantum key distribution</span>
+                <span>Entanglement-based QKD</span>
+                <span>Cascade</span>
+                <span>Privacy amplification</span>
                 <span>Python</span>
-                <span>Reconciliation</span>
               </div>
             </div>
           </article>
 
           <article class="project-card reveal">
-            <div class="project-visual visual-waves" aria-hidden="true"></div>
+            <figure class="project-figure is-photo">
+              <a class="figure-media" href="https://noirlab.edu/public/images/NSO-DKIST-Gband1_yellow-CC/" target="_blank" rel="noopener" aria-label="View the original granulation image at NOIRLab">
+                <img src="images/research/solar-waves/solar-waves-800.webp" srcset="images/research/solar-waves/solar-waves-800.webp 800w, images/research/solar-waves/solar-waves-1600.webp 1600w" sizes="(min-width: 821px) 560px, 92vw" width="800" height="450" loading="lazy" decoding="async" alt="Close-up of the Sun's surface: bright, irregular convection cells about 1,000 km across, separated by narrow dark lanes, in yellow-orange false colour.">
+              </a>
+              <figcaption>
+                Solar granulation from NSF's Inouye Solar Telescope (G band, 3 June 2022). Near-surface convection like this excites the Sun's acoustic waves.
+                <span class="figure-credit">Inouye Solar Telescope inauguration observations by <a href="https://noirlab.edu/public/images/NSO-DKIST-Gband1_yellow-CC/" target="_blank" rel="noopener">NSO/AURA/NSF</a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>.</span>
+              </figcaption>
+            </figure>
             <div class="project-body">
               <h3>Identifying acoustic wave sources on the Sun</h3>
               <span class="card-kicker">Solar data</span>
               <p>
-                Studied acoustic waves on the solar surface using simulated MURAM data and image-processing techniques such as azimuthal averaging with OpenCV, NumPy, and matplotlib.
+                I studied acoustic waves at the solar surface in simulated <a href="https://github.com/NCAR/MURaM_main" target="_blank" rel="noopener">MURaM</a> data, and located their sources with image-processing methods such as azimuthal averaging in OpenCV and NumPy.
               </p>
               <div class="tag-cloud">
-                <span>MURAM</span>
+                <span>MURaM</span>
                 <span>OpenCV</span>
-                <span>Image processing</span>
+                <span>Azimuthal averaging</span>
+                <span>NumPy</span>
               </div>
             </div>
           </article>
 
           <article class="project-card reveal">
-            <div class="project-visual visual-fano" aria-hidden="true"></div>
+            <figure class="project-figure is-plot">
+              <a class="figure-media" href="images/research/fano/fano-main-1600.webp" target="_blank" rel="noopener" aria-label="Open the figure full size in a new tab">
+                <img src="images/research/fano/fano-main-800.webp" srcset="images/research/fano/fano-main-800.webp 800w, images/research/fano/fano-main-1600.webp 1600w" sizes="(min-width: 821px) 540px, 92vw" width="800" height="656" loading="lazy" decoding="async" alt="The complex plane, with the path the parameter w traces as the scattering angle runs from 0 to 180 degrees. Insets at 36, 64, 89 and 132 degrees show resonance peaks and dips of different shapes.">
+              </a>
+              <figcaption>
+                In cold H&ndash;Kr collisions the complex parameter <i>w</i> traces a smooth path as the scattering angle changes, while the Fano profile changes shape (insets at 36&deg;, 64&deg;, 89&deg; and 132&deg;).
+                <span class="figure-credit">Fig. 5, Singh et al. 2026, <a href="https://doi.org/10.1007/s12648-026-03956-2" target="_blank" rel="noopener">Indian J. Phys. 100, 2179</a> &copy; 2026 IACS.</span>
+              </figcaption>
+            </figure>
             <div class="project-body">
-              <h3>Angular dependence of Fano profile in ultra-cold atomic collisions</h3>
+              <h3>Angle-dependent Fano profiles in cold atomic collisions</h3>
               <span class="card-kicker">Atomic collisions</span>
               <p>
-                Studied Fano profiles in cold atomic collisions such as H-Kr and analyzed how Fano parameters depend on scattering angle using Python and Code Ocean.
+                I studied how the asymmetry of Fano resonance profiles changes with scattering angle, using a complex-valued <i>w</i> parameter that gives an angle-dependent Fano <i>q</i>.
+                For the orbiting resonance in cold H&ndash;Kr elastic scattering, computed with the <a href="https://doi.org/10.1016/j.cpc.2021.107895" target="_blank" rel="noopener">VPA phase-shift program</a>, the asymmetry varies strongly with angle and is sensitive to the interatomic potential.
+                I did this with <a href="https://nrid.nii.ac.jp/en/nrid/1000090095505/" target="_blank" rel="noopener">Prof. Fumihiro Koike</a> and <a href="https://www.bits-pilani.ac.in/goa/yoshiro-azuma/" target="_blank" rel="noopener">Prof. Yoshiro Azuma</a>, and published it as a first-author paper in the <a href="https://doi.org/10.1007/s12648-026-03956-2" target="_blank" rel="noopener">Indian Journal of Physics</a> in 2026.
               </p>
               <div class="tag-cloud">
-                <span>Fano profiles</span>
-                <span>Cold atomic collisions</span>
-                <span>Python</span>
+                <span>Fano q parameter</span>
+                <span>H&ndash;Kr scattering</span>
+                <span>Orbiting resonance</span>
+                <span>VPA program</span>
+                <span>Code Ocean</span>
               </div>
             </div>
           </article>
@@ -435,8 +503,7 @@
     <section id="publications" class="section publications" aria-labelledby="publications-title">
       <div class="container">
         <div class="section-heading reveal">
-          <h2 data-split id="publications-title">Publications and abstracts.</h2>
-          <p>Selected entries from Google Scholar and the current CV.</p>
+          <h2 data-split id="publications-title">Publications and abstracts</h2>
         </div>
 
         <div class="publication-tools reveal">
@@ -447,32 +514,54 @@
 
         <div class="publication-list">
           <article class="publication-card reveal">
-            <h3>Analysis of synthetic OVI absorption associated with galaxy groups in SIMBA and TNG50 simulations</h3>
-            <div class="publication-meta"><span>2026</span><span>arXiv preprint arXiv:2604.18808</span></div>
+            <h3>Analysis of synthetic O VI absorption associated with galaxy groups in SIMBA and TNG50 simulations</h3>
+            <div class="publication-meta"><span>2026</span><span>ApJ 1003, 110</span><span>First author</span></div>
             <p>T Singh, S Borthakur, D Nelson, R Dav&eacute;, T McCabe</p>
             <div class="publication-actions">
               <a class="chip-link" href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=Sfeb8fMAAAAJ&citation_for_view=Sfeb8fMAAAAJ:2osOgNQ5qMEC" target="_blank" rel="noopener">Scholar</a>
+              <a class="chip-link" href="https://doi.org/10.3847/1538-4357/ae632b" target="_blank" rel="noopener">Journal</a>
               <a class="chip-link" href="https://arxiv.org/abs/2604.18808" target="_blank" rel="noopener">arXiv</a>
             </div>
           </article>
 
           <article class="publication-card reveal">
             <h3>Site Quality Analysis for an Indian Submillimeter Telescope: A Reanalysis-Based Approach</h3>
-            <div class="publication-meta"><span>2026</span><span>arXiv preprint arXiv:2604.13487</span></div>
-            <p>T Singh, MS Rao, RB Thakur</p>
+            <div class="publication-meta"><span>2026</span><span>AJ 171, 331</span><span>First author</span></div>
+            <p>T Singh, M Sathyanarayana Rao, R Basu Thakur</p>
             <div class="publication-actions">
               <a class="chip-link" href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=Sfeb8fMAAAAJ&citation_for_view=Sfeb8fMAAAAJ:9yKSN-GCB0IC" target="_blank" rel="noopener">Scholar</a>
+              <a class="chip-link" href="https://doi.org/10.3847/1538-3881/ae5e4e" target="_blank" rel="noopener">Journal</a>
               <a class="chip-link" href="https://arxiv.org/abs/2604.13487" target="_blank" rel="noopener">arXiv</a>
             </div>
           </article>
 
           <article class="publication-card reveal">
-            <h3>Scattering angle dependence of Fano resonance profiles in cold atomic collisions analyzed with the complex valued w parameter: T Singh et al.</h3>
-            <div class="publication-meta"><span>2026</span><span>Indian Journal of Physics</span></div>
+            <h3>Scattering angle dependence of Fano resonance profiles in cold atomic collisions analyzed with the complex valued <i>w</i> parameter</h3>
+            <div class="publication-meta"><span>2026</span><span>Indian J. Phys. 100, 2179&ndash;2187</span><span>First author</span></div>
             <p>T Singh, RA Singh, F Koike, M Iizawa, Y Azuma</p>
             <div class="publication-actions">
               <a class="chip-link" href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=Sfeb8fMAAAAJ&citation_for_view=Sfeb8fMAAAAJ:u5HHmVD_uO8C" target="_blank" rel="noopener">Scholar</a>
+              <a class="chip-link" href="https://doi.org/10.1007/s12648-026-03956-2" target="_blank" rel="noopener">Journal</a>
               <a class="chip-link" href="https://arxiv.org/abs/2507.17674" target="_blank" rel="noopener">arXiv</a>
+            </div>
+          </article>
+
+          <article class="publication-card reveal">
+            <h3>Lighting up the circumgalactic medium: strong, jet-aligned H&alpha; emission around radio galaxies</h3>
+            <div class="publication-meta"><span>2026</span><span>ApJL 1009, L34</span><span>Co-author</span></div>
+            <p>N Roy, S Borthakur, T Heckman, T Singh</p>
+            <div class="publication-actions">
+              <a class="chip-link" href="https://doi.org/10.3847/2041-8213/ae9cbd" target="_blank" rel="noopener">Journal</a>
+              <a class="chip-link" href="https://arxiv.org/abs/2606.30088" target="_blank" rel="noopener">arXiv</a>
+            </div>
+          </article>
+
+          <article class="publication-card reveal">
+            <h3>Revealing cosmic ecosystems with the Hubble Space Telescope in 2030s and beyond</h3>
+            <div class="publication-meta"><span>2026</span><span>White paper, HST STScI call</span><span>Second author</span></div>
+            <p>S Borthakur, T Singh, D French, et al.</p>
+            <div class="publication-actions">
+              <a class="chip-link" href="https://arxiv.org/abs/2606.11506" target="_blank" rel="noopener">arXiv</a>
             </div>
           </article>
 
@@ -569,20 +658,51 @@
     <section id="contact" class="section contact" aria-labelledby="contact-title">
       <div class="container">
         <div class="section-heading reveal">
-          <h2 data-split id="contact-title">Get in touch.</h2>
+          <h2 data-split id="contact-title">Get in touch</h2>
         </div>
 
         <div class="contact-panel reveal">
-          <div>
+          <div class="contact-intro">
             <h3>Tanmay Singh</h3>
-            <p>Astrophysics PhD Student at Arizona State University, Tempe, AZ.</p>
+            <p>Send me a message here, or find me on any of these.</p>
+            <div class="hero-links contact-links" aria-label="Elsewhere">
+              <a href="mailto:tsingh65@asu.edu"><i class="bi bi-envelope-fill" aria-hidden="true"></i><span>tsingh65@asu.edu</span></a>
+              <a href="https://scholar.google.com/citations?user=Sfeb8fMAAAAJ&hl=en" target="_blank" rel="noopener"><i class="bi bi-mortarboard-fill" aria-hidden="true"></i><span>Google Scholar</span></a>
+              <a href="https://github.com/tanmay-starslab" target="_blank" rel="noopener"><i class="bi bi-github" aria-hidden="true"></i><span>GitHub</span></a>
+              <a href="https://www.linkedin.com/in/tanmay-singh-21574a1aa/" target="_blank" rel="noopener"><i class="bi bi-linkedin" aria-hidden="true"></i><span>LinkedIn</span></a>
+            </div>
           </div>
-          <div class="contact-grid">
-            <a class="contact-tile" href="mailto:tsingh65@asu.edu"><i class="bi bi-envelope" aria-hidden="true"></i><span>Email</span><strong>tsingh65@asu.edu</strong></a>
-            <a class="contact-tile" href="https://scholar.google.com/citations?user=Sfeb8fMAAAAJ&hl=en" target="_blank" rel="noopener"><i class="bi bi-mortarboard" aria-hidden="true"></i><span>Google Scholar</span><strong>Sfeb8fMAAAAJ</strong></a>
-            <a class="contact-tile" href="https://github.com/tanmay-starslab" target="_blank" rel="noopener"><i class="bi bi-github" aria-hidden="true"></i><span>GitHub</span><strong>tanmay-starslab</strong></a>
-            <a class="contact-tile" href="https://www.linkedin.com/in/tanmay-singh-21574a1aa/" target="_blank" rel="noopener"><i class="bi bi-linkedin" aria-hidden="true"></i><span>LinkedIn</span><strong>tanmay-singh-21574a1aa</strong></a>
-          </div>
+
+          <!-- The message goes through Web3Forms, which emails it on; this is a
+               static site with no server of its own. The access key below is
+               public by design. Without one, sending opens the visitor's own
+               email app with the message filled in, so the form works either
+               way. contact-form.js does the checking. -->
+          <form class="contact-form" id="contact-form" action="https://api.web3forms.com/submit" method="POST" novalidate data-fallback="tsingh65@asu.edu">
+            <input type="hidden" name="access_key" value="bdb6eec2-0be5-4582-9e95-33f1474d9248">
+            <input type="hidden" name="subject" value="New message from tanmay-starslab.github.io">
+            <input type="hidden" name="from_name" value="tanmay-starslab.github.io">
+            <input type="checkbox" name="botcheck" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <div class="form-row">
+              <div class="form-field">
+                <label for="cf-name">Your name</label>
+                <input id="cf-name" name="name" type="text" required maxlength="100" autocomplete="name">
+              </div>
+              <div class="form-field">
+                <label for="cf-email">Your email</label>
+                <input id="cf-email" name="email" type="email" required maxlength="200" autocomplete="email" inputmode="email" spellcheck="false">
+              </div>
+            </div>
+            <div class="form-field">
+              <label for="cf-message">Message</label>
+              <textarea id="cf-message" name="message" rows="5" required minlength="10" maxlength="5000"></textarea>
+            </div>
+            <div class="h-captcha" data-captcha="true" data-theme="dark"></div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary"><i class="bi bi-send" aria-hidden="true"></i> Send message</button>
+              <p class="form-status" id="cf-status" role="status" aria-live="polite"></p>
+            </div>
+          </form>
         </div>
       </div>
     </section>
@@ -591,6 +711,7 @@
   <footer id="footer" class="site-footer">
     <div class="container">
       <p>&copy; <span id="year">2026</span> Tanmay Singh. Designed by <a href="https://bootstrapmade.com/" target="_blank" rel="noopener">BootstrapMade</a>; adapted with a custom astrophysics interface.</p>
+      <p class="footer-note">Figures and photographs are credited where they appear; some are resized or trimmed to fit their cards.</p>
     </div>
   </footer>
 
@@ -606,8 +727,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js" defer></script>
   <!-- Before plate-field.js: it reads the visit seed cosmos.js sets. -->
-  <script src="assets/js/cosmos.js?v=2" defer></script>
+  <script src="assets/js/cosmos.js?v=3" defer></script>
   <script src="assets/js/warp.js?v=3" defer></script>
+  <script src="assets/js/contact-form.js?v=1" defer></script>
   <script src="assets/js/plate-field.js?v=3" defer></script>
   <script src="assets/js/choreography.js?v=7" defer></script>
 </body>
