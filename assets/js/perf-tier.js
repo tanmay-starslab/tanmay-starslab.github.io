@@ -162,6 +162,55 @@
     } catch (e) {}
   };
 
+  /* AFTER FIRST PAINT, WHEN IDLE — the start gate for the heavy layers.
+
+     cosmos.js (the sky raster and the merger's catch-up simulation) and
+     plate-field.js (the shader compile) used to do their set-up work in the
+     deferred-script slot, as one block of main-thread work right at load,
+     competing with the first paint and the first input. None of it is
+     content: the photograph and the words are the hero until the sky fades
+     in over them. So each layer asks for this instead.
+
+     The gate is the browser's own first-contentful-paint entry, not "the
+     next frame": measured on a loaded machine, a rAF-then-timeout gate let
+     the whole sky and merger boot run before the first paint was actually
+     presented. Without paint timing it falls back to that next-frame gate,
+     and a 3 s cap means a page that somehow never reports one still boots.
+     requestIdleCallback then waits for a quiet moment; its timeout caps the
+     wait on a page that is never idle, and Safari (no rIC) gets a plain task.
+     (A page opened in a background tab never paints, so it boots on the cap;
+     its loops still wait for the tab to be shown, as they always did.) */
+  var painted = false, waiting = [];
+  function idle(fn, timeout) {
+    if (typeof window.requestIdleCallback === "function") window.requestIdleCallback(fn, { timeout: timeout || 1500 });
+    else window.setTimeout(fn, 1);
+  }
+  function onPaint() {
+    if (painted) return;
+    painted = true;
+    var q = waiting; waiting = [];
+    q.forEach(function (w) { idle(w[0], w[1]); });
+  }
+  try {
+    var types = (window.PerformanceObserver && PerformanceObserver.supportedEntryTypes) || [];
+    if (types.indexOf("paint") >= 0) {
+      var po = new PerformanceObserver(function (list) {
+        list.getEntries().forEach(function (e) {
+          if (e.name === "first-contentful-paint") { po.disconnect(); onPaint(); }
+        });
+      });
+      po.observe({ type: "paint", buffered: true });
+      window.setTimeout(onPaint, 3000);
+    } else {
+      window.requestAnimationFrame(function () { window.setTimeout(onPaint, 0); });
+    }
+  } catch (e) {
+    window.requestAnimationFrame(function () { window.setTimeout(onPaint, 0); });
+  }
+  window.__whenIdle = function (fn, timeout) {
+    if (painted) idle(fn, timeout); else waiting.push([fn, timeout]);
+  };
+
   // A hook for the page and for measurement: lets CSS and a probe see the
   // decision without re-deriving it.
   try {
