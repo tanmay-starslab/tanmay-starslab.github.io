@@ -1591,6 +1591,17 @@ html.intro-skipped #intro-scrim {
   margin-top: 20px;
 }
 
+/* The explorer card is a doorway, not a description: a title, one line and
+   its two buttons right under it. In the rail it is narrower than the
+   project cards, so it reads as the end of the row. */
+.research-card.explorer-card {
+  min-height: 0;
+}
+
+.research-card.explorer-card .card-actions {
+  padding-top: 6px;
+}
+
 /* Buttons on a card that open something you can use. */
 .card-actions {
   display: flex;
@@ -3587,19 +3598,20 @@ html:not(.js) .ovi-rail { display: none !important; }
   /* A card that carries a figure is twice as wide in the rail, with the plot
      beside the text: stacked under it, the card grew taller than the pinned
      screen it has to fit in. */
-  html.rail-ready #research .research-card.has-figure,
-  html.rail-ready #research .research-card.has-columns {
+  html.rail-ready #research .research-card.has-figure {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
     gap: 30px;
     align-items: center;
     width: min(72vw, 980px);
   }
-  html.rail-ready #research .research-card.has-columns {
-    align-items: start;
-  }
   html.rail-ready #research .research-card.has-figure .card-figure {
     margin-top: 0;
+  }
+  html.rail-ready #research .research-card.explorer-card {
+    width: min(30vw, 400px);
+    align-self: center;
+    min-height: 0;
   }
   /* The rail must be able to leave the container's box horizontally while the
      container still centres it vertically. overflow-x on <body> is already
