@@ -2229,6 +2229,60 @@ html.intro-skipped #intro-scrim {
   transform: translateY(-2px);
 }
 
+/* ── Publications: Cite button and the phone "Show all" toggle ──────────── */
+/* The Cite chip is an action, not a link, so it is outlined rather than
+   filled: the same shape as its neighbours, read as a different kind of thing. */
+.chip-cite {
+  gap: 6px;
+  font-family: inherit;
+  line-height: inherit;
+  color: var(--accent);
+  background: transparent;
+  border: 1px solid color-mix(in oklab, var(--accent) 70%, transparent);
+  cursor: pointer;
+}
+
+.chip-cite:hover,
+.chip-cite.is-copied {
+  color: #06121f;
+  background: var(--accent);
+}
+
+/* A zero-height, invisible "Copied" stacked under the label sets its width, so
+   the chip keeps its size on copy and the row never re-wraps under the tap. */
+.chip-cite [data-cite-label] {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+.chip-cite [data-cite-label]::after {
+  content: "Copied";
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+/* `display` on .chip-link and .btn would otherwise beat the hidden attribute
+   the no-script markup relies on. */
+.chip-cite[hidden],
+.publication-more[hidden] { display: none; }
+
+.publication-more {
+  width: 100%;
+  margin-top: 18px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* The list only collapses on phones; at wider widths the toggle is pointless. */
+@media (min-width: 641px) {
+  .publication-more { display: none; }
+}
+
+@media (max-width: 640px) {
+  .publication-list.is-collapsed > .publication-card:nth-child(n + 4) { display: none; }
+}
+
 .timeline {
   position: relative;
   display: grid;
