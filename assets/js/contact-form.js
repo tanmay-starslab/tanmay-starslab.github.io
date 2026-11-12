@@ -41,6 +41,9 @@
   // The captcha widget only comes in when there is somewhere to send to.
   var captcha = form.querySelector(".h-captcha");
   if (key) {
+    // The widget takes its colours once, when it renders: match the page.
+    if (captcha) captcha.setAttribute("data-theme",
+      document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark");
     var s = document.createElement("script");
     s.src = "https://web3forms.com/client/script.js";
     s.async = true; s.defer = true;

@@ -4,6 +4,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark light">
+  <script>
+    /* Theme before first paint, so the page never flashes the wrong one: the
+       visitor's own choice if they have made one, otherwise their system's. */
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem("theme"); } catch (e) { /* blocked storage */ }
+      if (t !== "light" && t !== "dark") {
+        t = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      }
+      document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
   <title>Useful Links | Tanmay Singh</title>
   <meta name="description" content="Useful astronomy, astrophysics, programming, graduate school, and academic website links collected by Tanmay Singh.">
   <meta name="author" content="Tanmay Singh">
@@ -24,6 +37,7 @@
   <link rel="preload" href="assets/fonts/plate-display.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/plate-text.woff2" as="font" type="font/woff2" crossorigin>
   <link href="assets/css/snapfolio-astro.css?v=11" rel="stylesheet">
+  <link href="assets/css/light-theme.css?v=1" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: SnapFolio
@@ -108,6 +122,12 @@
         </ul>
       </nav>
 
+      <p class="motion-toggle-row theme-toggle-row">
+        <button type="button" class="motion-toggle theme-toggle" id="theme-toggle" aria-pressed="false">
+          <i class="bi bi-sun" aria-hidden="true"></i>
+          <span>Light mode</span>
+        </button>
+      </p>
       <div class="social-links" aria-label="Profile links">
         <a href="mailto:tsingh65@asu.edu" aria-label="Email Tanmay Singh"><i class="bi bi-envelope" aria-hidden="true"></i></a>
         <a href="https://scholar.google.com/citations?user=Sfeb8fMAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Tanmay Singh on Google Scholar"><i class="bi bi-mortarboard" aria-hidden="true"></i></a>
@@ -293,8 +313,9 @@
   <!-- This page runs the same sky canvas, so it gets the same device budget.
        Synchronous and first, so the deferred cosmos.js reads it. -->
   <script src="assets/js/perf-tier.js?v=2"></script>
+  <script src="assets/js/theme-toggle.js?v=1" defer></script>
   <script src="assets/js/snapfolio-astro.js?v=4"></script>
-  <script src="assets/js/cosmos.js?v=3" defer></script>
+  <script src="assets/js/cosmos.js?v=4" defer></script>
 </body>
 
 </html>
