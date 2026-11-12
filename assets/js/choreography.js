@@ -243,8 +243,89 @@
     }
     rail.addEventListener("focusin", focusRecovery);
 
+    // Progress readout and arrows. A pinned rail gives no hint that more cards
+    // follow, so "1 / 5" and a bar say it, and the arrows give a click and
+    // keyboard path through it. A card counts as reached when its right edge
+    // is on screen: by the leftmost-card measure the last two cards share
+    // progress 1 at this width, and the counter could never say 5 / 5.
+    var nav = section.querySelector(".rail-nav");
+    var navOff = function () {};
+    if (nav) {
+      var curEl = nav.querySelector("[data-rail-current]");
+      var barEl = nav.querySelector(".rail-nav-bar");
+      var prevBtn = nav.querySelector('[data-rail="prev"]');
+      var nextBtn = nav.querySelector('[data-rail="next"]');
+      var stops = [];
+      var shown = -1;
+      // An arrow pressed again while the smooth scroll from the last press is
+      // still running counts on from that press, not from where the page has
+      // got to so far.
+      var pending = -1, pendingAt = 0;
+      nav.querySelector("[data-rail-total]").textContent = panels.length;
+
+      var measureStops = function () {
+        var t = travel();
+        var base = rail.getBoundingClientRect().left - (g.getProperty(rail, "x") || 0);
+        var last = panels.length - 1;
+        stops = panels.map(function (p, i) {
+          if (i === 0 || t <= 0) return 0;
+          if (i === last) return 1;
+          var right = base + p.offsetLeft + p.offsetWidth;
+          return Math.min(1, Math.max(0, (right - window.innerWidth + 28) / t));
+        });
+      };
+      var indexAt = function (p) {
+        var k = 0;
+        for (var i = 0; i < stops.length; i++) if (stops[i] <= p + 0.01) k = i;
+        return k;
+      };
+      var paint = function () {
+        var p = railTween.progress();
+        var k = indexAt(p);
+        barEl.style.transform = "scaleX(" + p.toFixed(4) + ")";
+        if (k === shown) return;
+        shown = k;
+        curEl.textContent = k + 1;
+        prevBtn.setAttribute("aria-disabled", k === 0 ? "true" : "false");
+        nextBtn.setAttribute("aria-disabled", k === stops.length - 1 ? "true" : "false");
+      };
+      var go = function (dir) {
+        var st = railTween.scrollTrigger;
+        if (!st) return;
+        var k = (pending >= 0 && Date.now() - pendingAt < 1200) ? pending : indexAt(st.progress);
+        var to = Math.min(stops.length - 1, Math.max(0, k + dir));
+        if (to === k) return;
+        pending = to; pendingAt = Date.now();
+        var calm = reduceQuery.matches ||
+          document.documentElement.classList.contains("motion-off");
+        window.scrollTo({
+          top: Math.round(st.start + stops[to] * (st.end - st.start)),
+          behavior: calm ? "auto" : "smooth"
+        });
+      };
+      var onClick = function (e) {
+        var btn = e.target.closest("[data-rail]");
+        if (btn) go(btn.getAttribute("data-rail") === "next" ? 1 : -1);
+      };
+      var onRefresh = function () { measureStops(); shown = -1; paint(); };
+
+      nav.addEventListener("click", onClick);
+      railTween.eventCallback("onUpdate", paint);
+      window.ScrollTrigger.addEventListener("refresh", onRefresh);
+      measureStops();
+      paint();
+
+      navOff = function () {
+        nav.removeEventListener("click", onClick);
+        railTween.eventCallback("onUpdate", null);
+        window.ScrollTrigger.removeEventListener("refresh", onRefresh);
+        barEl.style.transform = "";
+      };
+    }
+
     return function () {
       document.documentElement.classList.remove("rail-ready");
+      navOff();
       rail.removeEventListener("focusin", focusRecovery);
       g.set(rail, { clearProps: "all" });
       g.set(panels, { clearProps: "all" });

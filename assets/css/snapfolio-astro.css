@@ -4032,6 +4032,106 @@ html:not(.js) .ovi-rail { display: none !important; }
   html.rail-ready #research .card-figure figcaption { font-size: 0.8rem; }
 }
 
+/* ═══════════════════════════════════════════════ THE RAIL'S READOUT
+   A pinned rail looks like one screen of cards; nothing says four more follow.
+   The readout ("1 / 5", a bar, two arrows) sits at the right end of the
+   heading row, so it costs no height in the pinned screen and can never cover
+   a card. Hidden unless the tween exists, on the same html.rail-ready gate as
+   the rail itself: on phones, with motion off and with GSAP blocked the cards
+   are a plain stack and there is nothing to step through. */
+.rail-nav { display: none; }
+
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  /* minmax(0, 1fr): the rail is width: max-content and spans both columns,
+     and a plain 1fr track would grow to its 3000px and push the readout off
+     the screen. */
+  html.rail-ready #research .container {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 24px;
+    align-items: end;
+  }
+  html.rail-ready #research .research-grid { grid-column: 1 / -1; }
+  html.rail-ready #research .rail-nav {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 36px;
+    /* The rail ends 28px inside the viewport (travel() in choreography.js);
+       the container's padding is 12px, so 16 more lines the arrow up with the
+       last card's edge and keeps its focus ring on screen. */
+    margin-right: 16px;
+  }
+}
+/* Matches the short-screen heading margin above, so the two still line up. */
+@media (min-width: 900px) and (max-height: 860px) and (prefers-reduced-motion: no-preference) {
+  html.rail-ready #research .rail-nav { margin-bottom: 18px; }
+}
+
+.rail-nav-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  color: var(--ink-text);
+  font-size: 1.1rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.025));
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  cursor: pointer;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  transition: border-color 200ms ease, opacity 200ms ease, transform 200ms ease;
+}
+.rail-nav-btn:hover,
+.rail-nav-btn:focus-visible {
+  border-color: oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.5);
+  transform: translateY(-2px);
+}
+/* aria-disabled, not disabled: a disabled button drops keyboard focus to the
+   body the moment the last press reaches the end of the rail. */
+.rail-nav-btn[aria-disabled="true"] {
+  opacity: 0.35;
+  cursor: default;
+  transform: none;
+}
+.rail-nav-meter {
+  display: grid;
+  gap: 7px;
+  min-width: 76px;
+  justify-items: center;
+}
+.rail-nav-count {
+  margin: 0;
+  color: var(--ink-muted);
+  font-family: var(--font-text);
+  font-size: 0.92rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.rail-nav-count [data-rail-current] { color: var(--ink-text); font-weight: 700; }
+.rail-nav-track {
+  position: relative;
+  width: 76px;
+  height: 2px;
+  overflow: hidden;
+  background: var(--ink-hairline);
+  border-radius: 2px;
+}
+/* scaleX, written by choreography.js on every scrub frame: a transform, so the
+   bar never triggers layout while the rail is moving. */
+.rail-nav-bar {
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+@media print {
+  .rail-nav { display: none !important; }
+}
+
 /* Every fallback surface gets the stack back, explicitly. A transform left
    behind by a killed tween is the classic way a rail prints as one visible
    card and three blank pages. */
