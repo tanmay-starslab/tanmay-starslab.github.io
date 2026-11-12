@@ -174,6 +174,22 @@
     });
   });
 
+  // A sighted reader sees the browser open a tab; a screen-reader user is just
+  // moved somewhere else. One shared hidden note, referenced by every link that
+  // opens a new tab, says so without touching any link's visible text or name.
+  const newTabLinks = document.querySelectorAll("a[target='_blank']");
+  if (newTabLinks.length) {
+    const note = document.createElement("span");
+    note.id = "new-tab-note";
+    note.hidden = true;
+    note.textContent = "Opens in a new tab";
+    document.body.appendChild(note);
+    newTabLinks.forEach((link) => {
+      const ids = link.getAttribute("aria-describedby");
+      link.setAttribute("aria-describedby", ids ? ids + " new-tab-note" : "new-tab-note");
+    });
+  }
+
   function toggleScrollTop() {
     if (!scrollTop) return;
     scrollTop.classList.toggle("active", window.scrollY > 500);
@@ -214,10 +230,12 @@
         best = link; bestTop = rect.top;
       }
       link.classList.remove("active");
+      link.removeAttribute("aria-current");
     });
     // Above the first section nothing is active, which is correct: the reader
     // is in the hero, and the hero's own entry claims it on its own terms.
-    if (best) best.classList.add("active");
+    // aria-current tells a screen reader what the highlight tells the eye.
+    if (best) { best.classList.add("active"); best.setAttribute("aria-current", "location"); }
   }
 
   function updateTimelineFill() {

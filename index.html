@@ -169,7 +169,7 @@
   <div class="cosmic-vignette" aria-hidden="true"></div>
   <div class="deep-grain" aria-hidden="true"></div>
 
-  <header id="header" class="site-header" aria-label="Primary navigation">
+  <header id="header" class="site-header">
     <button class="header-toggle" type="button" aria-label="Open navigation" aria-controls="navmenu" aria-expanded="false">
       <i class="bi bi-list" aria-hidden="true"></i>
     </button>
@@ -183,7 +183,7 @@
         </span>
       </a>
 
-      <nav id="navmenu" class="navmenu">
+      <nav id="navmenu" class="navmenu" aria-label="Primary">
         <ul>
           <li><a href="#home" class="active"><i class="bi bi-house navicon" aria-hidden="true"></i><span>Home</span></a></li>
           <li><a href="#about"><i class="bi bi-person navicon" aria-hidden="true"></i><span>About</span></a></li>
@@ -204,7 +204,7 @@
            without changing it for their whole machine. aria-pressed carries
            the state; the label says what the button DOES. -->
       <p class="motion-toggle-row theme-toggle-row">
-        <button type="button" class="motion-toggle theme-toggle" id="theme-toggle" aria-pressed="false">
+        <button type="button" class="motion-toggle theme-toggle" id="theme-toggle">
           <i class="bi bi-sun" aria-hidden="true"></i>
           <span>Light mode</span>
         </button>
@@ -216,7 +216,7 @@
         </button>
       </p>
 
-      <div class="social-links" aria-label="Profile links">
+      <div class="social-links" role="group" aria-label="Profile links">
         <a href="mailto:tsingh65@asu.edu" aria-label="Email Tanmay Singh"><i class="bi bi-envelope" aria-hidden="true"></i></a>
         <a href="https://scholar.google.com/citations?user=Sfeb8fMAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Tanmay Singh on Google Scholar"><i class="bi bi-mortarboard" aria-hidden="true"></i></a>
         <a href="https://github.com/tanmay-starslab" target="_blank" rel="noopener" aria-label="Tanmay Singh on GitHub"><i class="bi bi-github" aria-hidden="true"></i></a>
@@ -239,12 +239,12 @@
               <a href="https://search.asu.edu/profile/3187334" target="_blank" rel="noopener">Prof. Sanchayeeta Borthakur</a>.
               My research interests lie broadly in galaxy formation and processes that impact their evolution, primarily using cosmological simulations.
             </p>
-            <div class="hero-actions" aria-label="Primary actions">
+            <div class="hero-actions" role="group" aria-label="Primary actions">
               <a class="btn btn-primary" href="files/cv.pdf" target="_blank" rel="noopener"><i class="bi bi-file-earmark-person" aria-hidden="true"></i> CV</a>
               <a class="btn btn-outline" href="#research"><i class="bi bi-stars" aria-hidden="true"></i> Research</a>
               <a class="btn btn-outline" href="#publications"><i class="bi bi-journal-text" aria-hidden="true"></i> Publications</a>
             </div>
-            <div class="hero-links" aria-label="Quick links">
+            <div class="hero-links" role="group" aria-label="Quick links">
               <a href="mailto:tsingh65@asu.edu"><i class="bi bi-envelope-fill" aria-hidden="true"></i><span>tsingh65@asu.edu</span></a>
               <a href="https://scholar.google.com/citations?user=Sfeb8fMAAAAJ&hl=en" target="_blank" rel="noopener"><i class="bi bi-mortarboard-fill" aria-hidden="true"></i><span>Google Scholar</span></a>
               <a href="https://github.com/tanmay-starslab" target="_blank" rel="noopener"><i class="bi bi-github" aria-hidden="true"></i><span>GitHub</span></a>
@@ -361,7 +361,7 @@
               </div>
             </div>
             <figure class="card-figure is-plot">
-              <a class="figure-media" href="images/research/ovi/ovi-coverfrac-1600.webp" target="_blank" rel="noopener" aria-label="Open the full figure, both panels, in a new tab">
+              <a class="figure-media" href="images/research/ovi/ovi-coverfrac-1600.webp" target="_blank" rel="noopener" aria-label="Open the full O VI covering-fraction figure, both panels">
                 <img src="images/research/ovi/ovi-coverfrac-top-800.webp" srcset="images/research/ovi/ovi-coverfrac-top-800.webp 800w, images/research/ovi/ovi-coverfrac-top-1600.webp 1600w" sizes="(min-width: 900px) 460px, 92vw" width="800" height="646" loading="lazy" decoding="async" alt="O VI covering fraction against group halo mass in three bins. In every bin the TNG50 (blue) and SIMBA (red) means fall below the hatched COS-IGrM observations; SIMBA is lowest.">
               </a>
               <figcaption>
@@ -427,7 +427,7 @@
         <div class="project-mosaic">
           <article class="project-card large reveal">
             <figure class="project-figure is-plot">
-              <a class="figure-media" href="images/research/site-quality/site-quality-main-1600.webp" target="_blank" rel="noopener" aria-label="Open the figure full size in a new tab">
+              <a class="figure-media" href="images/research/site-quality/site-quality-main-1600.webp" target="_blank" rel="noopener" aria-label="Open the Ladakh water-vapor map full size">
                 <img src="images/research/site-quality/site-quality-main-800.webp" srcset="images/research/site-quality/site-quality-main-800.webp 800w, images/research/site-quality/site-quality-main-1600.webp 1600w" sizes="(min-width: 821px) 480px, 92vw" width="800" height="673" loading="lazy" decoding="async" alt="Map of the Ladakh plateau on shaded relief. Bubbles on the ERA5 grid show the share of months with PWV at or below 1 mm, up to about 23%; the largest and reddest lie in the northeast. Site A, Site B, Leh, Merak and Hanle are labelled.">
               </a>
               <figcaption>
@@ -484,7 +484,7 @@
 
           <article class="project-card reveal">
             <figure class="project-figure is-photo">
-              <a class="figure-media" href="https://www.pib.gov.in/PressReleasePage.aspx?PRID=2136702" target="_blank" rel="noopener" aria-label="Read the press release about this experiment">
+              <a class="figure-media" href="https://www.pib.gov.in/PressReleasePage.aspx?PRID=2136702" target="_blank" rel="noopener" aria-label="Read the Press Information Bureau release about this experiment">
                 <img src="images/research/qkd-lab/qkd-lab.webp" width="699" height="393" loading="lazy" decoding="async" alt="Night view over the IIT Delhi campus: a thin green laser beam crosses the skyline above trees and lit buildings, with a multi-storey building in the foreground at right.">
               </a>
               <figcaption>
@@ -536,7 +536,7 @@
 
           <article class="project-card reveal">
             <figure class="project-figure is-plot">
-              <a class="figure-media" href="images/research/fano/fano-main-1600.webp" target="_blank" rel="noopener" aria-label="Open the figure full size in a new tab">
+              <a class="figure-media" href="images/research/fano/fano-main-1600.webp" target="_blank" rel="noopener" aria-label="Open the Fano-profile figure full size">
                 <img src="images/research/fano/fano-main-800.webp" srcset="images/research/fano/fano-main-800.webp 800w, images/research/fano/fano-main-1600.webp 1600w" sizes="(min-width: 821px) 540px, 92vw" width="800" height="656" loading="lazy" decoding="async" alt="The complex plane, with the path the parameter w traces as the scattering angle runs from 0 to 180 degrees. Insets at 36, 64, 89 and 132 degrees show resonance peaks and dips of different shapes.">
               </a>
               <figcaption>
@@ -929,7 +929,7 @@
         </div>
 
         <div class="personal-panel reveal">
-          <div class="interest-grid" aria-label="Interest areas">
+          <div class="interest-grid" role="group" aria-label="Interest areas">
             <span><i class="bi bi-trophy" aria-hidden="true"></i> Chess</span>
             <span><i class="bi bi-book" aria-hidden="true"></i> Books</span>
             <span><i class="bi bi-globe-central-south-asia" aria-hidden="true"></i> Geography</span>
@@ -959,7 +959,7 @@
           <div class="contact-intro">
             <h3>Tanmay Singh</h3>
             <p>Send me a message here, or find me on any of these.</p>
-            <div class="hero-links contact-links" aria-label="Elsewhere">
+            <div class="hero-links contact-links" role="group" aria-label="Elsewhere">
               <a href="mailto:tsingh65@asu.edu"><i class="bi bi-envelope-fill" aria-hidden="true"></i><span>tsingh65@asu.edu</span></a>
               <a href="https://scholar.google.com/citations?user=Sfeb8fMAAAAJ&hl=en" target="_blank" rel="noopener"><i class="bi bi-mortarboard-fill" aria-hidden="true"></i><span>Google Scholar</span></a>
               <a href="https://github.com/tanmay-starslab" target="_blank" rel="noopener"><i class="bi bi-github" aria-hidden="true"></i><span>GitHub</span></a>

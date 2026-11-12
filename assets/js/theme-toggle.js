@@ -20,8 +20,9 @@
   function paint() {
     var light = root.getAttribute("data-theme") === "light";
     buttons.forEach(function (b) {
-      // The label says what the button DOES, like the motion toggle beside it.
-      b.setAttribute("aria-pressed", light ? "true" : "false");
+      // The label says what the button DOES. Because the label itself flips,
+      // the button carries no aria-pressed: "Dark mode, pressed" in light mode
+      // announced the opposite of what the page was showing.
       var icon = b.querySelector("i"), label = b.querySelector("span");
       if (icon) icon.className = light ? "bi bi-moon-stars" : "bi bi-sun";
       if (label) label.textContent = light ? "Dark mode" : "Light mode";

@@ -1058,6 +1058,20 @@ html.intro-skipped #intro-scrim {
   text-decoration-color: oklch(var(--l-text) var(--cmax-lya) var(--h-lya) / 0.7);
 }
 
+/* Links inside the research and earlier-research cards (and the talk venues
+   and footer credit) were told apart from the body text by colour alone:
+   1.3:1 against it in dark, 1.6:1 in light, where WCAG 1.4.1 asks for 3:1 or
+   a second cue. They take the about text's underline; their own colour
+   stays. --l-text carries it into light mode. */
+#research p a:not([class]),
+#past-projects p a:not([class]),
+.cv-venue a:not([class]),
+.site-footer p a:not([class]) {
+  text-decoration: underline;
+  text-decoration-color: oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.45);
+  text-underline-offset: 4px;
+}
+
 .hero {
   display: flex;
   align-items: center;
