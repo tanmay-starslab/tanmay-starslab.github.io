@@ -101,6 +101,14 @@ html[data-theme="light"] .hero h1,
 html[data-theme="light"] .hero-role { color: var(--ink-text); }
 html[data-theme="light"] .hero-subtitle { color: var(--ink-text-2); }
 
+/* News strip: on paper the date needs its full accent to clear 4.5:1, and the
+   text steps down from the subtitle by one ink, not two. */
+html[data-theme="light"] .hero-news-list li { color: var(--ink-text-2); }
+html[data-theme="light"] .hero-news-list time { color: var(--accent); }
+html[data-theme="light"] .hero-news-list a { color: var(--ink-text); }
+html[data-theme="light"] .hero-news-list a:hover,
+html[data-theme="light"] .hero-news-list a:focus-visible { color: var(--accent); }
+
 html[data-theme="light"] .btn-primary,
 html[data-theme="light"] .btn-primary:hover,
 html[data-theme="light"] .card-button,
