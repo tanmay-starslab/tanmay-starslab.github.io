@@ -279,6 +279,17 @@
           <h2 data-split id="research-title">Ongoing research projects</h2>
         </div>
 
+        <!-- Shown only while the desktop rail is live (html.rail-ready);
+             choreography.js fills the count and wires the arrows. -->
+        <div class="rail-nav" role="group" aria-label="Research projects">
+          <button class="rail-nav-btn" type="button" data-rail="prev" aria-label="Previous research project"><i class="bi bi-arrow-left" aria-hidden="true"></i></button>
+          <div class="rail-nav-meter">
+            <p class="rail-nav-count" aria-live="polite"><span class="visually-hidden">Project </span><span data-rail-current>1</span><span aria-hidden="true"> / </span><span class="visually-hidden"> of </span><span data-rail-total>5</span></p>
+            <div class="rail-nav-track" aria-hidden="true"><span class="rail-nav-bar"></span></div>
+          </div>
+          <button class="rail-nav-btn" type="button" data-rail="next" aria-label="Next research project"><i class="bi bi-arrow-right" aria-hidden="true"></i></button>
+        </div>
+
         <div class="research-grid">
           <article class="research-card featured reveal">
             <div class="card-glow" aria-hidden="true"></div>
