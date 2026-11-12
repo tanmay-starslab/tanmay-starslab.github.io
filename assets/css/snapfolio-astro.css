@@ -1645,6 +1645,75 @@ html.intro-skipped #intro-scrim {
   border-color: oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.5);
 }
 
+/* READ MORE ON PHONES. card-read-more.js gathers a card's paragraphs into
+   .card-more-text and sets html.cards-clamp; only then, and only below 641 px,
+   is the text held to three lines. Without the script, and on every wider
+   screen including the research rail, all of it shows and the button stays
+   hidden. The fade is a mask, not a colour laid over the text, so it reads the
+   same on the smoked dark card and the frosted light one. */
+.card-more-toggle {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  /* The 320 px floor was for the two-column grid; on a phone it would keep
+     the card tall around three lines of text. */
+  html.cards-clamp #research .research-card {
+    min-height: 0;
+  }
+
+  html.cards-clamp .card-more-text:not(.is-open):not(.is-short) {
+    max-height: 4.95em;   /* three lines at the body's 1.65 */
+    max-height: 3lh;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 1lh), rgb(0 0 0 / 0.18));
+    mask-image: linear-gradient(to bottom, #000 calc(100% - 1lh), rgb(0 0 0 / 0.18));
+  }
+
+  /* The last paragraph's margin would otherwise sit as dead space between the
+     clamped text and its button. */
+  html.cards-clamp .card-more-text:not(.is-open):not(.is-short) > p:last-child,
+  html.cards-clamp .card-more-text.is-open > p:last-child {
+    margin-bottom: 0;
+  }
+
+  html.cards-clamp .card-more-toggle:not([hidden]) {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+    min-height: 44px;
+    margin: 0 0 -8px;
+    padding: 6px 0;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.86rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    background: none;
+    border: 0;
+    cursor: pointer;
+  }
+
+  html.cards-clamp .card-more-toggle i {
+    font-size: 0.8em;
+    transition: transform 200ms ease;
+  }
+
+  html.cards-clamp .card-more-toggle[aria-expanded="true"] i {
+    transform: rotate(180deg);
+  }
+
+  html.motion-off .card-more-toggle i {
+    transition: none;
+  }
+}
+
+@media (max-width: 640px) and (prefers-reduced-motion: reduce) {
+  html.cards-clamp .card-more-toggle i {
+    transition: none;
+  }
+}
+
 /* These name real things — datasets, codes, instruments. The owner asked for
    them on glass, so each is a small frosted chip: a faint top-lit fill, a
    hairline rim and a blur of whatever sits behind the card. One colour for
