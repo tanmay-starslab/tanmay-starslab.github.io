@@ -10,9 +10,19 @@
      by the browser's own email type;
    - the hidden honeypot box is empty (people never see it, form-filling bots
      tick it);
+   - the email's domain is not a throwaway-inbox service, and it really
+     exists and accepts mail: a DNS lookup for its mail (MX) records, made
+     over HTTPS to Cloudflare's public resolver. Only the part after the @ is
+     sent, never the address. If the lookup itself fails (offline, blocked),
+     the message is allowed through rather than blocking a real person;
    - the hCaptcha is solved. Web3Forms checks the token on its own server when
      hCaptcha is switched on in its dashboard, so a bot cannot skip it by
      calling the API directly.
+
+   What no static page can do is prove the address belongs to the person
+   typing it; that takes a confirmation code sent to the inbox, which needs a
+   server. A made-up but real-looking address can still get through. The cost
+   is only that the reply has nowhere to go.
 
    Without an access key yet, sending opens the visitor's own email app with
    the message already written, so the form is never a dead end. */
@@ -37,6 +47,33 @@
     document.body.appendChild(s);
   } else if (captcha) {
     captcha.hidden = true;
+  }
+
+  // Throwaway-inbox services: an address there is gone within the hour.
+  var DISPOSABLE = ["mailinator.com", "guerrillamail.com", "guerrillamail.info", "sharklasers.com",
+    "10minutemail.com", "tempmail.com", "temp-mail.org", "tempmailo.com", "tempail.com", "yopmail.com",
+    "trashmail.com", "getnada.com", "dispostable.com", "maildrop.cc", "throwawaymail.com",
+    "fakeinbox.com", "mailnesia.com", "mintemail.com", "emailondeck.com", "moakt.com",
+    "burnermail.io", "mohmal.com", "mailpoof.com", "spamgourmet.com", "inboxkitten.com"];
+
+  function dns(name, type) {
+    return fetch("https://cloudflare-dns.com/dns-query?name=" + encodeURIComponent(name) + "&type=" + type,
+      { headers: { accept: "application/dns-json" } }).then(function (r) { return r.json(); });
+  }
+
+  // true: the domain accepts mail; false: it does not exist or refuses mail;
+  // true as well when the lookup cannot be made, so a real person is never
+  // blocked by a network hiccup.
+  function domainTakesMail(domain) {
+    return dns(domain, "MX").then(function (j) {
+      if (j.Status === 3) return false;                          // no such domain
+      var mx = (j.Answer || []).filter(function (a) { return a.type === 15; });
+      if (mx.length) return !mx.every(function (a) { return /^0\s+\.?$/.test(a.data.trim()); });   // "0 ." = refuses mail
+      // No MX record: mail falls back to the domain's own address record.
+      return dns(domain, "A").then(function (k) {
+        return (k.Answer || []).some(function (a) { return a.type === 1; });
+      });
+    }).catch(function () { return true; });
   }
 
   function say(text, kind) {
@@ -70,6 +107,26 @@
 
     var honey = field("botcheck");
     if (honey && honey.checked) return;   // a bot: say nothing, send nothing
+
+    var domain = field("email").value.trim().split("@").pop().toLowerCase();
+    if (DISPOSABLE.indexOf(domain) !== -1) {
+      invalid(field("email"), "Please use an email address you keep, so I can reply.");
+      return;
+    }
+    button.disabled = true;
+    say("Checking your email address...", "");
+    domainTakesMail(domain).then(function (ok) {
+      button.disabled = false;
+      if (!ok) {
+        invalid(field("email"), "That email domain does not seem to exist or accept mail. Please check the address.");
+        return;
+      }
+      say("", "");
+      send();
+    });
+  });
+
+  function send() {
 
     if (!key) {
       var to = form.getAttribute("data-fallback");
@@ -114,5 +171,5 @@
       // A pause before the next send, so one person cannot hammer the button.
       window.setTimeout(function () { button.disabled = false; }, 8000);
     });
-  });
+  }
 })();
