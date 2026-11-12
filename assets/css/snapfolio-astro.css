@@ -838,6 +838,166 @@ html.intro-skipped #intro-scrim {
   transition: opacity 520ms ease, filter 520ms ease, transform 520ms ease;
 }
 
+/* ── the slim rail (1200–1499px) ─────────────────────────────────────────
+   On a 1280 or 1440 laptop the 310px sidebar took a quarter of the screen.
+   In this band it rests as a 76px icon rail and opens to the full sidebar on
+   hover or keyboard focus, laid OVER the page: main keeps the slim margin, so
+   opening it never reflows content or the pinned research rail.
+   Every state difference is a custom property on .site-header, so each open
+   trigger is one small rule (a :has() selector would otherwise invalidate the
+   whole list in a browser without it). The labels stay in the DOM and are
+   only clipped to zero width, so links and buttons keep their accessible
+   names; the open-on-hover rail is the tooltip.
+   Transition delays come from the DESTINATION state: opening waits a beat so
+   a pointer crossing to the page does not pop it, closing waits a little
+   longer so a brief slip off the edge does not snap it shut. */
+@media (min-width: 1200px) and (max-width: 1499px) {
+  :root { --rail-width: 100px; }   /* 76px slab + 12px gutter either side */
+
+  .site-header {
+    --rail-w: var(--rail-width);
+    --rail-lbl-o: 0;
+    --rail-lbl-w: 0px;
+    --rail-lbl-delay: 0ms;
+    --rail-w-delay: 140ms;
+    --rail-gap: 0px;
+    --rail-tog-w: 36px;
+    --rail-tog-pad: 0px;
+    --rail-soc-dir: column;
+    width: var(--rail-w);
+    padding: 12px;
+    transition: width 320ms cubic-bezier(0.22, 1, 0.36, 1) var(--rail-w-delay);
+  }
+
+  /* Open. The intro states open it too: the arrival slab is the full panel,
+     and it settles into the rail when the intro completes. */
+  .site-header:hover,
+  html.intro-hold .site-header,
+  html.intro-moving .site-header {
+    --rail-w: var(--header-width);
+    --rail-lbl-o: 1;
+    --rail-lbl-w: 14rem;
+    --rail-lbl-delay: 110ms;
+    --rail-w-delay: 70ms;
+    --rail-gap: 12px;
+    --rail-tog-w: auto;
+    --rail-tog-pad: 0.65rem;
+    --rail-soc-dir: row;
+  }
+  /* Keyboard only: a mouse click leaves focus on the link, and :focus-within
+     would hold the panel open over the page after the pointer has gone. */
+  .site-header:has(:focus-visible) {
+    --rail-w: var(--header-width);
+    --rail-lbl-o: 1;
+    --rail-lbl-w: 14rem;
+    --rail-lbl-delay: 110ms;
+    --rail-w-delay: 0ms;
+    --rail-gap: 12px;
+    --rail-tog-w: auto;
+    --rail-tog-pad: 0.65rem;
+    --rail-soc-dir: row;
+  }
+  @supports not selector(:has(*)) {
+    .site-header:focus-within {
+      --rail-w: var(--header-width);
+      --rail-lbl-o: 1;
+      --rail-lbl-w: 14rem;
+      --rail-gap: 12px;
+      --rail-tog-w: auto;
+      --rail-tog-pad: 0.65rem;
+      --rail-soc-dir: row;
+    }
+  }
+
+  /* Full height and top-anchored, so opening never moves an icon vertically:
+     the social row sits at the bottom whichever way it is laid out. */
+  .header-container {
+    height: calc(100vh - 24px);
+    max-height: none;
+    padding: 12px;
+    overflow-x: hidden;
+    scrollbar-width: none;
+  }
+  .header-container::-webkit-scrollbar { display: none; }
+  /* A fixed-height column shrinks overflow:hidden children first, and the
+     avatar was the one it chose. Nothing in the rail may shrink. */
+  .header-container > * { flex-shrink: 0; }
+
+  .brand-lockup {
+    grid-template-columns: 48px minmax(0, 1fr);
+    gap: var(--rail-gap);
+    margin-bottom: 10px;
+    overflow: hidden;
+    transition: gap 320ms cubic-bezier(0.22, 1, 0.36, 1) var(--rail-w-delay);
+  }
+
+  /* Icon centres line up on one axis (25px in from the slab edge) in both
+     states, so the labels unfold beside icons that stay put. */
+  .navmenu a {
+    gap: var(--rail-gap);
+    min-height: clamp(34px, 5vh, 44px);
+    padding: 4px 14px;
+    margin: 2px 0;
+    overflow: hidden;
+    transition: gap 320ms cubic-bezier(0.22, 1, 0.36, 1) var(--rail-w-delay);
+  }
+  .navicon { flex-shrink: 0; text-align: center; }
+
+  .brand-lockup > span:last-child,
+  .navmenu a span,
+  .header-container .motion-toggle span {
+    max-width: var(--rail-lbl-w);
+    overflow: hidden;
+    white-space: nowrap;
+    opacity: var(--rail-lbl-o);
+    transition: opacity 200ms ease var(--rail-lbl-delay);
+  }
+
+  .header-container .motion-toggle-row { margin: 6px 0 0 6px; }
+  .header-container .motion-toggle {
+    justify-content: center;
+    width: var(--rail-tog-w);
+    min-height: 36px;
+    padding: 0 var(--rail-tog-pad);
+    gap: var(--rail-gap);
+    white-space: nowrap;
+  }
+  .header-container .motion-toggle i { width: 14px; flex-shrink: 0; text-align: center; }
+
+  .social-links {
+    flex-direction: var(--rail-soc-dir);
+    gap: 4px;
+    padding: 12px 0 0 9px;
+  }
+  .social-links a {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+  }
+
+  .main,
+  .site-footer {
+    margin-left: var(--rail-width);
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1499px) and (prefers-reduced-motion: reduce) {
+  .site-header,
+  .brand-lockup,
+  .navmenu a,
+  .brand-lockup > span:last-child,
+  .navmenu a span,
+  .header-container .motion-toggle span { transition: none !important; }
+}
+@media (min-width: 1200px) and (max-width: 1499px) {
+  html.motion-off .site-header,
+  html.motion-off .brand-lockup,
+  html.motion-off .navmenu a,
+  html.motion-off .brand-lockup > span:last-child,
+  html.motion-off .navmenu a span,
+  html.motion-off .header-container .motion-toggle span { transition: none !important; }
+}
+
 .section {
   position: relative;
   padding: 104px 0;
