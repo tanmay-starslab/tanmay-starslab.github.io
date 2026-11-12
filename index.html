@@ -24,7 +24,7 @@
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link rel="preload" href="assets/fonts/plate-display.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/plate-text.woff2" as="font" type="font/woff2" crossorigin>
-  <link href="assets/css/snapfolio-astro.css?v=8" rel="stylesheet">
+  <link href="assets/css/snapfolio-astro.css?v=9" rel="stylesheet">
 
   <script type="application/ld+json">
   {
@@ -260,22 +260,34 @@
         </div>
 
         <div class="research-grid">
-          <article class="research-card featured reveal">
+          <article class="research-card featured has-columns reveal">
             <div class="card-glow" aria-hidden="true"></div>
+            <div class="research-copy">
             <h3>Investigating the IGM and CGM</h3>
             <p>
               The intergalactic and circumgalactic media shape how galaxies form and evolve.
               I want to understand how the Mg II absorbers seen in the spectra of background quasars are connected to galaxies.
-            </p>
-            <p>
               Using mock quasar absorption spectra generated from cosmological simulations such as IllustrisTNG and SIMBA,
               I am asking whether these absorbers come from material blown out by star-forming galaxies or from large rotating disks accreting gas onto them.
             </p>
+            </div>
+            <div class="research-copy">
+            <p>
+              To make these mock spectra something anyone can explore, I built the TNG50 Sightline Explorer: mock quasar spectra (O&nbsp;VI, H&nbsp;I Ly&beta;, C&nbsp;III) through the CGM of a Milky-Way-mass TNG50-1 galaxy, degraded to any spectrograph resolution and S/N.
+              You can pick from 672 precomputed sightlines or request a new geometry, and a Trident ray is cast on demand.
+            </p>
+            <div class="card-actions">
+              <a class="card-button" href="https://tanmay-starslab.github.io/cgm-absorber-requirements/tng50/" target="_blank" rel="noopener"><i class="bi bi-bullseye" aria-hidden="true"></i> Open explorer</a>
+              <a class="card-button is-quiet" href="https://tanmay-starslab.github.io/cgm-absorber-requirements/" target="_blank" rel="noopener"><i class="bi bi-graph-up" aria-hidden="true"></i> Detect &amp; resolve explainer</a>
+            </div>
             <div class="tag-cloud">
               <span>Mg II absorbers</span>
-              <span>IllustrisTNG</span>
+              <span>TNG50-1</span>
               <span>SIMBA</span>
-              <span>Mock spectra</span>
+              <span>Trident</span>
+              <span>O VI</span>
+              <span>Forward model</span>
+            </div>
             </div>
           </article>
 
@@ -338,6 +350,7 @@
               <span>Trident</span>
             </div>
           </article>
+
         </div>
       </div>
     </section>
@@ -708,13 +721,17 @@
   <a href="#home" class="scroll-top" aria-label="Back to top"><i class="bi bi-arrow-up-short" aria-hidden="true"></i></a>
 
   <script src="assets/js/motion-toggle.js?v=2" defer></script>
+  <!-- Decides the device budget before any animation loop starts. Kept
+       synchronous and first: cosmos.js, warp.js and plate-field.js are all
+       deferred and so read it after this has run. -->
+  <script src="assets/js/perf-tier.js?v=2"></script>
   <script src="assets/js/snapfolio-astro.js?v=3"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js" defer></script>
   <!-- Before plate-field.js: it reads the visit seed cosmos.js sets. -->
-  <script src="assets/js/cosmos.js?v=2" defer></script>
-  <script src="assets/js/warp.js?v=2" defer></script>
+  <script src="assets/js/cosmos.js?v=3" defer></script>
+  <script src="assets/js/warp.js?v=3" defer></script>
   <script src="assets/js/contact-form.js?v=1" defer></script>
   <script src="assets/js/plate-field.js?v=3" defer></script>
   <script src="assets/js/choreography.js?v=7" defer></script>

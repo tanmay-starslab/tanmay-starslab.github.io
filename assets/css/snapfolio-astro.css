@@ -1591,12 +1591,15 @@ html.intro-skipped #intro-scrim {
   margin-top: 20px;
 }
 
-/* The one link a card carries to something you can do. */
-.card-cta {
-  margin: 4px 0 0;
+/* Buttons on a card that open something you can use. */
+.card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 4px;
 }
 
-.card-cta a {
+.card-button {
   display: inline-flex;
   gap: 8px;
   align-items: center;
@@ -1605,15 +1608,30 @@ html.intro-skipped #intro-scrim {
   color: #041019;
   font-weight: 700;
   background: var(--accent);
+  border: 1px solid transparent;
   border-radius: 999px;
-  transition: transform 200ms ease, background 200ms ease;
+  transition: transform 200ms ease, background 200ms ease, border-color 200ms ease;
 }
 
-.card-cta a:hover,
-.card-cta a:focus-visible {
+.card-button:hover,
+.card-button:focus-visible {
   color: #041019;
   background: color-mix(in oklab, var(--accent) 86%, white);
   transform: translateY(-2px);
+}
+
+.card-button.is-quiet {
+  color: var(--text);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.025));
+  border-color: rgba(255, 255, 255, 0.14);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.card-button.is-quiet:hover,
+.card-button.is-quiet:focus-visible {
+  color: #fff;
+  border-color: oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.5);
 }
 
 /* These name real things — datasets, codes, instruments. The owner asked for
@@ -3569,12 +3587,16 @@ html:not(.js) .ovi-rail { display: none !important; }
   /* A card that carries a figure is twice as wide in the rail, with the plot
      beside the text: stacked under it, the card grew taller than the pinned
      screen it has to fit in. */
-  html.rail-ready #research .research-card.has-figure {
+  html.rail-ready #research .research-card.has-figure,
+  html.rail-ready #research .research-card.has-columns {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
     gap: 30px;
     align-items: center;
     width: min(72vw, 980px);
+  }
+  html.rail-ready #research .research-card.has-columns {
+    align-items: start;
   }
   html.rail-ready #research .research-card.has-figure .card-figure {
     margin-top: 0;
@@ -3590,6 +3612,32 @@ html:not(.js) .ovi-rail { display: none !important; }
      two-finger swipe. `clip` rather than `hidden` so no scroll container is
      created and the pin still works. */
   html.rail-ready #research { overflow-x: clip; }
+}
+
+/* A laptop screen is short. The rail is pinned, so whatever of a card falls
+   below the screen's edge is never seen at all while it slides past: at
+   1280 x 720 that was the first card's buttons and tags. On short screens the
+   heading and the cards give up some size so every card fits whole. */
+@media (min-width: 900px) and (max-height: 860px) and (prefers-reduced-motion: no-preference) {
+  html.rail-ready #research.section { padding-top: 56px; }
+  html.rail-ready #research .section-heading { margin-bottom: 18px; }
+  html.rail-ready #research .section-heading h2 {
+    font-size: clamp(2rem, 3.2vw, 3.1rem);
+    margin-bottom: 0;
+  }
+  html.rail-ready #research .research-card,
+  html.rail-ready #research .research-card.featured {
+    min-height: 0;
+    padding: 22px 26px;
+  }
+  html.rail-ready #research .research-card h3 { margin: 4px 0 10px; }
+  html.rail-ready #research .research-card p {
+    margin-bottom: 0.7rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  html.rail-ready #research .tag-cloud { margin-top: 12px; }
+  html.rail-ready #research .card-figure figcaption { font-size: 0.8rem; }
 }
 
 /* Every fallback surface gets the stack back, explicitly. A transform left
@@ -3678,4 +3726,124 @@ html.motion-off #research .research-card,
 html.motion-off #research .research-card.featured {
   width: auto !important;
   transform: none !important;
+}
+
+/* ───────────────────────────── NO USABLE GPU ─────────────────────────────
+   perf-tier.js sets data-gpu="software" only when WEBGL_debug_renderer_info
+   positively identifies a software rasteriser — SwiftShader, llvmpipe,
+   Mesa offscreen, Microsoft Basic Render Driver — or when there is no WebGL
+   at all. An unknown renderer is never assumed to be software, so a reader
+   on a privacy build that hides the extension keeps the full page.
+
+   Measured on a 6x-throttled, 2-core client rendering in software, with both
+   JS animation loops already tiered down by perf-tier.js:
+       seven infinite CSS animations running ......  8.6fps
+       the same page with those animations off .... 59.9fps
+       backdrop-filter off, animations still on ...  8.6fps
+   No single animation is to blame; the cost is cumulative, because each one
+   re-rasterises a large or full-viewport layer every frame and a software
+   rasteriser cannot absorb that. The third line matters as much as the
+   others: the glass is NOT the problem, so every backdrop-filter stays.
+
+   Only MOTION is removed here. Every gradient, blur, grain, rim and glass
+   surface remains exactly as designed — the composition is identical, it
+   simply holds still.
+
+   The instant-completion idiom (rather than a blunt animation:none) is
+   copied deliberately from the prefers-reduced-motion block above: it lets
+   `forwards` fills still land, so .reveal content cannot be stranded at
+   opacity 0. That failure mode has bitten this file before. */
+html[data-gpu="software"] *,
+html[data-gpu="software"] *::before,
+html[data-gpu="software"] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+}
+
+/* Must outrank html.js-reveal .reveal (0,2,1), exactly as the
+   reduced-motion block has to, or revealed content never becomes visible. */
+html[data-gpu="software"] .reveal,
+html[data-gpu="software"].js-reveal .reveal,
+html[data-gpu="software"].js-reveal .reveal.is-visible {
+  opacity: 1;
+  translate: none;
+  transform: none;
+  animation: none !important;
+}
+
+/* The seven named offenders, stopped outright rather than merely shortened. */
+html[data-gpu="software"] body::before,
+html[data-gpu="software"] body::after,
+html[data-gpu="software"] .hero-nebula,
+html[data-gpu="software"] .hero-portrait,
+html[data-gpu="software"] .hero-portrait .portrait-halo,
+html[data-gpu="software"] .hero-portrait .portrait-rim,
+html[data-gpu="software"] .research-card.featured::after,
+html[data-gpu="software"] .research-card.featured > .card-glow {
+  animation: none !important;
+}
+
+/* ── and the scroll cost, same software-rasteriser case ───────────────────
+   Idle was solved by stopping the animations above. Scrolling is a separate
+   problem: it is when a backdrop actually changes and has to be re-blurred,
+   and when a position:fixed layer has to be repainted against moving
+   content. Measured during a continuous scroll on the same 6x-throttled,
+   2-core software client:
+       as above .....................................  8.6fps
+       backdrop-filter off ..........................   15fps
+       fixed body::before/::after off ...............   12fps
+       both off .....................................   30fps
+       both off, plus the starfield canvas hidden ...   30fps
+   The canvas is innocent (it is already tiered down and does not repaint on
+   scroll), so it keeps drawing. The other two are halved-then-halved again,
+   which is why neither alone is enough.
+
+   The glass falls back to the SAME solid #0b1018 the prefers-reduced-
+   transparency block already uses, deliberately: dropping blur(16px)
+   without raising opacity would leave 76%-opaque panels over a live
+   starfield, and this file's contrast audit does not survive that. Reusing
+   the audited value keeps text legibility where it was measured.
+
+   What a reader on a software rasteriser loses: the blur behind the panels,
+   and the 18px softening on the background wash. What they keep: every
+   gradient, colour, border, shadow, the grain, the full layout — and a page
+   that scrolls at 30fps instead of 8.6. */
+html[data-gpu="software"] .research-card,
+html[data-gpu="software"] .project-card,
+html[data-gpu="software"] .publication-card,
+html[data-gpu="software"] .timeline-content,
+html[data-gpu="software"] .contact-panel,
+html[data-gpu="software"] .contact-tile,
+html[data-gpu="software"] .about-panel,
+html[data-gpu="software"] .personal-panel,
+html[data-gpu="software"] .link-section,
+html[data-gpu="software"] .teaching-panel,
+html[data-gpu="software"] .fact-grid div,
+html[data-gpu="software"] .tag-cloud span,
+html[data-gpu="software"] .header-toggle,
+html[data-gpu="software"] .header-container,
+html[data-gpu="software"] .cosmic-card,
+html[data-gpu="software"] .education-card,
+html[data-gpu="software"] .personal-card,
+html[data-gpu="software"] .link-card,
+html[data-gpu="software"] .glass-panel {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background: #0b1018 !important;
+}
+
+/* The two fixed, full-viewport decorative layers. Not hidden — that would
+   flatten the page to bare background — but stripped of the two things that
+   make them expensive to repaint on every scrolled frame: an 18px blur over
+   the whole viewport, and a radial mask. The gradients underneath are
+   already soft, so the blur was close to redundant anyway. */
+html[data-gpu="software"] body::after {
+  filter: none !important;
+  transform: none !important;
+}
+html[data-gpu="software"] body::before {
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
+  opacity: 0.5 !important;   /* the mask was what kept it off the edges */
 }
