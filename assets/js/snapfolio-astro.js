@@ -345,7 +345,10 @@
   });
 
   if (!reduceMotion && window.matchMedia("(pointer: fine)").matches) {
-    const tiltCards = document.querySelectorAll(".hero-portrait, .about-panel, .research-card, .project-card, .publication-card, .timeline-content, .teaching-panel, .personal-panel, .link-section, .contact-panel, .contact-tile, .fact-grid div, .glass-panel, .cosmic-card, .education-card, .personal-card, .link-card, .hover-lift");
+    const tiltCards = document.querySelectorAll(".hero-portrait, .about-panel, .research-card, .project-card, .publication-card, .timeline-content, .teaching-panel, .personal-panel, .link-section, .fact-grid div, .glass-panel, .cosmic-card, .education-card, .personal-card, .link-card, .hover-lift");
+    // The contact panel is left out on purpose: it holds a form, and a card
+    // that tilts toward the cursor while someone is typing in it is a
+    // distraction, not feedback.
     tiltCards.forEach((card) => {
       let cardQueued = false;
       let cardEvent = null;

@@ -2040,6 +2040,14 @@ html.intro-skipped #intro-scrim {
   padding: clamp(24px, 4vw, 40px);
 }
 
+/* The panel holds a form, so it stays put: no tilt toward the cursor and no
+   lift on hover, which the shared card rule gives every other panel. */
+.contact-panel,
+.contact-panel:hover,
+.contact-panel:focus-within {
+  transform: none;
+}
+
 .contact-intro p {
   max-width: 44ch;
   margin-bottom: 22px;
