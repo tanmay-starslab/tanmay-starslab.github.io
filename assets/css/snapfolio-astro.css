@@ -838,6 +838,166 @@ html.intro-skipped #intro-scrim {
   transition: opacity 520ms ease, filter 520ms ease, transform 520ms ease;
 }
 
+/* ── the slim rail (1200–1499px) ─────────────────────────────────────────
+   On a 1280 or 1440 laptop the 310px sidebar took a quarter of the screen.
+   In this band it rests as a 76px icon rail and opens to the full sidebar on
+   hover or keyboard focus, laid OVER the page: main keeps the slim margin, so
+   opening it never reflows content or the pinned research rail.
+   Every state difference is a custom property on .site-header, so each open
+   trigger is one small rule (a :has() selector would otherwise invalidate the
+   whole list in a browser without it). The labels stay in the DOM and are
+   only clipped to zero width, so links and buttons keep their accessible
+   names; the open-on-hover rail is the tooltip.
+   Transition delays come from the DESTINATION state: opening waits a beat so
+   a pointer crossing to the page does not pop it, closing waits a little
+   longer so a brief slip off the edge does not snap it shut. */
+@media (min-width: 1200px) and (max-width: 1499px) {
+  :root { --rail-width: 100px; }   /* 76px slab + 12px gutter either side */
+
+  .site-header {
+    --rail-w: var(--rail-width);
+    --rail-lbl-o: 0;
+    --rail-lbl-w: 0px;
+    --rail-lbl-delay: 0ms;
+    --rail-w-delay: 140ms;
+    --rail-gap: 0px;
+    --rail-tog-w: 36px;
+    --rail-tog-pad: 0px;
+    --rail-soc-dir: column;
+    width: var(--rail-w);
+    padding: 12px;
+    transition: width 320ms cubic-bezier(0.22, 1, 0.36, 1) var(--rail-w-delay);
+  }
+
+  /* Open. The intro states open it too: the arrival slab is the full panel,
+     and it settles into the rail when the intro completes. */
+  .site-header:hover,
+  html.intro-hold .site-header,
+  html.intro-moving .site-header {
+    --rail-w: var(--header-width);
+    --rail-lbl-o: 1;
+    --rail-lbl-w: 14rem;
+    --rail-lbl-delay: 110ms;
+    --rail-w-delay: 70ms;
+    --rail-gap: 12px;
+    --rail-tog-w: auto;
+    --rail-tog-pad: 0.65rem;
+    --rail-soc-dir: row;
+  }
+  /* Keyboard only: a mouse click leaves focus on the link, and :focus-within
+     would hold the panel open over the page after the pointer has gone. */
+  .site-header:has(:focus-visible) {
+    --rail-w: var(--header-width);
+    --rail-lbl-o: 1;
+    --rail-lbl-w: 14rem;
+    --rail-lbl-delay: 110ms;
+    --rail-w-delay: 0ms;
+    --rail-gap: 12px;
+    --rail-tog-w: auto;
+    --rail-tog-pad: 0.65rem;
+    --rail-soc-dir: row;
+  }
+  @supports not selector(:has(*)) {
+    .site-header:focus-within {
+      --rail-w: var(--header-width);
+      --rail-lbl-o: 1;
+      --rail-lbl-w: 14rem;
+      --rail-gap: 12px;
+      --rail-tog-w: auto;
+      --rail-tog-pad: 0.65rem;
+      --rail-soc-dir: row;
+    }
+  }
+
+  /* Full height and top-anchored, so opening never moves an icon vertically:
+     the social row sits at the bottom whichever way it is laid out. */
+  .header-container {
+    height: calc(100vh - 24px);
+    max-height: none;
+    padding: 12px;
+    overflow-x: hidden;
+    scrollbar-width: none;
+  }
+  .header-container::-webkit-scrollbar { display: none; }
+  /* A fixed-height column shrinks overflow:hidden children first, and the
+     avatar was the one it chose. Nothing in the rail may shrink. */
+  .header-container > * { flex-shrink: 0; }
+
+  .brand-lockup {
+    grid-template-columns: 48px minmax(0, 1fr);
+    gap: var(--rail-gap);
+    margin-bottom: 10px;
+    overflow: hidden;
+    transition: gap 320ms cubic-bezier(0.22, 1, 0.36, 1) var(--rail-w-delay);
+  }
+
+  /* Icon centres line up on one axis (25px in from the slab edge) in both
+     states, so the labels unfold beside icons that stay put. */
+  .navmenu a {
+    gap: var(--rail-gap);
+    min-height: clamp(34px, 5vh, 44px);
+    padding: 4px 14px;
+    margin: 2px 0;
+    overflow: hidden;
+    transition: gap 320ms cubic-bezier(0.22, 1, 0.36, 1) var(--rail-w-delay);
+  }
+  .navicon { flex-shrink: 0; text-align: center; }
+
+  .brand-lockup > span:last-child,
+  .navmenu a span,
+  .header-container .motion-toggle span {
+    max-width: var(--rail-lbl-w);
+    overflow: hidden;
+    white-space: nowrap;
+    opacity: var(--rail-lbl-o);
+    transition: opacity 200ms ease var(--rail-lbl-delay);
+  }
+
+  .header-container .motion-toggle-row { margin: 6px 0 0 6px; }
+  .header-container .motion-toggle {
+    justify-content: center;
+    width: var(--rail-tog-w);
+    min-height: 36px;
+    padding: 0 var(--rail-tog-pad);
+    gap: var(--rail-gap);
+    white-space: nowrap;
+  }
+  .header-container .motion-toggle i { width: 14px; flex-shrink: 0; text-align: center; }
+
+  .social-links {
+    flex-direction: var(--rail-soc-dir);
+    gap: 4px;
+    padding: 12px 0 0 9px;
+  }
+  .social-links a {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+  }
+
+  .main,
+  .site-footer {
+    margin-left: var(--rail-width);
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1499px) and (prefers-reduced-motion: reduce) {
+  .site-header,
+  .brand-lockup,
+  .navmenu a,
+  .brand-lockup > span:last-child,
+  .navmenu a span,
+  .header-container .motion-toggle span { transition: none !important; }
+}
+@media (min-width: 1200px) and (max-width: 1499px) {
+  html.motion-off .site-header,
+  html.motion-off .brand-lockup,
+  html.motion-off .navmenu a,
+  html.motion-off .brand-lockup > span:last-child,
+  html.motion-off .navmenu a span,
+  html.motion-off .header-container .motion-toggle span { transition: none !important; }
+}
+
 .section {
   position: relative;
   padding: 104px 0;
@@ -1107,6 +1267,62 @@ html.intro-skipped #intro-scrim {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.05));
   border-color: oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.5);
   transform: translateY(-2px);
+}
+
+/* News strip: a dated list under the links, so a visitor sees the page is
+   current. Set as small type with a hairline above, not as another card;
+   the date column is fixed so the lines align and wrap under the text. */
+.hero-news {
+  max-width: 640px;
+  margin-top: 22px;
+  padding-top: 14px;
+  border-top: 1px solid var(--ink-hairline);
+}
+
+.hero-news-title {
+  margin: 0 0 8px;
+  color: var(--ink-caption);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero-news-list {
+  display: grid;
+  gap: 5px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hero-news-list li {
+  display: grid;
+  grid-template-columns: 5.6em minmax(0, 1fr);
+  column-gap: 12px;
+  color: var(--ink-muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.hero-news-list time {
+  color: oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.8);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  line-height: 1.8;
+  white-space: nowrap;
+}
+
+.hero-news-list a {
+  color: var(--ink-text-2);
+  text-decoration: underline;
+  text-decoration-color: oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.45);
+  text-underline-offset: 3px;
+}
+
+.hero-news-list a:hover,
+.hero-news-list a:focus-visible {
+  color: var(--accent);
 }
 
 
@@ -1645,6 +1861,75 @@ html.intro-skipped #intro-scrim {
   border-color: oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.5);
 }
 
+/* READ MORE ON PHONES. card-read-more.js gathers a card's paragraphs into
+   .card-more-text and sets html.cards-clamp; only then, and only below 641 px,
+   is the text held to three lines. Without the script, and on every wider
+   screen including the research rail, all of it shows and the button stays
+   hidden. The fade is a mask, not a colour laid over the text, so it reads the
+   same on the smoked dark card and the frosted light one. */
+.card-more-toggle {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  /* The 320 px floor was for the two-column grid; on a phone it would keep
+     the card tall around three lines of text. */
+  html.cards-clamp #research .research-card {
+    min-height: 0;
+  }
+
+  html.cards-clamp .card-more-text:not(.is-open):not(.is-short) {
+    max-height: 4.95em;   /* three lines at the body's 1.65 */
+    max-height: 3lh;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 1lh), rgb(0 0 0 / 0.18));
+    mask-image: linear-gradient(to bottom, #000 calc(100% - 1lh), rgb(0 0 0 / 0.18));
+  }
+
+  /* The last paragraph's margin would otherwise sit as dead space between the
+     clamped text and its button. */
+  html.cards-clamp .card-more-text:not(.is-open):not(.is-short) > p:last-child,
+  html.cards-clamp .card-more-text.is-open > p:last-child {
+    margin-bottom: 0;
+  }
+
+  html.cards-clamp .card-more-toggle:not([hidden]) {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+    min-height: 44px;
+    margin: 0 0 -8px;
+    padding: 6px 0;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.86rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    background: none;
+    border: 0;
+    cursor: pointer;
+  }
+
+  html.cards-clamp .card-more-toggle i {
+    font-size: 0.8em;
+    transition: transform 200ms ease;
+  }
+
+  html.cards-clamp .card-more-toggle[aria-expanded="true"] i {
+    transform: rotate(180deg);
+  }
+
+  html.motion-off .card-more-toggle i {
+    transition: none;
+  }
+}
+
+@media (max-width: 640px) and (prefers-reduced-motion: reduce) {
+  html.cards-clamp .card-more-toggle i {
+    transition: none;
+  }
+}
+
 /* These name real things — datasets, codes, instruments. The owner asked for
    them on glass, so each is a small frosted chip: a faint top-lit fill, a
    hairline rim and a blur of whatever sits behind the card. One colour for
@@ -1786,6 +2071,99 @@ html.intro-skipped #intro-scrim {
 
 .figure-credit a:hover {
   color: var(--text);
+}
+
+/* ─────────────────────────────── code and tools
+   A light list of link rows, not glass cards: each row only points at a repo
+   or a live page, so it gets an icon, a name, one line and its links, on a
+   hairline. Two columns where there is room, one on a phone. */
+.code-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px 22px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 900px) {
+  .code-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+.code-row {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+  padding: 18px 20px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--ink-hairline);
+  border-radius: 14px;
+  transition: border-color 200ms ease, background 200ms ease;
+}
+
+.code-row:hover {
+  background: rgba(255, 255, 255, 0.045);
+  border-color: var(--ink-edge);
+}
+
+.code-icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  color: var(--accent);
+  font-size: 1.15rem;
+  background: oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.08);
+  border: 1px solid oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.22);
+  border-radius: 10px;
+}
+
+.code-body h3 {
+  margin: 2px 0 6px;
+  color: color-mix(in oklab, var(--a-cyan) 52%, #ffffff);
+  font-size: 1.12rem;
+  font-weight: 700;
+}
+
+.code-body p {
+  margin-bottom: 8px;
+  color: var(--ink-muted);
+  font-size: 0.97rem;
+  line-height: 1.55;
+}
+
+.code-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 18px;
+}
+
+/* Text links, padded to a 36px tap height without looking like buttons. */
+.code-links a {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  min-height: 36px;
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 650;
+}
+
+.code-links a:hover,
+.code-links a:focus-visible {
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  .code-row {
+    grid-template-columns: 34px minmax(0, 1fr);
+    gap: 12px;
+    padding: 16px;
+  }
+  .code-icon { width: 34px; height: 34px; font-size: 1rem; }
 }
 
 .publication-tools {
@@ -3708,6 +4086,106 @@ html:not(.js) .ovi-rail { display: none !important; }
   html.rail-ready #research .card-figure figcaption { font-size: 0.8rem; }
 }
 
+/* ═══════════════════════════════════════════════ THE RAIL'S READOUT
+   A pinned rail looks like one screen of cards; nothing says four more follow.
+   The readout ("1 / 5", a bar, two arrows) sits at the right end of the
+   heading row, so it costs no height in the pinned screen and can never cover
+   a card. Hidden unless the tween exists, on the same html.rail-ready gate as
+   the rail itself: on phones, with motion off and with GSAP blocked the cards
+   are a plain stack and there is nothing to step through. */
+.rail-nav { display: none; }
+
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  /* minmax(0, 1fr): the rail is width: max-content and spans both columns,
+     and a plain 1fr track would grow to its 3000px and push the readout off
+     the screen. */
+  html.rail-ready #research .container {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 24px;
+    align-items: end;
+  }
+  html.rail-ready #research .research-grid { grid-column: 1 / -1; }
+  html.rail-ready #research .rail-nav {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 36px;
+    /* The rail ends 28px inside the viewport (travel() in choreography.js);
+       the container's padding is 12px, so 16 more lines the arrow up with the
+       last card's edge and keeps its focus ring on screen. */
+    margin-right: 16px;
+  }
+}
+/* Matches the short-screen heading margin above, so the two still line up. */
+@media (min-width: 900px) and (max-height: 860px) and (prefers-reduced-motion: no-preference) {
+  html.rail-ready #research .rail-nav { margin-bottom: 18px; }
+}
+
+.rail-nav-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  color: var(--ink-text);
+  font-size: 1.1rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.025));
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  cursor: pointer;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  transition: border-color 200ms ease, opacity 200ms ease, transform 200ms ease;
+}
+.rail-nav-btn:hover,
+.rail-nav-btn:focus-visible {
+  border-color: oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.5);
+  transform: translateY(-2px);
+}
+/* aria-disabled, not disabled: a disabled button drops keyboard focus to the
+   body the moment the last press reaches the end of the rail. */
+.rail-nav-btn[aria-disabled="true"] {
+  opacity: 0.35;
+  cursor: default;
+  transform: none;
+}
+.rail-nav-meter {
+  display: grid;
+  gap: 7px;
+  min-width: 76px;
+  justify-items: center;
+}
+.rail-nav-count {
+  margin: 0;
+  color: var(--ink-muted);
+  font-family: var(--font-text);
+  font-size: 0.92rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.rail-nav-count [data-rail-current] { color: var(--ink-text); font-weight: 700; }
+.rail-nav-track {
+  position: relative;
+  width: 76px;
+  height: 2px;
+  overflow: hidden;
+  background: var(--ink-hairline);
+  border-radius: 2px;
+}
+/* scaleX, written by choreography.js on every scrub frame: a transform, so the
+   bar never triggers layout while the rail is moving. */
+.rail-nav-bar {
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+@media print {
+  .rail-nav { display: none !important; }
+}
+
 /* Every fallback surface gets the stack back, explicitly. A transform left
    behind by a killed tween is the classic way a rail prints as one visible
    card and three blank pages. */
@@ -3914,4 +4392,84 @@ html[data-gpu="software"] body::before {
   mask-image: none !important;
   -webkit-mask-image: none !important;
   opacity: 0.5 !important;   /* the mask was what kept it off the edges */
+}
+
+/* ── Talks, awards, observing and service ─────────────────────────────────
+   CV-style rows inside one glass panel: a fixed date column so the titles
+   line up, hairline rules between entries instead of one card per entry. */
+.cv-panel {
+  --card-h: var(--h-violet); --card-l: 0.78; --card-c: 0.115;
+  padding: clamp(22px, 3vw, 34px);
+}
+
+.cv-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.cv-group + .cv-group {
+  margin-top: 28px;
+}
+
+.cv-group h3 {
+  margin-bottom: 6px;
+  font-size: clamp(1.15rem, 1.8vw, 1.45rem);
+  font-weight: 700;
+  color: color-mix(in oklab, var(--a-cyan) 52%, #ffffff);
+}
+
+.cv-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cv-list li {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr);
+  gap: 4px 18px;
+  padding: 12px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cv-list li:first-child {
+  border-top: 0;
+}
+
+.cv-date {
+  padding-top: 2px;
+  color: var(--accent);
+  font-size: 0.86rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.cv-list p {
+  margin: 0;
+}
+
+.cv-title {
+  color: var(--ink-text-2);
+  font-weight: 600;
+}
+
+.cv-venue {
+  color: var(--ink-muted);
+  font-size: 0.94rem;
+}
+
+@media (max-width: 1100px) {
+  .cv-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Phones: the date moves above its title rather than squeezing it. */
+@media (max-width: 640px) {
+  .cv-list li {
+    grid-template-columns: 1fr;
+  }
 }
