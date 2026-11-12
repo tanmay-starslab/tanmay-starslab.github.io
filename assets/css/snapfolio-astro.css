@@ -4010,3 +4010,83 @@ html[data-gpu="software"] body::before {
   -webkit-mask-image: none !important;
   opacity: 0.5 !important;   /* the mask was what kept it off the edges */
 }
+
+/* ── Talks, awards, observing and service ─────────────────────────────────
+   CV-style rows inside one glass panel: a fixed date column so the titles
+   line up, hairline rules between entries instead of one card per entry. */
+.cv-panel {
+  --card-h: var(--h-violet); --card-l: 0.78; --card-c: 0.115;
+  padding: clamp(22px, 3vw, 34px);
+}
+
+.cv-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.cv-group + .cv-group {
+  margin-top: 28px;
+}
+
+.cv-group h3 {
+  margin-bottom: 6px;
+  font-size: clamp(1.15rem, 1.8vw, 1.45rem);
+  font-weight: 700;
+  color: color-mix(in oklab, var(--a-cyan) 52%, #ffffff);
+}
+
+.cv-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cv-list li {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr);
+  gap: 4px 18px;
+  padding: 12px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cv-list li:first-child {
+  border-top: 0;
+}
+
+.cv-date {
+  padding-top: 2px;
+  color: var(--accent);
+  font-size: 0.86rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.cv-list p {
+  margin: 0;
+}
+
+.cv-title {
+  color: var(--ink-text-2);
+  font-weight: 600;
+}
+
+.cv-venue {
+  color: var(--ink-muted);
+  font-size: 0.94rem;
+}
+
+@media (max-width: 1100px) {
+  .cv-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Phones: the date moves above its title rather than squeezing it. */
+@media (max-width: 640px) {
+  .cv-list li {
+    grid-template-columns: 1fr;
+  }
+}

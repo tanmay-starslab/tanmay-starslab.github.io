@@ -247,3 +247,10 @@ html[data-theme="light"] .site-footer {
 }
 html[data-theme="light"] .site-footer p { color: var(--ink-muted); }
 html[data-theme="light"] ::selection { background: color-mix(in oklab, var(--accent) 30%, white); color: var(--ink-text); }
+
+/* ── Talks, awards, observing and service ──────────────────────────────── */
+html[data-theme="light"] .cv-group h3 { color: oklch(0.42 0.09 210); }
+html[data-theme="light"] .cv-list li { border-top-color: rgba(30, 28, 40, 0.1); }
+html[data-theme="light"] .cv-list li:first-child { border-top: 0; }
+html[data-theme="light"] .cv-title { color: var(--ink-text-2); }
+html[data-theme="light"] .cv-venue { color: var(--ink-muted); }
