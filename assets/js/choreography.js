@@ -125,9 +125,10 @@
           aria: "auto"
         });
         g.from(split.lines, {
+          // A straight rise, no twist: rotating each line while the page
+          // scrolls read as the heading tilting under the reader.
           yPercent: 118,
-          rotateZ: 2.5,
-          duration: 1.05,
+          duration: 0.9,
           stagger: 0.075,
           ease: "power3.out",
           scrollTrigger: {
@@ -340,10 +341,11 @@
     var cards = g.utils.toArray("#past-projects .project-card");
     if (!cards.length) return;
     g.from(cards, {
-      rotateX: -18,
-      y: 60,
+      // A plain rise and fade. The old 3D swing (rotateX -18deg about a point
+      // behind the card) felt like the cards tipping, and cost a 3D layer
+      // per card while it ran.
+      y: 32,
       opacity: 0,
-      transformOrigin: "50% 100% -80px",
       duration: 0.9,
       stagger: 0.08,
       ease: "power3.out",
