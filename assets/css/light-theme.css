@@ -64,7 +64,7 @@ html[data-theme="light"] .hero::after {
   display: none !important;
 }
 
-html[data-theme="light"] .deep-grain { opacity: 0.35; }
+html[data-theme="light"] .deep-grain { opacity: 0.26; }
 html[data-theme="light"] #intro-scrim { background: #f5f1e8; }
 
 html[data-theme="light"] p { color: var(--ink-muted); }
