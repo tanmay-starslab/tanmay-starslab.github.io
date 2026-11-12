@@ -317,7 +317,7 @@
     return [Math.sin(inc) * Math.cos(node), Math.sin(inc) * Math.sin(node), Math.cos(inc)];
   }
 
-  function newEncounter() {
+  function newEncounter(deferCatchUp) {
     var r = rng;
     var q = range(r, 0.3, 1), rp = range(r, 0.9, 1.6), M = 1 + q;
     var pro1 = r() < 0.7, pro2 = r() < 0.6;
@@ -349,7 +349,7 @@
       count: (encounter ? encounter.count : 0) + 1
     };
     simT = 0; mergedFor = 0; settledFor = 0;
-    advance(encounter.join, 0.03);
+    if (!deferCatchUp) advance(encounter.join, 0.03);
   }
 
   // Leapfrog (kick-drift-kick). Cores feel each other, plus a drag on their
@@ -544,6 +544,11 @@
 
   // ---- loop -------------------------------------------------------------------
   var frozen = motionOff() || staticSky, rafId = 0, prev = 0, shown = !document.hidden, times = [], governed = false;
+  // Separate from `frozen` and `shown` on purpose, as in plate-field.js: each
+  // pause has its own owner, and every resume re-checks all of them, so the
+  // hero coming back cannot restart a loop the governor or a hidden tab
+  // stopped. `booted` holds the loop until the idle-time boot below has run.
+  var booted = false, heroNear = true;
   // Governor state. `warmUntil` and the samples are WALL-CLOCK: the old test
   // fed it dtMs, which is clamped to 50ms, and needed 91 samples before it
   // would act — about 45 real seconds at 2fps, i.e. it reacted slowest on the
@@ -553,7 +558,7 @@
 
   function frame(now) {
     rafId = 0;
-    if (frozen || !shown || daylight()) return;
+    if (frozen || !shown || !heroNear || daylight()) return;
     var rawDt = prev ? now - prev : 16.7;
     var dtMs = Math.min(rawDt, 50); prev = now;
     view.yaw += (aim.yaw - view.yaw) * 0.04; view.pitch += (aim.pitch - view.pitch) * 0.04;
@@ -607,7 +612,7 @@
   // Light mode hides this canvas (light-theme.css); the merger stops drawing
   // too, so a hidden simulation is not still costing a frame budget.
   function daylight() { return root.getAttribute("data-theme") === "light"; }
-  function start() { if (!rafId && !frozen && shown && !daylight()) { prev = 0; rafId = window.requestAnimationFrame(frame); } }
+  function start() { if (!rafId && booted && !frozen && shown && heroNear && !daylight()) { prev = 0; rafId = window.requestAnimationFrame(frame); } }
   window.addEventListener("themechange", function () { if (!daylight()) start(); });
 
   // Halve the main population. Kept as a function so the governor's two
@@ -639,18 +644,69 @@
   }
 
   // ---- boot ---------------------------------------------------------------------
-  drawSky();
-  layout();
-  newEncounter();
-  measure();
-  if (frozen) { stillFrame(); }
-  else { fade = 0; fadeDir = 1; start(); }
+  // Not at script time: after the first paint, when the browser is idle (see
+  // __whenIdle in perf-tier.js). The sky raster and the merger's catch-up
+  // simulation (advance() to the join time) are the two biggest blocks of
+  // main-thread work this page does at load, so they are split across idle
+  // slots rather than run as one long task. Until the sky is drawn the photograph
+  // shows, and the merger fades in from zero as it always did, so the only
+  // visible difference is when, not what.
+  var whenIdle = window.__whenIdle || function (fn) { fn(); };
+  var skyDrawn = false;
+  whenIdle(function () {
+    drawSky(); skyDrawn = true;
+    whenIdle(function () {
+      layout();
+      newEncounter(true);
+      // The catch-up to the join time is hundreds of N-body steps: measured
+      // as a single ~300ms task on a 4x-throttled CPU. Run it in slices of a
+      // few milliseconds instead, with exactly advance()'s step sequence, so
+      // the encounter we arrive at is the same one, without the long task.
+      var T = encounter.join, t = 0;
+      (function slice() {
+        var until = performance.now() + 8;
+        while (t < T && performance.now() < until) { step(Math.min(0.03, T - t)); t += 0.03; }
+        if (t < T) { whenIdle(slice); return; }
+        measure();
+        booted = true;
+        if (frozen) { stillFrame(); }
+        else { fade = 0; fadeDir = 1; start(); if (!heroNear) { fade = 1; restFrame(); } }
+      })();
+    });
+  });
 
   var resizeTimer = 0;
   window.addEventListener("resize", function () {
     window.clearTimeout(resizeTimer);
-    resizeTimer = window.setTimeout(function () { drawSky(); layout(); if (frozen) stillFrame(); }, 180);
+    resizeTimer = window.setTimeout(function () {
+      if (skyDrawn) drawSky();
+      if (booted) { layout(); if (frozen) stillFrame(); }
+    }, 180);
   }, { passive: true });
+
+  // Pause the simulation once the hero is well off screen; resume on the way
+  // back. The canvas is fixed, so it stays visible down the page at
+  // scrollFade's 0.22 floor; while paused it holds a still frame at exactly
+  // that strength. The margin is a full viewport, so the pause comes well
+  // after the merger has dimmed, and it is running again before the hero is
+  // back in view.
+  // Redrawn rather than left as the last loop frame: a fast jump (a nav link,
+  // End, a restored scroll) can pause before any frame drew at the dimmed
+  // strength, which would leave a full-strength merger behind the lower sections.
+  function restFrame() {
+    if (!booted || frozen || daylight()) return;
+    ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, skyHost.width, skyHost.height);
+    var a = fade * Math.max(0.22, 1 - window.scrollY / (H * 1.1));
+    for (var i = 0; i < 3; i++) draw(a);   // three passes, as in stillFrame()
+  }
+  if (heroEl && "IntersectionObserver" in window) {
+    new IntersectionObserver(function (es) {
+      heroNear = es[es.length - 1].isIntersecting;
+      if (heroNear) { start(); return; }
+      if (rafId) { window.cancelAnimationFrame(rafId); rafId = 0; }
+      restFrame();
+    }, { rootMargin: "100% 0px" }).observe(heroEl);
+  }
 
   window.addEventListener("pointermove", function (e) {
     if (frozen || COARSE) return;
@@ -667,7 +723,7 @@
     shown = !document.hidden;
     if (shown) start();
   });
-  function onRM() { frozen = motionOff(); if (frozen) stillFrame(); else start(); }
+  function onRM() { frozen = motionOff(); if (!booted) return; if (frozen) stillFrame(); else start(); }
   if (typeof rmQuery.addEventListener === "function") rmQuery.addEventListener("change", onRM);
   else if (typeof rmQuery.addListener === "function") rmQuery.addListener(onRM);
 })();
