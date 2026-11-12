@@ -1109,6 +1109,62 @@ html.intro-skipped #intro-scrim {
   transform: translateY(-2px);
 }
 
+/* News strip: a dated list under the links, so a visitor sees the page is
+   current. Set as small type with a hairline above, not as another card;
+   the date column is fixed so the lines align and wrap under the text. */
+.hero-news {
+  max-width: 640px;
+  margin-top: 22px;
+  padding-top: 14px;
+  border-top: 1px solid var(--ink-hairline);
+}
+
+.hero-news-title {
+  margin: 0 0 8px;
+  color: var(--ink-caption);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero-news-list {
+  display: grid;
+  gap: 5px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hero-news-list li {
+  display: grid;
+  grid-template-columns: 5.6em minmax(0, 1fr);
+  column-gap: 12px;
+  color: var(--ink-muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.hero-news-list time {
+  color: oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.8);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  line-height: 1.8;
+  white-space: nowrap;
+}
+
+.hero-news-list a {
+  color: var(--ink-text-2);
+  text-decoration: underline;
+  text-decoration-color: oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.45);
+  text-underline-offset: 3px;
+}
+
+.hero-news-list a:hover,
+.hero-news-list a:focus-visible {
+  color: var(--accent);
+}
+
 
 .hero-portrait {
   position: relative;
