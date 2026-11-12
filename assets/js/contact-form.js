@@ -154,7 +154,7 @@
       return res.json().catch(function () { return {}; }).then(function (json) {
         if (res.ok && json.success !== false) {
           form.reset();
-          say("Thank you, your message is on its way. I will reply by email.", "ok");
+          say("Thank you, your message is on its way. I'll reach out to you soon!", "ok");
         } else if (res.status === 429) {
           say("Too many messages from this connection. Please try again in an hour.", "error");
         } else {
