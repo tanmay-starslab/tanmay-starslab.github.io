@@ -63,6 +63,9 @@ html[data-theme="light"] .hero::before,
 html[data-theme="light"] .hero::after {
   display: none !important;
 }
+/* The sky hint talks about the merger, which is gone in daylight. cosmos.js
+   never adds it in light mode; this covers a switch while it is up. */
+html[data-theme="light"] .sky-hint { display: none !important; }
 
 html[data-theme="light"] .deep-grain { opacity: 0.26; }
 html[data-theme="light"] #intro-scrim { background: #f5f1e8; }

@@ -625,6 +625,7 @@
   function settle() {
     frozen = true;
     if (rafId) { window.cancelAnimationFrame(rafId); rafId = 0; }
+    hideHint();   // a frozen sky ignores clicks, so the tip would be wrong
     // Reached only by measurement, so it is also evidence about the client:
     // tell perf-tier.js, which applies the software-class CSS degradation
     // that the renderer check could not when the string was hidden.
@@ -717,13 +718,82 @@
   document.addEventListener("click", function (e) {
     if (frozen || !isEmptySky(e)) return;
     dropDwarf(e.clientX, e.clientY);
+    hideHint();
   });
+
+  // ---- first-visit hint -------------------------------------------------------
+  // Nothing said the sky was clickable. One quiet line, once per browser, and
+  // only where a click would work: the merger running (dark, motion on, not
+  // budget-frozen) and a mouse to click with. It goes after the first drop,
+  // after 8 seconds, or on its close button.
+  var HINT_KEY = "skyHintSeen", hintEl = null, hintTimer = 0;
+
+  function hideHint() {
+    if (!hintEl) return;
+    var el = hintEl;
+    hintEl = null;
+    window.clearTimeout(hintTimer);
+    el.classList.remove("is-shown");
+    window.setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 700);
+  }
+
+  var hintTries = 0;
+  function showHint() {
+    if (!heroEl || frozen || daylight() || document.hidden) return;
+    // The merger boots in idle time; until it has, a click drops nothing.
+    if (!booted) { if (++hintTries < 20) window.setTimeout(showHint, 1000); return; }
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    if (window.scrollY > H * 0.3) return;   // the reader has already moved on
+    try { if (localStorage.getItem(HINT_KEY)) return; }
+    catch (err) { return; }   // without storage it could not stay once-only
+    var el = document.createElement("div");
+    el.className = "sky-hint";
+    // It describes a mouse-only effect on a canvas that is itself aria-hidden,
+    // so it stays out of the accessibility tree and the tab order with it.
+    el.setAttribute("aria-hidden", "true");
+    el.innerHTML = '<p>Tip: click empty sky to drop in a dwarf galaxy</p>' +
+      '<button type="button" class="sky-hint-close" tabindex="-1" title="Dismiss">&times;</button>';
+    heroEl.appendChild(el);
+    // Never over text, and never where it cannot be seen: on a short window
+    // the hero runs past the fold and its bottom padding is off screen, and
+    // the copy could reach it. Either way the tip is skipped, not moved.
+    var shell = heroEl.querySelector(".hero-shell"), a = el.getBoundingClientRect();
+    var b = shell ? shell.getBoundingClientRect() : null;
+    if (a.bottom > window.innerHeight - 8 || a.top < 0 ||
+        (b && a.left < b.right && a.right > b.left && a.top - 8 < b.bottom && a.bottom > b.top)) {
+      heroEl.removeChild(el);
+      return;
+    }
+    try { localStorage.setItem(HINT_KEY, "1"); } catch (err) { /* shown once this load anyway */ }
+    hintEl = el;
+    el.querySelector("button").addEventListener("click", hideHint);
+    window.requestAnimationFrame(function () { el.classList.add("is-shown"); });
+    hintTimer = window.setTimeout(hideHint, 8000);
+  }
+
+  // Wait for the intro to hand over and the merger to fade in first.
+  (function scheduleHint() {
+    function introOn() {
+      return root.classList.contains("intro-active") ||
+        (document.body && document.body.classList.contains("intro-active"));
+    }
+    if (!heroEl) return;
+    if (!introOn()) { window.setTimeout(showHint, 2500); return; }
+    var mo = new MutationObserver(function () {
+      if (introOn()) return;
+      mo.disconnect();
+      window.setTimeout(showHint, 2500);
+    });
+    mo.observe(root, { attributes: true, attributeFilter: ["class"] });
+    if (document.body) mo.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+  })();
+  window.addEventListener("themechange", function () { if (daylight()) hideHint(); });
 
   document.addEventListener("visibilitychange", function () {
     shown = !document.hidden;
     if (shown) start();
   });
-  function onRM() { frozen = motionOff(); if (!booted) return; if (frozen) stillFrame(); else start(); }
+  function onRM() { frozen = motionOff(); if (frozen) hideHint(); if (!booted) return; if (frozen) stillFrame(); else start(); }
   if (typeof rmQuery.addEventListener === "function") rmQuery.addEventListener("change", onRM);
   else if (typeof rmQuery.addListener === "function") rmQuery.addListener(onRM);
 })();
