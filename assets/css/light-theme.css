@@ -266,3 +266,18 @@ html[data-theme="light"] .cv-list li { border-top-color: rgba(30, 28, 40, 0.1); 
 html[data-theme="light"] .cv-list li:first-child { border-top: 0; }
 html[data-theme="light"] .cv-title { color: var(--ink-text-2); }
 html[data-theme="light"] .cv-venue { color: var(--ink-muted); }
+
+/* ── low-power and reduced-transparency surfaces ─────────────────────────
+   Two rules in snapfolio-astro.css swap the glass for a solid near-black
+   (#0b1018 !important): devices without GPU compositing (data-gpu="software")
+   and readers who ask for reduced transparency. In light mode that left dark
+   ink on near-black panels, the phone menu button among them. The same
+   surfaces get solid paper here instead. */
+html[data-theme="light"][data-gpu="software"] :is(.about-panel, .contact-panel, .contact-tile, .cosmic-card, .education-card, .fact-grid div, .glass-panel, .header-container, .header-toggle, .link-card, .link-section, .personal-card, .personal-panel, .project-card, .publication-card, .research-card, .tag-cloud span, .teaching-panel, .timeline-content) {
+  background: #fffdf8 !important;
+}
+@media (prefers-reduced-transparency: reduce) {
+  html[data-theme="light"] :is(.about-panel, .contact-panel, .contact-tile, .cosmic-card, .education-card, .fact-grid div, .glass-panel, .header-container, .header-toggle, .link-card, .link-section, .personal-card, .personal-panel, .project-card, .publication-card, .research-card, .tag-cloud span, .teaching-panel, .timeline-content) {
+    background: #fffdf8 !important;
+  }
+}
