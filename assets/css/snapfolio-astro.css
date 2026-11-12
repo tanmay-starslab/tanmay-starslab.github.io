@@ -2155,12 +2155,6 @@ html.intro-skipped #intro-scrim {
   padding-top: 2.75rem;
 }
 
-.site-footer .footer-note {
-  margin-top: 6px;
-  color: var(--ink-caption);
-  font-size: 0.86rem;
-}
-
 .site-footer p {
   margin: 0;
   font-size: 0.95rem;
