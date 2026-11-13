@@ -12,7 +12,7 @@ title                    : "Tanmay Singh"
 title_separator          : "-"
 name                     : &name "Tanmay Singh"
 description              : &description "personal description"
-url                      : https://tanmay-starslab.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
+url                      : https://tanmaysingh.uk # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "tanmay-starslab/tanmay-starslab.github.io"
 
