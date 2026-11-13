@@ -1,6 +1,6 @@
 # Tanmay Singh Academic Website
 
-Static GitHub Pages website for `https://tanmay-starslab.github.io/`.
+Static GitHub Pages website for `https://tanmaysingh.uk/` (custom domain, DNS and proxy on Cloudflare; `tanmay-starslab.github.io` redirects here).
 
 The live site is a custom one-page academic astrophysics portfolio adapted from the BootstrapMade SnapFolio visual direction. It is served directly from the repository root with `.nojekyll`; the old AcademicPages/Jekyll source files are retained only as content/archive references unless explicitly removed.
 

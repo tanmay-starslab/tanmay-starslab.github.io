@@ -12,7 +12,7 @@
   // Nothing is sent until a real ID is set, and nothing is sent from a local
   // preview, so testing the site never shows up as visitors.
   if (!/^G-[A-Z0-9]+$/.test(MEASUREMENT_ID) || MEASUREMENT_ID === "G-XXXXXXXXXX") return;
-  if (location.hostname !== "tanmay-starslab.github.io") return;
+  if (location.hostname !== "tanmaysingh.uk") return;
 
   window.dataLayer = window.dataLayer || [];
   function gtag() { window.dataLayer.push(arguments); }
