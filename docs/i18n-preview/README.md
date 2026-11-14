@@ -13,6 +13,18 @@ visible in these captures; its frame varies between images.
 script fonts and all twelve choices. The sidebar scrolls to reveal the full
 menu when it is opened near the bottom.
 
+## Language button: closed and open
+
+The button shows the current language (for example, **English**) beside a
+translation icon. It sits below the theme and motion controls in the sidebar.
+On a phone, open the navigation drawer first, then scroll down to that button.
+Choosing a language keeps the current page and section.
+
+| Device | Button closed | Language choices open |
+| --- | --- | --- |
+| Desktop | [Screenshot](switcher-desktop-closed.png) | [Screenshot](switcher-desktop-open.png) |
+| Phone | [Screenshot](switcher-phone-closed.png) | [Screenshot](switcher-phone-open.png) |
+
 The full browser run covers both pages in all twelve languages at 390 and
 1440 px (48 combinations), plus boundary checks at 320, 768, 1199, 1200,
 1280, 1499, 1500 and 1920 px for English, Arabic, German and Hindi.
