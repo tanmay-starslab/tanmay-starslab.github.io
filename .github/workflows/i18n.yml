@@ -1,0 +1,23 @@
+name: Multilingual site checks
+on:
+  pull_request:
+  push:
+    branches: [master]
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check catalogues and generated pages
+        run: |
+          python3 tools/i18n/extract.py --check
+          python3 tools/i18n/build.py --check
+          python3 tools/i18n/verify.py
+          python3 -m unittest discover -s tools/i18n -p 'test_*.py'
+      - name: Check changed site scripts
+        run: |
+          for script in assets/js/{i18n,motion-toggle,theme-toggle,card-read-more,contact-form,publications,snapfolio-astro}.js; do
+            node --check "$script"
+          done

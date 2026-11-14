@@ -28,6 +28,8 @@
    the message already written, so the form is never a dead end. */
 (function () {
   "use strict";
+  /* Translated pages pass their strings in as window.I18N (tools/i18n/build.py); English is the fallback. */
+  var tr = function (k, s) { var d = window.I18N; return (d && typeof d[k] === "string" && d[k]) || s; };
 
   var form = document.getElementById("contact-form");
   if (!form || !window.fetch) return;
@@ -98,9 +100,9 @@
     var name = field("name").value.trim();
     var email = field("email").value.trim();
     var message = field("message").value.trim();
-    if (!name) return invalid(field("name"), "Please tell me your name.");
-    if (!EMAIL.test(email) || !field("email").checkValidity()) return invalid(field("email"), "Please enter a valid email address, so I can write back.");
-    if (message.length < 10) return invalid(field("message"), "Please write a little more in your message.");
+    if (!name) return invalid(field("name"), tr("js.form_name", "Please tell me your name."));
+    if (!EMAIL.test(email) || !field("email").checkValidity()) return invalid(field("email"), tr("js.form_email", "Please enter a valid email address, so I can write back."));
+    if (message.length < 10) return invalid(field("message"), tr("js.form_short", "Please write a little more in your message."));
     return true;
   }
 
@@ -113,15 +115,15 @@
 
     var domain = field("email").value.trim().split("@").pop().toLowerCase();
     if (DISPOSABLE.indexOf(domain) !== -1) {
-      invalid(field("email"), "Please use an email address you keep, so I can reply.");
+      invalid(field("email"), tr("js.form_disposable", "Please use an email address you keep, so I can reply."));
       return;
     }
     button.disabled = true;
-    say("Checking your email address...", "");
+    say(tr("js.form_checking", "Checking your email address..."), "");
     domainTakesMail(domain).then(function (ok) {
       button.disabled = false;
       if (!ok) {
-        invalid(field("email"), "That email domain does not seem to exist or accept mail. Please check the address.");
+        invalid(field("email"), tr("js.form_domain", "That email domain does not seem to exist or accept mail. Please check the address."));
         return;
       }
       say("", "");
@@ -136,18 +138,18 @@
       var subject = "Message from " + field("name").value.trim() + " via your website";
       var body = field("message").value.trim() + "\n\n" + field("name").value.trim() + "\n" + field("email").value.trim();
       window.location.href = "mailto:" + to + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
-      say("Your email app should open with the message ready to send.", "ok");
+      say(tr("js.form_mailapp", "Your email app should open with the message ready to send."), "ok");
       return;
     }
 
     var token = form.querySelector("[name='h-captcha-response']");
-    if (!token || !token.value) { say("Please complete the CAPTCHA first.", "error"); return; }
+    if (!token || !token.value) { say(tr("js.form_captcha", "Please complete the CAPTCHA first."), "error"); return; }
 
     var data = Object.fromEntries(new FormData(form));
     data.email = data.email.trim();
     data.replyto = data.email;
     button.disabled = true;
-    say("Sending...", "");
+    say(tr("js.form_sending", "Sending..."), "");
 
     fetch(form.action, {
       method: "POST",
@@ -157,16 +159,16 @@
       return res.json().catch(function () { return {}; }).then(function (json) {
         if (res.ok && json.success !== false) {
           form.reset();
-          say("Thank you, your message is on its way. I'll reach out to you soon!", "ok");
+          say(tr("js.form_sent", "Thank you, your message is on its way. I'll reach out to you soon!"), "ok");
         } else if (res.status === 429) {
-          say("Too many messages from this connection. Please try again in an hour.", "error");
+          say(tr("js.form_ratelimit", "Too many messages from this connection. Please try again in an hour."), "error");
         } else {
           var msg = json.message || (json.body && json.body.message);
-          say((msg ? msg + ". " : "") + "It did not send; you can also email me at tsingh65@asu.edu.", "error");
+          say((msg ? msg + ". " : "") + tr("js.form_failed", "It did not send; you can also email me at {email}.").replace("{email}", "tsingh65@asu.edu"), "error");
         }
       });
     }).catch(function () {
-      say("It did not send. Please check your connection, or email me at tsingh65@asu.edu.", "error");
+      say(tr("js.form_offline", "It did not send. Please check your connection, or email me at {email}.").replace("{email}", "tsingh65@asu.edu"), "error");
     }).then(function () {
       if (window.hcaptcha && typeof window.hcaptcha.reset === "function") {
         try { window.hcaptcha.reset(); } catch (err) { /* widget not rendered */ }

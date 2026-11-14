@@ -7,6 +7,8 @@
    Until the visitor chooses, the page keeps following the system setting. */
 (function () {
   "use strict";
+  /* Translated pages pass their strings in as window.I18N (tools/i18n/build.py); English is the fallback. */
+  var tr = function (k, s) { var d = window.I18N; return (d && typeof d[k] === "string" && d[k]) || s; };
 
   var root = document.documentElement;
   var buttons = document.querySelectorAll(".theme-toggle");
@@ -25,7 +27,7 @@
       // announced the opposite of what the page was showing.
       var icon = b.querySelector("i"), label = b.querySelector("span");
       if (icon) icon.className = light ? "bi bi-moon-stars" : "bi bi-sun";
-      if (label) label.textContent = light ? "Dark mode" : "Light mode";
+      if (label) label.textContent = light ? tr("js.theme_dark", "Dark mode") : tr("js.theme_light", "Light mode");
     });
   }
 

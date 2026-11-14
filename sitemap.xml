@@ -1,15 +1,459 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://tanmaysingh.uk/</loc>
     <lastmod>2026-11-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tanmaysingh.uk/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tanmaysingh.uk/es/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://tanmaysingh.uk/zh-Hans/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://tanmaysingh.uk/hi/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://tanmaysingh.uk/ar/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tanmaysingh.uk/fr/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://tanmaysingh.uk/pt/"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://tanmaysingh.uk/bn/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tanmaysingh.uk/ru/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://tanmaysingh.uk/ja/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://tanmaysingh.uk/de/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://tanmaysingh.uk/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tanmaysingh.uk/"/>
+  </url>
+  <url>
+    <loc>https://tanmaysingh.uk/es/</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tanmaysingh.uk/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tanmaysingh.uk/es/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://tanmaysingh.uk/zh-Hans/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://tanmaysingh.uk/hi/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://tanmaysingh.uk/ar/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tanmaysingh.uk/fr/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://tanmaysingh.uk/pt/"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://tanmaysingh.uk/bn/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tanmaysingh.uk/ru/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://tanmaysingh.uk/ja/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://tanmaysingh.uk/de/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://tanmaysingh.uk/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tanmaysingh.uk/"/>
+  </url>
+  <url>
+    <loc>https://tanmaysingh.uk/zh-Hans/</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tanmaysingh.uk/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tanmaysingh.uk/es/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://tanmaysingh.uk/zh-Hans/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://tanmaysingh.uk/hi/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://tanmaysingh.uk/ar/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tanmaysingh.uk/fr/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://tanmaysingh.uk/pt/"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://tanmaysingh.uk/bn/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tanmaysingh.uk/ru/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://tanmaysingh.uk/ja/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://tanmaysingh.uk/de/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://tanmaysingh.uk/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tanmaysingh.uk/"/>
+  </url>
+  <url>
+    <loc>https://tanmaysingh.uk/hi/</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tanmaysingh.uk/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tanmaysingh.uk/es/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://tanmaysingh.uk/zh-Hans/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://tanmaysingh.uk/hi/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://tanmaysingh.uk/ar/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tanmaysingh.uk/fr/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://tanmaysingh.uk/pt/"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://tanmaysingh.uk/bn/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tanmaysingh.uk/ru/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://tanmaysingh.uk/ja/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://tanmaysingh.uk/de/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://tanmaysingh.uk/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tanmaysingh.uk/"/>
+  </url>
+  <url>
+    <loc>https://tanmaysingh.uk/ar/</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tanmaysingh.uk/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tanmaysingh.uk/es/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://tanmaysingh.uk/zh-Hans/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://tanmaysingh.uk/hi/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://tanmaysingh.uk/ar/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tanmaysingh.uk/fr/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://tanmaysingh.uk/pt/"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://tanmaysingh.uk/bn/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tanmaysingh.uk/ru/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://tanmaysingh.uk/ja/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://tanmaysingh.uk/de/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://tanmaysingh.uk/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tanmaysingh.uk/"/>
+  </url>
+  <url>
+    <loc>https://tanmaysingh.uk/fr/</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tanmaysingh.uk/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tanmaysingh.uk/es/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://tanmaysingh.uk/zh-Hans/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://tanmaysingh.uk/hi/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://tanmaysingh.uk/ar/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tanmaysingh.uk/fr/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://tanmaysingh.uk/pt/"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://tanmaysingh.uk/bn/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tanmaysingh.uk/ru/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://tanmaysingh.uk/ja/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://tanmaysingh.uk/de/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://tanmaysingh.uk/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tanmaysingh.uk/"/>
+  </url>
+  <url>
+    <loc>https://tanmaysingh.uk/pt/</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tanmaysingh.uk/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tanmaysingh.uk/es/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://tanmaysingh.uk/zh-Hans/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://tanmaysingh.uk/hi/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://tanmaysingh.uk/ar/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tanmaysingh.uk/fr/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://tanmaysingh.uk/pt/"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://tanmaysingh.uk/bn/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tanmaysingh.uk/ru/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://tanmaysingh.uk/ja/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://tanmaysingh.uk/de/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://tanmaysingh.uk/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tanmaysingh.uk/"/>
+  </url>
+  <url>
+    <loc>https://tanmaysingh.uk/bn/</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tanmaysingh.uk/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tanmaysingh.uk/es/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://tanmaysingh.uk/zh-Hans/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://tanmaysingh.uk/hi/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://tanmaysingh.uk/ar/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tanmaysingh.uk/fr/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://tanmaysingh.uk/pt/"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://tanmaysingh.uk/bn/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tanmaysingh.uk/ru/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://tanmaysingh.uk/ja/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://tanmaysingh.uk/de/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://tanmaysingh.uk/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tanmaysingh.uk/"/>
+  </url>
+  <url>
+    <loc>https://tanmaysingh.uk/ru/</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tanmaysingh.uk/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tanmaysingh.uk/es/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://tanmaysingh.uk/zh-Hans/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://tanmaysingh.uk/hi/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://tanmaysingh.uk/ar/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tanmaysingh.uk/fr/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://tanmaysingh.uk/pt/"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://tanmaysingh.uk/bn/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tanmaysingh.uk/ru/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://tanmaysingh.uk/ja/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://tanmaysingh.uk/de/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://tanmaysingh.uk/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tanmaysingh.uk/"/>
+  </url>
+  <url>
+    <loc>https://tanmaysingh.uk/ja/</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tanmaysingh.uk/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tanmaysingh.uk/es/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://tanmaysingh.uk/zh-Hans/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://tanmaysingh.uk/hi/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://tanmaysingh.uk/ar/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tanmaysingh.uk/fr/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://tanmaysingh.uk/pt/"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://tanmaysingh.uk/bn/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tanmaysingh.uk/ru/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://tanmaysingh.uk/ja/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://tanmaysingh.uk/de/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://tanmaysingh.uk/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tanmaysingh.uk/"/>
+  </url>
+  <url>
+    <loc>https://tanmaysingh.uk/de/</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tanmaysingh.uk/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tanmaysingh.uk/es/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://tanmaysingh.uk/zh-Hans/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://tanmaysingh.uk/hi/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://tanmaysingh.uk/ar/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tanmaysingh.uk/fr/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://tanmaysingh.uk/pt/"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://tanmaysingh.uk/bn/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tanmaysingh.uk/ru/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://tanmaysingh.uk/ja/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://tanmaysingh.uk/de/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://tanmaysingh.uk/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tanmaysingh.uk/"/>
+  </url>
+  <url>
+    <loc>https://tanmaysingh.uk/ko/</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tanmaysingh.uk/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tanmaysingh.uk/es/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://tanmaysingh.uk/zh-Hans/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://tanmaysingh.uk/hi/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://tanmaysingh.uk/ar/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tanmaysingh.uk/fr/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://tanmaysingh.uk/pt/"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://tanmaysingh.uk/bn/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tanmaysingh.uk/ru/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://tanmaysingh.uk/ja/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://tanmaysingh.uk/de/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://tanmaysingh.uk/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tanmaysingh.uk/"/>
   </url>
   <url>
     <loc>https://tanmaysingh.uk/useful-links.html</loc>
     <lastmod>2026-11-11</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tanmaysingh.uk/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tanmaysingh.uk/es/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://tanmaysingh.uk/zh-Hans/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://tanmaysingh.uk/hi/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://tanmaysingh.uk/ar/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tanmaysingh.uk/fr/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://tanmaysingh.uk/pt/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://tanmaysingh.uk/bn/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tanmaysingh.uk/ru/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://tanmaysingh.uk/ja/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://tanmaysingh.uk/de/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://tanmaysingh.uk/ko/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tanmaysingh.uk/useful-links.html"/>
+  </url>
+  <url>
+    <loc>https://tanmaysingh.uk/es/useful-links.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tanmaysingh.uk/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tanmaysingh.uk/es/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://tanmaysingh.uk/zh-Hans/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://tanmaysingh.uk/hi/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://tanmaysingh.uk/ar/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tanmaysingh.uk/fr/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://tanmaysingh.uk/pt/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://tanmaysingh.uk/bn/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tanmaysingh.uk/ru/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://tanmaysingh.uk/ja/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://tanmaysingh.uk/de/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://tanmaysingh.uk/ko/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tanmaysingh.uk/useful-links.html"/>
+  </url>
+  <url>
+    <loc>https://tanmaysingh.uk/zh-Hans/useful-links.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tanmaysingh.uk/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tanmaysingh.uk/es/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://tanmaysingh.uk/zh-Hans/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://tanmaysingh.uk/hi/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://tanmaysingh.uk/ar/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tanmaysingh.uk/fr/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://tanmaysingh.uk/pt/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://tanmaysingh.uk/bn/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tanmaysingh.uk/ru/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://tanmaysingh.uk/ja/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://tanmaysingh.uk/de/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://tanmaysingh.uk/ko/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tanmaysingh.uk/useful-links.html"/>
+  </url>
+  <url>
+    <loc>https://tanmaysingh.uk/hi/useful-links.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tanmaysingh.uk/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tanmaysingh.uk/es/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://tanmaysingh.uk/zh-Hans/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://tanmaysingh.uk/hi/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://tanmaysingh.uk/ar/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tanmaysingh.uk/fr/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://tanmaysingh.uk/pt/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://tanmaysingh.uk/bn/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tanmaysingh.uk/ru/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://tanmaysingh.uk/ja/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://tanmaysingh.uk/de/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://tanmaysingh.uk/ko/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tanmaysingh.uk/useful-links.html"/>
+  </url>
+  <url>
+    <loc>https://tanmaysingh.uk/ar/useful-links.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tanmaysingh.uk/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tanmaysingh.uk/es/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://tanmaysingh.uk/zh-Hans/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://tanmaysingh.uk/hi/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://tanmaysingh.uk/ar/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tanmaysingh.uk/fr/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://tanmaysingh.uk/pt/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://tanmaysingh.uk/bn/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tanmaysingh.uk/ru/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://tanmaysingh.uk/ja/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://tanmaysingh.uk/de/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://tanmaysingh.uk/ko/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tanmaysingh.uk/useful-links.html"/>
+  </url>
+  <url>
+    <loc>https://tanmaysingh.uk/fr/useful-links.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tanmaysingh.uk/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tanmaysingh.uk/es/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://tanmaysingh.uk/zh-Hans/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://tanmaysingh.uk/hi/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://tanmaysingh.uk/ar/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tanmaysingh.uk/fr/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://tanmaysingh.uk/pt/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://tanmaysingh.uk/bn/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tanmaysingh.uk/ru/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://tanmaysingh.uk/ja/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://tanmaysingh.uk/de/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://tanmaysingh.uk/ko/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tanmaysingh.uk/useful-links.html"/>
+  </url>
+  <url>
+    <loc>https://tanmaysingh.uk/pt/useful-links.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tanmaysingh.uk/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tanmaysingh.uk/es/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://tanmaysingh.uk/zh-Hans/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://tanmaysingh.uk/hi/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://tanmaysingh.uk/ar/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tanmaysingh.uk/fr/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://tanmaysingh.uk/pt/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://tanmaysingh.uk/bn/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tanmaysingh.uk/ru/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://tanmaysingh.uk/ja/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://tanmaysingh.uk/de/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://tanmaysingh.uk/ko/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tanmaysingh.uk/useful-links.html"/>
+  </url>
+  <url>
+    <loc>https://tanmaysingh.uk/bn/useful-links.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tanmaysingh.uk/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tanmaysingh.uk/es/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://tanmaysingh.uk/zh-Hans/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://tanmaysingh.uk/hi/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://tanmaysingh.uk/ar/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tanmaysingh.uk/fr/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://tanmaysingh.uk/pt/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://tanmaysingh.uk/bn/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tanmaysingh.uk/ru/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://tanmaysingh.uk/ja/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://tanmaysingh.uk/de/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://tanmaysingh.uk/ko/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tanmaysingh.uk/useful-links.html"/>
+  </url>
+  <url>
+    <loc>https://tanmaysingh.uk/ru/useful-links.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tanmaysingh.uk/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tanmaysingh.uk/es/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://tanmaysingh.uk/zh-Hans/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://tanmaysingh.uk/hi/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://tanmaysingh.uk/ar/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tanmaysingh.uk/fr/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://tanmaysingh.uk/pt/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://tanmaysingh.uk/bn/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tanmaysingh.uk/ru/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://tanmaysingh.uk/ja/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://tanmaysingh.uk/de/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://tanmaysingh.uk/ko/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tanmaysingh.uk/useful-links.html"/>
+  </url>
+  <url>
+    <loc>https://tanmaysingh.uk/ja/useful-links.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tanmaysingh.uk/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tanmaysingh.uk/es/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://tanmaysingh.uk/zh-Hans/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://tanmaysingh.uk/hi/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://tanmaysingh.uk/ar/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tanmaysingh.uk/fr/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://tanmaysingh.uk/pt/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://tanmaysingh.uk/bn/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tanmaysingh.uk/ru/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://tanmaysingh.uk/ja/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://tanmaysingh.uk/de/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://tanmaysingh.uk/ko/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tanmaysingh.uk/useful-links.html"/>
+  </url>
+  <url>
+    <loc>https://tanmaysingh.uk/de/useful-links.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tanmaysingh.uk/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tanmaysingh.uk/es/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://tanmaysingh.uk/zh-Hans/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://tanmaysingh.uk/hi/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://tanmaysingh.uk/ar/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tanmaysingh.uk/fr/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://tanmaysingh.uk/pt/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://tanmaysingh.uk/bn/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tanmaysingh.uk/ru/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://tanmaysingh.uk/ja/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://tanmaysingh.uk/de/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://tanmaysingh.uk/ko/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tanmaysingh.uk/useful-links.html"/>
+  </url>
+  <url>
+    <loc>https://tanmaysingh.uk/ko/useful-links.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tanmaysingh.uk/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tanmaysingh.uk/es/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://tanmaysingh.uk/zh-Hans/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://tanmaysingh.uk/hi/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://tanmaysingh.uk/ar/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://tanmaysingh.uk/fr/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://tanmaysingh.uk/pt/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://tanmaysingh.uk/bn/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tanmaysingh.uk/ru/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://tanmaysingh.uk/ja/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://tanmaysingh.uk/de/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://tanmaysingh.uk/ko/useful-links.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tanmaysingh.uk/useful-links.html"/>
   </url>
 </urlset>

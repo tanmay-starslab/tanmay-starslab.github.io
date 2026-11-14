@@ -8,6 +8,8 @@
 
 (function () {
   "use strict";
+  /* Translated pages pass their strings in as window.I18N (tools/i18n/build.py); English is the fallback. */
+  var tr = function (k, s) { var d = window.I18N; return (d && typeof d[k] === "string" && d[k]) || s; };
 
   const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
   // The page's own motion toggle is equivalent to the OS setting here. It is
@@ -119,7 +121,7 @@
       headerPanel.inert = collapsed;
     } else {
       headerPanel.setAttribute("aria-hidden", String(collapsed));
-      headerPanel.querySelectorAll("a, button").forEach((el) => {
+      headerPanel.querySelectorAll("a, button, summary").forEach((el) => {
         if (collapsed) {
           el.setAttribute("tabindex", "-1");
         } else {
@@ -134,7 +136,7 @@
     header.classList.toggle("header-show", expanded);
     headerToggleBtn.setAttribute("aria-expanded", String(expanded));
     // The label said "Open navigation" even while open.
-    headerToggleBtn.setAttribute("aria-label", expanded ? "Close navigation" : "Open navigation");
+    headerToggleBtn.setAttribute("aria-label", expanded ? tr("js.nav_close", "Close navigation") : tr("js.nav_open", "Open navigation"));
     const icon = headerToggleBtn.querySelector("i");
     if (icon) {
       icon.classList.toggle("bi-list", !expanded);
@@ -182,7 +184,7 @@
     const note = document.createElement("span");
     note.id = "new-tab-note";
     note.hidden = true;
-    note.textContent = "Opens in a new tab";
+    note.textContent = tr("js.new_tab", "Opens in a new tab");
     document.body.appendChild(note);
     newTabLinks.forEach((link) => {
       const ids = link.getAttribute("aria-describedby");

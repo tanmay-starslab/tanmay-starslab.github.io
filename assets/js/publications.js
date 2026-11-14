@@ -4,6 +4,8 @@
    shows every card and no button that would do nothing. */
 (function () {
   "use strict";
+  /* Translated pages pass their strings in as window.I18N (tools/i18n/build.py); English is the fallback. */
+  var tr = function (k, s) { var d = window.I18N; return (d && typeof d[k] === "string" && d[k]) || s; };
 
   const section = document.getElementById("publications");
   if (!section) return;
@@ -45,23 +47,23 @@
     const bibtex = tpl.content.textContent.trim();
     const label = btn.querySelector("[data-cite-label]");
     const title = card.querySelector("h3");
-    btn.setAttribute("aria-label", "Copy BibTeX for " + (title ? title.textContent.trim() : "this paper"));
+    btn.setAttribute("aria-label", tr("js.cite_for", "Copy BibTeX for {title}").replace("{title}", title ? title.textContent.trim() : tr("js.this_paper", "this paper")));
     btn.hidden = false;
 
     let timer = 0;
     btn.addEventListener("click", () => {
       copyText(bibtex).then(() => {
-        label.textContent = "Copied";
+        label.textContent = tr("js.copied", "Copied");
         btn.classList.add("is-copied");
         // Clear first so the same message is announced again on a repeat copy.
-        if (status) { status.textContent = ""; status.textContent = "BibTeX copied to clipboard"; }
+        if (status) { status.textContent = ""; status.textContent = tr("js.bibtex_copied", "BibTeX copied to clipboard"); }
       }, () => {
-        label.textContent = "Copy failed";
-        if (status) status.textContent = "Could not copy BibTeX";
+        label.textContent = tr("js.copy_failed", "Copy failed");
+        if (status) status.textContent = tr("js.bibtex_failed", "Could not copy BibTeX");
       });
       clearTimeout(timer);
       timer = setTimeout(() => {
-        label.textContent = "Cite";
+        label.textContent = tr("js.cite", "Cite");
         btn.classList.remove("is-copied");
       }, 2000);
     });
@@ -82,7 +84,7 @@
   function setExpanded(expanded) {
     list.classList.toggle("is-collapsed", !expanded);
     more.setAttribute("aria-expanded", String(expanded));
-    more.textContent = expanded ? "Show fewer publications" : "Show all publications";
+    more.textContent = expanded ? tr("js.pubs_fewer", "Show fewer publications") : tr("js.pubs_all", "Show all publications");
     // Cards that were display:none never crossed the reveal observer, so mark
     // them visible now rather than leave them at opacity 0 until a scroll.
     if (expanded) cards.forEach((c) => c.classList.add("is-visible"));

@@ -15,6 +15,7 @@
    setting describes. Scroll position is restored by the browser. */
 (function () {
   "use strict";
+  var tr = function (k, s) { var d = window.I18N; return (d && typeof d[k] === "string" && d[k]) || s; };
 
   var btn = document.getElementById("motion-toggle");
   if (!btn) return;
@@ -37,7 +38,7 @@
     // When the OS already asks for reduced motion the page is calm regardless,
     // so say so rather than offering a switch that appears to do nothing.
     if (osReduced && !off) {
-      btn.setAttribute("title", "Your system already asks for reduced motion.");
+      btn.setAttribute("title", tr("js.motion_system", "Your system already asks for reduced motion."));
     } else {
       btn.removeAttribute("title");
     }

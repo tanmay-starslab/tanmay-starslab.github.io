@@ -13,6 +13,8 @@
    button is hidden outside it. */
 (function () {
   "use strict";
+  /* Translated pages pass their strings in as window.I18N (tools/i18n/build.py); English is the fallback. */
+  var tr = function (k, s) { var d = window.I18N; return (d && typeof d[k] === "string" && d[k]) || s; };
 
   var cards = document.querySelectorAll("#research .research-card, #past-projects .project-card");
   if (!cards.length || !window.matchMedia) return;
@@ -43,7 +45,7 @@
     btn.className = "card-more-toggle";
     btn.setAttribute("aria-controls", text.id);
     btn.setAttribute("aria-expanded", "false");
-    btn.innerHTML = '<span class="card-more-label">Read more</span>' +
+    btn.innerHTML = '<span class="card-more-label">' + escapeHtml(tr("js.read_more", "Read more")) + "</span>" +
       (title ? '<span class="visually-hidden">: ' + escapeHtml(title.textContent.trim()) + "</span>" : "") +
       '<i class="bi bi-chevron-down" aria-hidden="true"></i>';
     text.parentNode.insertBefore(btn, text.nextSibling);
@@ -71,7 +73,7 @@
   function setOpen(text, btn, open) {
     text.classList.toggle("is-open", open);
     btn.setAttribute("aria-expanded", open ? "true" : "false");
-    btn.querySelector(".card-more-label").textContent = open ? "Read less" : "Read more";
+    btn.querySelector(".card-more-label").textContent = open ? tr("js.read_less", "Read less") : tr("js.read_more", "Read more");
   }
 
   // A card that would hide two lines or fewer is left whole: the button is
