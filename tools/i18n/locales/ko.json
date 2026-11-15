@@ -1,0 +1,1408 @@
+{
+  "home.head.tanmay-singh-astrophysics-phd-student": {
+    "text": "Tanmay Singh | 천체물리학 박사과정 학생",
+    "context": "index.html #head: browser tab / search result title; index.html #head: link-preview title; index.html #head: link-preview title (X/Twitter)"
+  },
+  "home.head.academic-website-of-tanmay-singh-an": {
+    "text": "Arizona State University에서 은하의 형성과 진화를 연구하는 천체물리학 박사과정 학생 Tanmay Singh의 학술 웹사이트입니다.",
+    "context": "index.html #head: meta description (search results)"
+  },
+  "home.head.astrophysics-phd-student-at-arizona-state": {
+    "text": "Arizona State University에서 은하의 형성과 진화를 연구하는 천체물리학 박사과정 학생입니다.",
+    "context": "index.html #head: link-preview description; index.html #head: link-preview description (X/Twitter)"
+  },
+  "home.head.tanmay-singh-ph-d-student-in": {
+    "text": "별이 가득한 하늘을 배경으로 한 Tanmay Singh의 초상 사진. Arizona State University 천체물리학 박사과정 학생",
+    "context": "index.html #head: link-preview image alt text; index.html #head: link-preview image alt text (X/Twitter); useful-links.html #head: link-preview image alt text; useful-links.html #head: link-preview image alt text (X/Twitter)"
+  },
+  "home.head.ph-d-student": {
+    "text": "박사과정 학생",
+    "context": "index.html #head: structured data for search engines (jobTitle)"
+  },
+  "home.head.astrophysics-ph-d-student-at-arizona": {
+    "text": "Arizona State University에서 은하의 형성과 진화를 연구하는 천체물리학 박사과정 학생.",
+    "context": "index.html #head: structured data for search engines (description)"
+  },
+  "home.page.skip-to-main-content": {
+    "text": "본문으로 건너뛰기",
+    "context": "index.html #page: skip link (keyboard users); useful-links.html #page: skip link (keyboard users)"
+  },
+  "common.header.open-navigation": {
+    "text": "메뉴 열기",
+    "context": "index.html #header: screen-reader label on <button>; useful-links.html #header: screen-reader label on <button>"
+  },
+  "common.header.tanmay-singh-home": {
+    "text": "Tanmay Singh 홈",
+    "context": "index.html #header: screen-reader label on <a>; useful-links.html #header: screen-reader label on <a>"
+  },
+  "common.header.astrophysics-phd-student": {
+    "text": "천체물리학 박사과정 학생",
+    "context": "index.html #header: subtitle under the name in the sidebar; useful-links.html #header: subtitle under the name in the sidebar"
+  },
+  "common.navmenu.primary": {
+    "text": "주 메뉴",
+    "context": "index.html #navmenu: screen-reader label on <nav>; useful-links.html #navmenu: screen-reader label on <nav>"
+  },
+  "common.navmenu.home": {
+    "text": "홈",
+    "context": "index.html #navmenu: navigation menu item; useful-links.html #navmenu: navigation menu item"
+  },
+  "common.navmenu.about": {
+    "text": "소개",
+    "context": "index.html #navmenu: navigation menu item; useful-links.html #navmenu: navigation menu item"
+  },
+  "common.navmenu.research": {
+    "text": "연구",
+    "context": "index.html #home: button; index.html #navmenu: navigation menu item; useful-links.html #navmenu: navigation menu item"
+  },
+  "common.navmenu.past-projects": {
+    "text": "이전 프로젝트",
+    "context": "index.html #navmenu: navigation menu item; useful-links.html #navmenu: navigation menu item"
+  },
+  "common.navmenu.publications": {
+    "text": "논문",
+    "context": "index.html #home: button; index.html #navmenu: navigation menu item; useful-links.html #navmenu: navigation menu item"
+  },
+  "common.navmenu.talks": {
+    "text": "발표",
+    "context": "index.html #navmenu: navigation menu item; useful-links.html #navmenu: navigation menu item"
+  },
+  "common.navmenu.awards-and-service": {
+    "text": "수상 및 활동",
+    "context": "index.html #navmenu: navigation menu item; useful-links.html #navmenu: navigation menu item"
+  },
+  "common.navmenu.education": {
+    "text": "학력",
+    "context": "index.html #navmenu: navigation menu item; index.html #timeline: section heading; useful-links.html #navmenu: navigation menu item"
+  },
+  "common.navmenu.personal-interests": {
+    "text": "개인 관심사",
+    "context": "index.html #navmenu: navigation menu item; index.html #personal-interests: section heading; useful-links.html #navmenu: navigation menu item"
+  },
+  "common.navmenu.useful-links": {
+    "text": "유용한 링크",
+    "context": "index.html #navmenu: navigation menu item; useful-links.html #navmenu: navigation menu item; useful-links.html #page: page heading"
+  },
+  "common.navmenu.contact": {
+    "text": "연락처",
+    "context": "index.html #navmenu: navigation menu item; useful-links.html #navmenu: navigation menu item"
+  },
+  "common.header.light-mode": {
+    "text": "라이트 모드",
+    "context": "index.html #header: button; useful-links.html #header: button"
+  },
+  "common.header.reduce-motion": {
+    "text": "동작 줄이기",
+    "context": "index.html #header: button"
+  },
+  "common.header.profile-links": {
+    "text": "프로필 링크",
+    "context": "index.html #header: screen-reader label on <div>; useful-links.html #header: screen-reader label on <div>"
+  },
+  "common.header.email-tanmay-singh": {
+    "text": "Tanmay Singh에게 이메일 보내기",
+    "context": "index.html #header: screen-reader label on <a>; useful-links.html #header: screen-reader label on <a>"
+  },
+  "common.header.tanmay-singh-on-google-scholar": {
+    "text": "Google Scholar의 Tanmay Singh",
+    "context": "index.html #header: screen-reader label on <a>; useful-links.html #header: screen-reader label on <a>"
+  },
+  "common.header.tanmay-singh-on-github": {
+    "text": "GitHub의 Tanmay Singh",
+    "context": "index.html #header: screen-reader label on <a>; useful-links.html #header: screen-reader label on <a>"
+  },
+  "common.header.tanmay-singh-on-linkedin": {
+    "text": "LinkedIn의 Tanmay Singh",
+    "context": "index.html #header: screen-reader label on <a>; useful-links.html #header: screen-reader label on <a>"
+  },
+  "home.home.fourth-year-ph-d-student-astrophysics": {
+    "text": "박사과정 4년차 | 천체물리학",
+    "context": "index.html #home: role line under the name"
+  },
+  "home.home.hi-i-am-tanmay-currently-a": {
+    "text": "안녕하세요! 저는 Tanmay입니다. 현재 <a href=\"https://www.asu.edu/\" target=\"_blank\" rel=\"noopener\">Arizona State University</a> <a href=\"https://sese.asu.edu/\" target=\"_blank\" rel=\"noopener\">School of Earth and Space Exploration</a>에서 <a href=\"https://search.asu.edu/profile/3187334\" target=\"_blank\" rel=\"noopener\">Sanchayeeta Borthakur 교수</a>의 지도를 받는 박사과정 학생입니다. 주로 우주론적 시뮬레이션을 활용해 은하의 형성과 그 진화에 영향을 미치는 과정을 폭넓게 연구하고 있습니다.",
+    "context": "index.html #home: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.home.primary-actions": {
+    "text": "주요 버튼",
+    "context": "index.html #home: screen-reader label on <div>"
+  },
+  "home.home.quick-links": {
+    "text": "바로가기",
+    "context": "index.html #home: screen-reader label on <div>"
+  },
+  "home.home.news": {
+    "text": "소식",
+    "context": "index.html #home: paragraph"
+  },
+  "home.home.fall-2026": {
+    "text": "2026년 가을",
+    "context": "index.html #home: date"
+  },
+  "home.home.i-was-a-guest-instructor-for": {
+    "text": "ASU 대학원 과목 AST 531(은하와 우주론)에서 객원 강사를 맡았습니다",
+    "context": "index.html #home: span"
+  },
+  "home.home.jul-2026": {
+    "text": "2026년 7월",
+    "context": "index.html #home: date; index.html #talks: date"
+  },
+  "home.home.i-gave-an-invited-talk-at": {
+    "text": "<a href=\"https://www.roe.ac.uk/\" target=\"_blank\" rel=\"noopener\">Royal Observatory Edinburgh</a>에서 초청 강연을 했습니다",
+    "context": "index.html #home: span; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.home.jun-2026": {
+    "text": "2026년 6월",
+    "context": "index.html #home: date; index.html #talks: date"
+  },
+  "home.home.i-gave-a-contributed-talk-at": {
+    "text": "Cambridge에서 열린 <a href=\"https://sbi-galev.github.io/2026/\" target=\"_blank\" rel=\"noopener\">SBI for Galaxy Evolution 2026</a>에서 구두 발표를 했습니다",
+    "context": "index.html #home: span; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.home.may-2026": {
+    "text": "2026년 5월",
+    "context": "index.html #home: date; index.html #talks: date"
+  },
+  "home.home.my-paper-on-o-vi-in": {
+    "text": "은하군의 O VI에 관한 제 논문이 <a href=\"https://doi.org/10.3847/1538-4357/ae632b\" target=\"_blank\" rel=\"noopener\">ApJ</a>에 게재되었습니다",
+    "context": "index.html #home: span; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.home.portrait-of-tanmay-singh": {
+    "text": "Tanmay Singh의 초상 사진",
+    "context": "index.html #home: image alt text (describes the image for screen readers) on <img>"
+  },
+  "home.about.background-and-current-focus": {
+    "text": "배경과 현재 연구",
+    "context": "index.html #about: section heading"
+  },
+  "home.about.prior-to-coming-to-asu-i": {
+    "text": "ASU에 오기 전, 2023년 7월 <a href=\"https://en.wikipedia.org/wiki/IIT_Delhi\" target=\"_blank\" rel=\"noopener\">Indian Institute of Technology Delhi</a>에서 공학물리학 B.Tech 학위를 받았습니다. 2022년 5월부터 7월까지는 Bangalore의 <a href=\"https://en.wikipedia.org/wiki/Raman_Research_Institute\" target=\"_blank\" rel=\"noopener\">Raman Research Institute</a>에서 방문 학생으로 연구했습니다. <a href=\"https://en.wikipedia.org/wiki/Lucknow\" target=\"_blank\" rel=\"noopener\">인도 Lucknow</a>에서 태어나고 자랐습니다.",
+    "context": "index.html #about: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.about.my-current-research-uses-cosmological-simulation": {
+    "text": "현재는 우주론적 시뮬레이션과 합성 퀘이사 흡수 스펙트럼을 이용해 은하와 은하군에 연관된 기체를 연구하고 있습니다. 또한 <a href=\"https://bayesianlogic.github.io/\" target=\"_blank\" rel=\"noopener\">베이지안 논리</a>를 이용한 AGN과 초신성의 확률적 분광 분류도 연구하고 있습니다. 진행 중인 프로젝트는 <a href=\"#research\">연구 섹션</a>에서, 연구 외의 관심사는 <a href=\"#personal-interests\">개인 관심사</a>에서 더 보실 수 있습니다.",
+    "context": "index.html #about: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.about.quick-facts": {
+    "text": "간단한 정보",
+    "context": "index.html #about: screen-reader label on <dl>"
+  },
+  "home.about.current-role": {
+    "text": "현재 직위",
+    "context": "index.html #about: fact label"
+  },
+  "home.about.ph-d-student-in-astrophysics": {
+    "text": "천체물리학 박사과정 학생",
+    "context": "index.html #about: fact value"
+  },
+  "home.about.institution": {
+    "text": "소속 기관",
+    "context": "index.html #about: fact label"
+  },
+  "home.about.school": {
+    "text": "소속 학부",
+    "context": "index.html #about: fact label"
+  },
+  "home.about.undergraduate": {
+    "text": "학사",
+    "context": "index.html #about: fact label"
+  },
+  "home.about.b-tech-engineering-physics-iit-delhi": {
+    "text": "B.Tech, 공학물리학, IIT Delhi",
+    "context": "index.html #about: fact value"
+  },
+  "home.research.ongoing-research-projects": {
+    "text": "진행 중인 연구 프로젝트",
+    "context": "index.html #research: section heading"
+  },
+  "home.research.research-projects": {
+    "text": "연구 프로젝트",
+    "context": "index.html #research: screen-reader label on <div>"
+  },
+  "home.research.previous-research-project": {
+    "text": "이전 연구 프로젝트",
+    "context": "index.html #research: screen-reader label on <button>"
+  },
+  "home.research.project": {
+    "text": "프로젝트",
+    "context": "index.html #research: screen-reader-only text"
+  },
+  "home.research.of": {
+    "text": ", 총",
+    "context": "index.html #research: screen-reader-only text"
+  },
+  "home.research.next-research-project": {
+    "text": "다음 연구 프로젝트",
+    "context": "index.html #research: screen-reader label on <button>"
+  },
+  "home.research.investigating-the-igm-and-cgm": {
+    "text": "IGM과 CGM 연구",
+    "context": "index.html #research: card / sub-section heading"
+  },
+  "home.research.the-intergalactic-and-circumgalactic-media-shape": {
+    "text": "은하간매질(IGM)과 은하주변매질(CGM)은 은하가 형성되고 진화하는 방식을 좌우합니다. 저는 배경 퀘이사의 스펙트럼에서 보이는 Mg II 흡수체가 은하와 어떻게 연결되어 있는지 이해하고자 합니다.",
+    "context": "index.html #research: paragraph"
+  },
+  "home.research.using-mock-quasar-absorption-spectra-generated": {
+    "text": "<a href=\"https://www.tng-project.org/\" target=\"_blank\" rel=\"noopener\">IllustrisTNG</a>와 <a href=\"http://simba.roe.ac.uk/\" target=\"_blank\" rel=\"noopener\">SIMBA</a> 같은 우주론적 시뮬레이션에서 생성한 모의 퀘이사 흡수 스펙트럼을 이용해, 이 흡수체가 별 형성 은하에서 분출된 물질에서 비롯되는지, 아니면 은하로 기체를 강착시키는 거대한 회전 원반에서 비롯되는지 살펴보고 있습니다.",
+    "context": "index.html #research: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.research.mg-ii-absorbers": {
+    "text": "Mg II 흡수체",
+    "context": "index.html #research: keyword tag (short)"
+  },
+  "home.research.mock-spectra": {
+    "text": "모의 스펙트럼",
+    "context": "index.html #research: keyword tag (short)"
+  },
+  "home.research.o-vi-in-the-intra-group": {
+    "text": "은하군 내 매질의 O VI",
+    "context": "index.html #research: card / sub-section heading"
+  },
+  "home.research.i-compare-o-vi-absorption-in": {
+    "text": "<a href=\"https://www.tng-project.org/data/downloads/TNG50-1/\" target=\"_blank\" rel=\"noopener\">TNG50</a>과 <a href=\"http://simba.roe.ac.uk/\" target=\"_blank\" rel=\"noopener\">SIMBA</a>에서 각각 14개 은하군을 골라 은하군마다 90,000개 시선의 합성 퀘이사 스펙트럼을 만들고, 그 O VI 흡수를 <a href=\"https://doi.org/10.3847/1538-4357/ac283c\" target=\"_blank\" rel=\"noopener\">COS-IGrM 서베이</a>와 비교합니다. 두 시뮬레이션 모두 관측된 피복률에 미치지 못합니다. COS-IGrM의 44&nbsp;&plusmn;&nbsp;5%에 비해 TNG50은 20.6&nbsp;&plusmn;&nbsp;2.6%, SIMBA는 6.0&nbsp;&plusmn;&nbsp;0.8%입니다. 시뮬레이션 흡수체의 약 95%는 중력적으로 속박되어 있으며, TNG50에서는 가장 강한 흡수체가 별 형성 은하로부터 약 200&nbsp;kpc 이내에 놓이지만 SIMBA에서는 이런 경향이 나타나지 않습니다. 이 연구는 <a href=\"https://doi.org/10.3847/1538-4357/ae632b\" target=\"_blank\" rel=\"noopener\">The Astrophysical Journal</a>에 제1저자 논문으로 발표했습니다.",
+    "context": "index.html #research: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.research.open-the-full-o-vi-covering": {
+    "text": "O VI 피복률 그림 전체(두 패널) 열기",
+    "context": "index.html #research: screen-reader label on <a>"
+  },
+  "home.research.o-vi-covering-fraction-against-group": {
+    "text": "은하군 헤일로 질량 세 구간에 따른 O VI 피복률. 모든 구간에서 TNG50(파란색)과 SIMBA(빨간색)의 평균은 빗금 친 COS-IGrM 관측값보다 낮으며, SIMBA가 가장 낮습니다.",
+    "context": "index.html #research: image alt text (describes the image for screen readers) on <img>"
+  },
+  "home.research.in-every-halo-mass-bin-simulated": {
+    "text": "모든 헤일로 질량 구간에서 시뮬레이션 은하군은 COS-IGrM 관측(빗금)보다 더 적은 시선에서 O VI를 보입니다. TNG50은 파란색, SIMBA는 빨간색입니다.",
+    "context": "index.html #research: figure caption (keep the credit and its links as they are)"
+  },
+  "home.research.figure-5-top-panel-singh-et": {
+    "text": "그림 5(위 패널), Singh et al. 2026, <a href=\"https://doi.org/10.3847/1538-4357/ae632b\" target=\"_blank\" rel=\"noopener\">ApJ 1003, 110</a>; 출처 <a href=\"https://arxiv.org/abs/2604.18808\" target=\"_blank\" rel=\"noopener\">arXiv:2604.18808</a>, <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\" rel=\"noopener\">CC BY 4.0</a>.",
+    "context": "index.html #research: figure caption (keep the credit and its links as they are); HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.research.spectral-classification-of-agn-and-supernovae": {
+    "text": "AGN과 초신성의 분광 분류",
+    "context": "index.html #research: card / sub-section heading"
+  },
+  "home.research.i-am-building-a-contingent-bayesian": {
+    "text": "방출선의 검출 여부, 선폭, 선 세기 비를 바탕으로 AGN과 초신성 스펙트럼을 분류하는 조건부 베이지안 논리(<a href=\"https://bayesianlogic.github.io/\" target=\"_blank\" rel=\"noopener\">BLOG</a>) 모델을 만들고 있습니다. 이 모델은 먼지 감쇠와 변광을 반영하며, 제가 직접 만든 선 맞춤 및 식별 파이프라인이 사전 분포를 정해 줍니다. 그 과정에서 구문 강조를 지원하는 VS Code용 BLOG 언어 확장도 만들었으며, <a href=\"https://marketplace.visualstudio.com/items?itemName=TanmaySingh97.blog-bayesian-logic-syntax\" target=\"_blank\" rel=\"noopener\">VS Code Marketplace</a>와 <a href=\"https://github.com/tanmay-starslab/blog-syntax\" target=\"_blank\" rel=\"noopener\">GitHub</a>에서 받을 수 있습니다. 이 연구는 <a href=\"https://sidsrivast.github.io/\" target=\"_blank\" rel=\"noopener\">Siddharth Srivastava 교수</a>, <a href=\"https://search.asu.edu/profile/435640\" target=\"_blank\" rel=\"noopener\">Rolf Jansen 박사</a>와 함께 진행하고 있습니다.",
+    "context": "index.html #research: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.research.supernovae": {
+    "text": "초신성",
+    "context": "index.html #research: keyword tag (short)"
+  },
+  "home.research.emission-line-ratios": {
+    "text": "방출선 세기 비",
+    "context": "index.html #research: keyword tag (short)"
+  },
+  "home.research.dust-attenuation": {
+    "text": "먼지 감쇠",
+    "context": "index.html #research: keyword tag (short)"
+  },
+  "home.research.vs-code-extension": {
+    "text": "VS Code 확장",
+    "context": "index.html #research: keyword tag (short)"
+  },
+  "home.research.kinematics-of-the-outer-circumgalactic-medium": {
+    "text": "외곽 은하주변매질의 운동학",
+    "context": "index.html #research: card / sub-section heading"
+  },
+  "home.research.i-am-looking-for-co-rotating": {
+    "text": "<a href=\"https://www.tng-project.org/data/downloads/TNG50-1/\" target=\"_blank\" rel=\"noopener\">TNG50-1</a>에서 시선 기반 합성 분광을 이용해 L* 은하의 외곽 은하주변매질에서 은하와 같은 방향 또는 반대 방향으로 회전하는 기체를 찾고 있습니다. Ly&alpha;, C&nbsp;II&nbsp;&lambda;1334, Si&nbsp;III&nbsp;&lambda;1206에서 약 75,000개의 합성 스펙트럼을 만들었고, 지금은 그 운동학적 특성을 분류하며 불확실성을 검토하고 있습니다.",
+    "context": "index.html #research: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.research.tng50-sightline-explorer": {
+    "text": "TNG50 시선 탐색기",
+    "context": "index.html #research: card / sub-section heading"
+  },
+  "home.research.i-built-this-tool-to-explore": {
+    "text": "<a href=\"https://www.tng-project.org/data/downloads/TNG50-1/\" target=\"_blank\" rel=\"noopener\">TNG50</a> 은하의 CGM을 지나는 모의 퀘이사 스펙트럼을 원하는 분광기 분해능과 S/N으로 살펴볼 수 있도록 이 도구를 만들었습니다.",
+    "context": "index.html #research: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.research.open-explorer": {
+    "text": "탐색기 열기",
+    "context": "index.html #research: button"
+  },
+  "home.research.detect-resolve-explainer": {
+    "text": "검출 및 분해 해설",
+    "context": "index.html #research: button"
+  },
+  "home.past-projects.earlier-research": {
+    "text": "이전 연구",
+    "context": "index.html #past-projects: section heading"
+  },
+  "home.past-projects.past-work-spanning-submillimeter-astronomy-solar": {
+    "text": "서브밀리미터 천문학, 태양물리학, 양자 통신, 이미지 처리, 원자 충돌에 걸친 이전 연구입니다.",
+    "context": "index.html #past-projects: paragraph"
+  },
+  "home.past-projects.open-the-ladakh-water-vapor-map": {
+    "text": "Ladakh 수증기 지도 원본 크기로 열기",
+    "context": "index.html #past-projects: screen-reader label on <a>"
+  },
+  "home.past-projects.map-of-the-ladakh-plateau-on": {
+    "text": "음영 기복도 위의 Ladakh 고원 지도. ERA5 격자 위의 원은 PWV가 1 mm 이하인 달의 비율(최대 약 23%)을 나타내며, 가장 크고 붉은 원은 북동쪽에 있습니다. Site A, Site B, Leh, Merak, Hanle이 표시되어 있습니다.",
+    "context": "index.html #past-projects: image alt text (describes the image for screen readers) on <img>"
+  },
+  "home.past-projects.share-of-months-from-2010-to": {
+    "text": "2010년부터 2025년까지 Ladakh 전역의 ERA5 격자 칸별로 PWV ≤ 1 mm인 달의 비율. Site A와 B가 Hanle과 Merak이 속한 칸보다 좋은 조건을 보입니다.",
+    "context": "index.html #past-projects: figure caption (keep the credit and its links as they are)"
+  },
+  "home.past-projects.figure-6-singh-sathyanarayana-rao-basu": {
+    "text": "그림 6, Singh, Sathyanarayana Rao &amp; Basu Thakur 2026, <a href=\"https://doi.org/10.3847/1538-3881/ae5e4e\" target=\"_blank\" rel=\"noopener\">AJ 171, 331</a>; 출처 <a href=\"https://arxiv.org/abs/2604.13487\" target=\"_blank\" rel=\"noopener\">arXiv:2604.13487</a>, <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\" rel=\"noopener\">CC BY 4.0</a>.",
+    "context": "index.html #past-projects: figure caption (keep the credit and its links as they are); HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.past-projects.site-quality-analysis-for-an-indian": {
+    "text": "인도 서브밀리미터 망원경 부지 품질 분석",
+    "context": "index.html #past-projects: card / sub-section heading"
+  },
+  "home.past-projects.i-mapped-precipitable-water-vapor-pwv": {
+    "text": "<a href=\"https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels\" target=\"_blank\" rel=\"noopener\">ERA5 재분석 자료</a> 184개월분(2010&ndash;2025)으로 Ladakh 전역의 가강수량(PWV) 지도를 만들었습니다. 먼저 <a href=\"https://www.iiap.res.in/centers/iao/\" target=\"_blank\" rel=\"noopener\">Hanle</a>, Mauna Kea, Chajnantor의 라디오미터 자료와 ERA5를 비교해 검증했습니다. 두 후보 지역은 이 기간의 약 23%와 19% 동안 PWV &le; 1&nbsp;mm를 만족하는 반면, Hanle과 Merak 격자 칸은 각각 약 5%와 8%에 그칩니다. 2022년 <a href=\"https://www.rri.res.in/\" target=\"_blank\" rel=\"noopener\">Raman Research Institute</a>에서 <a href=\"https://www.rri.res.in/people/faculty/mayuri-s-rao\" target=\"_blank\" rel=\"noopener\">Mayuri S. Rao 교수</a>와 함께 방문 학생으로 시작한 연구이며, 2026년 <a href=\"https://doi.org/10.3847/1538-3881/ae5e4e\" target=\"_blank\" rel=\"noopener\">The Astronomical Journal</a>에 제1저자 논문으로 발표했습니다.",
+    "context": "index.html #past-projects: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.past-projects.view-the-original-eclipse-image-at": {
+    "text": "ESO에서 일식 원본 이미지 보기",
+    "context": "index.html #past-projects: screen-reader label on <a>"
+  },
+  "home.past-projects.the-moon-s-dark-disc-covers": {
+    "text": "2017년 개기일식 때 달의 어두운 원반이 태양을 가리고 있습니다. 가는 방사형 줄기와 고리로 이루어진 옅은 코로나가 바깥으로 퍼져 있고, 오른쪽 가장자리에는 작은 붉은 홍염이 보입니다.",
+    "context": "index.html #past-projects: image alt text (describes the image for screen readers) on <img>"
+  },
+  "home.past-projects.the-corona-at-totality-21-august": {
+    "text": "개기식 때의 코로나, 2017년 8월 21일(다중 노출 합성). 섬세한 구조가 태양 자기장을 따라 나타납니다.",
+    "context": "index.html #past-projects: figure caption (keep the credit and its links as they are)"
+  },
+  "home.past-projects.the-total-solar-eclipse-of-21": {
+    "text": "&ldquo;The total solar eclipse of 21 August 2017&rdquo;, <a href=\"https://www.eso.org/public/images/eso1822l/\" target=\"_blank\" rel=\"noopener\">ESO/P. Hor&aacute;lek/Solar Wind Sherpas project</a>, <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\" rel=\"noopener\">CC BY 4.0</a>.",
+    "context": "index.html #past-projects: figure caption (keep the credit and its links as they are); HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.past-projects.magnetic-field-topology-in-the-2017": {
+    "text": "2017년 일식 코로나의 자기장 위상 구조",
+    "context": "index.html #past-projects: card / sub-section heading"
+  },
+  "home.past-projects.senior-thesis-iit-delhi": {
+    "text": "학부 졸업 논문, IIT Delhi",
+    "context": "index.html #past-projects: small label above a card"
+  },
+  "home.past-projects.i-cleaned-and-aligned-images-of": {
+    "text": "<a href=\"https://eclipse.gsfc.nasa.gov/SEgoogle/SEgoogle2001/SE2017Aug21Tgoogle.html\" target=\"_blank\" rel=\"noopener\">2017년 개기일식</a> 이미지를 위상 상관과 언샤프 마스킹으로 정리하고 정렬한 뒤, RHT와 ACF 방법으로 코로나의 닫힌 자기력선과 열린 자기력선을 추출했습니다. 그 위상 구조를 MHD 방정식과 대조해 확인하는 것이 목표였습니다. 2022&ndash;2023년에 <a href=\"https://supritsinghlab.github.io/\" target=\"_blank\" rel=\"noopener\">Suprit Singh 교수</a>와 함께 진행했습니다.",
+    "context": "index.html #past-projects: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.past-projects.2017-eclipse": {
+    "text": "2017년 일식",
+    "context": "index.html #past-projects: keyword tag (short)"
+  },
+  "home.past-projects.phase-correlation": {
+    "text": "위상 상관",
+    "context": "index.html #past-projects: keyword tag (short)"
+  },
+  "home.past-projects.unsharp-masking": {
+    "text": "언샤프 마스킹",
+    "context": "index.html #past-projects: keyword tag (short)"
+  },
+  "home.past-projects.read-the-press-information-bureau-release": {
+    "text": "이 실험에 관한 Press Information Bureau 보도자료 읽기",
+    "context": "index.html #past-projects: screen-reader label on <a>"
+  },
+  "home.past-projects.night-view-over-the-iit-delhi": {
+    "text": "IIT Delhi 캠퍼스의 야경. 가는 초록색 레이저 빔이 나무와 불 켜진 건물 위 스카이라인을 가로지르고, 오른쪽 앞에는 여러 층짜리 건물이 있습니다.",
+    "context": "index.html #past-projects: image alt text (describes the image for screen readers) on <img>"
+  },
+  "home.past-projects.entanglement-based-free-space-quantum-key": {
+    "text": "2025년 Bhaskar Kanseri 교수 연구팀이 IIT Delhi 캠퍼스에서 1 km가 넘는 거리에 걸쳐 시연한 얽힘 기반 자유 공간 양자 키 분배.",
+    "context": "index.html #past-projects: figure caption (keep the credit and its links as they are)"
+  },
+  "home.past-projects.photo-press-information-bureau": {
+    "text": "사진: <a href=\"https://www.pib.gov.in/PressReleasePage.aspx?PRID=2136702\" target=\"_blank\" rel=\"noopener\">Press Information Bureau</a>.",
+    "context": "index.html #past-projects: figure caption (keep the credit and its links as they are); HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.past-projects.post-processing-for-entanglement-based-qkd": {
+    "text": "얽힘 기반 QKD의 후처리",
+    "context": "index.html #past-projects: card / sub-section heading"
+  },
+  "home.past-projects.sura-2021-iit-delhi": {
+    "text": "SURA 2021, IIT Delhi",
+    "context": "index.html #past-projects: small label above a card"
+  },
+  "home.past-projects.with-paras-sharma-i-wrote-python": {
+    "text": "<a href=\"https://timedilatesme.github.io/\" target=\"_blank\" rel=\"noopener\">Paras Sharma</a>와 함께 얽힘 기반 양자 키 분배의 후처리 단계를 위한 Python 소프트웨어를 작성했습니다. 여러 Cascade 오류 보정 변형, 프라이버시 증폭, 네트워킹 기능을 담았습니다. <a href=\"https://physics.iitd.ac.in/\" target=\"_blank\" rel=\"noopener\">IIT Delhi</a> <a href=\"https://web.iitd.ac.in/~bkanseri/\" target=\"_blank\" rel=\"noopener\">Bhaskar Kanseri 교수 연구실</a>의 실험 데이터로 검증했습니다. 이 프로젝트는 물리학과와 전기공학과의 제안서 27건 가운데 SURA 2021에 선정되었고, 뛰어난 성과를 인정받았습니다.",
+    "context": "index.html #past-projects: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.past-projects.entanglement-based-qkd": {
+    "text": "얽힘 기반 QKD",
+    "context": "index.html #past-projects: keyword tag (short)"
+  },
+  "home.past-projects.privacy-amplification": {
+    "text": "프라이버시 증폭",
+    "context": "index.html #past-projects: keyword tag (short)"
+  },
+  "home.past-projects.view-the-original-granulation-image-at": {
+    "text": "NOIRLab에서 쌀알무늬 원본 이미지 보기",
+    "context": "index.html #past-projects: screen-reader label on <a>"
+  },
+  "home.past-projects.close-up-of-the-sun-s": {
+    "text": "태양 표면 근접 사진. 지름 약 1,000 km의 밝고 불규칙한 대류 세포가 좁고 어두운 경계로 나뉘어 있으며, 노란색과 주황색의 의사 색상으로 표현되었습니다.",
+    "context": "index.html #past-projects: image alt text (describes the image for screen readers) on <img>"
+  },
+  "home.past-projects.solar-granulation-from-nsf-s-inouye": {
+    "text": "NSF Inouye Solar Telescope로 관측한 태양 쌀알무늬(G 밴드, 2022년 6월 3일). 이런 표면 근처의 대류가 태양의 음파를 일으킵니다.",
+    "context": "index.html #past-projects: figure caption (keep the credit and its links as they are)"
+  },
+  "home.past-projects.inouye-solar-telescope-inauguration-observations": {
+    "text": "Inouye Solar Telescope 개소 관측: <a href=\"https://noirlab.edu/public/images/NSO-DKIST-Gband1_yellow-CC/\" target=\"_blank\" rel=\"noopener\">NSO/AURA/NSF</a>, <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\" rel=\"noopener\">CC BY 4.0</a>.",
+    "context": "index.html #past-projects: figure caption (keep the credit and its links as they are); HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.past-projects.identifying-acoustic-wave-sources-on-the": {
+    "text": "태양 음파의 발생원 식별",
+    "context": "index.html #past-projects: card / sub-section heading"
+  },
+  "home.past-projects.solar-data": {
+    "text": "태양 데이터",
+    "context": "index.html #past-projects: small label above a card"
+  },
+  "home.past-projects.i-studied-acoustic-waves-at-the": {
+    "text": "<a href=\"https://github.com/NCAR/MURaM_main\" target=\"_blank\" rel=\"noopener\">MURaM</a> 시뮬레이션 데이터에서 태양 표면의 음파를 연구하고, OpenCV와 NumPy로 구현한 방위각 평균 같은 이미지 처리 기법으로 그 발생원을 찾았습니다.",
+    "context": "index.html #past-projects: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.past-projects.azimuthal-averaging": {
+    "text": "방위각 평균",
+    "context": "index.html #past-projects: keyword tag (short)"
+  },
+  "home.past-projects.open-the-fano-profile-figure-full": {
+    "text": "Fano 프로파일 그림 원본 크기로 열기",
+    "context": "index.html #past-projects: screen-reader label on <a>"
+  },
+  "home.past-projects.the-complex-plane-with-the-path": {
+    "text": "복소 평면. 산란각이 0도에서 180도까지 변할 때 매개변수 w가 그리는 경로를 보여 줍니다. 36도, 64도, 89도, 132도의 삽입 그림은 서로 다른 모양의 공명 봉우리와 골을 보여 줍니다.",
+    "context": "index.html #past-projects: image alt text (describes the image for screen readers) on <img>"
+  },
+  "home.past-projects.in-cold-h-kr-collisions-the": {
+    "text": "차가운 H&ndash;Kr 충돌에서 산란각이 바뀌면 복소 매개변수 <i>w</i>는 매끄러운 경로를 그리고, Fano 프로파일은 모양이 달라집니다(삽입 그림: 36&deg;, 64&deg;, 89&deg;, 132&deg;).",
+    "context": "index.html #past-projects: figure caption (keep the credit and its links as they are); HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.past-projects.fig-5-singh-et-al-2026": {
+    "text": "그림 5, Singh et al. 2026, <a href=\"https://doi.org/10.1007/s12648-026-03956-2\" target=\"_blank\" rel=\"noopener\">Indian J. Phys. 100, 2179</a> &copy; 2026 IACS.",
+    "context": "index.html #past-projects: figure caption (keep the credit and its links as they are); HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.past-projects.angle-dependent-fano-profiles-in-cold": {
+    "text": "차가운 원자 충돌에서 각도에 따른 Fano 프로파일",
+    "context": "index.html #past-projects: card / sub-section heading"
+  },
+  "home.past-projects.atomic-collisions": {
+    "text": "원자 충돌",
+    "context": "index.html #past-projects: small label above a card"
+  },
+  "home.past-projects.i-studied-how-the-asymmetry-of": {
+    "text": "복소수 값을 갖는 <i>w</i> 매개변수로 각도에 의존하는 Fano <i>q</i>를 얻어, Fano 공명 프로파일의 비대칭성이 산란각에 따라 어떻게 변하는지 연구했습니다. <a href=\"https://doi.org/10.1016/j.cpc.2021.107895\" target=\"_blank\" rel=\"noopener\">VPA 위상 이동 프로그램</a>으로 계산한 차가운 H&ndash;Kr 탄성 산란의 궤도 공명에서는 비대칭성이 각도에 따라 크게 달라지며 원자 간 퍼텐셜에 민감합니다. <a href=\"https://nrid.nii.ac.jp/en/nrid/1000090095505/\" target=\"_blank\" rel=\"noopener\">Fumihiro Koike 교수</a>, <a href=\"https://www.bits-pilani.ac.in/goa/yoshiro-azuma/\" target=\"_blank\" rel=\"noopener\">Yoshiro Azuma 교수</a>와 함께 수행했으며, 2026년 <a href=\"https://doi.org/10.1007/s12648-026-03956-2\" target=\"_blank\" rel=\"noopener\">Indian Journal of Physics</a>에 제1저자 논문으로 발표했습니다.",
+    "context": "index.html #past-projects: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.past-projects.fano-q-parameter": {
+    "text": "Fano q 매개변수",
+    "context": "index.html #past-projects: keyword tag (short)"
+  },
+  "home.past-projects.h-kr-scattering": {
+    "text": "H–Kr 산란",
+    "context": "index.html #past-projects: keyword tag (short)"
+  },
+  "home.past-projects.orbiting-resonance": {
+    "text": "궤도 공명",
+    "context": "index.html #past-projects: keyword tag (short)"
+  },
+  "home.publications.publications-and-abstracts": {
+    "text": "논문 및 초록",
+    "context": "index.html #publications: section heading"
+  },
+  "home.publications.first-author": {
+    "text": "제1저자",
+    "context": "index.html #publications: span"
+  },
+  "home.publications.journal": {
+    "text": "저널",
+    "context": "index.html #publications: button"
+  },
+  "home.publications.cite": {
+    "text": "인용",
+    "context": "index.html #publications: button"
+  },
+  "home.publications.co-author": {
+    "text": "공저자",
+    "context": "index.html #publications: span"
+  },
+  "home.publications.second-author": {
+    "text": "제2저자",
+    "context": "index.html #publications: span"
+  },
+  "home.publications.show-all-publications": {
+    "text": "모든 논문 보기",
+    "context": "index.html #publications: button"
+  },
+  "home.talks.talks-and-posters": {
+    "text": "발표 및 포스터",
+    "context": "index.html #talks: section heading"
+  },
+  "home.talks.invited-talks": {
+    "text": "초청 강연",
+    "context": "index.html #talks: card / sub-section heading"
+  },
+  "home.talks.roe-univ-of-edinburgh": {
+    "text": "<a href=\"https://www.roe.ac.uk/\" target=\"_blank\" rel=\"noopener\">ROE</a>, Univ. of Edinburgh",
+    "context": "index.html #talks: venue (place names stay); HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.talks.sotu-seminar-tifr-mumbai": {
+    "text": "SOTU 세미나, TIFR, Mumbai",
+    "context": "index.html #talks: venue (place names stay)"
+  },
+  "home.talks.contributed-talks": {
+    "text": "일반 구두 발표",
+    "context": "index.html #talks: card / sub-section heading"
+  },
+  "home.talks.sbi-for-galaxy-evolution-2026-cambridge": {
+    "text": "<a href=\"https://sbi-galev.github.io/2026/\" target=\"_blank\" rel=\"noopener\">SBI for Galaxy Evolution 2026</a>, Cambridge",
+    "context": "index.html #talks: venue (place names stay); HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.talks.sep-2022": {
+    "text": "2022년 9월",
+    "context": "index.html #talks: date"
+  },
+  "home.talks.student-lecture-iit-delhi": {
+    "text": "학생 강연, IIT Delhi",
+    "context": "index.html #talks: venue (place names stay)"
+  },
+  "home.talks.jul-2022": {
+    "text": "2022년 7월",
+    "context": "index.html #talks: date"
+  },
+  "home.talks.vsm-presentation-rri-bengaluru": {
+    "text": "VSM 발표, RRI, Bengaluru",
+    "context": "index.html #talks: venue (place names stay)"
+  },
+  "home.talks.posters": {
+    "text": "포스터",
+    "context": "index.html #talks: card / sub-section heading"
+  },
+  "home.talks.jan-2026": {
+    "text": "2026년 1월",
+    "context": "index.html #talks: date"
+  },
+  "home.talks.aas-247-phoenix-az": {
+    "text": "<a href=\"https://aas.org/meetings/aas247\" target=\"_blank\" rel=\"noopener\">AAS 247</a>, Phoenix, AZ",
+    "context": "index.html #talks: venue (place names stay); HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.talks.aug-2025": {
+    "text": "2025년 8월",
+    "context": "index.html #talks: date"
+  },
+  "home.talks.urssi-summer-school-for-open-science": {
+    "text": "<a href=\"https://urssi.us/\" target=\"_blank\" rel=\"noopener\">URSSI</a> 오픈 사이언스 여름학교",
+    "context": "index.html #talks: venue (place names stay); HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.recognition.awards-observing-and-service": {
+    "text": "수상, 관측 및 활동",
+    "context": "index.html #recognition: section heading"
+  },
+  "home.recognition.awards": {
+    "text": "수상",
+    "context": "index.html #recognition: card / sub-section heading"
+  },
+  "home.recognition.summer-exploration-graduate-seg-fellowship-schoo": {
+    "text": "Summer Exploration Graduate (SEG) 펠로십, School of Earth and Space Exploration, ASU",
+    "context": "index.html #recognition: list entry (award / service)"
+  },
+  "home.recognition.paniit-usa-graduate-scholarship": {
+    "text": "PanIIT USA 대학원 장학금",
+    "context": "index.html #recognition: list entry (award / service)"
+  },
+  "home.recognition.preliminary-discovery-of-3-asteroids-dst": {
+    "text": "소행성 3개 예비 발견, DST-IASC 소행성 탐색 캠페인",
+    "context": "index.html #recognition: list entry (award / service)"
+  },
+  "home.recognition.summer-undergraduate-research-award-sura-iit": {
+    "text": "학부생 하계 연구상(SURA), IIT Delhi; 제안서 27건 중 선정",
+    "context": "index.html #recognition: list entry (award / service)"
+  },
+  "home.recognition.jan-2021": {
+    "text": "2021년 1월",
+    "context": "index.html #recognition: date"
+  },
+  "home.recognition.international-theoretical-physics-olympiad-rank": {
+    "text": "국제 이론물리 올림피아드: 276개 팀 중 12위",
+    "context": "index.html #recognition: list entry (award / service)"
+  },
+  "home.recognition.nov-2020": {
+    "text": "2020년 11월",
+    "context": "index.html #recognition: date"
+  },
+  "home.recognition.university-physics-competition-silver-medal-top": {
+    "text": "University Physics Competition: 은메달(340개 팀 중 상위 12팀), 토성으로 가는 이온 추진기",
+    "context": "index.html #recognition: list entry (award / service)"
+  },
+  "home.recognition.observing-and-service": {
+    "text": "관측 및 활동",
+    "context": "index.html #recognition: card / sub-section heading"
+  },
+  "home.recognition.aug-2025-present": {
+    "text": "2025년 8월 – 현재",
+    "context": "index.html #recognition: date"
+  },
+  "home.recognition.international-student-advocate-sese-graduate-cou": {
+    "text": "국제학생 대표, SESE 대학원생 위원회",
+    "context": "index.html #recognition: list entry (award / service)"
+  },
+  "home.recognition.oct-nov-2023": {
+    "text": "2023년 10–11월",
+    "context": "index.html #recognition: date"
+  },
+  "home.recognition.co-pi-12m-telescope-az-connecting": {
+    "text": "공동 PI, 12m 망원경(AZ): 분자 기체와 CGM의 연결",
+    "context": "index.html #recognition: list entry (award / service)"
+  },
+  "home.recognition.51-hrs-of-co-1-0": {
+    "text": "CO(1–0) 51시간",
+    "context": "index.html #recognition: venue (place names stay)"
+  },
+  "home.recognition.sep-2023": {
+    "text": "2023년 9월",
+    "context": "index.html #recognition: date"
+  },
+  "home.recognition.co-pi-hectochelle-az-unveiling-the": {
+    "text": "공동 PI, Hectochelle(AZ): 가까운 은하에 숨겨진 원반 찾기",
+    "context": "index.html #recognition: list entry (award / service)"
+  },
+  "home.timeline.aug-2023-present": {
+    "text": "2023년 8월 - 현재",
+    "context": "index.html #timeline: date"
+  },
+  "home.timeline.ph-d-in-astrophysics": {
+    "text": "천체물리학 박사과정",
+    "context": "index.html #timeline: card / sub-section heading"
+  },
+  "home.timeline.arizona-state-university-school-of-earth": {
+    "text": "Arizona State University | School of Earth and Space Exploration",
+    "context": "index.html #timeline: organisation line"
+  },
+  "home.timeline.current-graduate-research-includes-o-vi": {
+    "text": "현재 대학원 연구로 은하군 내 매질의 O VI, AGN과 초신성의 분광 분류, 외곽 은하주변매질의 운동학을 다루고 있습니다.",
+    "context": "index.html #timeline: paragraph"
+  },
+  "home.timeline.may-2022-july-2022": {
+    "text": "2022년 5월 - 2022년 7월",
+    "context": "index.html #timeline: date"
+  },
+  "home.timeline.visiting-research-intern": {
+    "text": "방문 연구 인턴",
+    "context": "index.html #timeline: card / sub-section heading"
+  },
+  "home.timeline.raman-research-institute-astronomy-and-astrophys": {
+    "text": "Raman Research Institute | 천문학 및 천체물리학과",
+    "context": "index.html #timeline: organisation line"
+  },
+  "home.timeline.worked-on-preliminary-site-quality-analysis": {
+    "text": "인도 서브밀리미터 망원경 부지의 예비 품질 분석을 수행했습니다.",
+    "context": "index.html #timeline: paragraph"
+  },
+  "home.timeline.july-2019-july-2023": {
+    "text": "2019년 7월 - 2023년 7월",
+    "context": "index.html #timeline: date"
+  },
+  "home.timeline.b-tech-in-engineering-physics": {
+    "text": "공학물리학 B.Tech.",
+    "context": "index.html #timeline: card / sub-section heading"
+  },
+  "home.timeline.undergraduate-training-in-engineering-physics-wi": {
+    "text": "공학물리학 학부 과정을 밟으며 태양물리학, 양자 보안 통신, 원자 충돌, 서브밀리미터 천문학에 걸친 연구를 했습니다.",
+    "context": "index.html #timeline: paragraph"
+  },
+  "home.timeline.ast-531-graduate-galaxies-cosmology": {
+    "text": "AST 531: 대학원 은하와 우주론",
+    "context": "index.html #timeline: card / sub-section heading"
+  },
+  "home.timeline.role-guest-instructor": {
+    "text": "<strong>역할:</strong> 객원 강사",
+    "context": "index.html #timeline: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.timeline.institution-arizona-state-university-department": {
+    "text": "<strong>기관:</strong> Arizona State University | <strong>학과:</strong> School of Earth and Space Exploration (SESE)",
+    "context": "index.html #timeline: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.timeline.semester-fall-2026": {
+    "text": "<strong>학기:</strong> 2026년 가을",
+    "context": "index.html #timeline: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.timeline.ast-121-introduction-to-astronomy-laboratory": {
+    "text": "AST 121: 천문학 입문 실험",
+    "context": "index.html #timeline: card / sub-section heading"
+  },
+  "home.timeline.role-teaching-assistant-three-lab-sections": {
+    "text": "<strong>역할:</strong> 조교, 실험 분반 3개",
+    "context": "index.html #timeline: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.timeline.semester-spring-2025": {
+    "text": "<strong>학기:</strong> 2025년 봄",
+    "context": "index.html #timeline: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.timeline.i-taught-and-supervised-three-lab": {
+    "text": "실험 분반 3개를 맡아 강의와 채점을 하고, 망원경을 이용한 실험과 밤하늘 관측을 지도했습니다.",
+    "context": "index.html #timeline: paragraph"
+  },
+  "home.personal-interests.interest-areas": {
+    "text": "관심 분야",
+    "context": "index.html #personal-interests: screen-reader label on <div>"
+  },
+  "home.personal-interests.chess": {
+    "text": "체스",
+    "context": "index.html #personal-interests: span"
+  },
+  "home.personal-interests.books": {
+    "text": "독서",
+    "context": "index.html #personal-interests: span"
+  },
+  "home.personal-interests.geography": {
+    "text": "지리",
+    "context": "index.html #personal-interests: span"
+  },
+  "home.personal-interests.music": {
+    "text": "음악",
+    "context": "index.html #personal-interests: span"
+  },
+  "home.personal-interests.astrophotography": {
+    "text": "천체사진",
+    "context": "index.html #personal-interests: span"
+  },
+  "home.personal-interests.outside-of-my-academic-life-i": {
+    "text": "연구 외에도 저에게 활력과 영감을 주는 다양한 관심사가 있습니다. 가장 좋아하는 취미 중 하나는 체스입니다. chess.com에서 체스를 두신다면 언제든 반갑게 함께하고 싶습니다. 제 아이디는 <a href=\"https://www.chess.com/member/voyager972\" target=\"_blank\" rel=\"noopener\">Voyager972</a>입니다. 독서도 무척 좋아하며, 특히 대중 과학서와 논픽션을 즐겨 읽습니다.",
+    "context": "index.html #personal-interests: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.personal-interests.i-have-a-keen-interest-in": {
+    "text": "지정학과 지리에도 관심이 많습니다. 음악과 노래도 제 삶에서 큰 부분을 차지하며, 특히 가잘, 수피 음악, 옛 힌디 노래를 즐겨 듣습니다.",
+    "context": "index.html #personal-interests: paragraph"
+  },
+  "home.personal-interests.i-am-also-interested-in-astrophotography": {
+    "text": "천체사진에도 관심이 있어 밤하늘의 아름다움을 담아 보고 싶습니다. 아직 원하는 만큼 활발히 하지는 못했지만, 앞으로 꼭 키워 가고 싶은 목표입니다.",
+    "context": "index.html #personal-interests: paragraph"
+  },
+  "home.personal-interests.thank-you-for-visiting-my-page": {
+    "text": "제 페이지를 방문해 주셔서 감사합니다. 관심사가 비슷하거나 그냥 인사를 나누고 싶으시다면 편하게 연락 주세요.",
+    "context": "index.html #personal-interests: paragraph"
+  },
+  "home.contact.get-in-touch": {
+    "text": "연락하기",
+    "context": "index.html #contact: section heading"
+  },
+  "home.contact.send-me-a-message-here-or": {
+    "text": "여기에서 메시지를 보내시거나, 아래 채널 중 어디에서든 저를 찾아 주세요.",
+    "context": "index.html #contact: paragraph"
+  },
+  "home.contact.elsewhere": {
+    "text": "다른 채널",
+    "context": "index.html #contact: screen-reader label on <div>"
+  },
+  "home.contact-form.your-name": {
+    "text": "이름",
+    "context": "index.html #contact-form: form field label"
+  },
+  "home.contact-form.your-email": {
+    "text": "이메일",
+    "context": "index.html #contact-form: form field label"
+  },
+  "home.contact-form.message": {
+    "text": "메시지",
+    "context": "index.html #contact-form: form field label"
+  },
+  "home.contact-form.send-message": {
+    "text": "메시지 보내기",
+    "context": "index.html #contact-form: button"
+  },
+  "common.footer.2026-tanmay-singh-designed-by-bootstrapmade": {
+    "text": "&copy; <span id=\"year\">2026</span> Tanmay Singh. <a href=\"https://bootstrapmade.com/\" target=\"_blank\" rel=\"noopener\">BootstrapMade</a> 디자인을 바탕으로 천체물리학 맞춤 인터페이스를 더했습니다.",
+    "context": "index.html #footer: paragraph; useful-links.html #footer: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.page.back-to-top": {
+    "text": "맨 위로",
+    "context": "index.html #page: screen-reader label on <a>; useful-links.html #page: screen-reader label on <a>"
+  },
+  "links.head.useful-links-tanmay-singh": {
+    "text": "유용한 링크 | Tanmay Singh",
+    "context": "useful-links.html #head: browser tab / search result title; useful-links.html #head: link-preview title; useful-links.html #head: link-preview title (X/Twitter)"
+  },
+  "links.head.useful-astronomy-astrophysics-programming-gradua": {
+    "text": "Tanmay Singh이 모은 천문학, 천체물리학, 프로그래밍, 대학원 진학, 학술 웹사이트 관련 유용한 링크.",
+    "context": "useful-links.html #head: link-preview description; useful-links.html #head: link-preview description (X/Twitter); useful-links.html #head: meta description (search results)"
+  },
+  "links.page.a-collection-of-astronomy-astrophysics-programmi": {
+    "text": "이전 웹사이트에서 옮겨 온 천문학, 천체물리학, 프로그래밍, 대학원 진학, 개인 웹사이트 자료 모음입니다.",
+    "context": "useful-links.html #page: paragraph"
+  },
+  "links.page.astronomy-and-astrophysics": {
+    "text": "천문학 및 천체물리학",
+    "context": "useful-links.html #page: section heading"
+  },
+  "links.page.general-links": {
+    "text": "일반 링크",
+    "context": "useful-links.html #page: card / sub-section heading; useful-links.html #page: section heading"
+  },
+  "links.page.nasa-ads-online-database-astronomy-and": {
+    "text": "<a href=\"https://ui.adsabs.harvard.edu\" target=\"_blank\" rel=\"noopener\">NASA/ADS</a>: 천문학 및 물리학 논문 온라인 데이터베이스(무료).",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.arxiv-open-access-repository-of-electronic": {
+    "text": "<a href=\"https://arxiv.org\" target=\"_blank\" rel=\"noopener\">arXiv</a>: 동료 심사 없이 운영진 검토를 거쳐 게시되는 전자 프리프린트와 포스트프린트의 오픈 액세스 저장소(무료).",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.nasa-ipac-extragalactic-database-ned-online": {
+    "text": "<a href=\"http://ned.ipac.caltech.edu\" target=\"_blank\" rel=\"noopener\">NASA/IPAC Extragalactic Database (NED)</a>: 외부은하 천체에 관한 천문 정보를 모으고 상호 대조하는 온라인 천문 데이터베이스(무료).",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.ned-search-same-as-ned-above": {
+    "text": "<a href=\"http://ned.ipac.caltech.edu/forms/TextSearch.html\" target=\"_blank\" rel=\"noopener\">NED Search</a>: 위의 NED와 같지만, 천문학과 천체물리학의 특정 주제에 관한 참고문헌, 리뷰, 학위논문을 검색할 수 있습니다. 특정 주제의 자료를 훑어볼 때 가끔 아주 유용합니다(무료).",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.aas-job-portal-to-find-and": {
+    "text": "<a href=\"https://jobregister.aas.org\" target=\"_blank\" rel=\"noopener\">AAS Job Portal</a>: 천문학 관련 채용 정보(교수, 박사후연구원, 박사과정, 인턴십)를 찾고 올리는 곳.",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.astronomy-conferences-to-find-details-about": {
+    "text": "<a href=\"https://www.cadc-ccda.hia-iha.nrc-cnrc.gc.ca/en/meetings/\" target=\"_blank\" rel=\"noopener\">천문학 학회</a>: 천문학 학회 일정과 세부 정보.",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.list-of-astronomy-journals-astronomy-journals": {
+    "text": "<a href=\"https://www.scimagojr.com/journalrank.php?category=3103\" target=\"_blank\" rel=\"noopener\">천문학 저널 목록</a>: 영향력을 기준으로 한 천문학 저널 비교.",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.astronomical-data-products": {
+    "text": "천문 데이터",
+    "context": "useful-links.html #page: section heading"
+  },
+  "links.page.sdss-v-official-sdss-v-website": {
+    "text": "<a href=\"https://www.sdss.org/future/\" target=\"_blank\" rel=\"noopener\">SDSS V</a>: SDSS-V 공식 웹사이트.",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.sdss-data-release-16-publicly-available": {
+    "text": "<a href=\"https://www.sdss.org/dr16/\" target=\"_blank\" rel=\"noopener\">SDSS Data Release 16</a>: 공개된 SDSS DR16 데이터와 카탈로그.",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.desi-data-release-publicly-available-desi": {
+    "text": "<a href=\"https://data.desi.lbl.gov/doc/\" target=\"_blank\" rel=\"noopener\">DESI Data Release</a>: 공개된 DESI 초기 데이터(Early Data Release)와 카탈로그.",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.legacy-survey-publicly-available-legacy-imaging": {
+    "text": "<a href=\"https://www.legacysurvey.org/dr10/description/\" target=\"_blank\" rel=\"noopener\">Legacy Survey</a>: 공개된 Legacy 영상 탐사 데이터.",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.hubble-space-telescope-official-nasa-hst": {
+    "text": "<a href=\"https://www.nasa.gov/mission_pages/hubble/main/index.html\" target=\"_blank\" rel=\"noopener\">Hubble Space Telescope</a>: NASA 공식 HST 페이지.",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.hst-archival-data-data-products-from": {
+    "text": "<a href=\"https://archive.stsci.edu/missions-and-data/hst\" target=\"_blank\" rel=\"noopener\">HST Archival Data</a>: HST 데이터 자료.",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.esa-hubble-wallpapers-high-quality-astronomy": {
+    "text": "<a href=\"https://esahubble.org/images/archive/wallpapers/\" target=\"_blank\" rel=\"noopener\">ESA/Hubble Wallpapers</a>: Hubble과 ESA 망원경으로 찍은 고화질 천체 사진.",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.keck-archive-archival-data-from-keck": {
+    "text": "<a href=\"https://www2.keck.hawaii.edu/koa/public/koa.php\" target=\"_blank\" rel=\"noopener\">Keck Archive</a>: Keck 천문대의 아카이브 데이터.",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.eso-science-archive-facility-data-from": {
+    "text": "<a href=\"http://muse-vlt.eu/science/data-releases/\" target=\"_blank\" rel=\"noopener\">ESO Science Archive Facility</a>: La Silla Paranal 천문대에 있는 ESO 망원경의 데이터.",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.vlt-muse-data-archival-data-from": {
+    "text": "<a href=\"http://archive.eso.org/cms.html\" target=\"_blank\" rel=\"noopener\">VLT MUSE Data</a>: VLT MUSE 아카이브 데이터.",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.nasa-chandra-x-ray-official-nasa": {
+    "text": "<a href=\"https://chandra.harvard.edu\" target=\"_blank\" rel=\"noopener\">NASA Chandra X-ray</a>: NASA 공식 웹사이트.",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.chandra-archive-chandra-x-ray-archival": {
+    "text": "<a href=\"https://cxc.harvard.edu/cda/\" target=\"_blank\" rel=\"noopener\">Chandra Archive</a>: Chandra X선 아카이브 데이터.",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.vla-archive-nrao-s-very-large": {
+    "text": "<a href=\"https://science.nrao.edu/facilities/vla/archive/index\" target=\"_blank\" rel=\"noopener\">VLA Archive</a>: NRAO Very Large Array 아카이브 데이터.",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.computer-simulations": {
+    "text": "컴퓨터 시뮬레이션",
+    "context": "useful-links.html #page: section heading"
+  },
+  "links.page.illustris-project-large-cosmological-simulation": {
+    "text": "<a href=\"https://www.illustris-project.org\" target=\"_blank\" rel=\"noopener\">Illustris Project</a>: 은하 형성에 관한 대규모 우주론적 시뮬레이션.",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.illustris-tng-ongoing-series-of-large": {
+    "text": "<a href=\"https://www.tng-project.org\" target=\"_blank\" rel=\"noopener\">Illustris TNG</a>: 은하 형성에 관한 대규모 우주론적 MHD 시뮬레이션 시리즈(진행 중).",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.auriga-simulations-large-suite-of-high": {
+    "text": "<a href=\"https://wwwmpa.mpa-garching.mpg.de/auriga/\" target=\"_blank\" rel=\"noopener\">Auriga Simulations</a>: 우리은하 크기 은하에 대한 고분해능 MHD 시뮬레이션 모음.",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.gadget-4-parallel-cosmological-n-body": {
+    "text": "<a href=\"https://wwwmpa.mpa-garching.mpg.de/gadget4/\" target=\"_blank\" rel=\"noopener\">GADGET-4</a>: 우주 구조 형성 시뮬레이션을 위한 병렬 우주론적 N체 및 SPH 코드.",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.arepo-finite-volume-mhd-code-for": {
+    "text": "<a href=\"https://arepo-code.org/about-arepo\" target=\"_blank\" rel=\"noopener\">AREPO</a>: 천체물리학용 유한 체적 MHD 코드(움직이는 격자 유체역학).",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.fire-simulations-simulating-ism-and-cgm": {
+    "text": "<a href=\"https://fire.northwestern.edu/about-fire/\" target=\"_blank\" rel=\"noopener\">FIRE Simulations</a>: 은하의 성간매질(ISM)과 은하주변매질(CGM) 시뮬레이션.",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.eagle-project-simulation-aimed-at-understanding": {
+    "text": "<a href=\"http://icc.dur.ac.uk/Eagle/\" target=\"_blank\" rel=\"noopener\">EAGLE Project</a>: 은하가 어떻게 형성되고 진화하는지 이해하기 위한 시뮬레이션.",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.l-galaxies-project-semi-analytic-models": {
+    "text": "<a href=\"https://lgalaxiespublicrelease.github.io/\" target=\"_blank\" rel=\"noopener\">L-Galaxies Project</a>: 암흑물질만 다루는 시뮬레이션을 바탕으로 한 은하 형성 준해석적 모델. 예: <a href=\"https://wwwmpa.mpa-garching.mpg.de/galform/virgo/millennium/\" target=\"_blank\" rel=\"noopener\">Millenium.</a>",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.programming-links": {
+    "text": "프로그래밍 링크",
+    "context": "useful-links.html #page: section heading"
+  },
+  "links.page.stack-overflow-question-and-answer-website": {
+    "text": "<a href=\"https://stackoverflow.com\" target=\"_blank\" rel=\"noopener\">Stack Overflow</a>: 전문 프로그래머와 애호가를 위한 질의응답 사이트.",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.python-python-is-an-interpreted-high": {
+    "text": "<a href=\"https://www.python.org\" target=\"_blank\" rel=\"noopener\">Python</a>: 인터프리터 방식의 고급 범용 프로그래밍 언어.",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.python-document-the-official-documentation-of": {
+    "text": "<a href=\"https://www.python.org/doc/\" target=\"_blank\" rel=\"noopener\">Python 문서</a>: Python 언어 공식 문서.",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.pep-8-official-style-guide-for": {
+    "text": "<a href=\"https://www.python.org/dev/peps/pep-0008/\" target=\"_blank\" rel=\"noopener\">PEP 8</a>: Python 코드 공식 스타일 가이드.",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.numpy-library-for-the-python-programming": {
+    "text": "<a href=\"https://numpy.org\" target=\"_blank\" rel=\"noopener\">NumPy</a>: 대규모 다차원 배열과 행렬을 지원하는 Python 라이브러리.",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.scipy-free-and-open-source-python": {
+    "text": "<a href=\"https://www.scipy.org\" target=\"_blank\" rel=\"noopener\">SciPy</a>: 과학 및 기술 계산에 쓰이는 무료 오픈 소스 Python 라이브러리.",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.astropy-collection-of-software-packages-written": {
+    "text": "<a href=\"https://www.astropy.org\" target=\"_blank\" rel=\"noopener\">Astropy</a>: 천문학용으로 설계된 Python 소프트웨어 패키지 모음.",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.jupyter-notebook-open-source-web-application": {
+    "text": "<a href=\"https://jupyter.org\" target=\"_blank\" rel=\"noopener\">Jupyter notebook</a>: 실행 가능한 코드, 수식, 시각화, 설명 텍스트를 담은 문서를 만들고 공유할 수 있는 오픈 소스 웹 애플리케이션.",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.matplotlib-comprehensive-library-for-creating-st": {
+    "text": "<a href=\"https://matplotlib.org\" target=\"_blank\" rel=\"noopener\">Matplotlib</a>: Python에서 정적, 애니메이션, 인터랙티브 시각화를 만드는 종합 라이브러리.",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.hdf5-library-a-great-data-software": {
+    "text": "<a href=\"https://www.hdfgroup.org/solutions/hdf5/\" target=\"_blank\" rel=\"noopener\">HDF5 library</a>: 대용량 배열 데이터를 관리하기 좋은 소프트웨어. Python에서 아주 쉽게 불러올 수 있습니다.",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.wolfram-online-compute-answers-using-wolfram": {
+    "text": "<a href=\"https://www.wolframalpha.com/\" target=\"_blank\" rel=\"noopener\">Wolfram online</a>: Wolfram의 온라인 솔버로 답을 계산합니다.",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.overleaf-collaborative-cloud-based-latex-editor": {
+    "text": "<a href=\"https://www.overleaf.com/\" target=\"_blank\" rel=\"noopener\">Overleaf</a>: 과학 문서를 작성, 편집, 출판하는 데 쓰는 클라우드 기반 협업 LaTeX 편집기.",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.webplotdigitizer-online-tool-to-extract-the": {
+    "text": "<a href=\"https://automeris.io/WebPlotDigitizer/\" target=\"_blank\" rel=\"noopener\">WebPlotDigitizer</a>: 그림 이미지에서 원래의 수치 데이터를 추출하는 온라인 도구(아주 유용합니다).",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.mendeley-online-reference-manager-to-manage": {
+    "text": "<a href=\"https://www.mendeley.com/download-reference-manager\" target=\"_blank\" rel=\"noopener\">Mendeley</a>: 논문을 관리하고 공유하며 참고문헌 목록도 만들어 주는 온라인 참고문헌 관리 도구(일부 무료).",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.zotero-free-and-open-source-reference": {
+    "text": "<a href=\"https://www.zotero.org/\" target=\"_blank\" rel=\"noopener\">Zotero</a>: 무료 오픈 소스 참고문헌 관리 소프트웨어.",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.online-courses-in-astronomy": {
+    "text": "천문학 온라인 강좌",
+    "context": "useful-links.html #page: section heading"
+  },
+  "links.page.scientific-computing-in-astronomy-krittika-astro": {
+    "text": "<a href=\"https://www.krittika.org\" target=\"_blank\" rel=\"noopener\">Scientific Computing in Astronomy</a>: Krittika Astronomy Club, IITB",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.growth-astronomy-school-2020-caltech": {
+    "text": "<a href=\"https://www.astro.caltech.edu\" target=\"_blank\" rel=\"noopener\">GROWTH Astronomy School 2020</a>: Caltech",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.ztf-summer-school-2022-caltech": {
+    "text": "<a href=\"https://www.astro.caltech.edu\" target=\"_blank\" rel=\"noopener\">ZTF Summer School 2022</a>: Caltech",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.summer-school-and-refresher-course-in": {
+    "text": "<a href=\"https://www.iucaa.in\" target=\"_blank\" rel=\"noopener\">Summer school and Refresher course in Astronomy &amp; Astrophysics 2020</a>: Inter-University Centre for Astronomy and Astrophysics (IUCAA)",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.radio-astronomy-winter-school-2020-national": {
+    "text": "<a href=\"https://www.ncra.tifr.res.in\" target=\"_blank\" rel=\"noopener\">Radio Astronomy Winter School 2020</a>: National Centre for Radio Astrophysics - Tata Institute of Fundamental Research (NCRA-TIFR)",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.gw-home-ligo-india-iucaa": {
+    "text": "<a href=\"https://www.ligo.in\" target=\"_blank\" rel=\"noopener\">GW@Home</a>: LIGO-India &amp; IUCAA",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.data-driven-astronomy-coursera": {
+    "text": "<a href=\"https://www.coursera.org\" target=\"_blank\" rel=\"noopener\">Data-Driven Astronomy</a>: Coursera",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.observational-astronomy-dr-stuart-littlefair-uni": {
+    "text": "<a href=\"https://www.sheffield.ac.uk\" target=\"_blank\" rel=\"noopener\">Observational Astronomy</a>: Stuart Littlefair 박사, University of Sheffield",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.scientific-python-astronomy": {
+    "text": "과학 Python과 천문학",
+    "context": "useful-links.html #page: section heading"
+  },
+  "links.page.python-programming-and-numerical-methods-a": {
+    "text": "<a href=\"https://pythonnumericalmethods.berkeley.edu\" target=\"_blank\" rel=\"noopener\">Python Programming And Numerical Methods: A Guide For Engineers And Scientists</a>: UC Berkeley",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.a-beginner-s-guide-to-working": {
+    "text": "<a href=\"https://www.mpi-hd.mpg.de\" target=\"_blank\" rel=\"noopener\">A Beginner's Guide to Working with Astronomical Data</a>: Markus Pössel, Max Planck Institute for Astronomy",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.mcmc-markov-chain-monte-carlo-a": {
+    "text": "MCMC (Markov Chain Monte Carlo): A (very) Beginner's Guide",
+    "context": "useful-links.html #page: paragraph"
+  },
+  "links.page.blender-for-scientists-complete-intro-to": {
+    "text": "Blender for Scientists - Complete Intro to 3D",
+    "context": "useful-links.html #page: paragraph"
+  },
+  "links.page.3d-scientific-visualization-with-blender-brian": {
+    "text": "<a href=\"https://www.springer.com\" target=\"_blank\" rel=\"noopener\">3D Scientific Visualization with Blender</a>: Brian R. Kent",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.a-simple-guide-to-beautiful-visualizations": {
+    "text": "<a href=\"https://towardsdatascience.com\" target=\"_blank\" rel=\"noopener\">A Simple Guide to Beautiful Visualizations in Python</a>: Frank Andrade",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.learn-astropy": {
+    "text": "Learn AstroPy",
+    "context": "useful-links.html #page: paragraph"
+  },
+  "links.page.useful-youtube-videos-channels": {
+    "text": "유용한 YouTube 영상과 채널",
+    "context": "useful-links.html #page: section heading"
+  },
+  "links.page.3blue1brown-concepts-of-mathematics-visualized-a": {
+    "text": "<a href=\"https://www.youtube.com/channel/UCYO_jab_esuFRV4b17AJtAw\" target=\"_blank\" rel=\"noopener\">3Blue1Brown</a>: 수학 개념을 최고 수준으로 시각화한 채널.",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.constellations-seeker-sarafina-nance-ucb": {
+    "text": "<a href=\"https://www.youtube.com/playlist?list=PLdEL4G3AsvXWjpXjC3JDFK0mUq3TduHRW\" target=\"_blank\" rel=\"noopener\">Constellations | Seeker</a>: Sarafina Nance, UCB",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.your-daily-equation-with-brian-greene": {
+    "text": "Your Daily Equation with Brian Greene",
+    "context": "useful-links.html #page: paragraph"
+  },
+  "links.page.the-maths-of-general-relativity": {
+    "text": "The Maths of General Relativity",
+    "context": "useful-links.html #page: paragraph"
+  },
+  "links.page.a-stellar-history-of-modern-astronomy": {
+    "text": "<a href=\"https://www.youtube.com/playlist?list=PL7DoTbSe9kGnqufgb0GpFkakg8cLf2PFO\" target=\"_blank\" rel=\"noopener\">A Stellar History of Modern Astronomy</a>: Emily Levesque, University of Washington",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.daily-life-of-an-astrophysicist-dr": {
+    "text": "<a href=\"https://www.youtube.com/playlist?list=PLzkhgibjP8h_1rXNjUK-olKo1--QWwSbj\" target=\"_blank\" rel=\"noopener\">Daily Life of an Astrophysicist</a>: Dr. Becky, Oxford University",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.life-of-an-iucaa-astrophysics-research": {
+    "text": "<a href=\"https://www.youtube.com/playlist?list=PLdEL4G3AsvXWE-g-3-3Gpg7LC8yBmyKhN\" target=\"_blank\" rel=\"noopener\">Life of an IUCAA Astrophysics Research Scholar</a>: Parisee Shirke, IUCAA",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.a-day-in-the-life-of": {
+    "text": "<a href=\"https://www.youtube.com/playlist?list=PLzkhgibjP8h-RsJpJ2A5gA3hvTMxdheqA\" target=\"_blank\" rel=\"noopener\">A day in the life of an Astronomer</a>: South African Astronomical Observatory",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.be-an-astrophysicist-colleen-hoon-anu": {
+    "text": "<a href=\"https://www.youtube.com/playlist?list=PLdEL4G3AsvXWIQSRfA1NU6q-ZIb9dW06F\" target=\"_blank\" rel=\"noopener\">Be An Astrophysicist</a>: Colleen Hoon, ANU",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.useful-websites-articles": {
+    "text": "유용한 웹사이트와 글",
+    "context": "useful-links.html #page: section heading"
+  },
+  "links.page.astrobites-briefing-research-papers-for-undergra": {
+    "text": "<a href=\"https://astrobites.org\" target=\"_blank\" rel=\"noopener\">Astrobites</a>: 학부생을 위한 연구 논문 요약",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.how-to-make-an-astrophysicist-a": {
+    "text": "<a href=\"https://www.howtobecomeanastronomer.com\" target=\"_blank\" rel=\"noopener\">How to make an Astrophysicist</a>: 천문학 자료와 기회를 풍부하게 모아 둔 웹사이트",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.you-and-your-research-article-youtube": {
+    "text": "<a href=\"https://www.youtube.com/watch?v=a1zDuOPkMSw\" target=\"_blank\" rel=\"noopener\">You and Your Research</a>: [글][YouTube 영상], Richard Hamming",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.astronomy-in-everyday-life-iau": {
+    "text": "<a href=\"https://www.iau.org/public/themes/astronomy_in_everyday_life/\" target=\"_blank\" rel=\"noopener\">Astronomy in Everyday Life</a>: IAU",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.why-is-astronomy-important-ask-a": {
+    "text": "<a href=\"https://www.space.com/11558-why-astronomy-important.html\" target=\"_blank\" rel=\"noopener\">Why is astronomy important?</a>: Ask a Spaceman!, Paul M. Sutter",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.astronomy-in-our-daily-lives-canadian": {
+    "text": "<a href=\"https://www.asc-csa.gc.ca/eng/sciences/astronomy-in-everyday-life.asp\" target=\"_blank\" rel=\"noopener\">Astronomy in our daily lives</a>: Canadian Space Agency",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.constellations-suggested-by-tina-stacy-martin": {
+    "text": "<a href=\"https://www.constellation-guide.com\" target=\"_blank\" rel=\"noopener\">Constellations</a>: (Tina &amp; Stacy Martin 추천)",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.sleeping-under-stars-planets-suggested-by": {
+    "text": "<a href=\"https://www.sleepingunderstars.com\" target=\"_blank\" rel=\"noopener\">Sleeping Under Stars &amp; Planets</a>: (Payton &amp; Michelle Bass 추천)",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.how-to-send-and-reply-to": {
+    "text": "<a href=\"https://matt.might.net/articles/how-to-email/\" target=\"_blank\" rel=\"noopener\">How to send and reply to Email</a>: Matt Might",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.arxiv-free-distribution-service-and-an": {
+    "text": "<a href=\"https://arxiv.org\" target=\"_blank\" rel=\"noopener\">ArXiv</a>: 학술 논문과 연구 논문을 위한 무료 배포 서비스이자 오픈 액세스 아카이브",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.nasa-ads-digital-library-portal-for": {
+    "text": "<a href=\"https://ui.adsabs.harvard.edu\" target=\"_blank\" rel=\"noopener\">NASA/ADS</a>: 천문학 및 물리학 연구자를 위한 디지털 도서관 포털",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.graduate-school-advice-and-admissions": {
+    "text": "대학원 진학 조언과 입시",
+    "context": "useful-links.html #page: section heading"
+  },
+  "links.page.the-illustrated-guide-to-a-ph": {
+    "text": "<a href=\"http://matt.might.net/articles/phd-school-in-pictures/\" target=\"_blank\" rel=\"noopener\">The illustrated guide to a Ph.D.</a>: Matt Might, University of Utah",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.questions-to-ask-as-a-prospective": {
+    "text": "<a href=\"https://www.caltech.edu/about/news/questions-ask-prospective-graduate-student-45306\" target=\"_blank\" rel=\"noopener\">Questions to Ask as a Prospective Graduate Student</a>: Ryan Rubenzahl, Caltech",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.ph-d-admission-series-lilian-horin": {
+    "text": "<a href=\"https://www.lilianhorin.com/\" target=\"_blank\" rel=\"noopener\">Ph.D. Admission Series</a>: Lilian Horin, Harvard",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.ph-d-guide-astrophysics-girl": {
+    "text": "<a href=\"https://astrophysicsgirl.com\" target=\"_blank\" rel=\"noopener\">Ph.D. Guide</a>: Astrophysics Girl",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.honest-advice-for-the-astronomy-grad": {
+    "text": "Honest advice for the Astronomy grad school application process",
+    "context": "useful-links.html #page: paragraph"
+  },
+  "links.page.tips-for-applying-to-graduate-school": {
+    "text": "<a href=\"https://www.as.utexas.edu\" target=\"_blank\" rel=\"noopener\">Tips for Applying to Graduate School in Astronomy</a>: University of Texas at Austin",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.guide-to-graduate-school-astrobites": {
+    "text": "<a href=\"https://astrobites.org\" target=\"_blank\" rel=\"noopener\">Guide to Graduate School</a>: Astrobites",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.funded-masters-programmes-astrophysics-girl": {
+    "text": "<a href=\"https://astrophysicsgirl.com\" target=\"_blank\" rel=\"noopener\">Funded Masters Programmes</a>: Astrophysics Girl",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.all-about-phd-applications-lucy-lai": {
+    "text": "<a href=\"https://lucylai.com\" target=\"_blank\" rel=\"noopener\">All about PhD applications</a>: Lucy Lai",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.statement-of-purpose-for-graduate-school": {
+    "text": "<a href=\"https://meche.mit.edu\" target=\"_blank\" rel=\"noopener\">Statement of Purpose for Graduate School</a>: MIT MechE Comm Lab",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.another-annotated-example-cs-phd-statement": {
+    "text": "<a href=\"https://eugenielai.com\" target=\"_blank\" rel=\"noopener\">Another Annotated Example: CS PhD Statement of Purpose</a>: Eugenie Y. Lai",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.personal-statements-and-statements-of-purpose": {
+    "text": "<a href=\"https://www.grad.ucla.edu\" target=\"_blank\" rel=\"noopener\">Personal Statements and Statements of Purpose</a>: UCLA",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.diy-personal-website": {
+    "text": "직접 만들기: 개인 웹사이트",
+    "context": "useful-links.html #page: section heading"
+  },
+  "links.page.website-with-wix": {
+    "text": "Wix로 웹사이트 만들기",
+    "context": "useful-links.html #page: paragraph"
+  },
+  "links.page.github-pages-with-jekyll": {
+    "text": "Jekyll로 GitHub Pages 만들기",
+    "context": "useful-links.html #page: paragraph"
+  },
+  "links.page.website-with-github-gitlab-wowchemy": {
+    "text": "<a href=\"https://wowchemy.com\" target=\"_blank\" rel=\"noopener\">GitHub/Gitlab으로 웹사이트 만들기</a>: Wowchemy",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.gitfolio-a-website-for-your-github": {
+    "text": "<a href=\"https://github.com/imfunniee/gitfolio\" target=\"_blank\" rel=\"noopener\">Gitfolio</a>: GitHub 저장소를 위한 웹사이트",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.creating-a-simple-and-effective-academic": {
+    "text": "<a href=\"https://www.elsevier.com\" target=\"_blank\" rel=\"noopener\">Creating a simple and effective academic personal website</a>: Elsevier",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.personal-academic-webpages-how-to-s": {
+    "text": "<a href=\"https://career.berkeley.edu\" target=\"_blank\" rel=\"noopener\">Personal Academic Webpages: How-To's and Tips for a Better Site</a>: University of California, Berkeley",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.wikipedia-free-online-encyclopedia": {
+    "text": "<a href=\"https://www.wikipedia.org/\" target=\"_blank\" rel=\"noopener\">Wikipedia</a>: 무료 온라인 백과사전.",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.springer-free-books-free-books-from": {
+    "text": "<a href=\"https://www.springer.com/gp/open-access/books\" target=\"_blank\" rel=\"noopener\">Springer Free Books</a>: Springer의 무료 도서. 한번 둘러보세요.",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.encyclopaedia-britannica-free-general-knowledge": {
+    "text": "<a href=\"https://www.britannica.com/\" target=\"_blank\" rel=\"noopener\">Encyclopaedia Britannica</a>: 무료 영어 일반 백과사전(Wikipedia와 비슷함).",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "links.page.grammarly-online-english-grammar-check-basic": {
+    "text": "<a href=\"https://www.grammarly.com\" target=\"_blank\" rel=\"noopener\">Grammarly</a>: 온라인 영어 문법 검사기(기본 버전 무료).",
+    "context": "useful-links.html #page: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "ui.language": {
+    "text": "언어",
+    "context": "language picker button label (screen readers; the visible label is the current language's own name)"
+  },
+  "ui.machine_note": {
+    "text": "이 페이지는 영어 원문을 기계 번역한 것입니다. <a href=\"{en_url}\">원문 보기</a>.",
+    "context": "small note in the page footer of every translated page; keep the link tag and {en_url} as is"
+  },
+  "ui.suggest": {
+    "text": "이 페이지를 한국어로 읽기",
+    "context": "suggestion chip shown ONCE to a visitor whose browser is set to this language, while they are on a page in another language; write it in this language and name this language in it, e.g. Spanish: 'Leer esta página en español'"
+  },
+  "ui.dismiss": {
+    "text": "닫기",
+    "context": "close button (screen-reader label) on that suggestion chip, in this language"
+  },
+  "js.theme_light": {
+    "text": "라이트 모드",
+    "context": "theme toggle button, switches the page to light colours"
+  },
+  "js.theme_dark": {
+    "text": "다크 모드",
+    "context": "theme toggle button, switches the page to dark colours"
+  },
+  "js.read_more": {
+    "text": "더 보기",
+    "context": "button that expands a shortened research card (phones)"
+  },
+  "js.read_less": {
+    "text": "접기",
+    "context": "button that collapses an expanded research card (phones)"
+  },
+  "js.nav_open": {
+    "text": "메뉴 열기",
+    "context": "menu button (screen-reader label)"
+  },
+  "js.nav_close": {
+    "text": "메뉴 닫기",
+    "context": "menu button (screen-reader label)"
+  },
+  "js.new_tab": {
+    "text": "새 탭에서 열림",
+    "context": "screen-reader note on links that open a new tab"
+  },
+  "js.cite": {
+    "text": "인용",
+    "context": "button on each publication that copies its BibTeX"
+  },
+  "js.copied": {
+    "text": "복사됨",
+    "context": "Cite button label right after copying"
+  },
+  "js.copy_failed": {
+    "text": "복사 실패",
+    "context": "Cite button label when copying failed"
+  },
+  "js.cite_for": {
+    "text": "{title}의 BibTeX 복사",
+    "context": "Cite button screen-reader label; {title} is the paper title (stays English)"
+  },
+  "js.this_paper": {
+    "text": "이 논문",
+    "context": "fills {title} when a paper has no title"
+  },
+  "js.bibtex_copied": {
+    "text": "BibTeX를 클립보드에 복사했습니다",
+    "context": "screen-reader status message"
+  },
+  "js.bibtex_failed": {
+    "text": "BibTeX를 복사하지 못했습니다",
+    "context": "screen-reader status message"
+  },
+  "js.pubs_all": {
+    "text": "모든 논문 보기",
+    "context": "button under the publication list (phones)"
+  },
+  "js.pubs_fewer": {
+    "text": "일부 논문만 보기",
+    "context": "button under the publication list (phones)"
+  },
+  "js.form_name": {
+    "text": "이름을 알려 주세요.",
+    "context": "contact form validation message"
+  },
+  "js.form_email": {
+    "text": "답장을 드릴 수 있도록 올바른 이메일 주소를 입력해 주세요.",
+    "context": "contact form validation message"
+  },
+  "js.form_short": {
+    "text": "메시지를 조금 더 자세히 적어 주세요.",
+    "context": "contact form validation message"
+  },
+  "js.form_disposable": {
+    "text": "답장을 드릴 수 있도록 계속 사용하시는 이메일 주소를 입력해 주세요.",
+    "context": "contact form validation message (throwaway address)"
+  },
+  "js.form_checking": {
+    "text": "이메일 주소를 확인하는 중...",
+    "context": "contact form status while checking the address"
+  },
+  "js.form_domain": {
+    "text": "이 이메일 도메인은 존재하지 않거나 메일을 받지 않는 것 같습니다. 주소를 확인해 주세요.",
+    "context": "contact form validation message"
+  },
+  "js.form_mailapp": {
+    "text": "보낼 메시지가 작성된 상태로 이메일 앱이 열립니다.",
+    "context": "contact form status (fallback path)"
+  },
+  "js.form_captcha": {
+    "text": "먼저 CAPTCHA를 완료해 주세요.",
+    "context": "contact form status"
+  },
+  "js.form_sent": {
+    "text": "감사합니다. 메시지를 보냈습니다. 곧 연락드리겠습니다.",
+    "context": "contact form success message"
+  },
+  "js.form_ratelimit": {
+    "text": "이 연결에서 너무 많은 메시지가 전송되었습니다. 1시간 후에 다시 시도해 주세요.",
+    "context": "contact form error"
+  },
+  "js.form_failed": {
+    "text": "전송되지 않았습니다. {email}로 직접 이메일을 보내셔도 됩니다.",
+    "context": "contact form error; keep {email}"
+  },
+  "js.form_offline": {
+    "text": "전송되지 않았습니다. 인터넷 연결을 확인하시거나 {email}로 이메일을 보내 주세요.",
+    "context": "contact form error; keep {email}"
+  },
+  "js.motion_system": "시스템에서 이미 동작 줄이기를 요청하고 있습니다.",
+  "js.form_sending": "보내는 중…"
+}

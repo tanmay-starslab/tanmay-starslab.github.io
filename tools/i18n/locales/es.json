@@ -1,0 +1,1057 @@
+{
+  "home.head.tanmay-singh-astrophysics-phd-student": {
+    "text": "Tanmay Singh | Estudiante de doctorado en Astrofísica"
+  },
+  "home.head.academic-website-of-tanmay-singh-an": {
+    "text": "Sitio web académico de Tanmay Singh, estudiante de doctorado en Astrofísica en la Arizona State University, interesado en la formación y evolución de galaxias."
+  },
+  "home.head.astrophysics-phd-student-at-arizona-state": {
+    "text": "Estudiante de doctorado en Astrofísica en la Arizona State University que investiga la formación y evolución de galaxias."
+  },
+  "home.head.tanmay-singh-ph-d-student-in": {
+    "text": "Tanmay Singh, estudiante de doctorado en Astrofísica en la Arizona State University, con su retrato sobre un campo de estrellas"
+  },
+  "home.head.ph-d-student": {
+    "text": "Estudiante de doctorado"
+  },
+  "home.head.astrophysics-ph-d-student-at-arizona": {
+    "text": "Estudiante de doctorado en Astrofísica en la Arizona State University que investiga la formación y evolución de galaxias."
+  },
+  "home.page.skip-to-main-content": {
+    "text": "Saltar al contenido principal"
+  },
+  "common.header.open-navigation": {
+    "text": "Abrir menú"
+  },
+  "common.header.tanmay-singh-home": {
+    "text": "Tanmay Singh, inicio"
+  },
+  "common.header.astrophysics-phd-student": {
+    "text": "Doctorando en Astrofísica"
+  },
+  "common.navmenu.primary": {
+    "text": "Principal"
+  },
+  "common.navmenu.home": {
+    "text": "Inicio"
+  },
+  "common.navmenu.about": {
+    "text": "Sobre mí"
+  },
+  "common.navmenu.research": {
+    "text": "Investigación"
+  },
+  "common.navmenu.past-projects": {
+    "text": "Proyectos anteriores"
+  },
+  "common.navmenu.publications": {
+    "text": "Publicaciones"
+  },
+  "common.navmenu.talks": {
+    "text": "Charlas"
+  },
+  "common.navmenu.awards-and-service": {
+    "text": "Premios y servicio"
+  },
+  "common.navmenu.education": {
+    "text": "Formación"
+  },
+  "common.navmenu.personal-interests": {
+    "text": "Intereses personales"
+  },
+  "common.navmenu.useful-links": {
+    "text": "Enlaces útiles"
+  },
+  "common.navmenu.contact": {
+    "text": "Contacto"
+  },
+  "common.header.light-mode": {
+    "text": "Modo claro"
+  },
+  "common.header.reduce-motion": {
+    "text": "Reducir movimiento"
+  },
+  "common.header.profile-links": {
+    "text": "Enlaces de perfil"
+  },
+  "common.header.email-tanmay-singh": {
+    "text": "Escribir a Tanmay Singh"
+  },
+  "common.header.tanmay-singh-on-google-scholar": {
+    "text": "Tanmay Singh en Google Scholar"
+  },
+  "common.header.tanmay-singh-on-github": {
+    "text": "Tanmay Singh en GitHub"
+  },
+  "common.header.tanmay-singh-on-linkedin": {
+    "text": "Tanmay Singh en LinkedIn"
+  },
+  "home.home.fourth-year-ph-d-student-astrophysics": {
+    "text": "Estudiante de doctorado de cuarto año | Astrofísica"
+  },
+  "home.home.hi-i-am-tanmay-currently-a": {
+    "text": "¡Hola! Soy Tanmay, estudiante de doctorado en la <a href=\"https://sese.asu.edu/\" target=\"_blank\" rel=\"noopener\">School of Earth and Space Exploration</a> de la <a href=\"https://www.asu.edu/\" target=\"_blank\" rel=\"noopener\">Arizona State University</a>, bajo la dirección de la <a href=\"https://search.asu.edu/profile/3187334\" target=\"_blank\" rel=\"noopener\">Prof. Sanchayeeta Borthakur</a>. Mis intereses de investigación abarcan, en general, la formación de galaxias y los procesos que influyen en su evolución, principalmente a través de simulaciones cosmológicas."
+  },
+  "home.home.primary-actions": {
+    "text": "Acciones principales"
+  },
+  "home.home.quick-links": {
+    "text": "Enlaces rápidos"
+  },
+  "home.home.news": {
+    "text": "Novedades"
+  },
+  "home.home.fall-2026": {
+    "text": "Otoño 2026"
+  },
+  "home.home.i-was-a-guest-instructor-for": {
+    "text": "Fui profesor invitado en AST 531, Graduate Galaxies & Cosmology, en la ASU"
+  },
+  "home.home.jul-2026": {
+    "text": "jul. 2026"
+  },
+  "home.home.i-gave-an-invited-talk-at": {
+    "text": "Di una charla invitada en el <a href=\"https://www.roe.ac.uk/\" target=\"_blank\" rel=\"noopener\">Royal Observatory Edinburgh</a>"
+  },
+  "home.home.jun-2026": {
+    "text": "jun. 2026"
+  },
+  "home.home.i-gave-a-contributed-talk-at": {
+    "text": "Presenté una contribución oral en <a href=\"https://sbi-galev.github.io/2026/\" target=\"_blank\" rel=\"noopener\">SBI for Galaxy Evolution 2026</a>, Cambridge"
+  },
+  "home.home.may-2026": {
+    "text": "may. 2026"
+  },
+  "home.home.my-paper-on-o-vi-in": {
+    "text": "Mi artículo sobre el O VI en grupos de galaxias se publicó en <a href=\"https://doi.org/10.3847/1538-4357/ae632b\" target=\"_blank\" rel=\"noopener\">ApJ</a>"
+  },
+  "home.home.portrait-of-tanmay-singh": {
+    "text": "Retrato de Tanmay Singh"
+  },
+  "home.about.background-and-current-focus": {
+    "text": "Trayectoria e investigación actual"
+  },
+  "home.about.prior-to-coming-to-asu-i": {
+    "text": "Antes de llegar a la ASU, obtuve el B.Tech en Ingeniería Física por el <a href=\"https://en.wikipedia.org/wiki/IIT_Delhi\" target=\"_blank\" rel=\"noopener\">Indian Institute of Technology Delhi</a> en julio de 2023. También fui estudiante visitante en el <a href=\"https://en.wikipedia.org/wiki/Raman_Research_Institute\" target=\"_blank\" rel=\"noopener\">Raman Research Institute</a> de Bangalore entre mayo y julio de 2022. Nací y crecí en <a href=\"https://en.wikipedia.org/wiki/Lucknow\" target=\"_blank\" rel=\"noopener\">Lucknow, India</a>."
+  },
+  "home.about.my-current-research-uses-cosmological-simulation": {
+    "text": "Mi investigación actual combina simulaciones cosmológicas y espectros sintéticos de absorción de cuásares para estudiar el gas asociado a galaxias y grupos de galaxias. También trabajo en la clasificación espectral probabilística de AGN y supernovas mediante <a href=\"https://bayesianlogic.github.io/\" target=\"_blank\" rel=\"noopener\">lógica bayesiana</a>. Hay más información sobre los proyectos actuales en la <a href=\"#research\">sección de investigación</a>, y sobre mis intereses fuera del ámbito académico en <a href=\"#personal-interests\">Intereses personales</a>."
+  },
+  "home.about.quick-facts": {
+    "text": "Datos breves"
+  },
+  "home.about.current-role": {
+    "text": "Puesto actual"
+  },
+  "home.about.ph-d-student-in-astrophysics": {
+    "text": "Estudiante de doctorado en Astrofísica"
+  },
+  "home.about.institution": {
+    "text": "Institución"
+  },
+  "home.about.school": {
+    "text": "Escuela"
+  },
+  "home.about.undergraduate": {
+    "text": "Grado"
+  },
+  "home.about.b-tech-engineering-physics-iit-delhi": {
+    "text": "B.Tech, Ingeniería Física, IIT Delhi"
+  },
+  "home.research.ongoing-research-projects": {
+    "text": "Proyectos de investigación en curso"
+  },
+  "home.research.research-projects": {
+    "text": "Proyectos de investigación"
+  },
+  "home.research.previous-research-project": {
+    "text": "Proyecto anterior"
+  },
+  "home.research.project": {
+    "text": "Proyecto"
+  },
+  "home.research.of": {
+    "text": "de"
+  },
+  "home.research.next-research-project": {
+    "text": "Proyecto siguiente"
+  },
+  "home.research.investigating-the-igm-and-cgm": {
+    "text": "Investigación del IGM y el CGM"
+  },
+  "home.research.the-intergalactic-and-circumgalactic-media-shape": {
+    "text": "Los medios intergaláctico (IGM) y circungaláctico (CGM) condicionan cómo se forman y evolucionan las galaxias. Quiero entender qué relación tienen con las galaxias los absorbedores de Mg II que se observan en los espectros de cuásares de fondo."
+  },
+  "home.research.using-mock-quasar-absorption-spectra-generated": {
+    "text": "A partir de espectros simulados de absorción de cuásares generados con simulaciones cosmológicas como <a href=\"https://www.tng-project.org/\" target=\"_blank\" rel=\"noopener\">IllustrisTNG</a> y <a href=\"http://simba.roe.ac.uk/\" target=\"_blank\" rel=\"noopener\">SIMBA</a>, estudio si estos absorbedores proceden de material expulsado por galaxias con formación estelar o de grandes discos en rotación que acretan gas sobre ellas."
+  },
+  "home.research.mg-ii-absorbers": {
+    "text": "Absorbedores de Mg II"
+  },
+  "home.research.mock-spectra": {
+    "text": "Espectros simulados"
+  },
+  "home.research.o-vi-in-the-intra-group": {
+    "text": "O VI en el medio intragrupo"
+  },
+  "home.research.i-compare-o-vi-absorption-in": {
+    "text": "Comparo la absorción de O VI en espectros sintéticos de cuásares de 14 grupos de galaxias de cada una de las simulaciones <a href=\"https://www.tng-project.org/data/downloads/TNG50-1/\" target=\"_blank\" rel=\"noopener\">TNG50</a> y <a href=\"http://simba.roe.ac.uk/\" target=\"_blank\" rel=\"noopener\">SIMBA</a>, con 90,000 líneas de visión por grupo, con los datos del <a href=\"https://doi.org/10.3847/1538-4357/ac283c\" target=\"_blank\" rel=\"noopener\">sondeo COS-IGrM</a>. Ambas simulaciones se quedan por debajo de la fracción de cobertura observada: 20.6&nbsp;&plusmn;&nbsp;2.6% en TNG50 y 6.0&nbsp;&plusmn;&nbsp;0.8% en SIMBA, frente al 44&nbsp;&plusmn;&nbsp;5% de COS-IGrM. Alrededor del 95% de los absorbedores simulados están ligados gravitacionalmente, y en TNG50 los más intensos se sitúan a menos de unos 200&nbsp;kpc de galaxias con formación estelar, algo que no se observa en SIMBA. Publiqué este trabajo como primer autor en <a href=\"https://doi.org/10.3847/1538-4357/ae632b\" target=\"_blank\" rel=\"noopener\">The Astrophysical Journal</a>."
+  },
+  "home.research.open-the-full-o-vi-covering": {
+    "text": "Abrir la figura completa de la fracción de cobertura de O VI, con ambos paneles"
+  },
+  "home.research.o-vi-covering-fraction-against-group": {
+    "text": "Fracción de cobertura de O VI frente a la masa del halo del grupo, en tres intervalos. En todos ellos, las medias de TNG50 (azul) y SIMBA (rojo) quedan por debajo de las observaciones rayadas de COS-IGrM; SIMBA da los valores más bajos."
+  },
+  "home.research.in-every-halo-mass-bin-simulated": {
+    "text": "En todos los intervalos de masa de halo, los grupos simulados muestran O VI en menos líneas de visión que las observadas por COS-IGrM (rayado): TNG50 en azul, SIMBA en rojo."
+  },
+  "home.research.figure-5-top-panel-singh-et": {
+    "text": "Figura 5 (panel superior), Singh et al. 2026, <a href=\"https://doi.org/10.3847/1538-4357/ae632b\" target=\"_blank\" rel=\"noopener\">ApJ 1003, 110</a>; de <a href=\"https://arxiv.org/abs/2604.18808\" target=\"_blank\" rel=\"noopener\">arXiv:2604.18808</a>, <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\" rel=\"noopener\">CC BY 4.0</a>."
+  },
+  "home.research.spectral-classification-of-agn-and-supernovae": {
+    "text": "Clasificación espectral de AGN y supernovas"
+  },
+  "home.research.i-am-building-a-contingent-bayesian": {
+    "text": "Estoy desarrollando un modelo de lógica bayesiana contingente (<a href=\"https://bayesianlogic.github.io/\" target=\"_blank\" rel=\"noopener\">BLOG</a>) que clasifica espectros de AGN y supernovas a partir de la detección, la anchura y los cocientes de sus líneas de emisión. El modelo incluye la atenuación por polvo y la variabilidad, y sus distribuciones a priori se basan en un sistema de ajuste e identificación de líneas que desarrollé. Por el camino escribí una extensión del lenguaje BLOG para VS Code, con resaltado de sintaxis, disponible en <a href=\"https://marketplace.visualstudio.com/items?itemName=TanmaySingh97.blog-bayesian-logic-syntax\" target=\"_blank\" rel=\"noopener\">VS Code Marketplace</a> y en <a href=\"https://github.com/tanmay-starslab/blog-syntax\" target=\"_blank\" rel=\"noopener\">GitHub</a>. Trabajo en este proyecto con el <a href=\"https://sidsrivast.github.io/\" target=\"_blank\" rel=\"noopener\">Prof. Siddharth Srivastava</a> y el <a href=\"https://search.asu.edu/profile/435640\" target=\"_blank\" rel=\"noopener\">Dr. Rolf Jansen</a>."
+  },
+  "home.research.supernovae": {
+    "text": "Supernovas"
+  },
+  "home.research.emission-line-ratios": {
+    "text": "Cocientes de líneas de emisión"
+  },
+  "home.research.dust-attenuation": {
+    "text": "Atenuación por polvo"
+  },
+  "home.research.vs-code-extension": {
+    "text": "Extensión de VS Code"
+  },
+  "home.research.kinematics-of-the-outer-circumgalactic-medium": {
+    "text": "Cinemática del medio circungaláctico externo"
+  },
+  "home.research.i-am-looking-for-co-rotating": {
+    "text": "Busco gas en corrotación y en contrarrotación en el medio circungaláctico externo de galaxias L*, mediante espectroscopía sintética a lo largo de líneas de visión en <a href=\"https://www.tng-project.org/data/downloads/TNG50-1/\" target=\"_blank\" rel=\"noopener\">TNG50-1</a>. He generado unos 75,000 espectros sintéticos en Ly&alpha;, C&nbsp;II&nbsp;&lambda;1334 y Si&nbsp;III&nbsp;&lambda;1206, y ahora estoy clasificando su cinemática y evaluando las incertidumbres."
+  },
+  "home.research.tng50-sightline-explorer": {
+    "text": "Explorador de líneas de visión TNG50"
+  },
+  "home.research.i-built-this-tool-to-explore": {
+    "text": "Desarrollé esta herramienta para explorar espectros simulados de cuásares a través del CGM de una galaxia de <a href=\"https://www.tng-project.org/data/downloads/TNG50-1/\" target=\"_blank\" rel=\"noopener\">TNG50</a>, con cualquier resolución de espectrógrafo y S/N."
+  },
+  "home.research.open-explorer": {
+    "text": "Abrir el explorador"
+  },
+  "home.research.detect-resolve-explainer": {
+    "text": "Detectar y resolver"
+  },
+  "home.past-projects.earlier-research": {
+    "text": "Investigación anterior"
+  },
+  "home.past-projects.past-work-spanning-submillimeter-astronomy-solar": {
+    "text": "Trabajos anteriores en astronomía submilimétrica, física solar, comunicación cuántica, procesamiento de imágenes y colisiones atómicas."
+  },
+  "home.past-projects.open-the-ladakh-water-vapor-map": {
+    "text": "Abrir a tamaño completo el mapa de vapor de agua de Ladakh"
+  },
+  "home.past-projects.map-of-the-ladakh-plateau-on": {
+    "text": "Mapa de la meseta de Ladakh sobre relieve sombreado. Las burbujas sobre la malla de ERA5 indican la proporción de meses con PWV igual o inferior a 1 mm, hasta cerca del 23%; las más grandes y rojas se concentran en el noreste. Aparecen rotulados Site A, Site B, Leh, Merak y Hanle."
+  },
+  "home.past-projects.share-of-months-from-2010-to": {
+    "text": "Proporción de meses entre 2010 y 2025 con PWV ≤ 1 mm en cada celda de la malla de ERA5 en Ladakh. Los sitios A y B superan a las celdas que contienen Hanle y Merak."
+  },
+  "home.past-projects.figure-6-singh-sathyanarayana-rao-basu": {
+    "text": "Figura 6, Singh, Sathyanarayana Rao &amp; Basu Thakur 2026, <a href=\"https://doi.org/10.3847/1538-3881/ae5e4e\" target=\"_blank\" rel=\"noopener\">AJ 171, 331</a>; de <a href=\"https://arxiv.org/abs/2604.13487\" target=\"_blank\" rel=\"noopener\">arXiv:2604.13487</a>, <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\" rel=\"noopener\">CC BY 4.0</a>."
+  },
+  "home.past-projects.site-quality-analysis-for-an-indian": {
+    "text": "Análisis de la calidad del sitio para un telescopio submilimétrico indio"
+  },
+  "home.past-projects.i-mapped-precipitable-water-vapor-pwv": {
+    "text": "Cartografié el vapor de agua precipitable (PWV) en Ladakh a partir de 184 meses del <a href=\"https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels\" target=\"_blank\" rel=\"noopener\">reanálisis ERA5</a> (2010&ndash;2025), tras contrastar ERA5 con datos de radiómetros en <a href=\"https://www.iiap.res.in/centers/iao/\" target=\"_blank\" rel=\"noopener\">Hanle</a>, Mauna Kea y Chajnantor. Dos regiones candidatas alcanzan PWV &le; 1&nbsp;mm durante cerca del 23% y el 19% de ese periodo, frente a cerca del 5% y el 8% en las celdas de Hanle y Merak. Inicié este trabajo como estudiante visitante con la <a href=\"https://www.rri.res.in/people/faculty/mayuri-s-rao\" target=\"_blank\" rel=\"noopener\">Prof. Mayuri S. Rao</a> en el <a href=\"https://www.rri.res.in/\" target=\"_blank\" rel=\"noopener\">Raman Research Institute</a> en 2022 y lo publiqué como primer autor en <a href=\"https://doi.org/10.3847/1538-3881/ae5e4e\" target=\"_blank\" rel=\"noopener\">The Astronomical Journal</a> en 2026."
+  },
+  "home.past-projects.view-the-original-eclipse-image-at": {
+    "text": "Ver la imagen original del eclipse en el sitio de ESO"
+  },
+  "home.past-projects.the-moon-s-dark-disc-covers": {
+    "text": "El disco oscuro de la Luna cubre el Sol durante el eclipse total de 2017; una corona pálida de finos filamentos radiales y bucles se extiende hacia fuera, con pequeñas protuberancias rojas en el borde derecho."
+  },
+  "home.past-projects.the-corona-at-totality-21-august": {
+    "text": "La corona durante la totalidad, el 21 de agosto de 2017 (composición de varias exposiciones); su estructura fina traza el campo magnético del Sol."
+  },
+  "home.past-projects.the-total-solar-eclipse-of-21": {
+    "text": "&ldquo;The total solar eclipse of 21 August 2017&rdquo;, de <a href=\"https://www.eso.org/public/images/eso1822l/\" target=\"_blank\" rel=\"noopener\">ESO/P. Hor&aacute;lek/Solar Wind Sherpas project</a>, <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\" rel=\"noopener\">CC BY 4.0</a>."
+  },
+  "home.past-projects.magnetic-field-topology-in-the-2017": {
+    "text": "Topología del campo magnético en la corona del eclipse de 2017"
+  },
+  "home.past-projects.senior-thesis-iit-delhi": {
+    "text": "Tesis de grado, IIT Delhi"
+  },
+  "home.past-projects.i-cleaned-and-aligned-images-of": {
+    "text": "Limpié y alineé imágenes del <a href=\"https://eclipse.gsfc.nasa.gov/SEgoogle/SEgoogle2001/SE2017Aug21Tgoogle.html\" target=\"_blank\" rel=\"noopener\">eclipse solar total de 2017</a> mediante correlación de fase y máscara de enfoque, y después reconstruí las líneas de campo magnético cerradas y abiertas de la corona con los métodos RHT y ACF. El objetivo era contrastar esa topología con las ecuaciones de la MHD. Hice este trabajo con el <a href=\"https://supritsinghlab.github.io/\" target=\"_blank\" rel=\"noopener\">Prof. Suprit Singh</a> en 2022&ndash;2023."
+  },
+  "home.past-projects.2017-eclipse": {
+    "text": "Eclipse de 2017"
+  },
+  "home.past-projects.phase-correlation": {
+    "text": "Correlación de fase"
+  },
+  "home.past-projects.unsharp-masking": {
+    "text": "Máscara de enfoque"
+  },
+  "home.past-projects.read-the-press-information-bureau-release": {
+    "text": "Leer el comunicado del Press Information Bureau sobre este experimento"
+  },
+  "home.past-projects.night-view-over-the-iit-delhi": {
+    "text": "Vista nocturna del campus del IIT Delhi: un fino haz láser verde cruza el horizonte por encima de árboles y edificios iluminados, con un edificio de varias plantas en primer plano a la derecha."
+  },
+  "home.past-projects.entanglement-based-free-space-quantum-key": {
+    "text": "Distribución cuántica de claves basada en entrelazamiento, en espacio libre y a lo largo de más de 1 km en el campus del IIT Delhi, demostrada en 2025 por el grupo de investigación del Prof. Bhaskar Kanseri."
+  },
+  "home.past-projects.photo-press-information-bureau": {
+    "text": "Foto: <a href=\"https://www.pib.gov.in/PressReleasePage.aspx?PRID=2136702\" target=\"_blank\" rel=\"noopener\">Press Information Bureau</a>."
+  },
+  "home.past-projects.post-processing-for-entanglement-based-qkd": {
+    "text": "Posprocesamiento para QKD basada en entrelazamiento"
+  },
+  "home.past-projects.sura-2021-iit-delhi": {
+    "text": "SURA 2021, IIT Delhi"
+  },
+  "home.past-projects.with-paras-sharma-i-wrote-python": {
+    "text": "Junto con <a href=\"https://timedilatesme.github.io/\" target=\"_blank\" rel=\"noopener\">Paras Sharma</a>, escribí software en Python para la etapa de posprocesamiento de la distribución cuántica de claves basada en entrelazamiento: varias variantes de reconciliación Cascade, amplificación de privacidad y comunicación en red. Lo verifiqué con datos experimentales del <a href=\"https://web.iitd.ac.in/~bkanseri/\" target=\"_blank\" rel=\"noopener\">laboratorio del Prof. Bhaskar Kanseri</a> en el <a href=\"https://physics.iitd.ac.in/\" target=\"_blank\" rel=\"noopener\">IIT Delhi</a>. El proyecto fue seleccionado para SURA 2021 entre 27 propuestas de los departamentos de Física e Ingeniería Eléctrica, y recibió un reconocimiento por sus resultados ejemplares."
+  },
+  "home.past-projects.entanglement-based-qkd": {
+    "text": "QKD basada en entrelazamiento"
+  },
+  "home.past-projects.privacy-amplification": {
+    "text": "Amplificación de privacidad"
+  },
+  "home.past-projects.view-the-original-granulation-image-at": {
+    "text": "Ver la imagen original de la granulación en el sitio de NOIRLab"
+  },
+  "home.past-projects.close-up-of-the-sun-s": {
+    "text": "Primer plano de la superficie del Sol: celdas de convección brillantes e irregulares de unos 1,000 km de diámetro, separadas por estrechos canales oscuros, en falso color amarillo anaranjado."
+  },
+  "home.past-projects.solar-granulation-from-nsf-s-inouye": {
+    "text": "Granulación solar observada con el Inouye Solar Telescope de la NSF (banda G, 3 de junio de 2022). La convección cercana a la superficie, como esta, excita las ondas acústicas del Sol."
+  },
+  "home.past-projects.inouye-solar-telescope-inauguration-observations": {
+    "text": "Observaciones inaugurales del Inouye Solar Telescope, de <a href=\"https://noirlab.edu/public/images/NSO-DKIST-Gband1_yellow-CC/\" target=\"_blank\" rel=\"noopener\">NSO/AURA/NSF</a>, <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\" rel=\"noopener\">CC BY 4.0</a>."
+  },
+  "home.past-projects.identifying-acoustic-wave-sources-on-the": {
+    "text": "Identificación de fuentes de ondas acústicas en el Sol"
+  },
+  "home.past-projects.solar-data": {
+    "text": "Datos solares"
+  },
+  "home.past-projects.i-studied-acoustic-waves-at-the": {
+    "text": "Estudié las ondas acústicas en la superficie solar en datos simulados con <a href=\"https://github.com/NCAR/MURaM_main\" target=\"_blank\" rel=\"noopener\">MURaM</a> y localicé sus fuentes con métodos de procesamiento de imágenes, como el promediado azimutal en OpenCV y NumPy."
+  },
+  "home.past-projects.azimuthal-averaging": {
+    "text": "Promediado azimutal"
+  },
+  "home.past-projects.open-the-fano-profile-figure-full": {
+    "text": "Abrir a tamaño completo la figura del perfil de Fano"
+  },
+  "home.past-projects.the-complex-plane-with-the-path": {
+    "text": "El plano complejo, con la trayectoria que describe el parámetro w cuando el ángulo de dispersión va de 0 a 180 grados. Los recuadros a 36, 64, 89 y 132 grados muestran picos y valles de resonancia de formas distintas."
+  },
+  "home.past-projects.in-cold-h-kr-collisions-the": {
+    "text": "En colisiones frías H&ndash;Kr, el parámetro complejo <i>w</i> describe una trayectoria suave al variar el ángulo de dispersión, mientras el perfil de Fano cambia de forma (recuadros a 36&deg;, 64&deg;, 89&deg; y 132&deg;)."
+  },
+  "home.past-projects.fig-5-singh-et-al-2026": {
+    "text": "Fig. 5, Singh et al. 2026, <a href=\"https://doi.org/10.1007/s12648-026-03956-2\" target=\"_blank\" rel=\"noopener\">Indian J. Phys. 100, 2179</a> &copy; 2026 IACS."
+  },
+  "home.past-projects.angle-dependent-fano-profiles-in-cold": {
+    "text": "Perfiles de Fano dependientes del ángulo en colisiones atómicas frías"
+  },
+  "home.past-projects.atomic-collisions": {
+    "text": "Colisiones atómicas"
+  },
+  "home.past-projects.i-studied-how-the-asymmetry-of": {
+    "text": "Estudié cómo cambia la asimetría de los perfiles de resonancia de Fano con el ángulo de dispersión, usando un parámetro <i>w</i> complejo que da lugar a un <i>q</i> de Fano dependiente del ángulo. En la resonancia orbital de la dispersión elástica fría H&ndash;Kr, calculada con el <a href=\"https://doi.org/10.1016/j.cpc.2021.107895\" target=\"_blank\" rel=\"noopener\">programa de desfases VPA</a>, la asimetría varía mucho con el ángulo y es sensible al potencial interatómico. Hice este trabajo con el <a href=\"https://nrid.nii.ac.jp/en/nrid/1000090095505/\" target=\"_blank\" rel=\"noopener\">Prof. Fumihiro Koike</a> y el <a href=\"https://www.bits-pilani.ac.in/goa/yoshiro-azuma/\" target=\"_blank\" rel=\"noopener\">Prof. Yoshiro Azuma</a>, y lo publiqué como primer autor en el <a href=\"https://doi.org/10.1007/s12648-026-03956-2\" target=\"_blank\" rel=\"noopener\">Indian Journal of Physics</a> en 2026."
+  },
+  "home.past-projects.fano-q-parameter": {
+    "text": "Parámetro q de Fano"
+  },
+  "home.past-projects.h-kr-scattering": {
+    "text": "Dispersión H–Kr"
+  },
+  "home.past-projects.orbiting-resonance": {
+    "text": "Resonancia orbital"
+  },
+  "home.publications.publications-and-abstracts": {
+    "text": "Publicaciones y resúmenes"
+  },
+  "home.publications.first-author": {
+    "text": "Primer autor"
+  },
+  "home.publications.journal": {
+    "text": "Revista"
+  },
+  "home.publications.cite": {
+    "text": "Citar"
+  },
+  "home.publications.co-author": {
+    "text": "Coautor"
+  },
+  "home.publications.second-author": {
+    "text": "Segundo autor"
+  },
+  "home.publications.show-all-publications": {
+    "text": "Ver todas las publicaciones"
+  },
+  "home.talks.talks-and-posters": {
+    "text": "Charlas y pósteres"
+  },
+  "home.talks.invited-talks": {
+    "text": "Charlas invitadas"
+  },
+  "home.talks.roe-univ-of-edinburgh": {
+    "text": "<a href=\"https://www.roe.ac.uk/\" target=\"_blank\" rel=\"noopener\">ROE</a>, Univ. of Edinburgh"
+  },
+  "home.talks.sotu-seminar-tifr-mumbai": {
+    "text": "Seminario SOTU, TIFR, Mumbai"
+  },
+  "home.talks.contributed-talks": {
+    "text": "Contribuciones orales"
+  },
+  "home.talks.sbi-for-galaxy-evolution-2026-cambridge": {
+    "text": "<a href=\"https://sbi-galev.github.io/2026/\" target=\"_blank\" rel=\"noopener\">SBI for Galaxy Evolution 2026</a>, Cambridge"
+  },
+  "home.talks.sep-2022": {
+    "text": "sept. 2022"
+  },
+  "home.talks.student-lecture-iit-delhi": {
+    "text": "Charla para estudiantes, IIT Delhi"
+  },
+  "home.talks.jul-2022": {
+    "text": "jul. 2022"
+  },
+  "home.talks.vsm-presentation-rri-bengaluru": {
+    "text": "Presentación VSM, RRI, Bengaluru"
+  },
+  "home.talks.posters": {
+    "text": "Pósteres"
+  },
+  "home.talks.jan-2026": {
+    "text": "ene. 2026"
+  },
+  "home.talks.aas-247-phoenix-az": {
+    "text": "<a href=\"https://aas.org/meetings/aas247\" target=\"_blank\" rel=\"noopener\">AAS 247</a>, Phoenix, AZ"
+  },
+  "home.talks.aug-2025": {
+    "text": "ago. 2025"
+  },
+  "home.talks.urssi-summer-school-for-open-science": {
+    "text": "Escuela de verano de ciencia abierta de <a href=\"https://urssi.us/\" target=\"_blank\" rel=\"noopener\">URSSI</a>"
+  },
+  "home.recognition.awards-observing-and-service": {
+    "text": "Premios, observación y servicio"
+  },
+  "home.recognition.awards": {
+    "text": "Premios"
+  },
+  "home.recognition.summer-exploration-graduate-seg-fellowship-schoo": {
+    "text": "Beca Summer Exploration Graduate (SEG), School of Earth and Space Exploration, ASU"
+  },
+  "home.recognition.paniit-usa-graduate-scholarship": {
+    "text": "Beca de posgrado PanIIT USA"
+  },
+  "home.recognition.preliminary-discovery-of-3-asteroids-dst": {
+    "text": "Descubrimiento preliminar de 3 asteroides, campaña de búsqueda de asteroides DST-IASC"
+  },
+  "home.recognition.summer-undergraduate-research-award-sura-iit": {
+    "text": "Premio SURA (Summer Undergraduate Research Award), IIT Delhi; seleccionado entre 27 propuestas"
+  },
+  "home.recognition.jan-2021": {
+    "text": "ene. 2021"
+  },
+  "home.recognition.international-theoretical-physics-olympiad-rank": {
+    "text": "Olimpiada Internacional de Física Teórica: puesto 12 de 276 equipos"
+  },
+  "home.recognition.nov-2020": {
+    "text": "nov. 2020"
+  },
+  "home.recognition.university-physics-competition-silver-medal-top": {
+    "text": "University Physics Competition: medalla de plata (entre los 12 mejores de 340 equipos), Ion Thrusters to Saturn"
+  },
+  "home.recognition.observing-and-service": {
+    "text": "Observación y servicio"
+  },
+  "home.recognition.aug-2025-present": {
+    "text": "ago. 2025 – actualidad"
+  },
+  "home.recognition.international-student-advocate-sese-graduate-cou": {
+    "text": "Representante de estudiantes internacionales, consejo de posgrado de SESE"
+  },
+  "home.recognition.oct-nov-2023": {
+    "text": "oct.–nov. 2023"
+  },
+  "home.recognition.co-pi-12m-telescope-az-connecting": {
+    "text": "Co-PI, telescopio de 12 m (AZ): Connecting Molecular Gas to the CGM"
+  },
+  "home.recognition.51-hrs-of-co-1-0": {
+    "text": "51 horas de CO(1–0)"
+  },
+  "home.recognition.sep-2023": {
+    "text": "sept. 2023"
+  },
+  "home.recognition.co-pi-hectochelle-az-unveiling-the": {
+    "text": "Co-PI, Hectochelle (AZ): Unveiling the Hidden Disks of Nearby Galaxies"
+  },
+  "home.timeline.aug-2023-present": {
+    "text": "ago. 2023 - actualidad"
+  },
+  "home.timeline.ph-d-in-astrophysics": {
+    "text": "Doctorado en Astrofísica"
+  },
+  "home.timeline.arizona-state-university-school-of-earth": {
+    "text": "Arizona State University | School of Earth and Space Exploration"
+  },
+  "home.timeline.current-graduate-research-includes-o-vi": {
+    "text": "Mi investigación de posgrado actual abarca el O VI en el medio intragrupo, la clasificación espectral de AGN y supernovas, y la cinemática del medio circungaláctico externo."
+  },
+  "home.timeline.may-2022-july-2022": {
+    "text": "mayo 2022 - julio 2022"
+  },
+  "home.timeline.visiting-research-intern": {
+    "text": "Estancia de investigación"
+  },
+  "home.timeline.raman-research-institute-astronomy-and-astrophys": {
+    "text": "Raman Research Institute | Departamento de Astronomía y Astrofísica"
+  },
+  "home.timeline.worked-on-preliminary-site-quality-analysis": {
+    "text": "Trabajé en un análisis preliminar de la calidad del sitio para un telescopio submilimétrico indio."
+  },
+  "home.timeline.july-2019-july-2023": {
+    "text": "julio 2019 - julio 2023"
+  },
+  "home.timeline.b-tech-in-engineering-physics": {
+    "text": "B.Tech. en Ingeniería Física"
+  },
+  "home.timeline.undergraduate-training-in-engineering-physics-wi": {
+    "text": "Formación de grado en ingeniería física, con investigación en física solar, comunicación cuántica segura, colisiones atómicas y astronomía submilimétrica."
+  },
+  "home.timeline.ast-531-graduate-galaxies-cosmology": {
+    "text": "AST 531: Graduate Galaxies & Cosmology"
+  },
+  "home.timeline.role-guest-instructor": {
+    "text": "<strong>Función:</strong> profesor invitado"
+  },
+  "home.timeline.institution-arizona-state-university-department": {
+    "text": "<strong>Institución:</strong> Arizona State University | <strong>Departamento:</strong> School of Earth and Space Exploration (SESE)"
+  },
+  "home.timeline.semester-fall-2026": {
+    "text": "<strong>Semestre:</strong> otoño de 2026"
+  },
+  "home.timeline.ast-121-introduction-to-astronomy-laboratory": {
+    "text": "AST 121: Introduction to Astronomy Laboratory"
+  },
+  "home.timeline.role-teaching-assistant-three-lab-sections": {
+    "text": "<strong>Función:</strong> ayudante de docencia, tres grupos de laboratorio"
+  },
+  "home.timeline.semester-spring-2025": {
+    "text": "<strong>Semestre:</strong> primavera de 2025"
+  },
+  "home.timeline.i-taught-and-supervised-three-lab": {
+    "text": "Impartí y supervisé tres grupos de laboratorio: clases, evaluación, experimentos con telescopio y observación del cielo nocturno."
+  },
+  "home.personal-interests.interest-areas": {
+    "text": "Áreas de interés"
+  },
+  "home.personal-interests.chess": {
+    "text": "Ajedrez"
+  },
+  "home.personal-interests.books": {
+    "text": "Libros"
+  },
+  "home.personal-interests.geography": {
+    "text": "Geografía"
+  },
+  "home.personal-interests.music": {
+    "text": "Música"
+  },
+  "home.personal-interests.astrophotography": {
+    "text": "Astrofotografía"
+  },
+  "home.personal-interests.outside-of-my-academic-life-i": {
+    "text": "Fuera del ámbito académico, tengo intereses muy diversos que me mantienen activo e inspirado. Uno de mis pasatiempos favoritos es el ajedrez. Me encantará conectar con quien también juegue en chess.com; mi usuario es <a href=\"https://www.chess.com/member/voyager972\" target=\"_blank\" rel=\"noopener\">Voyager972</a>. Leer es otra de mis pasiones, sobre todo divulgación científica y no ficción."
+  },
+  "home.personal-interests.i-have-a-keen-interest-in": {
+    "text": "Me interesan mucho la geopolítica y la geografía. La música y el canto también ocupan un lugar importante en mi vida; disfruto especialmente de los gazales, la música sufí y las canciones hindi antiguas."
+  },
+  "home.personal-interests.i-am-also-interested-in-astrophotography": {
+    "text": "También me interesa la astrofotografía y aspiro a captar la belleza del cielo nocturno. Aunque todavía no he podido dedicarle tanto tiempo como quisiera, sigue siendo un objetivo que espero desarrollar en el futuro."
+  },
+  "home.personal-interests.thank-you-for-visiting-my-page": {
+    "text": "Gracias por visitar mi página. No dude en escribirme si comparte intereses similares o simplemente quiere ponerse en contacto."
+  },
+  "home.contact.get-in-touch": {
+    "text": "Contacto"
+  },
+  "home.contact.send-me-a-message-here-or": {
+    "text": "Envíeme un mensaje aquí o encuéntreme en cualquiera de estos sitios."
+  },
+  "home.contact.elsewhere": {
+    "text": "En otros sitios"
+  },
+  "home.contact-form.your-name": {
+    "text": "Su nombre"
+  },
+  "home.contact-form.your-email": {
+    "text": "Su correo electrónico"
+  },
+  "home.contact-form.message": {
+    "text": "Mensaje"
+  },
+  "home.contact-form.send-message": {
+    "text": "Enviar mensaje"
+  },
+  "common.footer.2026-tanmay-singh-designed-by-bootstrapmade": {
+    "text": "&copy; <span id=\"year\">2026</span> Tanmay Singh. Diseño de <a href=\"https://bootstrapmade.com/\" target=\"_blank\" rel=\"noopener\">BootstrapMade</a>, adaptado con una interfaz astrofísica propia."
+  },
+  "home.page.back-to-top": {
+    "text": "Volver arriba"
+  },
+  "links.head.useful-links-tanmay-singh": {
+    "text": "Enlaces útiles | Tanmay Singh"
+  },
+  "links.head.useful-astronomy-astrophysics-programming-gradua": {
+    "text": "Enlaces útiles de astronomía, astrofísica, programación, posgrado y sitios web académicos, recopilados por Tanmay Singh."
+  },
+  "links.page.a-collection-of-astronomy-astrophysics-programmi": {
+    "text": "Una colección de recursos de astronomía, astrofísica, programación, posgrado y sitios web personales, procedente del sitio web anterior."
+  },
+  "links.page.astronomy-and-astrophysics": {
+    "text": "Astronomía y astrofísica"
+  },
+  "links.page.general-links": {
+    "text": "Enlaces generales"
+  },
+  "links.page.nasa-ads-online-database-astronomy-and": {
+    "text": "<a href=\"https://ui.adsabs.harvard.edu\" target=\"_blank\" rel=\"noopener\">NASA/ADS</a>: base de datos en línea de artículos de astronomía y física (de acceso gratuito)."
+  },
+  "links.page.arxiv-open-access-repository-of-electronic": {
+    "text": "<a href=\"https://arxiv.org\" target=\"_blank\" rel=\"noopener\">arXiv</a>: repositorio de acceso abierto de preprints y postprints electrónicos que se publican tras una moderación, pero sin revisión por pares (de acceso gratuito)."
+  },
+  "links.page.nasa-ipac-extragalactic-database-ned-online": {
+    "text": "<a href=\"http://ned.ipac.caltech.edu\" target=\"_blank\" rel=\"noopener\">NASA/IPAC Extragalactic Database (NED)</a>: base de datos astronómica en línea que recopila y cruza información sobre objetos extragalácticos (de acceso gratuito)."
+  },
+  "links.page.ned-search-same-as-ned-above": {
+    "text": "<a href=\"http://ned.ipac.caltech.edu/forms/TextSearch.html\" target=\"_blank\" rel=\"noopener\">NED Search</a>: como NED, pero aquí se pueden buscar referencias, artículos de revisión y tesis sobre un tema concreto de astronomía y astrofísica. A veces me resulta muy útil para repasar apuntes sobre un tema (de acceso gratuito)."
+  },
+  "links.page.aas-job-portal-to-find-and": {
+    "text": "<a href=\"https://jobregister.aas.org\" target=\"_blank\" rel=\"noopener\">AAS Job Portal</a>: para buscar y publicar ofertas de empleo en astronomía (profesorado, posdoctorados, doctorados y prácticas)."
+  },
+  "links.page.astronomy-conferences-to-find-details-about": {
+    "text": "<a href=\"https://www.cadc-ccda.hia-iha.nrc-cnrc.gc.ca/en/meetings/\" target=\"_blank\" rel=\"noopener\">Congresos de astronomía</a>: información sobre congresos de astronomía."
+  },
+  "links.page.list-of-astronomy-journals-astronomy-journals": {
+    "text": "<a href=\"https://www.scimagojr.com/journalrank.php?category=3103\" target=\"_blank\" rel=\"noopener\">Lista de revistas de astronomía</a>: comparación de revistas de astronomía según su impacto."
+  },
+  "links.page.astronomical-data-products": {
+    "text": "Productos de datos astronómicos"
+  },
+  "links.page.sdss-v-official-sdss-v-website": {
+    "text": "<a href=\"https://www.sdss.org/future/\" target=\"_blank\" rel=\"noopener\">SDSS V</a>: sitio web oficial de SDSS-V."
+  },
+  "links.page.sdss-data-release-16-publicly-available": {
+    "text": "<a href=\"https://www.sdss.org/dr16/\" target=\"_blank\" rel=\"noopener\">SDSS Data Release 16</a>: datos y catálogos públicos de SDSS DR16."
+  },
+  "links.page.desi-data-release-publicly-available-desi": {
+    "text": "<a href=\"https://data.desi.lbl.gov/doc/\" target=\"_blank\" rel=\"noopener\">DESI Data Release</a>: datos y catálogos públicos de la Early Data Release de DESI."
+  },
+  "links.page.legacy-survey-publicly-available-legacy-imaging": {
+    "text": "<a href=\"https://www.legacysurvey.org/dr10/description/\" target=\"_blank\" rel=\"noopener\">Legacy Survey</a>: datos públicos del sondeo de imágenes Legacy Survey."
+  },
+  "links.page.hubble-space-telescope-official-nasa-hst": {
+    "text": "<a href=\"https://www.nasa.gov/mission_pages/hubble/main/index.html\" target=\"_blank\" rel=\"noopener\">Telescopio Espacial Hubble</a>: página oficial del HST de la NASA."
+  },
+  "links.page.hst-archival-data-data-products-from": {
+    "text": "<a href=\"https://archive.stsci.edu/missions-and-data/hst\" target=\"_blank\" rel=\"noopener\">Datos de archivo del HST</a>: productos de datos del HST."
+  },
+  "links.page.esa-hubble-wallpapers-high-quality-astronomy": {
+    "text": "<a href=\"https://esahubble.org/images/archive/wallpapers/\" target=\"_blank\" rel=\"noopener\">Fondos de pantalla de ESA/Hubble</a>: imágenes astronómicas de alta calidad tomadas por el Hubble y otros telescopios de la ESA."
+  },
+  "links.page.keck-archive-archival-data-from-keck": {
+    "text": "<a href=\"https://www2.keck.hawaii.edu/koa/public/koa.php\" target=\"_blank\" rel=\"noopener\">Archivo de Keck</a>: datos de archivo del Observatorio Keck."
+  },
+  "links.page.eso-science-archive-facility-data-from": {
+    "text": "<a href=\"http://muse-vlt.eu/science/data-releases/\" target=\"_blank\" rel=\"noopener\">ESO Science Archive Facility</a>: datos de los telescopios de ESO en el Observatorio La Silla Paranal."
+  },
+  "links.page.vlt-muse-data-archival-data-from": {
+    "text": "<a href=\"http://archive.eso.org/cms.html\" target=\"_blank\" rel=\"noopener\">Datos de VLT MUSE</a>: datos de archivo de VLT MUSE."
+  },
+  "links.page.nasa-chandra-x-ray-official-nasa": {
+    "text": "<a href=\"https://chandra.harvard.edu\" target=\"_blank\" rel=\"noopener\">NASA Chandra X-ray</a>: sitio web oficial de la NASA."
+  },
+  "links.page.chandra-archive-chandra-x-ray-archival": {
+    "text": "<a href=\"https://cxc.harvard.edu/cda/\" target=\"_blank\" rel=\"noopener\">Archivo de Chandra</a>: datos de archivo de rayos X de Chandra."
+  },
+  "links.page.vla-archive-nrao-s-very-large": {
+    "text": "<a href=\"https://science.nrao.edu/facilities/vla/archive/index\" target=\"_blank\" rel=\"noopener\">Archivo del VLA</a>: datos de archivo del Very Large Array del NRAO."
+  },
+  "links.page.computer-simulations": {
+    "text": "Simulaciones numéricas"
+  },
+  "links.page.illustris-project-large-cosmological-simulation": {
+    "text": "<a href=\"https://www.illustris-project.org\" target=\"_blank\" rel=\"noopener\">Proyecto Illustris</a>: gran simulación cosmológica de formación de galaxias."
+  },
+  "links.page.illustris-tng-ongoing-series-of-large": {
+    "text": "<a href=\"https://www.tng-project.org\" target=\"_blank\" rel=\"noopener\">Illustris TNG</a>: serie en curso de grandes simulaciones cosmológicas MHD de formación de galaxias."
+  },
+  "links.page.auriga-simulations-large-suite-of-high": {
+    "text": "<a href=\"https://wwwmpa.mpa-garching.mpg.de/auriga/\" target=\"_blank\" rel=\"noopener\">Simulaciones Auriga</a>: amplio conjunto de simulaciones MHD de alta resolución de galaxias del tamaño de la Vía Láctea."
+  },
+  "links.page.gadget-4-parallel-cosmological-n-body": {
+    "text": "<a href=\"https://wwwmpa.mpa-garching.mpg.de/gadget4/\" target=\"_blank\" rel=\"noopener\">GADGET-4</a>: código cosmológico paralelo de N cuerpos y SPH para simular la formación de estructuras cósmicas."
+  },
+  "links.page.arepo-finite-volume-mhd-code-for": {
+    "text": "<a href=\"https://arepo-code.org/about-arepo\" target=\"_blank\" rel=\"noopener\">AREPO</a>: código MHD de volúmenes finitos para astrofísica (hidrodinámica de malla móvil)."
+  },
+  "links.page.fire-simulations-simulating-ism-and-cgm": {
+    "text": "<a href=\"https://fire.northwestern.edu/about-fire/\" target=\"_blank\" rel=\"noopener\">Simulaciones FIRE</a>: simulación del ISM y el CGM de las galaxias."
+  },
+  "links.page.eagle-project-simulation-aimed-at-understanding": {
+    "text": "<a href=\"http://icc.dur.ac.uk/Eagle/\" target=\"_blank\" rel=\"noopener\">Proyecto EAGLE</a>: simulación orientada a entender cómo se forman y evolucionan las galaxias."
+  },
+  "links.page.l-galaxies-project-semi-analytic-models": {
+    "text": "<a href=\"https://lgalaxiespublicrelease.github.io/\" target=\"_blank\" rel=\"noopener\">Proyecto L-Galaxies</a>: modelos semianalíticos de formación de galaxias construidos sobre simulaciones de solo materia oscura, como <a href=\"https://wwwmpa.mpa-garching.mpg.de/galform/virgo/millennium/\" target=\"_blank\" rel=\"noopener\">Millennium</a>."
+  },
+  "links.page.programming-links": {
+    "text": "Enlaces de programación"
+  },
+  "links.page.stack-overflow-question-and-answer-website": {
+    "text": "<a href=\"https://stackoverflow.com\" target=\"_blank\" rel=\"noopener\">Stack Overflow</a>: sitio de preguntas y respuestas para programadores profesionales y aficionados."
+  },
+  "links.page.python-python-is-an-interpreted-high": {
+    "text": "<a href=\"https://www.python.org\" target=\"_blank\" rel=\"noopener\">Python</a>: lenguaje de programación interpretado, de alto nivel y de propósito general."
+  },
+  "links.page.python-document-the-official-documentation-of": {
+    "text": "<a href=\"https://www.python.org/doc/\" target=\"_blank\" rel=\"noopener\">Documentación de Python</a>: documentación oficial del lenguaje Python."
+  },
+  "links.page.pep-8-official-style-guide-for": {
+    "text": "<a href=\"https://www.python.org/dev/peps/pep-0008/\" target=\"_blank\" rel=\"noopener\">PEP 8</a>: guía de estilo oficial para código Python."
+  },
+  "links.page.numpy-library-for-the-python-programming": {
+    "text": "<a href=\"https://numpy.org\" target=\"_blank\" rel=\"noopener\">NumPy</a>: biblioteca para el lenguaje de programación Python que añade soporte para grandes matrices y arreglos multidimensionales."
+  },
+  "links.page.scipy-free-and-open-source-python": {
+    "text": "<a href=\"https://www.scipy.org\" target=\"_blank\" rel=\"noopener\">SciPy</a>: biblioteca de Python libre y de código abierto para computación científica y técnica."
+  },
+  "links.page.astropy-collection-of-software-packages-written": {
+    "text": "<a href=\"https://www.astropy.org\" target=\"_blank\" rel=\"noopener\">Astropy</a>: conjunto de paquetes de software escritos en Python y diseñados para su uso en astronomía."
+  },
+  "links.page.jupyter-notebook-open-source-web-application": {
+    "text": "<a href=\"https://jupyter.org\" target=\"_blank\" rel=\"noopener\">Jupyter notebook</a>: aplicación web de código abierto para crear y compartir documentos con código ejecutable, ecuaciones, visualizaciones y texto narrativo."
+  },
+  "links.page.matplotlib-comprehensive-library-for-creating-st": {
+    "text": "<a href=\"https://matplotlib.org\" target=\"_blank\" rel=\"noopener\">Matplotlib</a>: biblioteca completa para crear visualizaciones estáticas, animadas e interactivas en Python."
+  },
+  "links.page.hdf5-library-a-great-data-software": {
+    "text": "<a href=\"https://www.hdfgroup.org/solutions/hdf5/\" target=\"_blank\" rel=\"noopener\">Biblioteca HDF5</a>: un software excelente para gestionar grandes conjuntos de datos en forma de matrices. Se importa con mucha facilidad en Python."
+  },
+  "links.page.wolfram-online-compute-answers-using-wolfram": {
+    "text": "<a href=\"https://www.wolframalpha.com/\" target=\"_blank\" rel=\"noopener\">Wolfram online</a>: calcula respuestas con los solucionadores en línea de Wolfram."
+  },
+  "links.page.overleaf-collaborative-cloud-based-latex-editor": {
+    "text": "<a href=\"https://www.overleaf.com/\" target=\"_blank\" rel=\"noopener\">Overleaf</a>: editor de LaTeX colaborativo en la nube para escribir, editar y publicar documentos científicos."
+  },
+  "links.page.webplotdigitizer-online-tool-to-extract-the": {
+    "text": "<a href=\"https://automeris.io/WebPlotDigitizer/\" target=\"_blank\" rel=\"noopener\">WebPlotDigitizer</a>: herramienta en línea para extraer de una imagen los datos numéricos subyacentes (me resulta muy útil)."
+  },
+  "links.page.mendeley-online-reference-manager-to-manage": {
+    "text": "<a href=\"https://www.mendeley.com/download-reference-manager\" target=\"_blank\" rel=\"noopener\">Mendeley</a>: gestor de referencias en línea para organizar y compartir artículos de investigación y generar bibliografías (parcialmente gratuito)."
+  },
+  "links.page.zotero-free-and-open-source-reference": {
+    "text": "<a href=\"https://www.zotero.org/\" target=\"_blank\" rel=\"noopener\">Zotero</a>: software de gestión de referencias libre y de código abierto."
+  },
+  "links.page.online-courses-in-astronomy": {
+    "text": "Cursos de astronomía en línea"
+  },
+  "links.page.scientific-computing-in-astronomy-krittika-astro": {
+    "text": "<a href=\"https://www.krittika.org\" target=\"_blank\" rel=\"noopener\">Scientific Computing in Astronomy</a>: Krittika Astronomy Club, IITB"
+  },
+  "links.page.growth-astronomy-school-2020-caltech": {
+    "text": "<a href=\"https://www.astro.caltech.edu\" target=\"_blank\" rel=\"noopener\">GROWTH Astronomy School 2020</a>: Caltech"
+  },
+  "links.page.ztf-summer-school-2022-caltech": {
+    "text": "<a href=\"https://www.astro.caltech.edu\" target=\"_blank\" rel=\"noopener\">ZTF Summer School 2022</a>: Caltech"
+  },
+  "links.page.summer-school-and-refresher-course-in": {
+    "text": "<a href=\"https://www.iucaa.in\" target=\"_blank\" rel=\"noopener\">Summer school and Refresher course in Astronomy &amp; Astrophysics 2020</a>: Inter-University Centre for Astronomy and Astrophysics (IUCAA)"
+  },
+  "links.page.radio-astronomy-winter-school-2020-national": {
+    "text": "<a href=\"https://www.ncra.tifr.res.in\" target=\"_blank\" rel=\"noopener\">Radio Astronomy Winter School 2020</a>: National Centre for Radio Astrophysics - Tata Institute of Fundamental Research (NCRA-TIFR)"
+  },
+  "links.page.gw-home-ligo-india-iucaa": {
+    "text": "<a href=\"https://www.ligo.in\" target=\"_blank\" rel=\"noopener\">GW@Home</a>: LIGO-India &amp; IUCAA"
+  },
+  "links.page.data-driven-astronomy-coursera": {
+    "text": "<a href=\"https://www.coursera.org\" target=\"_blank\" rel=\"noopener\">Data-Driven Astronomy</a>: Coursera"
+  },
+  "links.page.observational-astronomy-dr-stuart-littlefair-uni": {
+    "text": "<a href=\"https://www.sheffield.ac.uk\" target=\"_blank\" rel=\"noopener\">Observational Astronomy</a>: Dr. Stuart Littlefair, University of Sheffield"
+  },
+  "links.page.scientific-python-astronomy": {
+    "text": "Python científico y astronomía"
+  },
+  "links.page.python-programming-and-numerical-methods-a": {
+    "text": "<a href=\"https://pythonnumericalmethods.berkeley.edu\" target=\"_blank\" rel=\"noopener\">Python Programming And Numerical Methods: A Guide For Engineers And Scientists</a>: UC Berkeley"
+  },
+  "links.page.a-beginner-s-guide-to-working": {
+    "text": "<a href=\"https://www.mpi-hd.mpg.de\" target=\"_blank\" rel=\"noopener\">A Beginner's Guide to Working with Astronomical Data</a>: Markus Pössel, Max Planck Institute for Astronomy"
+  },
+  "links.page.mcmc-markov-chain-monte-carlo-a": {
+    "text": "MCMC (Markov Chain Monte Carlo): A (very) Beginner's Guide"
+  },
+  "links.page.blender-for-scientists-complete-intro-to": {
+    "text": "Blender for Scientists - Complete Intro to 3D"
+  },
+  "links.page.3d-scientific-visualization-with-blender-brian": {
+    "text": "<a href=\"https://www.springer.com\" target=\"_blank\" rel=\"noopener\">3D Scientific Visualization with Blender</a>: Brian R. Kent"
+  },
+  "links.page.a-simple-guide-to-beautiful-visualizations": {
+    "text": "<a href=\"https://towardsdatascience.com\" target=\"_blank\" rel=\"noopener\">A Simple Guide to Beautiful Visualizations in Python</a>: Frank Andrade"
+  },
+  "links.page.learn-astropy": {
+    "text": "Learn AstroPy"
+  },
+  "links.page.useful-youtube-videos-channels": {
+    "text": "Vídeos y canales útiles de YouTube"
+  },
+  "links.page.3blue1brown-concepts-of-mathematics-visualized-a": {
+    "text": "<a href=\"https://www.youtube.com/channel/UCYO_jab_esuFRV4b17AJtAw\" target=\"_blank\" rel=\"noopener\">3Blue1Brown</a>: conceptos matemáticos visualizados de la mejor manera posible."
+  },
+  "links.page.constellations-seeker-sarafina-nance-ucb": {
+    "text": "<a href=\"https://www.youtube.com/playlist?list=PLdEL4G3AsvXWjpXjC3JDFK0mUq3TduHRW\" target=\"_blank\" rel=\"noopener\">Constellations | Seeker</a>: Sarafina Nance, UCB"
+  },
+  "links.page.your-daily-equation-with-brian-greene": {
+    "text": "Your Daily Equation with Brian Greene"
+  },
+  "links.page.the-maths-of-general-relativity": {
+    "text": "The Maths of General Relativity"
+  },
+  "links.page.a-stellar-history-of-modern-astronomy": {
+    "text": "<a href=\"https://www.youtube.com/playlist?list=PL7DoTbSe9kGnqufgb0GpFkakg8cLf2PFO\" target=\"_blank\" rel=\"noopener\">A Stellar History of Modern Astronomy</a>: Emily Levesque, University of Washington"
+  },
+  "links.page.daily-life-of-an-astrophysicist-dr": {
+    "text": "<a href=\"https://www.youtube.com/playlist?list=PLzkhgibjP8h_1rXNjUK-olKo1--QWwSbj\" target=\"_blank\" rel=\"noopener\">Daily Life of an Astrophysicist</a>: Dr. Becky, Oxford University"
+  },
+  "links.page.life-of-an-iucaa-astrophysics-research": {
+    "text": "<a href=\"https://www.youtube.com/playlist?list=PLdEL4G3AsvXWE-g-3-3Gpg7LC8yBmyKhN\" target=\"_blank\" rel=\"noopener\">Life of an IUCAA Astrophysics Research Scholar</a>: Parisee Shirke, IUCAA"
+  },
+  "links.page.a-day-in-the-life-of": {
+    "text": "<a href=\"https://www.youtube.com/playlist?list=PLzkhgibjP8h-RsJpJ2A5gA3hvTMxdheqA\" target=\"_blank\" rel=\"noopener\">A day in the life of an Astronomer</a>: South African Astronomical Observatory"
+  },
+  "links.page.be-an-astrophysicist-colleen-hoon-anu": {
+    "text": "<a href=\"https://www.youtube.com/playlist?list=PLdEL4G3AsvXWIQSRfA1NU6q-ZIb9dW06F\" target=\"_blank\" rel=\"noopener\">Be An Astrophysicist</a>: Colleen Hoon, ANU"
+  },
+  "links.page.useful-websites-articles": {
+    "text": "Sitios web y artículos útiles"
+  },
+  "links.page.astrobites-briefing-research-papers-for-undergra": {
+    "text": "<a href=\"https://astrobites.org\" target=\"_blank\" rel=\"noopener\">Astrobites</a>: resúmenes de artículos de investigación para estudiantes de grado"
+  },
+  "links.page.how-to-make-an-astrophysicist-a": {
+    "text": "<a href=\"https://www.howtobecomeanastronomer.com\" target=\"_blank\" rel=\"noopener\">How to make an Astrophysicist</a>: un sitio web con abundantes recursos y oportunidades en astronomía"
+  },
+  "links.page.you-and-your-research-article-youtube": {
+    "text": "<a href=\"https://www.youtube.com/watch?v=a1zDuOPkMSw\" target=\"_blank\" rel=\"noopener\">You and Your Research</a>: [Artículo][Vídeo de YouTube], Richard Hamming"
+  },
+  "links.page.astronomy-in-everyday-life-iau": {
+    "text": "<a href=\"https://www.iau.org/public/themes/astronomy_in_everyday_life/\" target=\"_blank\" rel=\"noopener\">Astronomy in Everyday Life</a>: IAU"
+  },
+  "links.page.why-is-astronomy-important-ask-a": {
+    "text": "<a href=\"https://www.space.com/11558-why-astronomy-important.html\" target=\"_blank\" rel=\"noopener\">Why is astronomy important?</a>: Ask a Spaceman!, Paul M. Sutter"
+  },
+  "links.page.astronomy-in-our-daily-lives-canadian": {
+    "text": "<a href=\"https://www.asc-csa.gc.ca/eng/sciences/astronomy-in-everyday-life.asp\" target=\"_blank\" rel=\"noopener\">Astronomy in our daily lives</a>: Agencia Espacial Canadiense"
+  },
+  "links.page.constellations-suggested-by-tina-stacy-martin": {
+    "text": "<a href=\"https://www.constellation-guide.com\" target=\"_blank\" rel=\"noopener\">Constelaciones</a>: (sugerido por Tina &amp; Stacy Martin)"
+  },
+  "links.page.sleeping-under-stars-planets-suggested-by": {
+    "text": "<a href=\"https://www.sleepingunderstars.com\" target=\"_blank\" rel=\"noopener\">Sleeping Under Stars &amp; Planets</a>: (sugerido por Payton &amp; Michelle Bass)"
+  },
+  "links.page.how-to-send-and-reply-to": {
+    "text": "<a href=\"https://matt.might.net/articles/how-to-email/\" target=\"_blank\" rel=\"noopener\">How to send and reply to Email</a>: Matt Might"
+  },
+  "links.page.arxiv-free-distribution-service-and-an": {
+    "text": "<a href=\"https://arxiv.org\" target=\"_blank\" rel=\"noopener\">ArXiv</a>: servicio de distribución gratuito y archivo de acceso abierto de artículos académicos y de investigación"
+  },
+  "links.page.nasa-ads-digital-library-portal-for": {
+    "text": "<a href=\"https://ui.adsabs.harvard.edu\" target=\"_blank\" rel=\"noopener\">NASA/ADS</a>: portal de biblioteca digital para investigadores en astronomía y física"
+  },
+  "links.page.graduate-school-advice-and-admissions": {
+    "text": "Consejos y admisión al posgrado"
+  },
+  "links.page.the-illustrated-guide-to-a-ph": {
+    "text": "<a href=\"http://matt.might.net/articles/phd-school-in-pictures/\" target=\"_blank\" rel=\"noopener\">The illustrated guide to a Ph.D.</a>: Matt Might, University of Utah"
+  },
+  "links.page.questions-to-ask-as-a-prospective": {
+    "text": "<a href=\"https://www.caltech.edu/about/news/questions-ask-prospective-graduate-student-45306\" target=\"_blank\" rel=\"noopener\">Questions to Ask as a Prospective Graduate Student</a>: Ryan Rubenzahl, Caltech"
+  },
+  "links.page.ph-d-admission-series-lilian-horin": {
+    "text": "<a href=\"https://www.lilianhorin.com/\" target=\"_blank\" rel=\"noopener\">Ph.D. Admission Series</a>: Lilian Horin, Harvard"
+  },
+  "links.page.ph-d-guide-astrophysics-girl": {
+    "text": "<a href=\"https://astrophysicsgirl.com\" target=\"_blank\" rel=\"noopener\">Ph.D. Guide</a>: Astrophysics Girl"
+  },
+  "links.page.honest-advice-for-the-astronomy-grad": {
+    "text": "Honest advice for the Astronomy grad school application process"
+  },
+  "links.page.tips-for-applying-to-graduate-school": {
+    "text": "<a href=\"https://www.as.utexas.edu\" target=\"_blank\" rel=\"noopener\">Tips for Applying to Graduate School in Astronomy</a>: University of Texas at Austin"
+  },
+  "links.page.guide-to-graduate-school-astrobites": {
+    "text": "<a href=\"https://astrobites.org\" target=\"_blank\" rel=\"noopener\">Guide to Graduate School</a>: Astrobites"
+  },
+  "links.page.funded-masters-programmes-astrophysics-girl": {
+    "text": "<a href=\"https://astrophysicsgirl.com\" target=\"_blank\" rel=\"noopener\">Funded Masters Programmes</a>: Astrophysics Girl"
+  },
+  "links.page.all-about-phd-applications-lucy-lai": {
+    "text": "<a href=\"https://lucylai.com\" target=\"_blank\" rel=\"noopener\">All about PhD applications</a>: Lucy Lai"
+  },
+  "links.page.statement-of-purpose-for-graduate-school": {
+    "text": "<a href=\"https://meche.mit.edu\" target=\"_blank\" rel=\"noopener\">Statement of Purpose for Graduate School</a>: MIT MechE Comm Lab"
+  },
+  "links.page.another-annotated-example-cs-phd-statement": {
+    "text": "<a href=\"https://eugenielai.com\" target=\"_blank\" rel=\"noopener\">Another Annotated Example: CS PhD Statement of Purpose</a>: Eugenie Y. Lai"
+  },
+  "links.page.personal-statements-and-statements-of-purpose": {
+    "text": "<a href=\"https://www.grad.ucla.edu\" target=\"_blank\" rel=\"noopener\">Personal Statements and Statements of Purpose</a>: UCLA"
+  },
+  "links.page.diy-personal-website": {
+    "text": "Cómo crear un sitio web personal"
+  },
+  "links.page.website-with-wix": {
+    "text": "Sitio web con Wix"
+  },
+  "links.page.github-pages-with-jekyll": {
+    "text": "GitHub Pages con Jekyll"
+  },
+  "links.page.website-with-github-gitlab-wowchemy": {
+    "text": "<a href=\"https://wowchemy.com\" target=\"_blank\" rel=\"noopener\">Sitio web con GitHub/Gitlab</a>: Wowchemy"
+  },
+  "links.page.gitfolio-a-website-for-your-github": {
+    "text": "<a href=\"https://github.com/imfunniee/gitfolio\" target=\"_blank\" rel=\"noopener\">Gitfolio</a>: un sitio web para sus repositorios de GitHub"
+  },
+  "links.page.creating-a-simple-and-effective-academic": {
+    "text": "<a href=\"https://www.elsevier.com\" target=\"_blank\" rel=\"noopener\">Creating a simple and effective academic personal website</a>: Elsevier"
+  },
+  "links.page.personal-academic-webpages-how-to-s": {
+    "text": "<a href=\"https://career.berkeley.edu\" target=\"_blank\" rel=\"noopener\">Personal Academic Webpages: How-To's and Tips for a Better Site</a>: University of California, Berkeley"
+  },
+  "links.page.wikipedia-free-online-encyclopedia": {
+    "text": "<a href=\"https://www.wikipedia.org/\" target=\"_blank\" rel=\"noopener\">Wikipedia</a>: enciclopedia libre en línea."
+  },
+  "links.page.springer-free-books-free-books-from": {
+    "text": "<a href=\"https://www.springer.com/gp/open-access/books\" target=\"_blank\" rel=\"noopener\">Springer Free Books</a>: libros gratuitos de Springer; vale la pena echarles un vistazo."
+  },
+  "links.page.encyclopaedia-britannica-free-general-knowledge": {
+    "text": "<a href=\"https://www.britannica.com/\" target=\"_blank\" rel=\"noopener\">Encyclopaedia Britannica</a>: enciclopedia gratuita de cultura general en inglés (similar a Wikipedia)."
+  },
+  "links.page.grammarly-online-english-grammar-check-basic": {
+    "text": "<a href=\"https://www.grammarly.com\" target=\"_blank\" rel=\"noopener\">Grammarly</a>: corrector gramatical de inglés en línea (la versión básica es gratuita)."
+  },
+  "ui.language": {
+    "text": "Idioma"
+  },
+  "ui.machine_note": {
+    "text": "Esta página se tradujo automáticamente del inglés. <a href=\"{en_url}\">Leer el original</a>."
+  },
+  "ui.suggest": {
+    "text": "Leer esta página en español"
+  },
+  "ui.dismiss": {
+    "text": "Cerrar"
+  },
+  "js.theme_light": {
+    "text": "Modo claro"
+  },
+  "js.theme_dark": {
+    "text": "Modo oscuro"
+  },
+  "js.read_more": {
+    "text": "Leer más"
+  },
+  "js.read_less": {
+    "text": "Leer menos"
+  },
+  "js.nav_open": {
+    "text": "Abrir menú"
+  },
+  "js.nav_close": {
+    "text": "Cerrar menú"
+  },
+  "js.new_tab": {
+    "text": "Se abre en una pestaña nueva"
+  },
+  "js.cite": {
+    "text": "Citar"
+  },
+  "js.copied": {
+    "text": "Copiado"
+  },
+  "js.copy_failed": {
+    "text": "Error al copiar"
+  },
+  "js.cite_for": {
+    "text": "Copiar BibTeX de {title}"
+  },
+  "js.this_paper": {
+    "text": "este artículo"
+  },
+  "js.bibtex_copied": {
+    "text": "BibTeX copiado al portapapeles"
+  },
+  "js.bibtex_failed": {
+    "text": "No se pudo copiar el BibTeX"
+  },
+  "js.pubs_all": {
+    "text": "Ver todas las publicaciones"
+  },
+  "js.pubs_fewer": {
+    "text": "Ver menos publicaciones"
+  },
+  "js.form_name": {
+    "text": "Por favor, indique su nombre."
+  },
+  "js.form_email": {
+    "text": "Introduzca una dirección de correo válida para que pueda responderle."
+  },
+  "js.form_short": {
+    "text": "Por favor, escriba un poco más en su mensaje."
+  },
+  "js.form_disposable": {
+    "text": "Use una dirección de correo que consulte habitualmente, para que pueda responderle."
+  },
+  "js.form_checking": {
+    "text": "Comprobando su dirección de correo..."
+  },
+  "js.form_domain": {
+    "text": "Ese dominio de correo no parece existir o no acepta mensajes. Revise la dirección."
+  },
+  "js.form_mailapp": {
+    "text": "Su aplicación de correo debería abrirse con el mensaje listo para enviar."
+  },
+  "js.form_captcha": {
+    "text": "Complete primero el CAPTCHA."
+  },
+  "js.form_sent": {
+    "text": "Gracias, su mensaje está en camino. Le responderé pronto."
+  },
+  "js.form_ratelimit": {
+    "text": "Demasiados mensajes desde esta conexión. Inténtelo de nuevo dentro de una hora."
+  },
+  "js.form_failed": {
+    "text": "No se pudo enviar; también puede escribirme a {email}."
+  },
+  "js.form_offline": {
+    "text": "No se pudo enviar. Revise su conexión o escríbame a {email}."
+  },
+  "js.motion_system": "Tu sistema ya solicita reducir el movimiento.",
+  "js.form_sending": "Enviando..."
+}

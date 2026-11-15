@@ -1,0 +1,135 @@
+/* Language picker, suggestion chip and machine-translation note.
+   Linked only on pages built with more than one language (tools/i18n/build.py).
+   The picker reuses the sidebar's .motion-toggle pill so it sits with the
+   theme and motion toggles. */
+
+/* These OFL subsets contain only the native language names. They make the
+   picker legible before any full-page script font has been downloaded. */
+@font-face { font-family: "I18n Menu Arabic"; src: url(../fonts/i18n-menu/ar.ttf) format("truetype"); font-display: swap; }
+@font-face { font-family: "I18n Menu Bengali"; src: url(../fonts/i18n-menu/bn.ttf) format("truetype"); font-display: swap; }
+@font-face { font-family: "I18n Menu Devanagari"; src: url(../fonts/i18n-menu/hi.ttf) format("truetype"); font-display: swap; }
+@font-face { font-family: "I18n Menu Japanese"; src: url(../fonts/i18n-menu/ja.ttf) format("truetype"); font-display: swap; }
+@font-face { font-family: "I18n Menu Korean"; src: url(../fonts/i18n-menu/ko.ttf) format("truetype"); font-display: swap; }
+@font-face { font-family: "I18n Menu Chinese"; src: url(../fonts/i18n-menu/zh-Hans.ttf) format("truetype"); font-display: swap; }
+.lang-picker [lang="ar"] { font-family: "I18n Menu Arabic", sans-serif; }
+.lang-picker [lang="bn"] { font-family: "I18n Menu Bengali", sans-serif; }
+.lang-picker [lang="hi"] { font-family: "I18n Menu Devanagari", sans-serif; }
+.lang-picker [lang="ja"] { font-family: "I18n Menu Japanese", sans-serif; }
+.lang-picker [lang="ko"] { font-family: "I18n Menu Korean", sans-serif; }
+.lang-picker [lang="zh-Hans"] { font-family: "I18n Menu Chinese", sans-serif; }
+
+.lang-picker { margin: 0.75rem 0 0; }
+.header-container .lang-picker { margin: 6px 0 0 6px; }
+.lang-picker > summary { list-style: none; width: max-content; }
+.lang-toggle { cursor: pointer; }
+.lang-toggle:focus-visible { outline: 2px solid var(--a-cyan); outline-offset: 3px; }
+.lang-picker > summary::-webkit-details-marker { display: none; }
+.lang-picker > summary::marker { content: ""; }
+.lang-picker[open] > summary { color: var(--ink-text); border-color: var(--a-cyan); }
+
+.lang-menu {
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  gap: 2px 4px;
+  margin: 6px 0 0;
+  padding: 6px;
+  list-style: none;
+  border: 1px solid color-mix(in oklab, var(--ink-dim) 55%, transparent);
+  border-radius: 12px;
+  background: color-mix(in oklab, var(--ink-void) 82%, transparent);
+  width: max-content;
+}
+.lang-menu a {
+  display: block;
+  padding: 4px 10px;
+  border-radius: 8px;
+  color: var(--ink-muted);
+  font-size: 0.82rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.lang-menu a:hover { color: var(--ink-text); background: color-mix(in oklab, var(--a-cyan) 12%, transparent); }
+.lang-menu a:focus-visible { outline: 2px solid var(--a-cyan); outline-offset: 1px; }
+.lang-menu a[aria-current="true"] { color: var(--ink-text); box-shadow: inset 0 0 0 1px var(--a-cyan); }
+
+/* The one-time suggestion: a small pill, bottom centre, above everything. */
+.lang-suggest {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  max-width: calc(100vw - 24px);
+  padding: 4px 4px 4px 14px;
+  border: 1px solid var(--a-cyan);
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--ink-void) 88%, transparent);
+  backdrop-filter: blur(8px);
+  font-size: 0.86rem;
+}
+.lang-suggest a { color: var(--ink-text); text-decoration: none; }
+.lang-suggest a:hover { text-decoration: underline; }
+.lang-suggest button {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink-muted);
+  cursor: pointer;
+}
+.lang-suggest button:hover { color: var(--ink-text); }
+.lang-suggest a:focus-visible,
+.lang-suggest button:focus-visible { outline: 2px solid var(--a-cyan); outline-offset: 2px; }
+
+.i18n-note { font-size: 0.8rem; color: var(--ink-muted); margin-bottom: 0.4rem; }
+.i18n-note a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+
+/* Translated month names run longer than "Jul 2026": let the news dates wrap
+   inside their column instead of running into the item text. */
+html:not([lang="en"]) .hero-news-list time { white-space: normal; }
+html:not([lang="en"]) .cv-date { white-space: normal; }
+/* English section titles fit the original single-line rule; translated
+   headings can be substantially longer at the same readable font size. */
+html:not([lang="en"]) .section-heading h2 {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+/* Keep translated navigation readable when a label needs a second line. */
+html:not([lang="en"]) .navmenu a span { min-width: 0; white-space: normal; overflow-wrap: anywhere; }
+html:not([lang="en"]) .brand-lockup small { overflow-wrap: anywhere; }
+@media (min-width: 1200px) and (max-width: 1499px) {
+  html:not([lang="en"]) .header-container .motion-toggle span { white-space: normal; }
+  html:not([lang="en"]) .header-container .motion-toggle { height: auto; }
+  /* The open menu must stay readable when the pointer leaves the slim rail. */
+  .site-header:has(.lang-picker[open]) {
+    --rail-w: var(--header-width);
+    --rail-lbl-o: 1;
+    --rail-lbl-w: 14rem;
+    --rail-gap: 12px;
+    --rail-tog-w: auto;
+    --rail-tog-pad: 0.65rem;
+    --rail-soc-dir: row;
+  }
+}
+
+/* The carousel measures left offsets and scrolls left in every locale.
+   Keep that geometry, while Arabic card content reads right to left. */
+html[dir="rtl"] #research > .container,
+html[dir="rtl"] #research .research-grid,
+html[dir="rtl"] .rail-nav { direction: ltr; }
+html[dir="rtl"] #research .section-heading { direction: rtl; }
+html[dir="rtl"] #research .research-card { direction: rtl; text-align: start; }
+html[dir="rtl"] .link-section ul { padding-left: 0; padding-right: 2rem; }
+html[dir="rtl"] #cf-email { direction: ltr; text-align: start; }
+
+@media print {
+  .lang-picker, .lang-suggest { display: none !important; }
+}
