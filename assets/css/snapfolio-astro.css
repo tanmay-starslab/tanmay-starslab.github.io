@@ -411,10 +411,9 @@ body::before {
   content: "";
   background-image:
     radial-gradient(circle at 22% 18%, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / calc(0.08 * var(--wash))), transparent 26rem),
-    radial-gradient(circle at 78% 36%, oklch(var(--l-text) var(--tint-violet) / calc(0.08 * var(--wash))), transparent 30rem),
-    linear-gradient(rgba(255, 255, 255, 0.032) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.032) 1px, transparent 1px);
-  background-size: auto, auto, 86px 86px, 86px 86px;
+    radial-gradient(circle at 78% 36%, oklch(var(--l-text) var(--tint-violet) / calc(0.08 * var(--wash))), transparent 30rem);
+  /* owner 2026-11-16: the drifting 86 px grid lines are gone (all themes) */
+  background-size: auto, auto;
   mask-image: radial-gradient(circle at center, black, transparent 78%);
   animation: gridDrift 42s linear infinite;
 }
@@ -1112,6 +1111,9 @@ html.intro-skipped #intro-scrim {
   overflow: hidden;
 }
 
+/* owner 2026-11-16: the two thin elliptical rings that crossed the portrait are removed (all themes) */
+.hero::before,
+.hero::after { display: none !important; }
 .hero::before,
 .hero::after {
   position: absolute;

@@ -34,10 +34,10 @@
 
   /* ink ramp, cool neutral (hue ~250, chroma ~0.005) */
   --ink-void:     #000000;
-  --ink-bg:       #050505;   /* the page */
-  --ink-bg-2:     #080808;
-  --ink-panel:    #0f0f10;   /* cards */
-  --ink-surface:  #141415;
+  --ink-bg:       #000000;   /* the page */
+  --ink-bg-2:     #030303;
+  --ink-panel:    #0c0c0c;   /* cards */
+  --ink-surface:  #121212;
   --ink-hairline: #232325;   /* non-interactive 1px rules */
   --ink-edge:     #3a3a3d;   /* interactive borders */
   --ink-dim:      #6e6e72;   /* decorative only, never text */
@@ -49,7 +49,7 @@
   /* glass, neutral instead of blue-black */
   --surface: rgba(255, 255, 255, 0.045);
   --surface-strong: rgba(255, 255, 255, 0.08);
-  --glass-bg: rgba(14, 14, 15, 0.74);
+  --glass-bg: rgba(10, 10, 10, 0.78);
   --glass-bg-strong: rgba(20, 20, 21, 0.86);
   --glass-highlight: rgba(255, 255, 255, 0.14);
   --shadow: 0 28px 90px rgba(0, 0, 0, 0.6);
@@ -61,11 +61,11 @@
   --glow-violet: oklch(var(--l-glow) 0 0 / 0.12);
   --accent-2: oklch(var(--l-text) 0.07 235);   /* only ever a gradient partner */
 
-  --ground-mid: #060606;
-  --ground-end: #070707;
+  --ground-mid: #000000;
+  --ground-end: #000000;
   --chrome-rgb: 10, 10, 11;
-  --shade-rgb: 5, 5, 5;
-  --glass-solid: #0f0f10;
+  --shade-rgb: 0, 0, 0;
+  --glass-solid: #0c0c0c;
   --ring-rgb: 10, 10, 11;
 
   /* portrait halo: the cool end of the magma ring was purple (#1d1147 ->
@@ -95,6 +95,9 @@ html[data-theme="dark"] .cv-panel { --card-h: 235; }
 /* owner 2026-11-16: Dark must read black with no green, teal or purple cast. The sky photograph and the drawn sky keep
    their stars but lose their colour cast: the photograph is shown in grey and dimmer, the drawn sky mostly desaturated,
    and the grid drifting over the page is a faint neutral. Midnight keeps all of them in colour. */
-html[data-theme="dark"] .cosmic-image-bg { filter: grayscale(1) brightness(0.9) contrast(1.1); opacity: 0.45; }
-html[data-theme="dark"] #sky-canvas { filter: saturate(0.25); }
+/* owner 2026-11-16 (second pass): Dark is black. No sky photograph and no coloured nebula behind the hero; the drawn
+   stars stay, nearly white, so the page is black with starlight and clearly different from Midnight's navy sky. */
+html[data-theme="dark"] .cosmic-image-bg, html[data-theme="dark"] .hero-nebula { display: none; }
+html[data-theme="dark"] .cosmic-image-shade { background: #000; opacity: 0.35; }
+html[data-theme="dark"] #sky-canvas { filter: saturate(0) brightness(0.42) contrast(1.25); }   /* the Milky Way band reads as faint grey, stars stay */
 html[data-theme="dark"] .cv-panel, html[data-theme="dark"] .contact-tile { --card-h: 240; }

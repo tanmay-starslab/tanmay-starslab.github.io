@@ -15,7 +15,7 @@
   /* Translated pages pass their strings in as window.I18N (tools/i18n/build.py); English is the fallback. */
   var tr = function (k, s) { var d = window.I18N; return (d && typeof d[k] === "string" && d[k]) || s; };
 
-  var THEMES = ["light", "dark", "midnight"];
+  var THEMES = ["dark", "light", "midnight"];   // owner 2026-11-16: the order the button cycles
   var ICONS = { light: "bi bi-sun", dark: "bi bi-moon", midnight: "bi bi-moon-stars" };
   function name(t) {
     if (t === "light") return tr("js.theme_name_light", "Light");
