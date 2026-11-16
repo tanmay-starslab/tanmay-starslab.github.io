@@ -8,11 +8,13 @@
   <meta name="color-scheme" content="dark light">
   <script>
     /* Theme before first paint, so the page never flashes the wrong one: the
-       visitor's own choice if they have made one, otherwise their system's. */
+       visitor's own choice if they have made one (light, dark or midnight; a
+       "dark" stored before midnight existed is the new dark), otherwise their
+       system's (light -> light, dark -> dark). */
     (function () {
       var t = null;
       try { t = localStorage.getItem("theme"); } catch (e) { /* blocked storage */ }
-      if (t !== "light" && t !== "dark") {
+      if (t !== "light" && t !== "dark" && t !== "midnight") {
         t = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
       }
       document.documentElement.setAttribute("data-theme", t);
@@ -53,7 +55,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
   <style>@font-face { font-family: "I18n Latin Serif"; src: local("Liberation Serif"), local("Noto Serif"); unicode-range: U+0000-024F; } html[lang="zh-Hans"] { --font-display: "Plate Display", "Plate Display Fallback", "Iowan Old Style", Palatino, Georgia, "I18n Latin Serif", "Noto Sans SC", serif; --font-text: "Plate Text", "Plate Text Fallback", Charter, Georgia, "Times New Roman", "I18n Latin Serif", "Noto Sans SC", serif; --font-mono: "Plate Mono", ui-monospace, SFMono-Regular, Menlo, "Noto Sans SC", monospace; }</style>
-  <script>window.I18N = {"js.bibtex_copied": "BibTeX 已复制到剪贴板", "js.bibtex_failed": "无法复制 BibTeX", "js.cite": "引用", "js.cite_for": "复制 {title} 的 BibTeX", "js.copied": "已复制", "js.copy_failed": "复制失败", "js.form_captcha": "请先完成人机验证（CAPTCHA）。", "js.form_checking": "正在检查你的邮箱地址……", "js.form_disposable": "请使用你常用的邮箱地址，方便我回复。", "js.form_domain": "该邮箱域名似乎不存在或无法接收邮件，请检查地址。", "js.form_email": "请输入有效的邮箱地址，方便我回复你。", "js.form_failed": "发送失败；你也可以直接发邮件到 {email}。", "js.form_mailapp": "你的邮件应用将会打开，邮件已准备好发送。", "js.form_name": "请填写你的姓名。", "js.form_offline": "发送失败。请检查网络连接，或发邮件到 {email}。", "js.form_ratelimit": "来自此网络连接的消息过多，请一小时后再试。", "js.form_sending": "正在发送……", "js.form_sent": "谢谢，你的留言已发出。我会尽快回复你。", "js.form_short": "留言内容请再多写一些。", "js.motion_system": "你的系统已设置为减少动态效果。", "js.nav_close": "关闭导航", "js.nav_open": "打开导航", "js.new_tab": "在新标签页中打开", "js.pubs_all": "显示全部论文", "js.pubs_fewer": "收起部分论文", "js.read_less": "收起", "js.read_more": "展开", "js.theme_dark": "深色模式", "js.theme_light": "浅色模式", "js.this_paper": "这篇论文"};</script>
+  <script>window.I18N = {"js.bibtex_copied": "BibTeX 已复制到剪贴板", "js.bibtex_failed": "无法复制 BibTeX", "js.cite": "引用", "js.cite_for": "复制 {title} 的 BibTeX", "js.copied": "已复制", "js.copy_failed": "复制失败", "js.form_captcha": "请先完成人机验证（CAPTCHA）。", "js.form_checking": "正在检查你的邮箱地址……", "js.form_disposable": "请使用你常用的邮箱地址，方便我回复。", "js.form_domain": "该邮箱域名似乎不存在或无法接收邮件，请检查地址。", "js.form_email": "请输入有效的邮箱地址，方便我回复你。", "js.form_failed": "发送失败；你也可以直接发邮件到 {email}。", "js.form_mailapp": "你的邮件应用将会打开，邮件已准备好发送。", "js.form_name": "请填写你的姓名。", "js.form_offline": "发送失败。请检查网络连接，或发邮件到 {email}。", "js.form_ratelimit": "来自此网络连接的消息过多，请一小时后再试。", "js.form_sending": "正在发送……", "js.form_sent": "谢谢，你的留言已发出。我会尽快回复你。", "js.form_short": "留言内容请再多写一些。", "js.motion_system": "你的系统已设置为减少动态效果。", "js.nav_close": "关闭导航", "js.nav_open": "打开导航", "js.new_tab": "在新标签页中打开", "js.pubs_all": "显示全部论文", "js.pubs_fewer": "收起部分论文", "js.read_less": "收起", "js.read_more": "展开", "js.theme_button": "主题：{current}。切换到{next}。", "js.theme_current": "主题：{name}", "js.theme_name_dark": "深色", "js.theme_name_light": "浅色", "js.theme_name_midnight": "午夜", "js.this_paper": "这篇论文"};</script>
   <!-- /i18n:head -->
 
   <!-- Link previews (Open Graph and X/Twitter). The card is a 1200x630
@@ -86,8 +88,9 @@
   <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link rel="preload" href="/assets/fonts/plate-display.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/plate-text.woff2" as="font" type="font/woff2" crossorigin>
-  <link href="/assets/css/snapfolio-astro.css?v=13" rel="stylesheet">
+  <link href="/assets/css/snapfolio-astro.css?v=14" rel="stylesheet">
   <link href="/assets/css/light-theme.css?v=4" rel="stylesheet">
+  <link href="/assets/css/dark-theme.css?v=1" rel="stylesheet">
 
   <script type="application/ld+json">
   {
@@ -238,8 +241,8 @@
            the state; the label says what the button DOES. -->
       <p class="motion-toggle-row theme-toggle-row">
         <button type="button" class="motion-toggle theme-toggle" id="theme-toggle">
-          <i class="bi bi-sun" aria-hidden="true"></i>
-          <span>浅色模式</span>
+          <i class="bi bi-moon" aria-hidden="true"></i>
+          <span>主题</span>
         </button>
       </p>
       <p class="motion-toggle-row">
@@ -1006,16 +1009,16 @@
        synchronous and first: cosmos.js, warp.js and plate-field.js are all
        deferred and so read it after this has run. -->
   <script src="/assets/js/perf-tier.js?v=4"></script>
-  <script src="/assets/js/theme-toggle.js?v=3" defer></script>
+  <script src="/assets/js/theme-toggle.js?v=4" defer></script>
   <script src="/assets/js/snapfolio-astro.js?v=7"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js" defer></script>
   <!-- Before plate-field.js: it reads the visit seed cosmos.js sets. -->
-  <script src="/assets/js/cosmos.js?v=6" defer></script>
+  <script src="/assets/js/cosmos.js?v=7" defer></script>
   <script src="/assets/js/warp.js?v=5" defer></script>
   <script src="/assets/js/contact-form.js?v=6" defer></script>
-  <script src="/assets/js/plate-field.js?v=5" defer></script>
+  <script src="/assets/js/plate-field.js?v=6" defer></script>
   <!-- Before choreography.js: the cards must have their phone height before
        ScrollTrigger measures the page. -->
   <script src="/assets/js/card-read-more.js?v=2" defer></script>

@@ -61,8 +61,11 @@ UI_STRINGS = {
                    "suggestion chip shown ONCE to a visitor whose browser is set to this language, while they are on a page in another language; "
                    "write it in this language and name this language in it, e.g. Spanish: 'Leer esta página en español'"),
     "ui.dismiss": ("Dismiss", "close button (screen-reader label) on that suggestion chip, in this language"),
-    "js.theme_light": ("Light mode", "theme toggle button, switches the page to light colours"),
-    "js.theme_dark": ("Dark mode", "theme toggle button, switches the page to dark colours"),
+    "js.theme_name_light": ("Light", "name of the Light colour theme (warm paper background), shown on the theme button; a short adjective or noun"),
+    "js.theme_name_dark": ("Dark", "name of the Dark colour theme (near-black background), shown on the theme button; a short adjective or noun"),
+    "js.theme_name_midnight": ("Midnight", "name of the Midnight colour theme (deep navy and violet night sky), shown on the theme button; a short noun"),
+    "js.theme_current": ("Theme: {name}", "visible label of the theme button; {name} is the theme in use (one of the three theme names); keep {name}"),
+    "js.theme_button": ("Theme: {current}. Switch to {next}.", "theme button screen-reader label and tooltip; {current} is the theme in use, {next} the one a press switches to; keep both placeholders"),
     "js.motion_system": ("Your system already asks for reduced motion.", "motion toggle tooltip when the operating system already requests reduced motion"),
     "js.read_more": ("Read more", "button that expands a shortened research card (phones)"),
     "js.read_less": ("Read less", "button that collapses an expanded research card (phones)"),

@@ -8,11 +8,13 @@
   <meta name="color-scheme" content="dark light">
   <script>
     /* Theme before first paint, so the page never flashes the wrong one: the
-       visitor's own choice if they have made one, otherwise their system's. */
+       visitor's own choice if they have made one (light, dark or midnight; a
+       "dark" stored before midnight existed is the new dark), otherwise their
+       system's (light -> light, dark -> dark). */
     (function () {
       var t = null;
       try { t = localStorage.getItem("theme"); } catch (e) { /* blocked storage */ }
-      if (t !== "light" && t !== "dark") {
+      if (t !== "light" && t !== "dark" && t !== "midnight") {
         t = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
       }
       document.documentElement.setAttribute("data-theme", t);
@@ -53,7 +55,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
   <style>@font-face { font-family: "I18n Latin Serif"; src: local("Liberation Serif"), local("Noto Serif"); unicode-range: U+0000-024F; } html[lang="ar"] { --font-display: "Plate Display", "Plate Display Fallback", "Iowan Old Style", Palatino, Georgia, "I18n Latin Serif", "Noto Sans Arabic", serif; --font-text: "Plate Text", "Plate Text Fallback", Charter, Georgia, "Times New Roman", "I18n Latin Serif", "Noto Sans Arabic", serif; --font-mono: "Plate Mono", ui-monospace, SFMono-Regular, Menlo, "Noto Sans Arabic", monospace; }</style>
-  <script>window.I18N = {"js.bibtex_copied": "تم نسخ BibTeX إلى الحافظة", "js.bibtex_failed": "تعذّر نسخ BibTeX", "js.cite": "استشهاد", "js.cite_for": "نسخ BibTeX لـ {title}", "js.copied": "تم النسخ", "js.copy_failed": "تعذّر النسخ", "js.form_captcha": "يُرجى إكمال اختبار CAPTCHA أولًا.", "js.form_checking": "جارٍ التحقق من بريدك الإلكتروني...", "js.form_disposable": "يُرجى استخدام عنوان بريد إلكتروني دائم لأتمكن من الرد عليك.", "js.form_domain": "يبدو أن نطاق هذا البريد الإلكتروني غير موجود أو لا يستقبل الرسائل. يُرجى التحقق من العنوان.", "js.form_email": "يُرجى إدخال عنوان بريد إلكتروني صحيح لأتمكن من الرد عليك.", "js.form_failed": "لم تُرسَل الرسالة؛ يمكنك أيضًا مراسلتي على {email}.", "js.form_mailapp": "من المفترض أن يُفتح تطبيق البريد لديك والرسالة جاهزة للإرسال.", "js.form_name": "يُرجى كتابة اسمك.", "js.form_offline": "لم تُرسَل الرسالة. يُرجى التحقق من اتصالك، أو مراسلتي على {email}.", "js.form_ratelimit": "رسائل كثيرة جدًا من هذا الاتصال. يُرجى المحاولة مجددًا بعد ساعة.", "js.form_sending": "جارٍ الإرسال...", "js.form_sent": "شكرًا لك، رسالتك في طريقها إليّ. سأتواصل معك قريبًا.", "js.form_short": "يُرجى كتابة المزيد قليلًا في رسالتك.", "js.motion_system": "يطلب نظامك بالفعل تقليل الحركة.", "js.nav_close": "إغلاق قائمة التنقل", "js.nav_open": "فتح قائمة التنقل", "js.new_tab": "يُفتح في علامة تبويب جديدة", "js.pubs_all": "عرض كل المنشورات", "js.pubs_fewer": "عرض منشورات أقل", "js.read_less": "عرض أقل", "js.read_more": "اقرأ المزيد", "js.theme_dark": "الوضع الداكن", "js.theme_light": "الوضع الفاتح", "js.this_paper": "هذه الورقة"};</script>
+  <script>window.I18N = {"js.bibtex_copied": "تم نسخ BibTeX إلى الحافظة", "js.bibtex_failed": "تعذّر نسخ BibTeX", "js.cite": "استشهاد", "js.cite_for": "نسخ BibTeX لـ {title}", "js.copied": "تم النسخ", "js.copy_failed": "تعذّر النسخ", "js.form_captcha": "يُرجى إكمال اختبار CAPTCHA أولًا.", "js.form_checking": "جارٍ التحقق من بريدك الإلكتروني...", "js.form_disposable": "يُرجى استخدام عنوان بريد إلكتروني دائم لأتمكن من الرد عليك.", "js.form_domain": "يبدو أن نطاق هذا البريد الإلكتروني غير موجود أو لا يستقبل الرسائل. يُرجى التحقق من العنوان.", "js.form_email": "يُرجى إدخال عنوان بريد إلكتروني صحيح لأتمكن من الرد عليك.", "js.form_failed": "لم تُرسَل الرسالة؛ يمكنك أيضًا مراسلتي على {email}.", "js.form_mailapp": "من المفترض أن يُفتح تطبيق البريد لديك والرسالة جاهزة للإرسال.", "js.form_name": "يُرجى كتابة اسمك.", "js.form_offline": "لم تُرسَل الرسالة. يُرجى التحقق من اتصالك، أو مراسلتي على {email}.", "js.form_ratelimit": "رسائل كثيرة جدًا من هذا الاتصال. يُرجى المحاولة مجددًا بعد ساعة.", "js.form_sending": "جارٍ الإرسال...", "js.form_sent": "شكرًا لك، رسالتك في طريقها إليّ. سأتواصل معك قريبًا.", "js.form_short": "يُرجى كتابة المزيد قليلًا في رسالتك.", "js.motion_system": "يطلب نظامك بالفعل تقليل الحركة.", "js.nav_close": "إغلاق قائمة التنقل", "js.nav_open": "فتح قائمة التنقل", "js.new_tab": "يُفتح في علامة تبويب جديدة", "js.pubs_all": "عرض كل المنشورات", "js.pubs_fewer": "عرض منشورات أقل", "js.read_less": "عرض أقل", "js.read_more": "اقرأ المزيد", "js.theme_button": "السمة: {current}. التبديل إلى {next}.", "js.theme_current": "السمة: {name}", "js.theme_name_dark": "داكن", "js.theme_name_light": "فاتح", "js.theme_name_midnight": "منتصف الليل", "js.this_paper": "هذه الورقة"};</script>
   <!-- /i18n:head -->
 
   <meta property="og:title" content="روابط مفيدة | Tanmay Singh">
@@ -81,8 +83,9 @@
   <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link rel="preload" href="/assets/fonts/plate-display.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/plate-text.woff2" as="font" type="font/woff2" crossorigin>
-  <link href="/assets/css/snapfolio-astro.css?v=13" rel="stylesheet">
+  <link href="/assets/css/snapfolio-astro.css?v=14" rel="stylesheet">
   <link href="/assets/css/light-theme.css?v=4" rel="stylesheet">
+  <link href="/assets/css/dark-theme.css?v=1" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: SnapFolio
@@ -171,8 +174,8 @@
 
       <p class="motion-toggle-row theme-toggle-row">
         <button type="button" class="motion-toggle theme-toggle" id="theme-toggle">
-          <i class="bi bi-sun" aria-hidden="true"></i>
-          <span>الوضع الفاتح</span>
+          <i class="bi bi-moon" aria-hidden="true"></i>
+          <span>السمة</span>
         </button>
       </p>
       <!-- i18n:picker -->
@@ -382,9 +385,9 @@
   <!-- This page runs the same sky canvas, so it gets the same device budget.
        Synchronous and first, so the deferred cosmos.js reads it. -->
   <script src="/assets/js/perf-tier.js?v=4"></script>
-  <script src="/assets/js/theme-toggle.js?v=3" defer></script>
+  <script src="/assets/js/theme-toggle.js?v=4" defer></script>
   <script src="/assets/js/snapfolio-astro.js?v=7"></script>
-  <script src="/assets/js/cosmos.js?v=6" defer></script>
+  <script src="/assets/js/cosmos.js?v=7" defer></script>
   <!-- i18n:script -->
   <script src="/assets/js/i18n.js?v=2" defer></script>
   <!-- /i18n:script -->

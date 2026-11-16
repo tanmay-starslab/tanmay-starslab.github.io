@@ -8,11 +8,13 @@
   <meta name="color-scheme" content="dark light">
   <script>
     /* Theme before first paint, so the page never flashes the wrong one: the
-       visitor's own choice if they have made one, otherwise their system's. */
+       visitor's own choice if they have made one (light, dark or midnight; a
+       "dark" stored before midnight existed is the new dark), otherwise their
+       system's (light -> light, dark -> dark). */
     (function () {
       var t = null;
       try { t = localStorage.getItem("theme"); } catch (e) { /* blocked storage */ }
-      if (t !== "light" && t !== "dark") {
+      if (t !== "light" && t !== "dark" && t !== "midnight") {
         t = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
       }
       document.documentElement.setAttribute("data-theme", t);
@@ -49,7 +51,7 @@
   <meta property="og:locale:alternate" content="de_DE">
   <meta property="og:locale:alternate" content="ko_KR">
   <link href="/assets/css/i18n.css?v=2" rel="stylesheet">
-  <script>window.I18N = {"js.bibtex_copied": "BibTeX copiado para a área de transferência", "js.bibtex_failed": "Não foi possível copiar o BibTeX", "js.cite": "Citar", "js.cite_for": "Copiar BibTeX de {title}", "js.copied": "Copiado", "js.copy_failed": "Falha ao copiar", "js.form_captcha": "Conclua o CAPTCHA primeiro.", "js.form_checking": "Verificando seu endereço de e-mail...", "js.form_disposable": "Use um endereço de e-mail que você mantenha, para que eu possa responder.", "js.form_domain": "Esse domínio de e-mail parece não existir ou não aceitar mensagens. Verifique o endereço.", "js.form_email": "Informe um endereço de e-mail válido para que eu possa responder.", "js.form_failed": "A mensagem não foi enviada; você também pode me escrever em {email}.", "js.form_mailapp": "Seu aplicativo de e-mail deve abrir com a mensagem pronta para envio.", "js.form_name": "Por favor, informe seu nome.", "js.form_offline": "A mensagem não foi enviada. Verifique sua conexão ou me escreva em {email}.", "js.form_ratelimit": "Muitas mensagens a partir desta conexão. Tente novamente daqui a uma hora.", "js.form_sending": "Enviando...", "js.form_sent": "Obrigado, sua mensagem está a caminho. Em breve entrarei em contato!", "js.form_short": "Escreva um pouco mais na sua mensagem.", "js.motion_system": "Seu sistema já está configurado para reduzir o movimento.", "js.nav_close": "Fechar navegação", "js.nav_open": "Abrir navegação", "js.new_tab": "Abre em uma nova aba", "js.pubs_all": "Ver todas as publicações", "js.pubs_fewer": "Ver menos publicações", "js.read_less": "Ler menos", "js.read_more": "Ler mais", "js.theme_dark": "Modo escuro", "js.theme_light": "Modo claro", "js.this_paper": "este artigo"};</script>
+  <script>window.I18N = {"js.bibtex_copied": "BibTeX copiado para a área de transferência", "js.bibtex_failed": "Não foi possível copiar o BibTeX", "js.cite": "Citar", "js.cite_for": "Copiar BibTeX de {title}", "js.copied": "Copiado", "js.copy_failed": "Falha ao copiar", "js.form_captcha": "Conclua o CAPTCHA primeiro.", "js.form_checking": "Verificando seu endereço de e-mail...", "js.form_disposable": "Use um endereço de e-mail que você mantenha, para que eu possa responder.", "js.form_domain": "Esse domínio de e-mail parece não existir ou não aceitar mensagens. Verifique o endereço.", "js.form_email": "Informe um endereço de e-mail válido para que eu possa responder.", "js.form_failed": "A mensagem não foi enviada; você também pode me escrever em {email}.", "js.form_mailapp": "Seu aplicativo de e-mail deve abrir com a mensagem pronta para envio.", "js.form_name": "Por favor, informe seu nome.", "js.form_offline": "A mensagem não foi enviada. Verifique sua conexão ou me escreva em {email}.", "js.form_ratelimit": "Muitas mensagens a partir desta conexão. Tente novamente daqui a uma hora.", "js.form_sending": "Enviando...", "js.form_sent": "Obrigado, sua mensagem está a caminho. Em breve entrarei em contato!", "js.form_short": "Escreva um pouco mais na sua mensagem.", "js.motion_system": "Seu sistema já está configurado para reduzir o movimento.", "js.nav_close": "Fechar navegação", "js.nav_open": "Abrir navegação", "js.new_tab": "Abre em uma nova aba", "js.pubs_all": "Ver todas as publicações", "js.pubs_fewer": "Ver menos publicações", "js.read_less": "Ler menos", "js.read_more": "Ler mais", "js.theme_button": "Tema: {current}. Mudar para {next}.", "js.theme_current": "Tema: {name}", "js.theme_name_dark": "Escuro", "js.theme_name_light": "Claro", "js.theme_name_midnight": "Meia-noite", "js.this_paper": "este artigo"};</script>
   <!-- /i18n:head -->
 
   <!-- Link previews (Open Graph and X/Twitter). The card is a 1200x630
@@ -82,8 +84,9 @@
   <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link rel="preload" href="/assets/fonts/plate-display.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/plate-text.woff2" as="font" type="font/woff2" crossorigin>
-  <link href="/assets/css/snapfolio-astro.css?v=13" rel="stylesheet">
+  <link href="/assets/css/snapfolio-astro.css?v=14" rel="stylesheet">
   <link href="/assets/css/light-theme.css?v=4" rel="stylesheet">
+  <link href="/assets/css/dark-theme.css?v=1" rel="stylesheet">
 
   <script type="application/ld+json">
   {
@@ -234,8 +237,8 @@
            the state; the label says what the button DOES. -->
       <p class="motion-toggle-row theme-toggle-row">
         <button type="button" class="motion-toggle theme-toggle" id="theme-toggle">
-          <i class="bi bi-sun" aria-hidden="true"></i>
-          <span>Modo claro</span>
+          <i class="bi bi-moon" aria-hidden="true"></i>
+          <span>Tema</span>
         </button>
       </p>
       <p class="motion-toggle-row">
@@ -1002,16 +1005,16 @@
        synchronous and first: cosmos.js, warp.js and plate-field.js are all
        deferred and so read it after this has run. -->
   <script src="/assets/js/perf-tier.js?v=4"></script>
-  <script src="/assets/js/theme-toggle.js?v=3" defer></script>
+  <script src="/assets/js/theme-toggle.js?v=4" defer></script>
   <script src="/assets/js/snapfolio-astro.js?v=7"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js" defer></script>
   <!-- Before plate-field.js: it reads the visit seed cosmos.js sets. -->
-  <script src="/assets/js/cosmos.js?v=6" defer></script>
+  <script src="/assets/js/cosmos.js?v=7" defer></script>
   <script src="/assets/js/warp.js?v=5" defer></script>
   <script src="/assets/js/contact-form.js?v=6" defer></script>
-  <script src="/assets/js/plate-field.js?v=5" defer></script>
+  <script src="/assets/js/plate-field.js?v=6" defer></script>
   <!-- Before choreography.js: the cards must have their phone height before
        ScrollTrigger measures the page. -->
   <script src="/assets/js/card-read-more.js?v=2" defer></script>

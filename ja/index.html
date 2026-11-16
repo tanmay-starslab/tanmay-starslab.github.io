@@ -8,11 +8,13 @@
   <meta name="color-scheme" content="dark light">
   <script>
     /* Theme before first paint, so the page never flashes the wrong one: the
-       visitor's own choice if they have made one, otherwise their system's. */
+       visitor's own choice if they have made one (light, dark or midnight; a
+       "dark" stored before midnight existed is the new dark), otherwise their
+       system's (light -> light, dark -> dark). */
     (function () {
       var t = null;
       try { t = localStorage.getItem("theme"); } catch (e) { /* blocked storage */ }
-      if (t !== "light" && t !== "dark") {
+      if (t !== "light" && t !== "dark" && t !== "midnight") {
         t = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
       }
       document.documentElement.setAttribute("data-theme", t);
@@ -53,7 +55,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
   <style>@font-face { font-family: "I18n Latin Serif"; src: local("Liberation Serif"), local("Noto Serif"); unicode-range: U+0000-024F; } html[lang="ja"] { --font-display: "Plate Display", "Plate Display Fallback", "Iowan Old Style", Palatino, Georgia, "I18n Latin Serif", "Noto Sans JP", serif; --font-text: "Plate Text", "Plate Text Fallback", Charter, Georgia, "Times New Roman", "I18n Latin Serif", "Noto Sans JP", serif; --font-mono: "Plate Mono", ui-monospace, SFMono-Regular, Menlo, "Noto Sans JP", monospace; }</style>
-  <script>window.I18N = {"js.bibtex_copied": "BibTeX をクリップボードにコピーしました", "js.bibtex_failed": "BibTeX をコピーできませんでした", "js.cite": "引用", "js.cite_for": "{title} の BibTeX をコピー", "js.copied": "コピーしました", "js.copy_failed": "コピー失敗", "js.form_captcha": "先に CAPTCHA を完了してください。", "js.form_checking": "メールアドレスを確認しています...", "js.form_disposable": "返信できるよう、普段お使いのメールアドレスを入力してください。", "js.form_domain": "このメールのドメインは存在しないか、メールを受信できないようです。アドレスをご確認ください。", "js.form_email": "返信できるよう、有効なメールアドレスを入力してください。", "js.form_failed": "送信できませんでした。{email} に直接メールしていただくこともできます。", "js.form_mailapp": "メールアプリが開き、送信できる状態のメッセージが表示されます。", "js.form_name": "お名前を入力してください。", "js.form_offline": "送信できませんでした。接続を確認するか、{email} にメールしてください。", "js.form_ratelimit": "この接続からのメッセージが多すぎます。1時間後にもう一度お試しください。", "js.form_sending": "送信中…", "js.form_sent": "ありがとうございます。メッセージを送信しました。近日中にご連絡します。", "js.form_short": "メッセージをもう少し詳しく書いてください。", "js.motion_system": "システムですでに視差効果やアニメーションを減らす設定になっています。", "js.nav_close": "メニューを閉じる", "js.nav_open": "メニューを開く", "js.new_tab": "新しいタブで開きます", "js.pubs_all": "すべての論文を表示", "js.pubs_fewer": "表示する論文を減らす", "js.read_less": "閉じる", "js.read_more": "続きを読む", "js.theme_dark": "ダークモード", "js.theme_light": "ライトモード", "js.this_paper": "この論文"};</script>
+  <script>window.I18N = {"js.bibtex_copied": "BibTeX をクリップボードにコピーしました", "js.bibtex_failed": "BibTeX をコピーできませんでした", "js.cite": "引用", "js.cite_for": "{title} の BibTeX をコピー", "js.copied": "コピーしました", "js.copy_failed": "コピー失敗", "js.form_captcha": "先に CAPTCHA を完了してください。", "js.form_checking": "メールアドレスを確認しています...", "js.form_disposable": "返信できるよう、普段お使いのメールアドレスを入力してください。", "js.form_domain": "このメールのドメインは存在しないか、メールを受信できないようです。アドレスをご確認ください。", "js.form_email": "返信できるよう、有効なメールアドレスを入力してください。", "js.form_failed": "送信できませんでした。{email} に直接メールしていただくこともできます。", "js.form_mailapp": "メールアプリが開き、送信できる状態のメッセージが表示されます。", "js.form_name": "お名前を入力してください。", "js.form_offline": "送信できませんでした。接続を確認するか、{email} にメールしてください。", "js.form_ratelimit": "この接続からのメッセージが多すぎます。1時間後にもう一度お試しください。", "js.form_sending": "送信中…", "js.form_sent": "ありがとうございます。メッセージを送信しました。近日中にご連絡します。", "js.form_short": "メッセージをもう少し詳しく書いてください。", "js.motion_system": "システムですでに視差効果やアニメーションを減らす設定になっています。", "js.nav_close": "メニューを閉じる", "js.nav_open": "メニューを開く", "js.new_tab": "新しいタブで開きます", "js.pubs_all": "すべての論文を表示", "js.pubs_fewer": "表示する論文を減らす", "js.read_less": "閉じる", "js.read_more": "続きを読む", "js.theme_button": "テーマ：{current}。{next}に切り替え。", "js.theme_current": "テーマ：{name}", "js.theme_name_dark": "ダーク", "js.theme_name_light": "ライト", "js.theme_name_midnight": "ミッドナイト", "js.this_paper": "この論文"};</script>
   <!-- /i18n:head -->
 
   <!-- Link previews (Open Graph and X/Twitter). The card is a 1200x630
@@ -86,8 +88,9 @@
   <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link rel="preload" href="/assets/fonts/plate-display.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/plate-text.woff2" as="font" type="font/woff2" crossorigin>
-  <link href="/assets/css/snapfolio-astro.css?v=13" rel="stylesheet">
+  <link href="/assets/css/snapfolio-astro.css?v=14" rel="stylesheet">
   <link href="/assets/css/light-theme.css?v=4" rel="stylesheet">
+  <link href="/assets/css/dark-theme.css?v=1" rel="stylesheet">
 
   <script type="application/ld+json">
   {
@@ -238,8 +241,8 @@
            the state; the label says what the button DOES. -->
       <p class="motion-toggle-row theme-toggle-row">
         <button type="button" class="motion-toggle theme-toggle" id="theme-toggle">
-          <i class="bi bi-sun" aria-hidden="true"></i>
-          <span>ライトモード</span>
+          <i class="bi bi-moon" aria-hidden="true"></i>
+          <span>テーマ</span>
         </button>
       </p>
       <p class="motion-toggle-row">
@@ -1006,16 +1009,16 @@
        synchronous and first: cosmos.js, warp.js and plate-field.js are all
        deferred and so read it after this has run. -->
   <script src="/assets/js/perf-tier.js?v=4"></script>
-  <script src="/assets/js/theme-toggle.js?v=3" defer></script>
+  <script src="/assets/js/theme-toggle.js?v=4" defer></script>
   <script src="/assets/js/snapfolio-astro.js?v=7"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js" defer></script>
   <!-- Before plate-field.js: it reads the visit seed cosmos.js sets. -->
-  <script src="/assets/js/cosmos.js?v=6" defer></script>
+  <script src="/assets/js/cosmos.js?v=7" defer></script>
   <script src="/assets/js/warp.js?v=5" defer></script>
   <script src="/assets/js/contact-form.js?v=6" defer></script>
-  <script src="/assets/js/plate-field.js?v=5" defer></script>
+  <script src="/assets/js/plate-field.js?v=6" defer></script>
   <!-- Before choreography.js: the cards must have their phone height before
        ScrollTrigger measures the page. -->
   <script src="/assets/js/card-read-more.js?v=2" defer></script>

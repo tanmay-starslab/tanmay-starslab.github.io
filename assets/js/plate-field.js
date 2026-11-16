@@ -103,6 +103,11 @@
     "uniform vec2  uPointer;\n" +
     "uniform float uExposure;\n" +
     "uniform float uWarmth;\n" +
+    // Theme palette (see themeRose below): the rose emission colour, and where
+    // the magma ramp starts (0 = the whole ramp; the Dark theme skips its
+    // purple foot).
+    "uniform vec3  uRose;\n" +
+    "uniform float uMagmaFloor;\n" +
     // The scroll camera. See the JS side for why these arrive as uniforms
     // rather than being baked in.
     "uniform float uZoom;\n" +
@@ -173,7 +178,6 @@
     // Hubble HOO narrowband false colour, not the generic Shadertoy
     // cyan-violet-magenta ramp a faculty reader has seen a hundred times.
     "const vec3 OIII_TEAL = vec3(0.243,0.769,0.741);\n" +
-    "const vec3 HA_ROSE   = vec3(0.886,0.404,0.486);\n" +
 
     "vec3 nebula(vec3 ro, vec3 rd, float time, int steps, int oct){\n" +
     "  float dt = 2.6/float(steps);\n" +
@@ -190,7 +194,7 @@
     "    pos.y += uTrail * float(i) * 0.016;\n" +
     "    float d = density(pos,time,oct);\n" +
     "    if (d > 0.002){\n" +
-    "      vec3 emis = mix(OIII_TEAL, HA_ROSE, smoothstep(0.0,0.7,d));\n" +
+    "      vec3 emis = mix(OIII_TEAL, uRose, smoothstep(0.0,0.7,d));\n" +
     // d*1.9, not d*0.62: at 0.62 the input never exceeded 0.43 across the whole
     // frame, so c5/c6/c7 — the bright top of magma — were unreachable and we
     // were paying for eight control points to use four of them.
@@ -199,7 +203,7 @@
     // top three control points were unreachable) and the old smoothstep gate
     // gave magma a peak weight of 0.049 — the colormap was paid for and never
     // seen. Rescaled to the measured range.
-    "      emis = mix(emis, magma(clamp(d*1.45,0.0,1.0)), uWarmth*smoothstep(0.30,0.66,d));\n" +
+    "      emis = mix(emis, magma(mix(uMagmaFloor,1.0,clamp(d*1.45,0.0,1.0))), uWarmth*smoothstep(0.30,0.66,d));\n" +
     "      col += emis * d * dt * exp(-tau);\n" +   // dust in front extinguishes
     "      tau += d * dt * 0.85;\n" +
     "    }\n" +
@@ -242,7 +246,7 @@
   }
 
   var UNIFORMS =
-    ["uRes","uTime","uFrame","uSteps","uOct","uPointer","uExposure","uWarmth","uSeed",
+    ["uRes","uTime","uFrame","uSteps","uOct","uPointer","uExposure","uWarmth","uRose","uMagmaFloor","uSeed",
      "uZoom","uDepth","uTrail"];
   var prog = null, U = {};
   function build() {
@@ -393,6 +397,12 @@
     }
     gl.uniform1f(U.uExposure, camExposure);
     gl.uniform1f(U.uWarmth, camWarmth);
+    // Midnight (and any non-dark night page) keeps the Hubble HOO rose,
+    // vec3(0.886,0.404,0.486), and the full magma ramp; Dark sets the rose
+    // nearer real H-alpha and starts magma past its violet foot.
+    var darkTheme = document.documentElement.getAttribute("data-theme") === "dark";
+    if (darkTheme) gl.uniform3f(U.uRose, 0.906, 0.443, 0.380); else gl.uniform3f(U.uRose, 0.886, 0.404, 0.486);
+    gl.uniform1f(U.uMagmaFloor, darkTheme ? 0.62 : 0.0);
     gl.uniform1f(U.uZoom, camZoom);
     gl.uniform1f(U.uDepth, camDepth);
     gl.uniform1f(U.uTrail, camTrail);

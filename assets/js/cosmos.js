@@ -40,6 +40,17 @@
   var rmQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
   function motionOff() { return rmQuery.matches || root.classList.contains("motion-off"); }
 
+  /* Theme palette. Midnight (the original night page) keeps its rose H II
+     light; the neutral Dark theme sets that rose redder, nearer real
+     H-alpha, so no pink-violet cast tints a near-black page. Only these two
+     strings differ: the random draws are the same, so each theme gets the
+     same sky. Light hides the sky altogether (light-theme.css). */
+  var PALETTE = {
+    midnight: { rose: "255, 92, 128", knots: "255, 140, 172" },
+    dark:     { rose: "255, 106, 92", knots: "255, 160, 136" }
+  };
+  function palette() { return root.getAttribute("data-theme") === "dark" ? PALETTE.dark : PALETTE.midnight; }
+
   /* DEVICE BUDGET — see assets/js/perf-tier.js for how it is decided.
 
      This file runs an N-body encounter: 3600 main particles plus 260 dwarfs,
@@ -192,12 +203,12 @@
     c.globalCompositeOperation = "lighter";
 
     // Emission nebulae sitting in the band: H-alpha rose or [O III] teal.
-    var rn = mulberry32(p.starSeed ^ 0x2545F491);
+    var rn = mulberry32(p.starSeed ^ 0x2545F491), pal = palette();
     for (var q = 0; q < p.nebulae; q++) {
       var t = range(rn, -0.35, 0.35) * diag, off = range(rn, -0.6, 0.6) * w;
       var nx = Px + ca * t - sa * off, ny = Py + sa * t + ca * off;
       var rad = range(rn, 0.03, 0.07) * diag;
-      var col = rn() < 0.65 ? "255, 92, 128" : "70, 205, 196";
+      var col = rn() < 0.65 ? pal.rose : "70, 205, 196";
       for (var b = 0; b < 4; b++) {
         var bx = nx + range(rn, -0.5, 0.5) * rad, by = ny + range(rn, -0.5, 0.5) * rad, br = rad * range(rn, 0.45, 1);
         var gr = c.createRadialGradient(bx, by, 0, bx, by, br);
@@ -269,6 +280,8 @@
   // Each star is a small soft dot of light (a radial falloff baked once per
   // colour), drawn additively: where stars crowd, the disk glows; where they
   // thin out into a tail, single stars still read.
+  function bakeSprites() {
+  GROUPS[3].rgb = palette().knots;
   GROUPS.forEach(function (g) {
     var sp = document.createElement("canvas"); sp.width = sp.height = 16;
     var x = sp.getContext("2d"), rg = x.createRadialGradient(8, 8, 0, 8, 8, 8);
@@ -278,6 +291,8 @@
     x.fillStyle = rg; x.fillRect(0, 0, 16, 16);
     g.sprite = sp; g.d = g.s * 2.6; g.h = g.d / 2;
   });
+  }
+  bakeSprites();
 
   var encounter = null, simT = 0, mergedFor = 0, settledFor = 0, fade = 0, fadeDir = 1, nextDwarf = 0;
   var rng = mulberry32(seed ^ 0x9E3779B9);
@@ -788,6 +803,18 @@
     if (document.body) mo.observe(document.body, { attributes: true, attributeFilter: ["class"] });
   })();
   window.addEventListener("themechange", function () { if (daylight()) hideHint(); });
+
+  // Dark <-> Midnight: the two night palettes differ, so rebake the sky and
+  // the star sprites in the new one (a frozen merger is redrawn; a running
+  // one picks the sprites up on its next frame).
+  var paintedWith = palette();
+  window.addEventListener("themechange", function () {
+    if (daylight() || palette() === paintedWith) return;
+    paintedWith = palette();
+    bakeSprites();
+    if (skyDrawn) drawSky();
+    if (booted && frozen) stillFrame();
+  });
 
   document.addEventListener("visibilitychange", function () {
     shown = !document.hidden;

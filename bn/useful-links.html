@@ -8,11 +8,13 @@
   <meta name="color-scheme" content="dark light">
   <script>
     /* Theme before first paint, so the page never flashes the wrong one: the
-       visitor's own choice if they have made one, otherwise their system's. */
+       visitor's own choice if they have made one (light, dark or midnight; a
+       "dark" stored before midnight existed is the new dark), otherwise their
+       system's (light -> light, dark -> dark). */
     (function () {
       var t = null;
       try { t = localStorage.getItem("theme"); } catch (e) { /* blocked storage */ }
-      if (t !== "light" && t !== "dark") {
+      if (t !== "light" && t !== "dark" && t !== "midnight") {
         t = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
       }
       document.documentElement.setAttribute("data-theme", t);
@@ -53,7 +55,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
   <style>@font-face { font-family: "I18n Latin Serif"; src: local("Liberation Serif"), local("Noto Serif"); unicode-range: U+0000-024F; } html[lang="bn"] { --font-display: "Plate Display", "Plate Display Fallback", "Iowan Old Style", Palatino, Georgia, "I18n Latin Serif", "Noto Sans Bengali", serif; --font-text: "Plate Text", "Plate Text Fallback", Charter, Georgia, "Times New Roman", "I18n Latin Serif", "Noto Sans Bengali", serif; --font-mono: "Plate Mono", ui-monospace, SFMono-Regular, Menlo, "Noto Sans Bengali", monospace; }</style>
-  <script>window.I18N = {"js.bibtex_copied": "BibTeX ক্লিপবোর্ডে কপি হয়েছে", "js.bibtex_failed": "BibTeX কপি করা যায়নি", "js.cite": "উদ্ধৃতি", "js.cite_for": "{title}-এর BibTeX কপি করুন", "js.copied": "কপি হয়েছে", "js.copy_failed": "কপি হয়নি", "js.form_captcha": "অনুগ্রহ করে আগে CAPTCHA সম্পূর্ণ করুন।", "js.form_checking": "আপনার ইমেল ঠিকানা যাচাই করা হচ্ছে...", "js.form_disposable": "অনুগ্রহ করে এমন একটি ইমেল ঠিকানা দিন যা আপনি নিয়মিত ব্যবহার করেন, যাতে আমি উত্তর দিতে পারি।", "js.form_domain": "এই ইমেল ডোমেইনটির অস্তিত্ব নেই বা এটি মেইল গ্রহণ করে না বলে মনে হচ্ছে। অনুগ্রহ করে ঠিকানাটি আবার দেখুন।", "js.form_email": "অনুগ্রহ করে একটি সঠিক ইমেল ঠিকানা দিন, যাতে আমি উত্তর দিতে পারি।", "js.form_failed": "বার্তাটি পাঠানো যায়নি; আপনি আমাকে সরাসরি {email} ঠিকানায়ও ইমেল করতে পারেন।", "js.form_mailapp": "আপনার ইমেল অ্যাপে বার্তাটি পাঠানোর জন্য প্রস্তুত অবস্থায় খুলে যাওয়ার কথা।", "js.form_name": "অনুগ্রহ করে আপনার নাম লিখুন।", "js.form_offline": "বার্তাটি পাঠানো যায়নি। অনুগ্রহ করে আপনার সংযোগ পরীক্ষা করুন, অথবা আমাকে {email} ঠিকানায় ইমেল করুন।", "js.form_ratelimit": "এই সংযোগ থেকে অনেক বেশি বার্তা পাঠানো হয়েছে। অনুগ্রহ করে এক ঘণ্টা পরে আবার চেষ্টা করুন।", "js.form_sending": "পাঠানো হচ্ছে...", "js.form_sent": "ধন্যবাদ, আপনার বার্তা পাঠানো হয়েছে। শিগগিরই আপনার সঙ্গে যোগাযোগ করব।", "js.form_short": "অনুগ্রহ করে বার্তায় আরেকটু বিস্তারিত লিখুন।", "js.motion_system": "আপনার সিস্টেমে আগে থেকেই অ্যানিমেশন কমানোর অনুরোধ করা আছে।", "js.nav_close": "নেভিগেশন বন্ধ করুন", "js.nav_open": "নেভিগেশন খুলুন", "js.new_tab": "নতুন ট্যাবে খোলে", "js.pubs_all": "সব প্রকাশনা দেখুন", "js.pubs_fewer": "কম প্রকাশনা দেখান", "js.read_less": "কম দেখান", "js.read_more": "আরও পড়ুন", "js.theme_dark": "ডার্ক মোড", "js.theme_light": "লাইট মোড", "js.this_paper": "এই গবেষণাপত্র"};</script>
+  <script>window.I18N = {"js.bibtex_copied": "BibTeX ক্লিপবোর্ডে কপি হয়েছে", "js.bibtex_failed": "BibTeX কপি করা যায়নি", "js.cite": "উদ্ধৃতি", "js.cite_for": "{title}-এর BibTeX কপি করুন", "js.copied": "কপি হয়েছে", "js.copy_failed": "কপি হয়নি", "js.form_captcha": "অনুগ্রহ করে আগে CAPTCHA সম্পূর্ণ করুন।", "js.form_checking": "আপনার ইমেল ঠিকানা যাচাই করা হচ্ছে...", "js.form_disposable": "অনুগ্রহ করে এমন একটি ইমেল ঠিকানা দিন যা আপনি নিয়মিত ব্যবহার করেন, যাতে আমি উত্তর দিতে পারি।", "js.form_domain": "এই ইমেল ডোমেইনটির অস্তিত্ব নেই বা এটি মেইল গ্রহণ করে না বলে মনে হচ্ছে। অনুগ্রহ করে ঠিকানাটি আবার দেখুন।", "js.form_email": "অনুগ্রহ করে একটি সঠিক ইমেল ঠিকানা দিন, যাতে আমি উত্তর দিতে পারি।", "js.form_failed": "বার্তাটি পাঠানো যায়নি; আপনি আমাকে সরাসরি {email} ঠিকানায়ও ইমেল করতে পারেন।", "js.form_mailapp": "আপনার ইমেল অ্যাপে বার্তাটি পাঠানোর জন্য প্রস্তুত অবস্থায় খুলে যাওয়ার কথা।", "js.form_name": "অনুগ্রহ করে আপনার নাম লিখুন।", "js.form_offline": "বার্তাটি পাঠানো যায়নি। অনুগ্রহ করে আপনার সংযোগ পরীক্ষা করুন, অথবা আমাকে {email} ঠিকানায় ইমেল করুন।", "js.form_ratelimit": "এই সংযোগ থেকে অনেক বেশি বার্তা পাঠানো হয়েছে। অনুগ্রহ করে এক ঘণ্টা পরে আবার চেষ্টা করুন।", "js.form_sending": "পাঠানো হচ্ছে...", "js.form_sent": "ধন্যবাদ, আপনার বার্তা পাঠানো হয়েছে। শিগগিরই আপনার সঙ্গে যোগাযোগ করব।", "js.form_short": "অনুগ্রহ করে বার্তায় আরেকটু বিস্তারিত লিখুন।", "js.motion_system": "আপনার সিস্টেমে আগে থেকেই অ্যানিমেশন কমানোর অনুরোধ করা আছে।", "js.nav_close": "নেভিগেশন বন্ধ করুন", "js.nav_open": "নেভিগেশন খুলুন", "js.new_tab": "নতুন ট্যাবে খোলে", "js.pubs_all": "সব প্রকাশনা দেখুন", "js.pubs_fewer": "কম প্রকাশনা দেখান", "js.read_less": "কম দেখান", "js.read_more": "আরও পড়ুন", "js.theme_button": "থিম: {current}। {next} থিমে বদলান।", "js.theme_current": "থিম: {name}", "js.theme_name_dark": "ডার্ক", "js.theme_name_light": "লাইট", "js.theme_name_midnight": "মিডনাইট", "js.this_paper": "এই গবেষণাপত্র"};</script>
   <!-- /i18n:head -->
 
   <meta property="og:title" content="দরকারি লিংক | Tanmay Singh">
@@ -81,8 +83,9 @@
   <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link rel="preload" href="/assets/fonts/plate-display.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/plate-text.woff2" as="font" type="font/woff2" crossorigin>
-  <link href="/assets/css/snapfolio-astro.css?v=13" rel="stylesheet">
+  <link href="/assets/css/snapfolio-astro.css?v=14" rel="stylesheet">
   <link href="/assets/css/light-theme.css?v=4" rel="stylesheet">
+  <link href="/assets/css/dark-theme.css?v=1" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: SnapFolio
@@ -171,8 +174,8 @@
 
       <p class="motion-toggle-row theme-toggle-row">
         <button type="button" class="motion-toggle theme-toggle" id="theme-toggle">
-          <i class="bi bi-sun" aria-hidden="true"></i>
-          <span>লাইট মোড</span>
+          <i class="bi bi-moon" aria-hidden="true"></i>
+          <span>থিম</span>
         </button>
       </p>
       <!-- i18n:picker -->
@@ -382,9 +385,9 @@
   <!-- This page runs the same sky canvas, so it gets the same device budget.
        Synchronous and first, so the deferred cosmos.js reads it. -->
   <script src="/assets/js/perf-tier.js?v=4"></script>
-  <script src="/assets/js/theme-toggle.js?v=3" defer></script>
+  <script src="/assets/js/theme-toggle.js?v=4" defer></script>
   <script src="/assets/js/snapfolio-astro.js?v=7"></script>
-  <script src="/assets/js/cosmos.js?v=6" defer></script>
+  <script src="/assets/js/cosmos.js?v=7" defer></script>
   <!-- i18n:script -->
   <script src="/assets/js/i18n.js?v=2" defer></script>
   <!-- /i18n:script -->

@@ -87,8 +87,8 @@
     "text": "連絡先",
     "context": "index.html #navmenu: navigation menu item; useful-links.html #navmenu: navigation menu item"
   },
-  "common.header.light-mode": {
-    "text": "ライトモード",
+  "common.header.theme": {
+    "text": "テーマ",
     "context": "index.html #header: button; useful-links.html #header: button"
   },
   "common.header.reduce-motion": {
@@ -1287,13 +1287,25 @@
     "text": "閉じる",
     "context": "close button (screen-reader label) on that suggestion chip, in this language"
   },
-  "js.theme_light": {
-    "text": "ライトモード",
-    "context": "theme toggle button, switches the page to light colours"
+  "js.theme_name_light": {
+    "text": "ライト",
+    "context": "name of the Light colour theme (warm paper background), shown on the theme button; a short adjective or noun"
   },
-  "js.theme_dark": {
-    "text": "ダークモード",
-    "context": "theme toggle button, switches the page to dark colours"
+  "js.theme_name_dark": {
+    "text": "ダーク",
+    "context": "name of the Dark colour theme (near-black background), shown on the theme button; a short adjective or noun"
+  },
+  "js.theme_name_midnight": {
+    "text": "ミッドナイト",
+    "context": "name of the Midnight colour theme (deep navy and violet night sky), shown on the theme button; a short noun"
+  },
+  "js.theme_current": {
+    "text": "テーマ：{name}",
+    "context": "visible label of the theme button; {name} is the theme in use (one of the three theme names); keep {name}"
+  },
+  "js.theme_button": {
+    "text": "テーマ：{current}。{next}に切り替え。",
+    "context": "theme button screen-reader label and tooltip; {current} is the theme in use, {next} the one a press switches to; keep both placeholders"
   },
   "js.read_more": {
     "text": "続きを読む",

@@ -65,8 +65,8 @@
   "common.navmenu.contact": {
     "text": "যোগাযোগ"
   },
-  "common.header.light-mode": {
-    "text": "লাইট মোড"
+  "common.header.theme": {
+    "text": "থিম"
   },
   "common.header.reduce-motion": {
     "text": "গতি কমান"
@@ -965,11 +965,20 @@
   "ui.dismiss": {
     "text": "বন্ধ করুন"
   },
-  "js.theme_light": {
-    "text": "লাইট মোড"
+  "js.theme_name_light": {
+    "text": "লাইট"
   },
-  "js.theme_dark": {
-    "text": "ডার্ক মোড"
+  "js.theme_name_dark": {
+    "text": "ডার্ক"
+  },
+  "js.theme_name_midnight": {
+    "text": "মিডনাইট"
+  },
+  "js.theme_current": {
+    "text": "থিম: {name}"
+  },
+  "js.theme_button": {
+    "text": "থিম: {current}। {next} থিমে বদলান।"
   },
   "js.read_more": {
     "text": "আরও পড়ুন"

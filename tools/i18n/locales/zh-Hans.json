@@ -65,8 +65,8 @@
   "common.navmenu.contact": {
     "text": "联系"
   },
-  "common.header.light-mode": {
-    "text": "浅色模式"
+  "common.header.theme": {
+    "text": "主题"
   },
   "common.header.reduce-motion": {
     "text": "减少动效"
@@ -965,11 +965,20 @@
   "ui.dismiss": {
     "text": "关闭"
   },
-  "js.theme_light": {
-    "text": "浅色模式"
+  "js.theme_name_light": {
+    "text": "浅色"
   },
-  "js.theme_dark": {
-    "text": "深色模式"
+  "js.theme_name_dark": {
+    "text": "深色"
+  },
+  "js.theme_name_midnight": {
+    "text": "午夜"
+  },
+  "js.theme_current": {
+    "text": "主题：{name}"
+  },
+  "js.theme_button": {
+    "text": "主题：{current}。切换到{next}。"
   },
   "js.read_more": {
     "text": "展开"
