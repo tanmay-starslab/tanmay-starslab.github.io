@@ -803,6 +803,11 @@ html.intro-skipped #intro-scrim {
 .navicon {
   width: 20px;
   color: var(--accent);
+  font-size: 1.12rem;
+  /* owner 2026-11-16: bolder, smoother icons. Bootstrap's outline icons are thin font glyphs; a stroke in the text colour
+     thickens every line evenly and rounds the joins, without swapping to the heavier filled set */
+  -webkit-text-stroke: 0.55px currentColor;
+  paint-order: stroke fill;
 }
 
 .social-links {
@@ -4475,4 +4480,11 @@ html[data-gpu="software"] body::before {
   .cv-list li {
     grid-template-columns: 1fr;
   }
+}
+
+/* owner 2026-11-16: the sidebar's tool buttons (theme, motion, language) and social links get the same bolder stroke as
+   the nav icons, so the whole rail reads with one weight */
+.motion-toggle .bi, .theme-toggle .bi, .lang-toggle .bi, .social-links .bi, .header-toggle.bi, .header-toggle .bi {
+  -webkit-text-stroke: 0.45px currentColor;
+  paint-order: stroke fill;
 }

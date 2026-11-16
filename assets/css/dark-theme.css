@@ -33,49 +33,49 @@
   color-scheme: dark;
 
   /* ink ramp, cool neutral (hue ~250, chroma ~0.005) */
-  --ink-void:     #060709;
-  --ink-bg:       #0a0b0e;   /* the page */
-  --ink-bg-2:     #0d0e11;
-  --ink-panel:    #121418;   /* cards */
-  --ink-surface:  #17191e;
-  --ink-hairline: #24272d;   /* non-interactive 1px rules */
-  --ink-edge:     #3a3e46;   /* interactive borders */
-  --ink-dim:      #6c717a;   /* decorative only, never text */
-  --ink-caption:  #9da2ac;
-  --ink-muted:    #b3b7c0;
-  --ink-text-2:   #d0d2d8;
-  --ink-text:     #e8e9ec;
+  --ink-void:     #000000;
+  --ink-bg:       #050505;   /* the page */
+  --ink-bg-2:     #080808;
+  --ink-panel:    #0f0f10;   /* cards */
+  --ink-surface:  #141415;
+  --ink-hairline: #232325;   /* non-interactive 1px rules */
+  --ink-edge:     #3a3a3d;   /* interactive borders */
+  --ink-dim:      #6e6e72;   /* decorative only, never text */
+  --ink-caption:  #a0a0a6;
+  --ink-muted:    #b8b8bd;
+  --ink-text-2:   #d4d4d8;
+  --ink-text:     #ececee;
 
   /* glass, neutral instead of blue-black */
   --surface: rgba(255, 255, 255, 0.045);
   --surface-strong: rgba(255, 255, 255, 0.08);
-  --glass-bg: rgba(18, 20, 24, 0.72);
-  --glass-bg-strong: rgba(23, 25, 30, 0.84);
+  --glass-bg: rgba(14, 14, 15, 0.74);
+  --glass-bg-strong: rgba(20, 20, 21, 0.86);
   --glass-highlight: rgba(255, 255, 255, 0.14);
   --shadow: 0 28px 90px rgba(0, 0, 0, 0.6);
 
   /* no violet in washes and glows: a cool steel takes its place, and the
      Lyα pink wash becomes a whisper of neutral light */
-  --tint-violet: 0.06 235;
-  --tint-lya: 0.012 245;
-  --glow-violet: oklch(var(--l-glow) 0.08 235 / 0.2);
+  --tint-violet: 0 0;
+  --tint-lya: 0 0;
+  --glow-violet: oklch(var(--l-glow) 0 0 / 0.12);
   --accent-2: oklch(var(--l-text) 0.07 235);   /* only ever a gradient partner */
 
-  --ground-mid: #0b0c0f;
-  --ground-end: #0d0e12;
-  --chrome-rgb: 13, 14, 17;
-  --shade-rgb: 10, 11, 14;
-  --glass-solid: #121418;
-  --ring-rgb: 13, 14, 17;
+  --ground-mid: #060606;
+  --ground-end: #070707;
+  --chrome-rgb: 10, 10, 11;
+  --shade-rgb: 5, 5, 5;
+  --glass-solid: #0f0f10;
+  --ring-rgb: 10, 10, 11;
 
   /* portrait halo: the cool end of the magma ring was purple (#1d1147 ->
      #832681); here it runs from a deep slate teal through copper instead */
-  --halo-cool: #1b3a44;
+  --halo-cool: #2a2a2c;
   --halo-mid: #b06a48;
 
   /* the cyan washes on the fixed ground layers at a third of their night
      strength, so the page reads near-black rather than teal */
-  --wash: 0.35;
+  --wash: 0;
 }
 
 /* The ground: the same composition as the night page, with the violet wash
@@ -83,7 +83,7 @@
 html[data-theme="dark"] body {
   background:
     radial-gradient(circle at 75% 8%, rgba(255, 255, 255, 0.035), transparent 34rem),
-    radial-gradient(circle at 12% 24%, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.03), transparent 32rem),
+    
     linear-gradient(135deg, var(--ink-bg) 0%, var(--ground-mid) 42%, var(--ground-end) 100%);
 }
 
@@ -91,3 +91,10 @@ html[data-theme="dark"] body {
    with it (it is the same token); oklch(0.78 0.115 235) is 9.9:1 on a card. */
 html[data-theme="dark"] .contact-tile,
 html[data-theme="dark"] .cv-panel { --card-h: 235; }
+
+/* owner 2026-11-16: Dark must read black with no green, teal or purple cast. The sky photograph and the drawn sky keep
+   their stars but lose their colour cast: the photograph is shown in grey and dimmer, the drawn sky mostly desaturated,
+   and the grid drifting over the page is a faint neutral. Midnight keeps all of them in colour. */
+html[data-theme="dark"] .cosmic-image-bg { filter: grayscale(1) brightness(0.9) contrast(1.1); opacity: 0.45; }
+html[data-theme="dark"] #sky-canvas { filter: saturate(0.25); }
+html[data-theme="dark"] .cv-panel, html[data-theme="dark"] .contact-tile { --card-h: 240; }
