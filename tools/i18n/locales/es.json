@@ -65,8 +65,8 @@
   "common.navmenu.contact": {
     "text": "Contacto"
   },
-  "common.header.light-mode": {
-    "text": "Modo claro"
+  "common.header.theme": {
+    "text": "Tema"
   },
   "common.header.reduce-motion": {
     "text": "Reducir movimiento"
@@ -101,9 +101,6 @@
   "home.home.news": {
     "text": "Novedades"
   },
-  "home.home.fall-2026": {
-    "text": "Otoño 2026"
-  },
   "home.home.i-was-a-guest-instructor-for": {
     "text": "Fui profesor invitado en AST 531, Graduate Galaxies & Cosmology, en la ASU"
   },
@@ -121,9 +118,6 @@
   },
   "home.home.may-2026": {
     "text": "may. 2026"
-  },
-  "home.home.my-paper-on-o-vi-in": {
-    "text": "Mi artículo sobre el O VI en grupos de galaxias se publicó en <a href=\"https://doi.org/10.3847/1538-4357/ae632b\" target=\"_blank\" rel=\"noopener\">ApJ</a>"
   },
   "home.home.portrait-of-tanmay-singh": {
     "text": "Retrato de Tanmay Singh"
@@ -538,9 +532,6 @@
   },
   "home.timeline.institution-arizona-state-university-department": {
     "text": "<strong>Institución:</strong> Arizona State University | <strong>Departamento:</strong> School of Earth and Space Exploration (SESE)"
-  },
-  "home.timeline.semester-fall-2026": {
-    "text": "<strong>Semestre:</strong> otoño de 2026"
   },
   "home.timeline.ast-121-introduction-to-astronomy-laboratory": {
     "text": "AST 121: Introduction to Astronomy Laboratory"
@@ -965,11 +956,20 @@
   "ui.dismiss": {
     "text": "Cerrar"
   },
-  "js.theme_light": {
-    "text": "Modo claro"
+  "js.theme_name_light": {
+    "text": "Claro"
   },
-  "js.theme_dark": {
-    "text": "Modo oscuro"
+  "js.theme_name_dark": {
+    "text": "Oscuro"
+  },
+  "js.theme_name_midnight": {
+    "text": "Medianoche"
+  },
+  "js.theme_current": {
+    "text": "Tema: {name}"
+  },
+  "js.theme_button": {
+    "text": "Tema: {current}. Cambiar a {next}."
   },
   "js.read_more": {
     "text": "Leer más"
@@ -1050,5 +1050,11 @@
     "text": "No se pudo enviar. Revise su conexión o escríbame a {email}."
   },
   "js.motion_system": "Tu sistema ya solicita reducir el movimiento.",
-  "js.form_sending": "Enviando..."
+  "js.form_sending": "Enviando...",
+  "home.liquid-nav.sections": {
+    "text": "Secciones"
+  },
+  "home.home.spring-2026": {"text": "Primavera 2026"},
+  "home.timeline.semester-spring-2026": {"text": "<strong>Semestre:</strong> primavera de 2026"},
+  "home.home.work-on-o-vi-in-galaxy": {"text": "Se publicó en <a href=\"https://doi.org/10.3847/1538-4357/ae632b\" target=\"_blank\" rel=\"noopener\">ApJ</a> un trabajo sobre el O VI en grupos de galaxias"}
 }

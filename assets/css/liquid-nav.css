@@ -1,0 +1,66 @@
+/* Liquid navbar effect adapted from Nimbus UI Liquid Navbar (Waterline) by guglielmogiannattasio.it
+ *
+ * Floating glass pill nav for phones and narrow screens (<= 900 px). The water drop is drawn by
+ * assets/js/liquid-nav.js on .ln-canvas; .ln-drop is the plain CSS drop used without WebGL (.ln-nogl).
+ * Tokens: --ln-glass (pill fill), --ln-rim (rim highlight), --ln-ink / --ln-muted (labels), --ln-water and
+ * --ln-water-a (drop tint and opacity, read by the shader), --ln-spec (specular colour), --ln-dark (0 or 1).
+ */
+.liquid-nav{display:none}
+@media (max-width:900px){
+  .liquid-nav{
+    /* Midnight (the page's default token set): navy glass, violet-tinted water */
+    --ln-glass:rgba(var(--chrome-rgb,5,7,13),.62);--ln-rim:rgba(190,200,255,.42);--ln-edge:rgba(170,180,255,.16);
+    --ln-ink:var(--ink-text,#eef0ff);--ln-muted:var(--ink-caption,rgba(220,225,255,.62));--ln-ring:var(--a-cyan,#7fd8ff);
+    --ln-water:rgb(150,140,255);--ln-water-a:.30;--ln-spec:rgb(225,230,255);--ln-dark:1;
+    --ln-drop-bg:rgba(150,140,255,.26);--ln-shadow:0 14px 34px -12px rgba(0,0,0,.7),0 2px 6px rgba(0,0,0,.35);
+    --ln-lead:linear(0,.001,.051,.153,.276,.403,.521,.626,.715,.788,.846,.892,.926,.951,.97,.983,.991,.997,1.001,1.003,1.003,1.004,1.004,1.003,1.003,1.002,1.002,1);
+    --ln-tail:linear(0,0,.04,.128,.241,.364,.485,.596,.694,.777,.845,.899,.941,.971,.993,1.007,1.016,1.021,1.022,1.022,1.02,1.018,1.015,1.012,1.01,1.008,1.006,1.004,1.003,1.002,1);
+    display:block;position:fixed;z-index:995;left:50%;bottom:calc(12px + env(safe-area-inset-bottom,0px));
+    transform:translateX(-50%);width:min(440px,calc(100vw - 24px));
+    transition:opacity .35s ease,transform .45s cubic-bezier(.2,.8,.2,1)}
+  :root[data-theme="light"] .liquid-nav{   /* Light: clear glass on paper */
+    --ln-glass:rgba(255,253,248,.62);--ln-rim:rgba(255,255,255,.95);--ln-edge:rgba(60,50,30,.12);
+    --ln-water:rgb(255,255,255);--ln-water-a:.55;--ln-spec:rgb(255,255,255);--ln-dark:0;
+    --ln-drop-bg:rgba(255,255,255,.92);--ln-shadow:0 10px 30px -10px rgba(60,50,30,.32),0 2px 6px rgba(60,50,30,.10)}
+  :root[data-theme="dark"] .liquid-nav{   /* Dark: smoked near-black glass */
+    --ln-glass:rgba(14,15,18,.66);--ln-rim:rgba(255,255,255,.24);--ln-edge:rgba(255,255,255,.09);
+    --ln-water:rgb(214,218,228);--ln-water-a:.26;--ln-spec:rgb(240,242,246);--ln-dark:1;
+    --ln-drop-bg:rgba(255,255,255,.16);--ln-shadow:0 14px 34px -12px rgba(0,0,0,.8),0 2px 6px rgba(0,0,0,.4)}
+  .ln-pill{position:relative;display:flex;align-items:stretch;padding:5px;border-radius:999px;isolation:isolate;
+    background:var(--ln-glass);border:1px solid var(--ln-edge);
+    -webkit-backdrop-filter:blur(20px) saturate(1.7);backdrop-filter:blur(20px) saturate(1.7);box-shadow:var(--ln-shadow)}
+  .ln-pill::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;pointer-events:none;z-index:2;
+    background:linear-gradient(180deg,var(--ln-rim),rgba(255,255,255,0) 42%,rgba(255,255,255,0) 70%,rgba(255,255,255,.18));
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+    mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
+  .ln-canvas{position:absolute;left:-15px;top:-15px;width:calc(100% + 30px);height:calc(100% + 30px);pointer-events:none;z-index:0}
+  .ln-drop{display:none;position:absolute;z-index:0;top:5px;bottom:5px;left:var(--dl,5px);right:var(--dr,80%);border-radius:999px;pointer-events:none;
+    background:radial-gradient(120% 70% at 50% 0%,rgba(255,255,255,.55),rgba(255,255,255,0) 62%),var(--ln-drop-bg);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 0 0 1px var(--ln-edge),0 3px 10px rgba(0,0,0,.14)}
+  .liquid-nav.ln-nogl .ln-drop{display:block}
+  .liquid-nav.ln-nogl .ln-canvas{display:none}
+  .liquid-nav.ln-ready .ln-drop{transition:left .97s var(--ln-tail) 70ms,right .54s var(--ln-lead)}
+  .liquid-nav.ln-ready[data-dir=l] .ln-drop{transition:left .54s var(--ln-lead),right .97s var(--ln-tail) 70ms}
+  #liquid-nav .ln-item{position:relative;z-index:1;flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+    padding:7px 1px 6px;border-radius:999px;color:var(--ln-muted);text-decoration:none;-webkit-tap-highlight-color:transparent;
+    font:500 var(--ln-fs,10.5px)/1.15 var(--default-font,system-ui),system-ui,sans-serif;letter-spacing:.01em;transition:color .25s}
+  #liquid-nav .ln-item:hover,#liquid-nav .ln-item[aria-current]{color:var(--ln-ink)}
+  #liquid-nav .ln-item:focus{outline:none}
+  #liquid-nav .ln-item:focus-visible{outline:2px solid var(--ln-ring);outline-offset:-3px}
+  .ln-item span{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .ln-icon{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transform-origin:50% 70%}
+  .ln-icon.ln-pop{animation:ln-pop .42s cubic-bezier(.3,1.6,.5,1)}
+  .ln-icon.ln-hop{animation:ln-hop .46s cubic-bezier(.3,.9,.4,1)}
+  @keyframes ln-pop{0%{transform:scale(1)}40%{transform:scale(1.2)}100%{transform:scale(1)}}
+  @keyframes ln-hop{0%{transform:translateY(0)}35%{transform:translateY(-4px)}70%{transform:translateY(.5px)}100%{transform:translateY(0)}}
+  /* hidden while the intro animation runs */
+  html.intro-active .liquid-nav,body.intro-active .liquid-nav{opacity:0;pointer-events:none;transform:translate(-50%,24px)}
+  /* the back-to-top button sits above the pill instead of beside it */
+  .scroll-top{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+  /* keep content clear of the pill */
+  body{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+}
+@media (max-width:900px) and (prefers-reduced-motion:reduce){
+  .liquid-nav,.liquid-nav.ln-ready .ln-drop,.liquid-nav.ln-ready[data-dir=l] .ln-drop,.ln-item{transition:none}
+  .ln-icon.ln-pop,.ln-icon.ln-hop{animation:none}
+}

@@ -1,0 +1,103 @@
+/* DARK MODE.
+   Three themes share the page: Light (light-theme.css), Midnight (the navy and
+   violet night page, which is snapfolio-astro.css's own token set, untouched)
+   and this one, Dark: near-black and neutral. It is the default on a device
+   set to dark.
+
+   It is one token set, swapped on html[data-theme="dark"], set before first
+   paint by the head script. Nothing here restyles a component; it changes
+   the colours the components already read:
+     - the ink ramp (page, panels, hairlines, text) moves off the blue-violet
+       hue to a cool neutral grey, with the page lifted off pure black;
+     - the violet and Lyα washes in glows, rims and nebula gradients
+       (--tint-violet, --tint-lya) become a cool steel and a near-neutral, so
+       no purple reaches a background;
+     - the body gradient, sidebar glass and photograph shades lose their navy.
+   Text accents (links, tags, card kickers) keep their spectral-line hues:
+   they already clear AA by a wide margin on this ground (see the numbers).
+
+   Contrast, WCAG 2.x, on the page #0a0b0e / on a card #16181d (computed;
+   the lightest rendered ground measured in screenshots, #152024, still
+   leaves every text row above 6:1):
+     --ink-text    #e8e9ec  16.2 / 14.6
+     --ink-text-2  #d0d2d8  13.0 / 11.7
+     --ink-muted   #b3b7c0   9.8 /  8.8
+     --ink-caption #9da2ac   7.7 /  6.9
+     links --a-cyan         12.8 / 11.5   (gold, green, Hα, Lyα, violet 11.7-12.8)
+     card accents (L 0.70-0.90) 6.6-15.2 on a card
+     #041019 on the cyan buttons 8.4-12.5; the cyan focus ring 12.8 on the page
+     --ink-edge stays decorative at 1.8, as on the night page: every control
+     it outlines also carries a text label. */
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* ink ramp, cool neutral (hue ~250, chroma ~0.005) */
+  --ink-void:     #000000;
+  --ink-bg:       #000000;   /* the page */
+  --ink-bg-2:     #030303;
+  --ink-panel:    #0c0c0c;   /* cards */
+  --ink-surface:  #121212;
+  --ink-hairline: #232325;   /* non-interactive 1px rules */
+  --ink-edge:     #3a3a3d;   /* interactive borders */
+  --ink-dim:      #6e6e72;   /* decorative only, never text */
+  --ink-caption:  #a0a0a6;
+  --ink-muted:    #b8b8bd;
+  --ink-text-2:   #d4d4d8;
+  --ink-text:     #ececee;
+
+  /* glass, neutral instead of blue-black */
+  --surface: rgba(255, 255, 255, 0.045);
+  --surface-strong: rgba(255, 255, 255, 0.08);
+  --glass-bg: rgba(10, 10, 10, 0.78);
+  --glass-bg-strong: rgba(20, 20, 21, 0.86);
+  --glass-highlight: rgba(255, 255, 255, 0.14);
+  --shadow: 0 28px 90px rgba(0, 0, 0, 0.6);
+
+  /* no violet in washes and glows: a cool steel takes its place, and the
+     Lyα pink wash becomes a whisper of neutral light */
+  --tint-violet: 0 0;
+  --tint-lya: 0 0;
+  --glow-violet: oklch(var(--l-glow) 0 0 / 0.12);
+  --accent-2: oklch(var(--l-text) 0.07 235);   /* only ever a gradient partner */
+
+  --ground-mid: #000000;
+  --ground-end: #000000;
+  --chrome-rgb: 10, 10, 11;
+  --shade-rgb: 0, 0, 0;
+  --glass-solid: #0c0c0c;
+  --ring-rgb: 10, 10, 11;
+
+  /* portrait halo: the cool end of the magma ring was purple (#1d1147 ->
+     #832681); here it runs from a deep slate teal through copper instead */
+  --halo-cool: #2a2a2c;
+  --halo-mid: #b06a48;
+
+  /* the cyan washes on the fixed ground layers at a third of their night
+     strength, so the page reads near-black rather than teal */
+  --wash: 0;
+}
+
+/* The ground: the same composition as the night page, with the violet wash
+   at the top right reduced to faint white light and the cyan one quietened. */
+html[data-theme="dark"] body {
+  background:
+    radial-gradient(circle at 75% 8%, rgba(255, 255, 255, 0.035), transparent 34rem),
+    
+    linear-gradient(135deg, var(--ink-bg) 0%, var(--ground-mid) 42%, var(--ground-end) 100%);
+}
+
+/* Panels whose wash was violet take the steel hue. Their text accent moves
+   with it (it is the same token); oklch(0.78 0.115 235) is 9.9:1 on a card. */
+html[data-theme="dark"] .contact-tile,
+html[data-theme="dark"] .cv-panel { --card-h: 235; }
+
+/* owner 2026-11-16: Dark must read black with no green, teal or purple cast. The sky photograph and the drawn sky keep
+   their stars but lose their colour cast: the photograph is shown in grey and dimmer, the drawn sky mostly desaturated,
+   and the grid drifting over the page is a faint neutral. Midnight keeps all of them in colour. */
+/* owner 2026-11-16 (second pass): Dark is black. No sky photograph and no coloured nebula behind the hero; the drawn
+   stars stay, nearly white, so the page is black with starlight and clearly different from Midnight's navy sky. */
+html[data-theme="dark"] .cosmic-image-bg, html[data-theme="dark"] .hero-nebula { display: none; }
+html[data-theme="dark"] .cosmic-image-shade { background: #000; opacity: 0.35; }
+html[data-theme="dark"] #sky-canvas { filter: saturate(0) brightness(0.42) contrast(1.25); }   /* the Milky Way band reads as faint grey, stars stay */
+html[data-theme="dark"] .cv-panel, html[data-theme="dark"] .contact-tile { --card-h: 240; }

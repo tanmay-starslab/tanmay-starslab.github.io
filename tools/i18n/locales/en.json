@@ -45,7 +45,7 @@
   },
   "common.navmenu.home": {
     "text": "Home",
-    "context": "index.html #navmenu: navigation menu item; useful-links.html #navmenu: navigation menu item"
+    "context": "index.html #liquid-nav: span; index.html #navmenu: navigation menu item; useful-links.html #navmenu: navigation menu item"
   },
   "common.navmenu.about": {
     "text": "About",
@@ -53,7 +53,7 @@
   },
   "common.navmenu.research": {
     "text": "Research",
-    "context": "index.html #home: button; index.html #navmenu: navigation menu item; useful-links.html #navmenu: navigation menu item"
+    "context": "index.html #home: button; index.html #liquid-nav: span; index.html #navmenu: navigation menu item; useful-links.html #navmenu: navigation menu item"
   },
   "common.navmenu.past-projects": {
     "text": "Past Projects",
@@ -61,11 +61,11 @@
   },
   "common.navmenu.publications": {
     "text": "Publications",
-    "context": "index.html #home: button; index.html #navmenu: navigation menu item; useful-links.html #navmenu: navigation menu item"
+    "context": "index.html #home: button; index.html #liquid-nav: span; index.html #navmenu: navigation menu item; useful-links.html #navmenu: navigation menu item"
   },
   "common.navmenu.talks": {
     "text": "Talks",
-    "context": "index.html #navmenu: navigation menu item; useful-links.html #navmenu: navigation menu item"
+    "context": "index.html #liquid-nav: span; index.html #navmenu: navigation menu item; useful-links.html #navmenu: navigation menu item"
   },
   "common.navmenu.awards-and-service": {
     "text": "Awards and Service",
@@ -85,10 +85,10 @@
   },
   "common.navmenu.contact": {
     "text": "Contact",
-    "context": "index.html #navmenu: navigation menu item; useful-links.html #navmenu: navigation menu item"
+    "context": "index.html #liquid-nav: span; index.html #navmenu: navigation menu item; useful-links.html #navmenu: navigation menu item"
   },
-  "common.header.light-mode": {
-    "text": "Light mode",
+  "common.header.theme": {
+    "text": "Theme",
     "context": "index.html #header: button; useful-links.html #header: button"
   },
   "common.header.reduce-motion": {
@@ -135,14 +135,6 @@
     "text": "News",
     "context": "index.html #home: paragraph"
   },
-  "home.home.fall-2026": {
-    "text": "Fall 2026",
-    "context": "index.html #home: date"
-  },
-  "home.home.i-was-a-guest-instructor-for": {
-    "text": "I was a guest instructor for AST 531, Graduate Galaxies & Cosmology, at ASU",
-    "context": "index.html #home: span"
-  },
   "home.home.jul-2026": {
     "text": "Jul 2026",
     "context": "index.html #home: date; index.html #talks: date"
@@ -163,9 +155,17 @@
     "text": "May 2026",
     "context": "index.html #home: date; index.html #talks: date"
   },
-  "home.home.my-paper-on-o-vi-in": {
-    "text": "My paper on O VI in galaxy groups was published in <a href=\"https://doi.org/10.3847/1538-4357/ae632b\" target=\"_blank\" rel=\"noopener\">ApJ</a>",
+  "home.home.work-on-o-vi-in-galaxy": {
+    "text": "Work on O VI in galaxy groups was published in <a href=\"https://doi.org/10.3847/1538-4357/ae632b\" target=\"_blank\" rel=\"noopener\">ApJ</a>",
     "context": "index.html #home: span; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.home.spring-2026": {
+    "text": "Spring 2026",
+    "context": "index.html #home: date"
+  },
+  "home.home.i-was-a-guest-instructor-for": {
+    "text": "I was a guest instructor for AST 531, Graduate Galaxies & Cosmology, at ASU",
+    "context": "index.html #home: span"
   },
   "home.home.portrait-of-tanmay-singh": {
     "text": "Portrait of Tanmay Singh",
@@ -719,8 +719,8 @@
     "text": "<strong>Institution:</strong> Arizona State University | <strong>Department:</strong> School of Earth and Space Exploration (SESE)",
     "context": "index.html #timeline: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
   },
-  "home.timeline.semester-fall-2026": {
-    "text": "<strong>Semester:</strong> Fall 2026",
+  "home.timeline.semester-spring-2026": {
+    "text": "<strong>Semester:</strong> Spring 2026",
     "context": "index.html #timeline: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
   },
   "home.timeline.ast-121-introduction-to-astronomy-laboratory": {
@@ -810,6 +810,10 @@
   "common.footer.2026-tanmay-singh-designed-by-bootstrapmade": {
     "text": "&copy; <span id=\"year\">2026</span> Tanmay Singh. Designed by <a href=\"https://bootstrapmade.com/\" target=\"_blank\" rel=\"noopener\">BootstrapMade</a>; adapted with a custom astrophysics interface.",
     "context": "index.html #footer: paragraph; useful-links.html #footer: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.liquid-nav.sections": {
+    "text": "Sections",
+    "context": "index.html #liquid-nav: screen-reader label on <nav>"
   },
   "home.page.back-to-top": {
     "text": "Back to top",
@@ -1287,13 +1291,25 @@
     "text": "Dismiss",
     "context": "close button (screen-reader label) on that suggestion chip, in this language"
   },
-  "js.theme_light": {
-    "text": "Light mode",
-    "context": "theme toggle button, switches the page to light colours"
+  "js.theme_name_light": {
+    "text": "Light",
+    "context": "name of the Light colour theme (warm paper background), shown on the theme button; a short adjective or noun"
   },
-  "js.theme_dark": {
-    "text": "Dark mode",
-    "context": "theme toggle button, switches the page to dark colours"
+  "js.theme_name_dark": {
+    "text": "Dark",
+    "context": "name of the Dark colour theme (near-black background), shown on the theme button; a short adjective or noun"
+  },
+  "js.theme_name_midnight": {
+    "text": "Midnight",
+    "context": "name of the Midnight colour theme (deep navy and violet night sky), shown on the theme button; a short noun"
+  },
+  "js.theme_current": {
+    "text": "Theme: {name}",
+    "context": "visible label of the theme button; {name} is the theme in use (one of the three theme names); keep {name}"
+  },
+  "js.theme_button": {
+    "text": "Theme: {current}. Switch to {next}.",
+    "context": "theme button screen-reader label and tooltip; {current} is the theme in use, {next} the one a press switches to; keep both placeholders"
   },
   "js.motion_system": {
     "text": "Your system already asks for reduced motion.",

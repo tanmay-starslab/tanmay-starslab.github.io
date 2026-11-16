@@ -229,6 +229,33 @@
   --magenta:  var(--a-magenta);
   --green:    var(--a-green);
   --shadow: 0 28px 90px rgba(0, 0, 0, 0.62);
+
+  /* ─────────── THEME TOKENS ───────────
+     Colours that used to be written straight into rules below, gathered here
+     so a theme is one token set rather than scattered overrides. These are
+     the night page's own values (the Midnight theme, and the default when
+     data-theme is anything but light/dark); assets/css/dark-theme.css swaps
+     the set for the neutral Dark theme, light-theme.css for Light.
+       --tint-violet / --tint-lya   chroma + hue of the violet and Lyα washes in
+                                    glows, rims and nebula gradients (not text)
+       --ground-mid / --ground-end  the body gradient behind everything
+       --chrome-rgb                 sidebar / drawer glass
+       --shade-rgb                  shades laid over the photograph
+       --glass-solid                opaque glass fallback (no backdrop-filter)
+       --ring-rgb                   ring around the timeline dots
+       --halo-cool / --halo-mid     the cool end of the portrait's magma halo
+       --wash                       multiplier on the ground layers' cyan washes */
+  --tint-violet: var(--cmax-violet) var(--h-violet);
+  --tint-lya: var(--cmax-lya) var(--h-lya);
+  --ground-mid: #060a13;
+  --ground-end: #090e1c;
+  --chrome-rgb: 5, 7, 13;
+  --shade-rgb: 2, 3, 4;
+  --glass-solid: #0b1018;
+  --ring-rgb: 8, 13, 24;
+  --halo-cool: var(--ramp-2);
+  --halo-mid: var(--ramp-4);
+  --wash: 1;   /* strength of the cyan washes on the fixed ground layers */
   --font-display: "Plate Display", "Plate Display Fallback", "Iowan Old Style", Palatino, Georgia, serif;
   --font-text: "Plate Text", "Plate Text Fallback", Charter, Georgia, "Times New Roman", serif;
   --font-mono: "Plate Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -366,9 +393,9 @@ body {
   margin: 0;
   color: var(--text);
   background:
-    radial-gradient(circle at 75% 8%, oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.26), transparent 34rem),
+    radial-gradient(circle at 75% 8%, oklch(var(--l-text) var(--tint-violet) / 0.26), transparent 34rem),
     radial-gradient(circle at 12% 24%, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.19), transparent 32rem),
-    linear-gradient(135deg, var(--bg) 0%, #060a13 42%, #090e1c 100%);
+    linear-gradient(135deg, var(--bg) 0%, var(--ground-mid) 42%, var(--ground-end) 100%);
   font-family: var(--font-text);
   font-optical-sizing: auto;
   line-height: 1.65;
@@ -383,11 +410,10 @@ body::before {
   pointer-events: none;
   content: "";
   background-image:
-    radial-gradient(circle at 22% 18%, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.08), transparent 26rem),
-    radial-gradient(circle at 78% 36%, oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.08), transparent 30rem),
-    linear-gradient(rgba(255, 255, 255, 0.032) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.032) 1px, transparent 1px);
-  background-size: auto, auto, 86px 86px, 86px 86px;
+    radial-gradient(circle at 22% 18%, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / calc(0.08 * var(--wash))), transparent 26rem),
+    radial-gradient(circle at 78% 36%, oklch(var(--l-text) var(--tint-violet) / calc(0.08 * var(--wash))), transparent 30rem);
+  /* owner 2026-11-16: the drifting 86 px grid lines are gone (all themes) */
+  background-size: auto, auto;
   mask-image: radial-gradient(circle at center, black, transparent 78%);
   animation: gridDrift 42s linear infinite;
 }
@@ -409,9 +435,9 @@ body::before {
   z-index: 1;
   pointer-events: none;
   background:
-    radial-gradient(circle at 50% 34%, rgba(2, 3, 4, 0.22), rgba(2, 3, 4, 0.76) 58%, rgba(2, 3, 4, 0.94) 100%),
-    linear-gradient(90deg, rgba(2, 3, 4, 0.82), rgba(2, 3, 4, 0.48), rgba(2, 3, 4, 0.82)),
-    linear-gradient(180deg, rgba(2, 3, 4, 0.6), rgba(2, 3, 4, 0.88));
+    radial-gradient(circle at 50% 34%, rgba(var(--shade-rgb), 0.22), rgba(var(--shade-rgb), 0.76) 58%, rgba(var(--shade-rgb), 0.94) 100%),
+    linear-gradient(90deg, rgba(var(--shade-rgb), 0.82), rgba(var(--shade-rgb), 0.48), rgba(var(--shade-rgb), 0.82)),
+    linear-gradient(180deg, rgba(var(--shade-rgb), 0.6), rgba(var(--shade-rgb), 0.88));
 }
 
 body::after {
@@ -421,9 +447,9 @@ body::after {
   pointer-events: none;
   content: "";
   background:
-    radial-gradient(ellipse at 25% 32%, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.07), transparent 34rem),
-    radial-gradient(ellipse at 74% 18%, oklch(var(--l-text) var(--cmax-lya) var(--h-lya) / 0.055), transparent 30rem),
-    radial-gradient(ellipse at 62% 74%, oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.055), transparent 36rem);
+    radial-gradient(ellipse at 25% 32%, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / calc(0.07 * var(--wash))), transparent 34rem),
+    radial-gradient(ellipse at 74% 18%, oklch(var(--l-text) var(--tint-lya) / calc(0.055 * var(--wash))), transparent 30rem),
+    radial-gradient(ellipse at 62% 74%, oklch(var(--l-text) var(--tint-violet) / calc(0.055 * var(--wash))), transparent 36rem);
   filter: blur(18px);
   opacity: 0.9;
   transform: translate3d(calc(var(--parallax-x, 0) * -0.35px), calc(var(--parallax-y, 0) * -0.35px), 0);
@@ -535,10 +561,10 @@ html.sky-ready .cosmic-image-bg { opacity: 0; transition: opacity 1200ms var(--e
   pointer-events: none;
   background:
     radial-gradient(circle at var(--cursor-x, 50%) var(--cursor-y, 45%), rgba(255, 255, 255, 0.065), transparent 3.8rem),
-    radial-gradient(circle at var(--cursor-x, 50%) var(--cursor-y, 45%), oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.12), transparent 15rem),
-    repeating-radial-gradient(circle at var(--cursor-x, 50%) var(--cursor-y, 45%), oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.018) 0 1px, transparent 1px 118px),
-    radial-gradient(ellipse at 65% 18%, oklch(var(--l-text) var(--cmax-lya) var(--h-lya) / 0.08), transparent 34rem),
-    linear-gradient(180deg, transparent, rgba(2, 3, 4, 0.68));
+    radial-gradient(circle at var(--cursor-x, 50%) var(--cursor-y, 45%), oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / calc(0.12 * var(--wash))), transparent 15rem),
+    repeating-radial-gradient(circle at var(--cursor-x, 50%) var(--cursor-y, 45%), oklch(var(--l-text) var(--tint-violet) / calc(0.018 * var(--wash))) 0 1px, transparent 1px 118px),
+    radial-gradient(ellipse at 65% 18%, oklch(var(--l-text) var(--tint-lya) / calc(0.08 * var(--wash))), transparent 34rem),
+    linear-gradient(180deg, transparent, rgba(var(--shade-rgb), 0.68));
 }
 
 @keyframes gridDrift {
@@ -581,7 +607,7 @@ html.sky-ready .cosmic-image-bg { opacity: 0; transition: opacity 1200ms var(--e
   max-height: calc(100vh - 48px);
   padding: 18px;
   overflow-y: auto;
-  background: rgba(5, 7, 13, 0.78);
+  background: rgba(var(--chrome-rgb), 0.78);
   border: 1px solid var(--border);
   border-radius: 18px;
   box-shadow: var(--shadow);
@@ -599,7 +625,7 @@ html.sky-ready .cosmic-image-bg { opacity: 0; transition: opacity 1200ms var(--e
 
 html.intro-hold .header-container,
 html.intro-moving .header-container {
-  background: rgba(5, 7, 13, 0.9);
+  background: rgba(var(--chrome-rgb), 0.9);
   border-color: oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.24);
   box-shadow: 0 34px 120px rgba(0, 0, 0, 0.62), 0 0 70px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.12);
 }
@@ -706,7 +732,7 @@ html.intro-skipped #intro-scrim {
   overflow: hidden;
   padding: 2px;
   background:
-    linear-gradient(135deg, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.75), oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.7)),
+    linear-gradient(135deg, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.75), oklch(var(--l-text) var(--tint-violet) / 0.7)),
     rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.22);
   box-shadow: 0 0 28px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.22);
@@ -776,6 +802,11 @@ html.intro-skipped #intro-scrim {
 .navicon {
   width: 20px;
   color: var(--accent);
+  font-size: 1.12rem;
+  /* owner 2026-11-16: bolder, smoother icons. Bootstrap's outline icons are thin font glyphs; a stroke in the text colour
+     thickens every line evenly and rounds the joins, without swapping to the heavier filled set */
+  -webkit-text-stroke: 0.55px currentColor;
+  paint-order: stroke fill;
 }
 
 .social-links {
@@ -815,7 +846,7 @@ html.intro-skipped #intro-scrim {
   width: 46px;
   height: 46px;
   color: var(--text);
-  background: rgba(5, 7, 13, 0.86);
+  background: rgba(var(--chrome-rgb), 0.86);
   border: 1px solid var(--border);
   border-radius: 50%;
   box-shadow: var(--shadow);
@@ -1055,7 +1086,7 @@ html.intro-skipped #intro-scrim {
 .personal-copy a:hover,
 .link-section a:hover {
   color: var(--accent-3);
-  text-decoration-color: oklch(var(--l-text) var(--cmax-lya) var(--h-lya) / 0.7);
+  text-decoration-color: oklch(var(--l-text) var(--tint-lya) / 0.7);
 }
 
 /* Links inside the research and earlier-research cards (and the talk venues
@@ -1080,6 +1111,9 @@ html.intro-skipped #intro-scrim {
   overflow: hidden;
 }
 
+/* owner 2026-11-16: the two thin elliptical rings that crossed the portrait are removed (all themes) */
+.hero::before,
+.hero::after { display: none !important; }
 .hero::before,
 .hero::after {
   position: absolute;
@@ -1095,7 +1129,7 @@ html.intro-skipped #intro-scrim {
   right: -8%;
   width: min(58vw, 720px);
   aspect-ratio: 1.9;
-  box-shadow: 0 0 90px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.07), inset 0 0 70px oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.045);
+  box-shadow: 0 0 90px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.07), inset 0 0 70px oklch(var(--l-text) var(--tint-violet) / 0.045);
 }
 
 .hero::after {
@@ -1103,7 +1137,7 @@ html.intro-skipped #intro-scrim {
   right: 5%;
   width: min(42vw, 520px);
   aspect-ratio: 1.8;
-  border-color: oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.12);
+  border-color: oklch(var(--l-text) var(--tint-violet) / 0.12);
   transform: translate3d(calc(var(--parallax-x, 0) * 0.45px), calc(var(--parallax-y, 0) * 0.45px), 0) rotate(-19deg);
 }
 
@@ -1114,9 +1148,9 @@ html.intro-skipped #intro-scrim {
   width: min(70vw, 900px);
   aspect-ratio: 1.25;
   background:
-    radial-gradient(ellipse at 54% 48%, oklch(var(--l-text) var(--cmax-lya) var(--h-lya) / 0.26), transparent 0 12%, transparent 24%),
+    radial-gradient(ellipse at 54% 48%, oklch(var(--l-text) var(--tint-lya) / 0.26), transparent 0 12%, transparent 24%),
     radial-gradient(ellipse at 46% 52%, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.28), transparent 0 28%, transparent 58%),
-    radial-gradient(ellipse at 70% 32%, oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.32), transparent 0 26%, transparent 62%);
+    radial-gradient(ellipse at 70% 32%, oklch(var(--l-text) var(--tint-violet) / 0.32), transparent 0 26%, transparent 62%);
   filter: blur(22px);
   opacity: 0.9;
   transform: translate3d(calc(var(--parallax-x, 0) * -0.9px), calc(var(--parallax-y, 0) * -0.9px), 0) rotate(-10deg);
@@ -1404,9 +1438,9 @@ html.intro-skipped #intro-scrim {
   padding: 14px;
   overflow: hidden;
   background:
-    conic-gradient(from 130deg, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.72), oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.58), oklch(var(--l-text) var(--cmax-lya) var(--h-lya) / 0.46), oklch(var(--l-text) var(--cmax-gold) var(--h-gold) / 0.32), oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.72)),
+    conic-gradient(from 130deg, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.72), oklch(var(--l-text) var(--tint-violet) / 0.58), oklch(var(--l-text) var(--tint-lya) / 0.46), oklch(var(--l-text) var(--cmax-gold) var(--h-gold) / 0.32), oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.72)),
     linear-gradient(145deg, rgba(255, 255, 255, 0.2), transparent 28%),
-    linear-gradient(145deg, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.2), oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.14), rgba(255, 255, 255, 0.05));
+    linear-gradient(145deg, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.2), oklch(var(--l-text) var(--tint-violet) / 0.14), rgba(255, 255, 255, 0.05));
   background-size: 220% 220%, auto, auto;
   border: 1px solid var(--glass-border);
   border-radius: 34px;
@@ -1421,7 +1455,7 @@ html.intro-skipped #intro-scrim {
   box-shadow:
     var(--shadow),
     0 0 42px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.18),
-    0 0 82px oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.12),
+    0 0 82px oklch(var(--l-text) var(--tint-violet) / 0.12),
     inset 0 1px 0 var(--glass-highlight);
   filter: saturate(1.04);
   transform: perspective(1000px) rotateX(var(--tilt-y, 0deg)) rotateY(var(--tilt-x, 0deg)) translate3d(calc(var(--parallax-x, 0) * 0.4px), calc(var(--parallax-y, 0) * 0.4px - 8px), 0) scale(1.015);
@@ -1436,7 +1470,7 @@ html.intro-skipped #intro-scrim {
   background:
     radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.16), transparent 0 1.5px, transparent 2.5px),
     radial-gradient(circle at 48% calc(var(--glow-y, 20%) + 16%), oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.17), transparent 0 1.5px, transparent 2.5px),
-    linear-gradient(130deg, rgba(255, 255, 255, 0.16), transparent 22%, transparent 74%, oklch(var(--l-text) var(--cmax-lya) var(--h-lya) / 0.1));
+    linear-gradient(130deg, rgba(255, 255, 255, 0.16), transparent 22%, transparent 74%, oklch(var(--l-text) var(--tint-lya) / 0.1));
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 30px;
   opacity: 0.62;
@@ -1452,7 +1486,7 @@ html.intro-skipped #intro-scrim {
   position: absolute;
   inset: -34px;
   z-index: 0;
-  background: conic-gradient(from 90deg, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.18), oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.28), oklch(var(--l-text) var(--cmax-lya) var(--h-lya) / 0.16), oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.18));
+  background: conic-gradient(from 90deg, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.18), oklch(var(--l-text) var(--tint-violet) / 0.28), oklch(var(--l-text) var(--tint-lya) / 0.16), oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.18));
   border-radius: 42px;
   filter: blur(20px);
   opacity: 0.8;
@@ -1748,7 +1782,7 @@ html.intro-skipped #intro-scrim {
   box-shadow:
     0 30px 90px rgba(0, 0, 0, 0.58),
     0 0 42px color-mix(in oklab, var(--card-accent) 17%, transparent),
-    0 0 70px oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.08),
+    0 0 70px oklch(var(--l-text) var(--tint-violet) / 0.08),
     inset 0 1px 0 rgba(255, 255, 255, 0.22);
   transform: perspective(900px) rotateX(var(--tilt-y, 0deg)) rotateY(var(--tilt-x, 0deg)) translateY(-6px) scale(1.01);
 }
@@ -2283,7 +2317,7 @@ html.intro-skipped #intro-scrim {
   height: var(--timeline-progress, 0%);
   background: linear-gradient(180deg, var(--accent), var(--accent-2) 52%, #5eead4 100%);
   border-radius: inherit;
-  box-shadow: 0 0 22px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.62), 0 0 48px oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.42);
+  box-shadow: 0 0 22px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.62), 0 0 48px oklch(var(--l-text) var(--tint-violet) / 0.42);
   transition: height 120ms linear;
 }
 
@@ -2304,7 +2338,7 @@ html.intro-skipped #intro-scrim {
   height: 20px;
   content: "";
   background: radial-gradient(circle, #ffffff 0 18%, var(--accent) 42%, oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.3) 72%);
-  border: 4px solid rgba(8, 13, 24, 0.96);
+  border: 4px solid rgba(var(--ring-rgb), 0.96);
   border-radius: 50%;
   box-shadow: 0 0 0 8px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.1), 0 0 22px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.24);
   opacity: 0.66;
@@ -2318,7 +2352,7 @@ html.intro-skipped #intro-scrim {
 
 .timeline-item.is-active::before {
   background: radial-gradient(circle, #ffffff 0 18%, var(--accent-3) 38%, var(--accent) 72%);
-  box-shadow: 0 0 0 10px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.16), 0 0 34px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.64), 0 0 60px oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.36);
+  box-shadow: 0 0 0 10px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.16), 0 0 34px oklch(var(--l-text) var(--cmax-cyan) var(--h-cyan) / 0.64), 0 0 60px oklch(var(--l-text) var(--tint-violet) / 0.36);
   transform: scale(1.12);
 }
 
@@ -2335,10 +2369,10 @@ html.intro-skipped #intro-scrim {
 }
 
 .timeline-item.is-active .timeline-content {
-  border-color: oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.34);
+  border-color: oklch(var(--l-text) var(--tint-violet) / 0.34);
   box-shadow:
     0 30px 90px rgba(0, 0, 0, 0.58),
-    0 0 44px oklch(var(--l-text) var(--cmax-violet) var(--h-violet) / 0.13),
+    0 0 44px oklch(var(--l-text) var(--tint-violet) / 0.13),
     inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 
@@ -2718,8 +2752,8 @@ html.js-reveal .reveal.is-visible {
 
   .cosmic-image-shade {
     background:
-      radial-gradient(circle at 50% 30%, rgba(2, 3, 4, 0.36), rgba(2, 3, 4, 0.9) 68%),
-      linear-gradient(180deg, rgba(2, 3, 4, 0.82), rgba(2, 3, 4, 0.94));
+      radial-gradient(circle at 50% 30%, rgba(var(--shade-rgb), 0.36), rgba(var(--shade-rgb), 0.9) 68%),
+      linear-gradient(180deg, rgba(var(--shade-rgb), 0.82), rgba(var(--shade-rgb), 0.94));
   }
 
   body::after {
@@ -3155,7 +3189,7 @@ html.js-reveal .reveal.is-visible {
   .header-toggle,
   .header-container {
     backdrop-filter: none !important;
-    background: #0b1018 !important;
+    background: var(--glass-solid) !important;
   }
 
   .cosmic-image-bg,
@@ -3420,7 +3454,7 @@ sub { font-size: 0.72em; vertical-align: -0.18em; }
   border-radius: inherit;
   pointer-events: none;
   background: conic-gradient(from 0deg at 50% 50%,
-    var(--ramp-2), var(--ramp-4), var(--ramp-6), var(--ramp-7), var(--ramp-2));
+    var(--halo-cool), var(--halo-mid), var(--ramp-6), var(--ramp-7), var(--halo-cool));
   filter: blur(16px) saturate(1.1);
   opacity: 0.22;
   animation: rimRotate 16s linear infinite;
@@ -4352,7 +4386,7 @@ html[data-gpu="software"] .link-card,
 html[data-gpu="software"] .glass-panel {
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  background: #0b1018 !important;
+  background: var(--glass-solid) !important;
 }
 
 /* The two fixed, full-viewport decorative layers. Not hidden — that would
@@ -4448,4 +4482,11 @@ html[data-gpu="software"] body::before {
   .cv-list li {
     grid-template-columns: 1fr;
   }
+}
+
+/* owner 2026-11-16: the sidebar's tool buttons (theme, motion, language) and social links get the same bolder stroke as
+   the nav icons, so the whole rail reads with one weight */
+.motion-toggle .bi, .theme-toggle .bi, .lang-toggle .bi, .social-links .bi, .header-toggle.bi, .header-toggle .bi {
+  -webkit-text-stroke: 0.45px currentColor;
+  paint-order: stroke fill;
 }

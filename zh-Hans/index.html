@@ -8,11 +8,13 @@
   <meta name="color-scheme" content="dark light">
   <script>
     /* Theme before first paint, so the page never flashes the wrong one: the
-       visitor's own choice if they have made one, otherwise their system's. */
+       visitor's own choice if they have made one (light, dark or midnight; a
+       "dark" stored before midnight existed is the new dark), otherwise their
+       system's (light -> light, dark -> dark). */
     (function () {
       var t = null;
       try { t = localStorage.getItem("theme"); } catch (e) { /* blocked storage */ }
-      if (t !== "light" && t !== "dark") {
+      if (t !== "light" && t !== "dark" && t !== "midnight") {
         t = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
       }
       document.documentElement.setAttribute("data-theme", t);
@@ -53,7 +55,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
   <style>@font-face { font-family: "I18n Latin Serif"; src: local("Liberation Serif"), local("Noto Serif"); unicode-range: U+0000-024F; } html[lang="zh-Hans"] { --font-display: "Plate Display", "Plate Display Fallback", "Iowan Old Style", Palatino, Georgia, "I18n Latin Serif", "Noto Sans SC", serif; --font-text: "Plate Text", "Plate Text Fallback", Charter, Georgia, "Times New Roman", "I18n Latin Serif", "Noto Sans SC", serif; --font-mono: "Plate Mono", ui-monospace, SFMono-Regular, Menlo, "Noto Sans SC", monospace; }</style>
-  <script>window.I18N = {"js.bibtex_copied": "BibTeX 已复制到剪贴板", "js.bibtex_failed": "无法复制 BibTeX", "js.cite": "引用", "js.cite_for": "复制 {title} 的 BibTeX", "js.copied": "已复制", "js.copy_failed": "复制失败", "js.form_captcha": "请先完成人机验证（CAPTCHA）。", "js.form_checking": "正在检查你的邮箱地址……", "js.form_disposable": "请使用你常用的邮箱地址，方便我回复。", "js.form_domain": "该邮箱域名似乎不存在或无法接收邮件，请检查地址。", "js.form_email": "请输入有效的邮箱地址，方便我回复你。", "js.form_failed": "发送失败；你也可以直接发邮件到 {email}。", "js.form_mailapp": "你的邮件应用将会打开，邮件已准备好发送。", "js.form_name": "请填写你的姓名。", "js.form_offline": "发送失败。请检查网络连接，或发邮件到 {email}。", "js.form_ratelimit": "来自此网络连接的消息过多，请一小时后再试。", "js.form_sending": "正在发送……", "js.form_sent": "谢谢，你的留言已发出。我会尽快回复你。", "js.form_short": "留言内容请再多写一些。", "js.motion_system": "你的系统已设置为减少动态效果。", "js.nav_close": "关闭导航", "js.nav_open": "打开导航", "js.new_tab": "在新标签页中打开", "js.pubs_all": "显示全部论文", "js.pubs_fewer": "收起部分论文", "js.read_less": "收起", "js.read_more": "展开", "js.theme_dark": "深色模式", "js.theme_light": "浅色模式", "js.this_paper": "这篇论文"};</script>
+  <script>window.I18N = {"js.bibtex_copied": "BibTeX 已复制到剪贴板", "js.bibtex_failed": "无法复制 BibTeX", "js.cite": "引用", "js.cite_for": "复制 {title} 的 BibTeX", "js.copied": "已复制", "js.copy_failed": "复制失败", "js.form_captcha": "请先完成人机验证（CAPTCHA）。", "js.form_checking": "正在检查你的邮箱地址……", "js.form_disposable": "请使用你常用的邮箱地址，方便我回复。", "js.form_domain": "该邮箱域名似乎不存在或无法接收邮件，请检查地址。", "js.form_email": "请输入有效的邮箱地址，方便我回复你。", "js.form_failed": "发送失败；你也可以直接发邮件到 {email}。", "js.form_mailapp": "你的邮件应用将会打开，邮件已准备好发送。", "js.form_name": "请填写你的姓名。", "js.form_offline": "发送失败。请检查网络连接，或发邮件到 {email}。", "js.form_ratelimit": "来自此网络连接的消息过多，请一小时后再试。", "js.form_sending": "正在发送……", "js.form_sent": "谢谢，你的留言已发出。我会尽快回复你。", "js.form_short": "留言内容请再多写一些。", "js.motion_system": "你的系统已设置为减少动态效果。", "js.nav_close": "关闭导航", "js.nav_open": "打开导航", "js.new_tab": "在新标签页中打开", "js.pubs_all": "显示全部论文", "js.pubs_fewer": "收起部分论文", "js.read_less": "收起", "js.read_more": "展开", "js.theme_button": "主题：{current}。切换到{next}。", "js.theme_current": "主题：{name}", "js.theme_name_dark": "深色", "js.theme_name_light": "浅色", "js.theme_name_midnight": "午夜", "js.this_paper": "这篇论文"};</script>
   <!-- /i18n:head -->
 
   <!-- Link previews (Open Graph and X/Twitter). The card is a 1200x630
@@ -86,8 +88,10 @@
   <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link rel="preload" href="/assets/fonts/plate-display.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/plate-text.woff2" as="font" type="font/woff2" crossorigin>
-  <link href="/assets/css/snapfolio-astro.css?v=13" rel="stylesheet">
+  <link href="/assets/css/snapfolio-astro.css?v=16" rel="stylesheet">
   <link href="/assets/css/light-theme.css?v=4" rel="stylesheet">
+  <link href="/assets/css/dark-theme.css?v=4" rel="stylesheet">
+  <link href="/assets/css/liquid-nav.css?v=1" rel="stylesheet">
 
   <script type="application/ld+json">
   {
@@ -238,8 +242,8 @@
            the state; the label says what the button DOES. -->
       <p class="motion-toggle-row theme-toggle-row">
         <button type="button" class="motion-toggle theme-toggle" id="theme-toggle">
-          <i class="bi bi-sun" aria-hidden="true"></i>
-          <span>浅色模式</span>
+          <i class="bi bi-moon" aria-hidden="true"></i>
+          <span>主题</span>
         </button>
       </p>
       <p class="motion-toggle-row">
@@ -301,10 +305,10 @@
             <div class="hero-news" role="region" aria-labelledby="hero-news-title">
               <p class="hero-news-title" id="hero-news-title">动态</p>
               <ul class="hero-news-list">
-                <li><time datetime="2026-08">2026 年秋季</time><span>我在 ASU 担任 AST 531（研究生课程“星系与宇宙学”）的客座讲师</span></li>
                 <li><time datetime="2026-07">2026 年 7 月</time><span>我在<a href="https://www.roe.ac.uk/" target="_blank" rel="noopener">爱丁堡皇家天文台</a>作了特邀报告</span></li>
                 <li><time datetime="2026-06">2026 年 6 月</time><span>我在剑桥举行的 <a href="https://sbi-galev.github.io/2026/" target="_blank" rel="noopener">SBI for Galaxy Evolution 2026</a> 会议上作了口头报告</span></li>
-                <li><time datetime="2026-05">2026 年 5 月</time><span>我关于星系群中 O VI 的论文已在 <a href="https://doi.org/10.3847/1538-4357/ae632b" target="_blank" rel="noopener">ApJ</a> 发表</span></li>
+                <li><time datetime="2026-05">2026 年 5 月</time><span>关于星系群中 O VI 的研究发表于 <a href="https://doi.org/10.3847/1538-4357/ae632b" target="_blank" rel="noopener">ApJ</a></span></li>
+                <li><time datetime="2026-02">2026年春季</time><span>我在 ASU 担任 AST 531（研究生课程“星系与宇宙学”）的客座讲师</span></li>
               </ul>
             </div>
           </div>
@@ -895,7 +899,7 @@
           </div>
           <p><strong>角色：</strong>客座讲师</p>
           <p><strong>学校：</strong>Arizona State University | <strong>院系：</strong>地球与空间探索学院（SESE）</p>
-          <p><strong>学期：</strong>2026 年秋季</p>
+          <p><strong>学期：</strong>2026年春季</p>
         </div>
 
         <div class="teaching-panel reveal">
@@ -999,6 +1003,19 @@
     </div>
   </footer>
 
+  <!-- Phone section bar (assets/js/liquid-nav.js); desktop keeps the sidebar -->
+  <nav id="liquid-nav" class="liquid-nav" aria-label="页面栏目">
+    <div class="ln-pill">
+      <canvas class="ln-canvas" aria-hidden="true"></canvas>
+      <span class="ln-drop" aria-hidden="true"></span>
+      <a class="ln-item" href="#home" data-anim="hop"><svg class="ln-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5"/><path d="M6 9.5V20h12V9.5"/><path d="M10 20v-5h4v5"/></svg><span>首页</span></a>
+      <a class="ln-item" href="#research" data-anim="pop"><svg class="ln-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l1.9 5.1 5.1 1.9-5.1 1.9-1.9 5.1-1.9-5.1L5 10.5l5.1-1.9z"/><path d="M18.5 16.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"/></svg><span>研究</span></a>
+      <a class="ln-item" href="#publications" data-anim="hop"><svg class="ln-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5h9l3 3V20.5H6z"/><path d="M15 3.5v3h3"/><path d="M9 11h6M9 14h6M9 17h4"/></svg><span>论文</span></a>
+      <a class="ln-item" href="#talks" data-anim="pop"><svg class="ln-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3.5" width="6" height="11" rx="3"/><path d="M6 11.5a6 6 0 0 0 12 0"/><path d="M12 17.5v3"/></svg><span>报告</span></a>
+      <a class="ln-item" href="#contact" data-anim="hop"><svg class="ln-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="m4 7 8 6 8-6"/></svg><span>联系</span></a>
+    </div>
+  </nav>
+
   <a href="#home" class="scroll-top" aria-label="返回顶部"><i class="bi bi-arrow-up-short" aria-hidden="true"></i></a>
 
   <script src="/assets/js/motion-toggle.js?v=3" defer></script>
@@ -1006,21 +1023,22 @@
        synchronous and first: cosmos.js, warp.js and plate-field.js are all
        deferred and so read it after this has run. -->
   <script src="/assets/js/perf-tier.js?v=4"></script>
-  <script src="/assets/js/theme-toggle.js?v=3" defer></script>
+  <script src="/assets/js/theme-toggle.js?v=5" defer></script>
   <script src="/assets/js/snapfolio-astro.js?v=7"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js" defer></script>
   <!-- Before plate-field.js: it reads the visit seed cosmos.js sets. -->
-  <script src="/assets/js/cosmos.js?v=6" defer></script>
+  <script src="/assets/js/cosmos.js?v=7" defer></script>
   <script src="/assets/js/warp.js?v=5" defer></script>
   <script src="/assets/js/contact-form.js?v=6" defer></script>
-  <script src="/assets/js/plate-field.js?v=5" defer></script>
+  <script src="/assets/js/plate-field.js?v=6" defer></script>
   <!-- Before choreography.js: the cards must have their phone height before
        ScrollTrigger measures the page. -->
   <script src="/assets/js/card-read-more.js?v=2" defer></script>
   <script src="/assets/js/choreography.js?v=10" defer></script>
   <script src="/assets/js/publications.js?v=2" defer></script>
+  <script src="/assets/js/liquid-nav.js?v=1" defer></script>
   <!-- i18n:script -->
   <script src="/assets/js/i18n.js?v=2" defer></script>
   <!-- /i18n:script -->

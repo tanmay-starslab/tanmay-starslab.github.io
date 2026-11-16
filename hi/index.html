@@ -8,11 +8,13 @@
   <meta name="color-scheme" content="dark light">
   <script>
     /* Theme before first paint, so the page never flashes the wrong one: the
-       visitor's own choice if they have made one, otherwise their system's. */
+       visitor's own choice if they have made one (light, dark or midnight; a
+       "dark" stored before midnight existed is the new dark), otherwise their
+       system's (light -> light, dark -> dark). */
     (function () {
       var t = null;
       try { t = localStorage.getItem("theme"); } catch (e) { /* blocked storage */ }
-      if (t !== "light" && t !== "dark") {
+      if (t !== "light" && t !== "dark" && t !== "midnight") {
         t = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
       }
       document.documentElement.setAttribute("data-theme", t);
@@ -53,7 +55,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
   <style>@font-face { font-family: "I18n Latin Serif"; src: local("Liberation Serif"), local("Noto Serif"); unicode-range: U+0000-024F; } html[lang="hi"] { --font-display: "Plate Display", "Plate Display Fallback", "Iowan Old Style", Palatino, Georgia, "I18n Latin Serif", "Noto Sans Devanagari", serif; --font-text: "Plate Text", "Plate Text Fallback", Charter, Georgia, "Times New Roman", "I18n Latin Serif", "Noto Sans Devanagari", serif; --font-mono: "Plate Mono", ui-monospace, SFMono-Regular, Menlo, "Noto Sans Devanagari", monospace; }</style>
-  <script>window.I18N = {"js.bibtex_copied": "BibTeX क्लिपबोर्ड पर कॉपी हो गया", "js.bibtex_failed": "BibTeX कॉपी नहीं हो सका", "js.cite": "उद्धृत करें", "js.cite_for": "{title} का BibTeX कॉपी करें", "js.copied": "कॉपी हो गया", "js.copy_failed": "कॉपी नहीं हुआ", "js.form_captcha": "कृपया पहले CAPTCHA पूरा करें।", "js.form_checking": "आपका ईमेल पता जाँचा जा रहा है...", "js.form_disposable": "कृपया ऐसा ईमेल पता दें जिसे आप नियमित रूप से इस्तेमाल करते हैं, ताकि मैं जवाब दे सकूँ।", "js.form_domain": "यह ईमेल डोमेन मौजूद नहीं लगता या मेल स्वीकार नहीं करता। कृपया पता जाँच लें।", "js.form_email": "कृपया एक मान्य ईमेल पता लिखें, ताकि मैं आपको जवाब दे सकूँ।", "js.form_failed": "संदेश नहीं भेजा जा सका; आप मुझे {email} पर ईमेल भी कर सकते हैं।", "js.form_mailapp": "आपका ईमेल ऐप भेजने के लिए तैयार संदेश के साथ खुल जाना चाहिए।", "js.form_name": "कृपया अपना नाम बताएँ।", "js.form_offline": "संदेश नहीं भेजा जा सका। कृपया अपना कनेक्शन जाँचें, या मुझे {email} पर ईमेल करें।", "js.form_ratelimit": "इस कनेक्शन से बहुत अधिक संदेश भेजे गए हैं। कृपया एक घंटे बाद फिर कोशिश करें।", "js.form_sending": "भेजा जा रहा है...", "js.form_sent": "धन्यवाद, आपका संदेश भेज दिया गया है। मैं जल्द ही आपसे संपर्क करूँगा!", "js.form_short": "कृपया अपने संदेश में थोड़ा और लिखें।", "js.motion_system": "आपके सिस्टम में पहले से ही गति कम करने की सेटिंग चालू है।", "js.nav_close": "नेविगेशन बंद करें", "js.nav_open": "नेविगेशन खोलें", "js.new_tab": "नए टैब में खुलता है", "js.pubs_all": "सभी प्रकाशन दिखाएँ", "js.pubs_fewer": "कम प्रकाशन दिखाएँ", "js.read_less": "कम दिखाएँ", "js.read_more": "और पढ़ें", "js.theme_dark": "डार्क मोड", "js.theme_light": "लाइट मोड", "js.this_paper": "इस शोधपत्र"};</script>
+  <script>window.I18N = {"js.bibtex_copied": "BibTeX क्लिपबोर्ड पर कॉपी हो गया", "js.bibtex_failed": "BibTeX कॉपी नहीं हो सका", "js.cite": "उद्धृत करें", "js.cite_for": "{title} का BibTeX कॉपी करें", "js.copied": "कॉपी हो गया", "js.copy_failed": "कॉपी नहीं हुआ", "js.form_captcha": "कृपया पहले CAPTCHA पूरा करें।", "js.form_checking": "आपका ईमेल पता जाँचा जा रहा है...", "js.form_disposable": "कृपया ऐसा ईमेल पता दें जिसे आप नियमित रूप से इस्तेमाल करते हैं, ताकि मैं जवाब दे सकूँ।", "js.form_domain": "यह ईमेल डोमेन मौजूद नहीं लगता या मेल स्वीकार नहीं करता। कृपया पता जाँच लें।", "js.form_email": "कृपया एक मान्य ईमेल पता लिखें, ताकि मैं आपको जवाब दे सकूँ।", "js.form_failed": "संदेश नहीं भेजा जा सका; आप मुझे {email} पर ईमेल भी कर सकते हैं।", "js.form_mailapp": "आपका ईमेल ऐप भेजने के लिए तैयार संदेश के साथ खुल जाना चाहिए।", "js.form_name": "कृपया अपना नाम बताएँ।", "js.form_offline": "संदेश नहीं भेजा जा सका। कृपया अपना कनेक्शन जाँचें, या मुझे {email} पर ईमेल करें।", "js.form_ratelimit": "इस कनेक्शन से बहुत अधिक संदेश भेजे गए हैं। कृपया एक घंटे बाद फिर कोशिश करें।", "js.form_sending": "भेजा जा रहा है...", "js.form_sent": "धन्यवाद, आपका संदेश भेज दिया गया है। मैं जल्द ही आपसे संपर्क करूँगा!", "js.form_short": "कृपया अपने संदेश में थोड़ा और लिखें।", "js.motion_system": "आपके सिस्टम में पहले से ही गति कम करने की सेटिंग चालू है।", "js.nav_close": "नेविगेशन बंद करें", "js.nav_open": "नेविगेशन खोलें", "js.new_tab": "नए टैब में खुलता है", "js.pubs_all": "सभी प्रकाशन दिखाएँ", "js.pubs_fewer": "कम प्रकाशन दिखाएँ", "js.read_less": "कम दिखाएँ", "js.read_more": "और पढ़ें", "js.theme_button": "थीम: {current}। {next} पर बदलें।", "js.theme_current": "थीम: {name}", "js.theme_name_dark": "डार्क", "js.theme_name_light": "लाइट", "js.theme_name_midnight": "मिडनाइट", "js.this_paper": "इस शोधपत्र"};</script>
   <!-- /i18n:head -->
 
   <!-- Link previews (Open Graph and X/Twitter). The card is a 1200x630
@@ -86,8 +88,10 @@
   <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link rel="preload" href="/assets/fonts/plate-display.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/plate-text.woff2" as="font" type="font/woff2" crossorigin>
-  <link href="/assets/css/snapfolio-astro.css?v=13" rel="stylesheet">
+  <link href="/assets/css/snapfolio-astro.css?v=16" rel="stylesheet">
   <link href="/assets/css/light-theme.css?v=4" rel="stylesheet">
+  <link href="/assets/css/dark-theme.css?v=4" rel="stylesheet">
+  <link href="/assets/css/liquid-nav.css?v=1" rel="stylesheet">
 
   <script type="application/ld+json">
   {
@@ -238,8 +242,8 @@
            the state; the label says what the button DOES. -->
       <p class="motion-toggle-row theme-toggle-row">
         <button type="button" class="motion-toggle theme-toggle" id="theme-toggle">
-          <i class="bi bi-sun" aria-hidden="true"></i>
-          <span>लाइट मोड</span>
+          <i class="bi bi-moon" aria-hidden="true"></i>
+          <span>थीम</span>
         </button>
       </p>
       <p class="motion-toggle-row">
@@ -301,10 +305,10 @@
             <div class="hero-news" role="region" aria-labelledby="hero-news-title">
               <p class="hero-news-title" id="hero-news-title">समाचार</p>
               <ul class="hero-news-list">
-                <li><time datetime="2026-08">शरद 2026</time><span>मैंने ASU में AST 531, Graduate Galaxies &amp; Cosmology, में अतिथि प्रशिक्षक के रूप में पढ़ाया</span></li>
                 <li><time datetime="2026-07">जुलाई 2026</time><span>मैंने <a href="https://www.roe.ac.uk/" target="_blank" rel="noopener">Royal Observatory Edinburgh</a> में आमंत्रित व्याख्यान दिया</span></li>
                 <li><time datetime="2026-06">जून 2026</time><span>मैंने कैम्ब्रिज में <a href="https://sbi-galev.github.io/2026/" target="_blank" rel="noopener">SBI for Galaxy Evolution 2026</a> में व्याख्यान प्रस्तुत किया</span></li>
-                <li><time datetime="2026-05">मई 2026</time><span>आकाशगंगा समूहों में O VI पर मेरा शोधपत्र <a href="https://doi.org/10.3847/1538-4357/ae632b" target="_blank" rel="noopener">ApJ</a> में प्रकाशित हुआ</span></li>
+                <li><time datetime="2026-05">मई 2026</time><span>आकाशगंगा समूहों में O VI पर कार्य <a href="https://doi.org/10.3847/1538-4357/ae632b" target="_blank" rel="noopener">ApJ</a> में प्रकाशित हुआ</span></li>
+                <li><time datetime="2026-02">वसंत 2026</time><span>मैंने ASU में AST 531, Graduate Galaxies &amp; Cosmology, में अतिथि प्रशिक्षक के रूप में पढ़ाया</span></li>
               </ul>
             </div>
           </div>
@@ -895,7 +899,7 @@
           </div>
           <p><strong>भूमिका:</strong> अतिथि प्रशिक्षक</p>
           <p><strong>संस्थान:</strong> Arizona State University | <strong>विभाग:</strong> School of Earth and Space Exploration (SESE)</p>
-          <p><strong>सत्र:</strong> शरद 2026</p>
+          <p><strong>सत्र:</strong> वसंत 2026</p>
         </div>
 
         <div class="teaching-panel reveal">
@@ -999,6 +1003,19 @@
     </div>
   </footer>
 
+  <!-- Phone section bar (assets/js/liquid-nav.js); desktop keeps the sidebar -->
+  <nav id="liquid-nav" class="liquid-nav" aria-label="अनुभाग">
+    <div class="ln-pill">
+      <canvas class="ln-canvas" aria-hidden="true"></canvas>
+      <span class="ln-drop" aria-hidden="true"></span>
+      <a class="ln-item" href="#home" data-anim="hop"><svg class="ln-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5"/><path d="M6 9.5V20h12V9.5"/><path d="M10 20v-5h4v5"/></svg><span>होम</span></a>
+      <a class="ln-item" href="#research" data-anim="pop"><svg class="ln-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l1.9 5.1 5.1 1.9-5.1 1.9-1.9 5.1-1.9-5.1L5 10.5l5.1-1.9z"/><path d="M18.5 16.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"/></svg><span>शोध</span></a>
+      <a class="ln-item" href="#publications" data-anim="hop"><svg class="ln-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5h9l3 3V20.5H6z"/><path d="M15 3.5v3h3"/><path d="M9 11h6M9 14h6M9 17h4"/></svg><span>प्रकाशन</span></a>
+      <a class="ln-item" href="#talks" data-anim="pop"><svg class="ln-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3.5" width="6" height="11" rx="3"/><path d="M6 11.5a6 6 0 0 0 12 0"/><path d="M12 17.5v3"/></svg><span>व्याख्यान</span></a>
+      <a class="ln-item" href="#contact" data-anim="hop"><svg class="ln-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="m4 7 8 6 8-6"/></svg><span>संपर्क</span></a>
+    </div>
+  </nav>
+
   <a href="#home" class="scroll-top" aria-label="ऊपर जाएँ"><i class="bi bi-arrow-up-short" aria-hidden="true"></i></a>
 
   <script src="/assets/js/motion-toggle.js?v=3" defer></script>
@@ -1006,21 +1023,22 @@
        synchronous and first: cosmos.js, warp.js and plate-field.js are all
        deferred and so read it after this has run. -->
   <script src="/assets/js/perf-tier.js?v=4"></script>
-  <script src="/assets/js/theme-toggle.js?v=3" defer></script>
+  <script src="/assets/js/theme-toggle.js?v=5" defer></script>
   <script src="/assets/js/snapfolio-astro.js?v=7"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js" defer></script>
   <!-- Before plate-field.js: it reads the visit seed cosmos.js sets. -->
-  <script src="/assets/js/cosmos.js?v=6" defer></script>
+  <script src="/assets/js/cosmos.js?v=7" defer></script>
   <script src="/assets/js/warp.js?v=5" defer></script>
   <script src="/assets/js/contact-form.js?v=6" defer></script>
-  <script src="/assets/js/plate-field.js?v=5" defer></script>
+  <script src="/assets/js/plate-field.js?v=6" defer></script>
   <!-- Before choreography.js: the cards must have their phone height before
        ScrollTrigger measures the page. -->
   <script src="/assets/js/card-read-more.js?v=2" defer></script>
   <script src="/assets/js/choreography.js?v=10" defer></script>
   <script src="/assets/js/publications.js?v=2" defer></script>
+  <script src="/assets/js/liquid-nav.js?v=1" defer></script>
   <!-- i18n:script -->
   <script src="/assets/js/i18n.js?v=2" defer></script>
   <!-- /i18n:script -->

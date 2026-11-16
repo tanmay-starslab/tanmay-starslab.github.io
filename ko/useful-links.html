@@ -8,11 +8,13 @@
   <meta name="color-scheme" content="dark light">
   <script>
     /* Theme before first paint, so the page never flashes the wrong one: the
-       visitor's own choice if they have made one, otherwise their system's. */
+       visitor's own choice if they have made one (light, dark or midnight; a
+       "dark" stored before midnight existed is the new dark), otherwise their
+       system's (light -> light, dark -> dark). */
     (function () {
       var t = null;
       try { t = localStorage.getItem("theme"); } catch (e) { /* blocked storage */ }
-      if (t !== "light" && t !== "dark") {
+      if (t !== "light" && t !== "dark" && t !== "midnight") {
         t = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
       }
       document.documentElement.setAttribute("data-theme", t);
@@ -53,7 +55,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
   <style>@font-face { font-family: "I18n Latin Serif"; src: local("Liberation Serif"), local("Noto Serif"); unicode-range: U+0000-024F; } html[lang="ko"] { --font-display: "Plate Display", "Plate Display Fallback", "Iowan Old Style", Palatino, Georgia, "I18n Latin Serif", "Noto Sans KR", serif; --font-text: "Plate Text", "Plate Text Fallback", Charter, Georgia, "Times New Roman", "I18n Latin Serif", "Noto Sans KR", serif; --font-mono: "Plate Mono", ui-monospace, SFMono-Regular, Menlo, "Noto Sans KR", monospace; }</style>
-  <script>window.I18N = {"js.bibtex_copied": "BibTeX를 클립보드에 복사했습니다", "js.bibtex_failed": "BibTeX를 복사하지 못했습니다", "js.cite": "인용", "js.cite_for": "{title}의 BibTeX 복사", "js.copied": "복사됨", "js.copy_failed": "복사 실패", "js.form_captcha": "먼저 CAPTCHA를 완료해 주세요.", "js.form_checking": "이메일 주소를 확인하는 중...", "js.form_disposable": "답장을 드릴 수 있도록 계속 사용하시는 이메일 주소를 입력해 주세요.", "js.form_domain": "이 이메일 도메인은 존재하지 않거나 메일을 받지 않는 것 같습니다. 주소를 확인해 주세요.", "js.form_email": "답장을 드릴 수 있도록 올바른 이메일 주소를 입력해 주세요.", "js.form_failed": "전송되지 않았습니다. {email}로 직접 이메일을 보내셔도 됩니다.", "js.form_mailapp": "보낼 메시지가 작성된 상태로 이메일 앱이 열립니다.", "js.form_name": "이름을 알려 주세요.", "js.form_offline": "전송되지 않았습니다. 인터넷 연결을 확인하시거나 {email}로 이메일을 보내 주세요.", "js.form_ratelimit": "이 연결에서 너무 많은 메시지가 전송되었습니다. 1시간 후에 다시 시도해 주세요.", "js.form_sending": "보내는 중…", "js.form_sent": "감사합니다. 메시지를 보냈습니다. 곧 연락드리겠습니다.", "js.form_short": "메시지를 조금 더 자세히 적어 주세요.", "js.motion_system": "시스템에서 이미 동작 줄이기를 요청하고 있습니다.", "js.nav_close": "메뉴 닫기", "js.nav_open": "메뉴 열기", "js.new_tab": "새 탭에서 열림", "js.pubs_all": "모든 논문 보기", "js.pubs_fewer": "일부 논문만 보기", "js.read_less": "접기", "js.read_more": "더 보기", "js.theme_dark": "다크 모드", "js.theme_light": "라이트 모드", "js.this_paper": "이 논문"};</script>
+  <script>window.I18N = {"js.bibtex_copied": "BibTeX를 클립보드에 복사했습니다", "js.bibtex_failed": "BibTeX를 복사하지 못했습니다", "js.cite": "인용", "js.cite_for": "{title}의 BibTeX 복사", "js.copied": "복사됨", "js.copy_failed": "복사 실패", "js.form_captcha": "먼저 CAPTCHA를 완료해 주세요.", "js.form_checking": "이메일 주소를 확인하는 중...", "js.form_disposable": "답장을 드릴 수 있도록 계속 사용하시는 이메일 주소를 입력해 주세요.", "js.form_domain": "이 이메일 도메인은 존재하지 않거나 메일을 받지 않는 것 같습니다. 주소를 확인해 주세요.", "js.form_email": "답장을 드릴 수 있도록 올바른 이메일 주소를 입력해 주세요.", "js.form_failed": "전송되지 않았습니다. {email}로 직접 이메일을 보내셔도 됩니다.", "js.form_mailapp": "보낼 메시지가 작성된 상태로 이메일 앱이 열립니다.", "js.form_name": "이름을 알려 주세요.", "js.form_offline": "전송되지 않았습니다. 인터넷 연결을 확인하시거나 {email}로 이메일을 보내 주세요.", "js.form_ratelimit": "이 연결에서 너무 많은 메시지가 전송되었습니다. 1시간 후에 다시 시도해 주세요.", "js.form_sending": "보내는 중…", "js.form_sent": "감사합니다. 메시지를 보냈습니다. 곧 연락드리겠습니다.", "js.form_short": "메시지를 조금 더 자세히 적어 주세요.", "js.motion_system": "시스템에서 이미 동작 줄이기를 요청하고 있습니다.", "js.nav_close": "메뉴 닫기", "js.nav_open": "메뉴 열기", "js.new_tab": "새 탭에서 열림", "js.pubs_all": "모든 논문 보기", "js.pubs_fewer": "일부 논문만 보기", "js.read_less": "접기", "js.read_more": "더 보기", "js.theme_button": "테마: {current}. {next} 테마로 전환.", "js.theme_current": "테마: {name}", "js.theme_name_dark": "다크", "js.theme_name_light": "라이트", "js.theme_name_midnight": "미드나이트", "js.this_paper": "이 논문"};</script>
   <!-- /i18n:head -->
 
   <meta property="og:title" content="유용한 링크 | Tanmay Singh">
@@ -81,8 +83,9 @@
   <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link rel="preload" href="/assets/fonts/plate-display.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/plate-text.woff2" as="font" type="font/woff2" crossorigin>
-  <link href="/assets/css/snapfolio-astro.css?v=13" rel="stylesheet">
+  <link href="/assets/css/snapfolio-astro.css?v=16" rel="stylesheet">
   <link href="/assets/css/light-theme.css?v=4" rel="stylesheet">
+  <link href="/assets/css/dark-theme.css?v=4" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: SnapFolio
@@ -171,8 +174,8 @@
 
       <p class="motion-toggle-row theme-toggle-row">
         <button type="button" class="motion-toggle theme-toggle" id="theme-toggle">
-          <i class="bi bi-sun" aria-hidden="true"></i>
-          <span>라이트 모드</span>
+          <i class="bi bi-moon" aria-hidden="true"></i>
+          <span>테마</span>
         </button>
       </p>
       <!-- i18n:picker -->
@@ -382,9 +385,9 @@
   <!-- This page runs the same sky canvas, so it gets the same device budget.
        Synchronous and first, so the deferred cosmos.js reads it. -->
   <script src="/assets/js/perf-tier.js?v=4"></script>
-  <script src="/assets/js/theme-toggle.js?v=3" defer></script>
+  <script src="/assets/js/theme-toggle.js?v=5" defer></script>
   <script src="/assets/js/snapfolio-astro.js?v=7"></script>
-  <script src="/assets/js/cosmos.js?v=6" defer></script>
+  <script src="/assets/js/cosmos.js?v=7" defer></script>
   <!-- i18n:script -->
   <script src="/assets/js/i18n.js?v=2" defer></script>
   <!-- /i18n:script -->
