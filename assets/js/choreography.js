@@ -234,6 +234,9 @@
     function focusRecovery(e) {
       var panel = e.target.closest(".research-card");
       if (!panel) return;
+      // Keyboard focus only. A mouse or touch press focuses the link on pointerdown; scrolling the rail then moves the
+      // card under the pointer and the click lands elsewhere, so a card's link needed two clicks (owner, 2026-11-15).
+      try { if (!e.target.matches(":focus-visible")) return; } catch (err) { /* old browsers: keep the guard */ }
       var st = railTween.scrollTrigger;
       if (panels.indexOf(panel) < 0 || !st) return;
       // Progress comes from the panel's own offset, so it stays correct with
