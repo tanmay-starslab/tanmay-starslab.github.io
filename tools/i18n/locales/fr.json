@@ -353,5 +353,6 @@
   "js.form_failed": "L’envoi a échoué ; vous pouvez aussi m’écrire à {email}.",
   "js.form_offline": "L’envoi a échoué. Vérifiez votre connexion, ou écrivez-moi à {email}.",
   "js.motion_system": "Votre système demande déjà de réduire les animations.",
-  "js.form_sending": "Envoi en cours…"
+  "js.form_sending": "Envoi en cours…",
+  "home.liquid-nav.sections": "Sections"
 }

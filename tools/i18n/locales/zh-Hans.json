@@ -1059,5 +1059,8 @@
     "text": "发送失败。请检查网络连接，或发邮件到 {email}。"
   },
   "js.motion_system": "你的系统已设置为减少动态效果。",
-  "js.form_sending": "正在发送……"
+  "js.form_sending": "正在发送……",
+  "home.liquid-nav.sections": {
+    "text": "页面栏目"
+  }
 }

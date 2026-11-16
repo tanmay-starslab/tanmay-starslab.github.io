@@ -45,7 +45,7 @@
   },
   "common.navmenu.home": {
     "text": "Home",
-    "context": "index.html #navmenu: navigation menu item; useful-links.html #navmenu: navigation menu item"
+    "context": "index.html #liquid-nav: span; index.html #navmenu: navigation menu item; useful-links.html #navmenu: navigation menu item"
   },
   "common.navmenu.about": {
     "text": "About",
@@ -53,7 +53,7 @@
   },
   "common.navmenu.research": {
     "text": "Research",
-    "context": "index.html #home: button; index.html #navmenu: navigation menu item; useful-links.html #navmenu: navigation menu item"
+    "context": "index.html #home: button; index.html #liquid-nav: span; index.html #navmenu: navigation menu item; useful-links.html #navmenu: navigation menu item"
   },
   "common.navmenu.past-projects": {
     "text": "Past Projects",
@@ -61,11 +61,11 @@
   },
   "common.navmenu.publications": {
     "text": "Publications",
-    "context": "index.html #home: button; index.html #navmenu: navigation menu item; useful-links.html #navmenu: navigation menu item"
+    "context": "index.html #home: button; index.html #liquid-nav: span; index.html #navmenu: navigation menu item; useful-links.html #navmenu: navigation menu item"
   },
   "common.navmenu.talks": {
     "text": "Talks",
-    "context": "index.html #navmenu: navigation menu item; useful-links.html #navmenu: navigation menu item"
+    "context": "index.html #liquid-nav: span; index.html #navmenu: navigation menu item; useful-links.html #navmenu: navigation menu item"
   },
   "common.navmenu.awards-and-service": {
     "text": "Awards and Service",
@@ -85,7 +85,7 @@
   },
   "common.navmenu.contact": {
     "text": "Contact",
-    "context": "index.html #navmenu: navigation menu item; useful-links.html #navmenu: navigation menu item"
+    "context": "index.html #liquid-nav: span; index.html #navmenu: navigation menu item; useful-links.html #navmenu: navigation menu item"
   },
   "common.header.theme": {
     "text": "Theme",
@@ -810,6 +810,10 @@
   "common.footer.2026-tanmay-singh-designed-by-bootstrapmade": {
     "text": "&copy; <span id=\"year\">2026</span> Tanmay Singh. Designed by <a href=\"https://bootstrapmade.com/\" target=\"_blank\" rel=\"noopener\">BootstrapMade</a>; adapted with a custom astrophysics interface.",
     "context": "index.html #footer: paragraph; useful-links.html #footer: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.liquid-nav.sections": {
+    "text": "Sections",
+    "context": "index.html #liquid-nav: screen-reader label on <nav>"
   },
   "home.page.back-to-top": {
     "text": "Back to top",

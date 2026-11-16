@@ -353,5 +353,6 @@
   "js.form_failed": "A mensagem não foi enviada; você também pode me escrever em {email}.",
   "js.form_offline": "A mensagem não foi enviada. Verifique sua conexão ou me escreva em {email}.",
   "js.motion_system": "Seu sistema já está configurado para reduzir o movimento.",
-  "js.form_sending": "Enviando..."
+  "js.form_sending": "Enviando...",
+  "home.liquid-nav.sections": "Seções"
 }

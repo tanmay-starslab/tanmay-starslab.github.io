@@ -1412,5 +1412,9 @@
     "context": "contact form error; keep {email}"
   },
   "js.motion_system": "시스템에서 이미 동작 줄이기를 요청하고 있습니다.",
-  "js.form_sending": "보내는 중…"
+  "js.form_sending": "보내는 중…",
+  "home.liquid-nav.sections": {
+    "text": "섹션",
+    "context": "index.html #head: browser tab / search result title; index.html #head: link-preview title; index.html #head: link-preview title (X/Twitter)"
+  }
 }

@@ -1412,5 +1412,9 @@
     "context": "contact form error; keep {email}"
   },
   "js.motion_system": "システムですでに視差効果やアニメーションを減らす設定になっています。",
-  "js.form_sending": "送信中…"
+  "js.form_sending": "送信中…",
+  "home.liquid-nav.sections": {
+    "text": "セクション",
+    "context": "index.html #head: browser tab / search result title; index.html #head: link-preview title; index.html #head: link-preview title (X/Twitter)"
+  }
 }

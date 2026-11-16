@@ -1059,5 +1059,8 @@
     "text": "No se pudo enviar. Revise su conexión o escríbame a {email}."
   },
   "js.motion_system": "Tu sistema ya solicita reducir el movimiento.",
-  "js.form_sending": "Enviando..."
+  "js.form_sending": "Enviando...",
+  "home.liquid-nav.sections": {
+    "text": "Secciones"
+  }
 }

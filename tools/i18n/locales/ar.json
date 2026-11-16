@@ -353,5 +353,6 @@
   "js.form_failed": "لم تُرسَل الرسالة؛ يمكنك أيضًا مراسلتي على {email}.",
   "js.form_offline": "لم تُرسَل الرسالة. يُرجى التحقق من اتصالك، أو مراسلتي على {email}.",
   "js.motion_system": "يطلب نظامك بالفعل تقليل الحركة.",
-  "js.form_sending": "جارٍ الإرسال..."
+  "js.form_sending": "جارٍ الإرسال...",
+  "home.liquid-nav.sections": "الأقسام"
 }
