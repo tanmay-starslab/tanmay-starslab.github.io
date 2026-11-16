@@ -323,10 +323,6 @@
     "text": "탐색기 열기",
     "context": "index.html #research: button"
   },
-  "home.research.detect-resolve-explainer": {
-    "text": "검출 및 분해 해설",
-    "context": "index.html #research: button"
-  },
   "home.past-projects.earlier-research": {
     "text": "이전 연구",
     "context": "index.html #past-projects: section heading"
