@@ -1,0 +1,94 @@
+/* Liquid glass for the desktop sidebar and the page's buttons; the companion of liquid-nav.css (the phone pill).
+ *
+ * 1. The sidebar drop (.lg-drop, >= 1200 px): assets/js/liquid-glass.js places one glass drop in #navmenu's list and
+ *    springs it to the active item with the phone pill's two springs, so it stretches along its travel, narrows with
+ *    speed and settles with a soft wobble. A plain DOM element on purpose: the page already runs WebGL sky and nebula.
+ * 2. Glossy controls (.lg-gloss, set by the same script): a specular highlight that follows the pointer (--gx / --gy),
+ *    a small press squish on the independent `scale` property (so the existing hover lifts on `transform` still apply)
+ *    and a ripple (.lg-ripple) from the press point.
+ * Tokens per theme: --lg-water / --lg-water-2 (drop fill, top and bottom), --lg-rim (drop rim), --lg-edge (drop
+ * outline), --lg-spec (specular colour), --lg-spec-a (highlight strength), --lg-drop-shadow.
+ * Reduced motion (the OS setting or html.motion-off): the drop jumps, no squish or ripple, the highlight stays put.
+ */
+:root{   /* Midnight (the page's default token set): navy glass, violet-tinted water */
+  --lg-water:rgba(165,155,255,.26);--lg-water-2:rgba(120,110,235,.14);--lg-rim:rgba(225,228,255,.62);
+  --lg-edge:rgba(170,180,255,.22);--lg-spec:225,230,255;--lg-spec-a:.42;
+  --lg-drop-shadow:0 8px 22px -10px rgba(0,0,0,.7),0 2px 6px rgba(0,0,0,.28)}
+:root[data-theme="light"]{   /* Light: clear glass on paper */
+  --lg-water:rgba(255,255,255,.96);--lg-water-2:rgba(255,255,255,.62);--lg-rim:rgba(255,255,255,1);
+  --lg-edge:rgba(60,50,30,.13);--lg-spec:255,255,255;--lg-spec-a:.55;
+  --lg-drop-shadow:0 8px 20px -10px rgba(60,45,20,.34),0 1px 3px rgba(60,45,20,.12)}
+:root[data-theme="dark"]{   /* Dark: smoked black glass */
+  --lg-water:rgba(46,46,50,.72);--lg-water-2:rgba(8,8,9,.62);--lg-rim:rgba(255,255,255,.36);
+  --lg-edge:rgba(255,255,255,.11);--lg-spec:240,242,246;--lg-spec-a:.32;
+  --lg-drop-shadow:0 8px 22px -10px rgba(0,0,0,.9),0 2px 6px rgba(0,0,0,.45)}
+
+/* ------------------------------------------------------------------ 1. the sidebar drop */
+.lg-drop{display:none}
+@media (min-width:1200px){
+  #navmenu.lg-ready ul{position:relative;isolation:isolate}
+  #navmenu.lg-ready li{position:relative;z-index:1}
+  .lg-drop{display:block;position:absolute;z-index:0;left:0;right:0;top:0;height:44px;border-radius:12px;pointer-events:none;
+    opacity:0;transform-origin:50% 50%;will-change:transform,height;
+    /* specular highlight (follows the pointer while it is over the drop's item, else rests at the upper left),
+       a soft top sheen, the water body */
+    background:
+      radial-gradient(70px 34px at var(--dx,28%) var(--dy,22%),rgba(var(--lg-spec),calc(var(--lg-spec-a) * 1.5)),rgba(var(--lg-spec),0) 72%),
+      linear-gradient(180deg,rgba(var(--lg-spec),calc(var(--lg-spec-a) * .5)) 0%,rgba(var(--lg-spec),0) 46%),
+      linear-gradient(180deg,var(--lg-water),var(--lg-water-2));
+    box-shadow:inset 0 1px 0 var(--lg-rim),inset 0 -1px 1px rgba(var(--lg-spec),.12),inset 0 0 0 1px var(--lg-edge),var(--lg-drop-shadow);
+    transition:opacity .25s ease}
+  #navmenu.lg-ready .lg-drop.lg-on{opacity:1}
+  /* the drop is the highlight now: the active link drops its own fill; hover keeps a faint glass step */
+  #navmenu.lg-ready a.active{background:transparent;border-color:transparent}
+  #navmenu.lg-ready a:hover:not(.active){background:rgba(var(--lg-spec),.05);border-color:rgba(var(--lg-spec),.07)}
+  :root[data-theme="light"] #navmenu.lg-ready a:hover:not(.active){background:rgba(30,28,40,.04);border-color:rgba(30,28,40,.06)}
+  #navmenu.lg-ready a{transition:color .25s ease,background .25s ease,border-color .25s ease}
+  #navmenu.lg-ready a .navicon{transition:transform .45s cubic-bezier(.3,1.6,.5,1)}
+  #navmenu.lg-ready a.active .navicon{transform:scale(1.08)}
+}
+
+/* ------------------------------------------------------------------ 2. glossy controls */
+.lg-gloss{position:relative;isolation:isolate;overflow:hidden}
+.lg-gloss::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;
+  background:
+    radial-gradient(circle 22px at var(--gx,30%) var(--gy,0%),rgba(var(--lg-spec),calc(var(--lg-spec-a) * .9)),rgba(var(--lg-spec),0) 100%),
+    radial-gradient(circle 80px at var(--gx,30%) var(--gy,0%),rgba(var(--lg-spec),calc(var(--lg-spec-a) * .55)),rgba(var(--lg-spec),0) 75%),
+    linear-gradient(180deg,rgba(var(--lg-spec),calc(var(--lg-spec-a) * .35)),rgba(var(--lg-spec),0) 55%);
+  box-shadow:inset 0 1px 0 rgba(var(--lg-spec),calc(var(--lg-spec-a) * 1.2));
+  opacity:0;transition:opacity .3s ease}
+.lg-gloss:hover::before,.lg-gloss:focus-visible::before{opacity:1}
+/* on filled (accent) buttons the highlight is white light on colour, a touch stronger */
+.btn-primary.lg-gloss::before,.card-button:not(.is-quiet).lg-gloss::before,.chip-link:not(.chip-cite).lg-gloss::before{--lg-spec:255,255,255;--lg-spec-a:.5}
+/* doubled class: outranks .btn span {position:relative} in snapfolio-astro.css */
+.lg-ripple.lg-ripple{position:absolute;z-index:-1;left:var(--rx);top:var(--ry);width:var(--rs);height:var(--rs);margin:calc(var(--rs) / -2) 0 0 calc(var(--rs) / -2);
+  border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(var(--lg-spec),calc(var(--lg-spec-a) * 1.3)) 0,rgba(var(--lg-spec),calc(var(--lg-spec-a) * .5)) 45%,rgba(var(--lg-spec),0) 70%);
+  transform:scale(.05);opacity:1;animation:lg-ripple .62s cubic-bezier(.2,.7,.3,1) forwards}
+:root[data-theme="light"] .lg-ripple{background:radial-gradient(circle,rgba(30,28,40,.10) 0,rgba(30,28,40,.05) 45%,rgba(30,28,40,0) 70%)}
+:root[data-theme="light"] .btn-primary .lg-ripple,:root[data-theme="light"] .card-button:not(.is-quiet) .lg-ripple,
+:root[data-theme="light"] .chip-link:not(.chip-cite) .lg-ripple{background:radial-gradient(circle,rgba(255,255,255,.5) 0,rgba(255,255,255,.2) 45%,rgba(255,255,255,0) 70%)}
+@keyframes lg-ripple{to{transform:scale(1);opacity:0}}
+/* press: squish down a little; release: spring back past rest and settle */
+.lg-gloss.lg-press{animation:lg-press .14s ease-out forwards}
+.lg-gloss.lg-release{animation:lg-release .5s linear}
+@keyframes lg-press{from{scale:1}to{scale:.955 .93}}
+@keyframes lg-release{
+  0%{scale:.955 .93}25%{scale:1.025 1.035}45%{scale:.99 .985}65%{scale:1.006 1.008}100%{scale:1}}
+
+/* ------------------------------------------------------------------ reduced motion */
+html.motion-off .lg-drop,html.motion-off #navmenu.lg-ready a .navicon{transition:none}
+html.motion-off #navmenu.lg-ready a.active .navicon{transform:none}
+html.motion-off .lg-gloss.lg-press,html.motion-off .lg-gloss.lg-release{animation:none}
+html.motion-off .lg-ripple{display:none}
+@media (prefers-reduced-motion:reduce){
+  .lg-drop,#navmenu.lg-ready a .navicon{transition:none}
+  #navmenu.lg-ready a.active .navicon{transform:none}
+  .lg-gloss.lg-press,.lg-gloss.lg-release{animation:none}
+  .lg-ripple{display:none}
+}
+@media (forced-colors:active){
+  .lg-drop{display:none !important}
+  #navmenu.lg-ready a.active{border-color:Highlight}
+  .lg-gloss::before,.lg-ripple{display:none}
+}
