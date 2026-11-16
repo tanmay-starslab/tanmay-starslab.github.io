@@ -101,9 +101,6 @@
   "home.home.news": {
     "text": "খবর"
   },
-  "home.home.fall-2026": {
-    "text": "শরৎ 2026"
-  },
   "home.home.i-was-a-guest-instructor-for": {
     "text": "ASU-তে AST 531 (Graduate Galaxies & Cosmology) কোর্সে আমি অতিথি প্রশিক্ষক ছিলাম"
   },
@@ -121,9 +118,6 @@
   },
   "home.home.may-2026": {
     "text": "মে 2026"
-  },
-  "home.home.my-paper-on-o-vi-in": {
-    "text": "গ্যালাক্সি গোষ্ঠীতে O VI নিয়ে আমার গবেষণাপত্র <a href=\"https://doi.org/10.3847/1538-4357/ae632b\" target=\"_blank\" rel=\"noopener\">ApJ</a>-তে প্রকাশিত হয়েছে"
   },
   "home.home.portrait-of-tanmay-singh": {
     "text": "Tanmay Singh-এর প্রতিকৃতি"
@@ -538,9 +532,6 @@
   },
   "home.timeline.institution-arizona-state-university-department": {
     "text": "<strong>প্রতিষ্ঠান:</strong> Arizona State University | <strong>বিভাগ:</strong> School of Earth and Space Exploration (SESE)"
-  },
-  "home.timeline.semester-fall-2026": {
-    "text": "<strong>সেমিস্টার:</strong> শরৎ 2026"
   },
   "home.timeline.ast-121-introduction-to-astronomy-laboratory": {
     "text": "AST 121: Introduction to Astronomy Laboratory"
@@ -1062,5 +1053,8 @@
   "js.form_sending": "পাঠানো হচ্ছে...",
   "home.liquid-nav.sections": {
     "text": "বিভাগসমূহ"
-  }
+  },
+  "home.home.spring-2026": {"text": "বসন্ত 2026"},
+  "home.timeline.semester-spring-2026": {"text": "<strong>সেমিস্টার:</strong> বসন্ত 2026"},
+  "home.home.work-on-o-vi-in-galaxy": {"text": "গ্যালাক্সি গোষ্ঠীতে O VI নিয়ে কাজ <a href=\"https://doi.org/10.3847/1538-4357/ae632b\" target=\"_blank\" rel=\"noopener\">ApJ</a>-তে প্রকাশিত হয়েছে"}
 }

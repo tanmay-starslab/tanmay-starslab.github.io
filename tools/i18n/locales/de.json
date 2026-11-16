@@ -33,14 +33,12 @@
   "home.home.primary-actions": "Wichtigste Aktionen",
   "home.home.quick-links": "Schnellzugriff",
   "home.home.news": "Neuigkeiten",
-  "home.home.fall-2026": "Herbst 2026",
   "home.home.i-was-a-guest-instructor-for": "Gastdozent für AST 531, Graduate Galaxies & Cosmology, an der ASU",
   "home.home.jul-2026": "Juli 2026",
   "home.home.i-gave-an-invited-talk-at": "Eingeladener Vortrag am <a href=\"https://www.roe.ac.uk/\" target=\"_blank\" rel=\"noopener\">Royal Observatory Edinburgh</a>",
   "home.home.jun-2026": "Juni 2026",
   "home.home.i-gave-a-contributed-talk-at": "Vortrag auf der <a href=\"https://sbi-galev.github.io/2026/\" target=\"_blank\" rel=\"noopener\">SBI for Galaxy Evolution 2026</a>, Cambridge",
   "home.home.may-2026": "Mai 2026",
-  "home.home.my-paper-on-o-vi-in": "Artikel über O VI in Galaxiengruppen in <a href=\"https://doi.org/10.3847/1538-4357/ae632b\" target=\"_blank\" rel=\"noopener\">ApJ</a> erschienen",
   "home.home.portrait-of-tanmay-singh": "Porträt von Tanmay Singh",
   "home.about.background-and-current-focus": "Werdegang und aktueller Schwerpunkt",
   "home.about.prior-to-coming-to-asu-i": "Bevor ich an die ASU kam, habe ich im Juli 2023 meinen B.Tech in Technischer Physik am <a href=\"https://en.wikipedia.org/wiki/IIT_Delhi\" target=\"_blank\" rel=\"noopener\">Indian Institute of Technology Delhi</a> abgeschlossen. Von Mai bis Juli 2022 war ich außerdem Gaststudent am <a href=\"https://en.wikipedia.org/wiki/Raman_Research_Institute\" target=\"_blank\" rel=\"noopener\">Raman Research Institute</a> in Bangalore. Geboren und aufgewachsen bin ich in <a href=\"https://en.wikipedia.org/wiki/Lucknow\" target=\"_blank\" rel=\"noopener\">Lucknow, Indien</a>.",
@@ -179,7 +177,6 @@
   "home.timeline.ast-531-graduate-galaxies-cosmology": "AST 531: Graduate Galaxies & Cosmology",
   "home.timeline.role-guest-instructor": "<strong>Rolle:</strong> Gastdozent",
   "home.timeline.institution-arizona-state-university-department": "<strong>Institution:</strong> Arizona State University | <strong>Fakultät:</strong> School of Earth and Space Exploration (SESE)",
-  "home.timeline.semester-fall-2026": "<strong>Semester:</strong> Herbst 2026",
   "home.timeline.ast-121-introduction-to-astronomy-laboratory": "AST 121: Introduction to Astronomy Laboratory",
   "home.timeline.role-teaching-assistant-three-lab-sections": "<strong>Rolle:</strong> Lehrassistent, drei Praktikumsgruppen",
   "home.timeline.semester-spring-2025": "<strong>Semester:</strong> Frühjahr 2025",
@@ -354,5 +351,8 @@
   "js.form_offline": "Das Senden hat nicht geklappt. Bitte prüfen Sie Ihre Verbindung oder schreiben Sie mir an {email}.",
   "js.motion_system": "Ihr System fordert bereits reduzierte Bewegung an.",
   "js.form_sending": "Wird gesendet…",
-  "home.liquid-nav.sections": "Abschnitte"
+  "home.liquid-nav.sections": "Abschnitte",
+  "home.home.spring-2026": "Frühjahr 2026",
+  "home.timeline.semester-spring-2026": "<strong>Semester:</strong> Frühjahr 2026",
+  "home.home.work-on-o-vi-in-galaxy": "Arbeit über O VI in Galaxiengruppen in <a href=\"https://doi.org/10.3847/1538-4357/ae632b\" target=\"_blank\" rel=\"noopener\">ApJ</a> erschienen"
 }

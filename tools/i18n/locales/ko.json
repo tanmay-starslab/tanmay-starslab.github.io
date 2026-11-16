@@ -135,10 +135,6 @@
     "text": "소식",
     "context": "index.html #home: paragraph"
   },
-  "home.home.fall-2026": {
-    "text": "2026년 가을",
-    "context": "index.html #home: date"
-  },
   "home.home.i-was-a-guest-instructor-for": {
     "text": "ASU 대학원 과목 AST 531(은하와 우주론)에서 객원 강사를 맡았습니다",
     "context": "index.html #home: span"
@@ -162,10 +158,6 @@
   "home.home.may-2026": {
     "text": "2026년 5월",
     "context": "index.html #home: date; index.html #talks: date"
-  },
-  "home.home.my-paper-on-o-vi-in": {
-    "text": "은하군의 O VI에 관한 제 논문이 <a href=\"https://doi.org/10.3847/1538-4357/ae632b\" target=\"_blank\" rel=\"noopener\">ApJ</a>에 게재되었습니다",
-    "context": "index.html #home: span; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
   },
   "home.home.portrait-of-tanmay-singh": {
     "text": "Tanmay Singh의 초상 사진",
@@ -717,10 +709,6 @@
   },
   "home.timeline.institution-arizona-state-university-department": {
     "text": "<strong>기관:</strong> Arizona State University | <strong>학과:</strong> School of Earth and Space Exploration (SESE)",
-    "context": "index.html #timeline: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
-  },
-  "home.timeline.semester-fall-2026": {
-    "text": "<strong>학기:</strong> 2026년 가을",
     "context": "index.html #timeline: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
   },
   "home.timeline.ast-121-introduction-to-astronomy-laboratory": {
@@ -1416,5 +1404,8 @@
   "home.liquid-nav.sections": {
     "text": "섹션",
     "context": "index.html #head: browser tab / search result title; index.html #head: link-preview title; index.html #head: link-preview title (X/Twitter)"
-  }
+  },
+  "home.home.spring-2026": {"text": "2026년 봄"},
+  "home.timeline.semester-spring-2026": {"text": "<strong>학기:</strong> 2026년 봄"},
+  "home.home.work-on-o-vi-in-galaxy": {"text": "은하군의 O VI에 관한 연구가 <a href=\"https://doi.org/10.3847/1538-4357/ae632b\" target=\"_blank\" rel=\"noopener\">ApJ</a>에 게재되었습니다"}
 }

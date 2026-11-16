@@ -33,14 +33,12 @@
   "home.home.primary-actions": "मुख्य कार्य",
   "home.home.quick-links": "त्वरित लिंक",
   "home.home.news": "समाचार",
-  "home.home.fall-2026": "शरद 2026",
   "home.home.i-was-a-guest-instructor-for": "मैंने ASU में AST 531, Graduate Galaxies & Cosmology, में अतिथि प्रशिक्षक के रूप में पढ़ाया",
   "home.home.jul-2026": "जुलाई 2026",
   "home.home.i-gave-an-invited-talk-at": "मैंने <a href=\"https://www.roe.ac.uk/\" target=\"_blank\" rel=\"noopener\">Royal Observatory Edinburgh</a> में आमंत्रित व्याख्यान दिया",
   "home.home.jun-2026": "जून 2026",
   "home.home.i-gave-a-contributed-talk-at": "मैंने कैम्ब्रिज में <a href=\"https://sbi-galev.github.io/2026/\" target=\"_blank\" rel=\"noopener\">SBI for Galaxy Evolution 2026</a> में व्याख्यान प्रस्तुत किया",
   "home.home.may-2026": "मई 2026",
-  "home.home.my-paper-on-o-vi-in": "आकाशगंगा समूहों में O VI पर मेरा शोधपत्र <a href=\"https://doi.org/10.3847/1538-4357/ae632b\" target=\"_blank\" rel=\"noopener\">ApJ</a> में प्रकाशित हुआ",
   "home.home.portrait-of-tanmay-singh": "Tanmay Singh का चित्र",
   "home.about.background-and-current-focus": "पृष्ठभूमि और वर्तमान कार्य",
   "home.about.prior-to-coming-to-asu-i": "ASU आने से पहले, मैंने जुलाई 2023 में <a href=\"https://en.wikipedia.org/wiki/IIT_Delhi\" target=\"_blank\" rel=\"noopener\">Indian Institute of Technology Delhi</a> से इंजीनियरिंग फ़िज़िक्स में B.Tech पूरा किया। मई से जुलाई 2022 तक मैंने बैंगलोर के <a href=\"https://en.wikipedia.org/wiki/Raman_Research_Institute\" target=\"_blank\" rel=\"noopener\">Raman Research Institute</a> में विज़िटिंग छात्र के रूप में भी काम किया। मेरा जन्म और पालन-पोषण <a href=\"https://en.wikipedia.org/wiki/Lucknow\" target=\"_blank\" rel=\"noopener\">Lucknow, India</a> में हुआ।",
@@ -179,7 +177,6 @@
   "home.timeline.ast-531-graduate-galaxies-cosmology": "AST 531: Graduate Galaxies & Cosmology",
   "home.timeline.role-guest-instructor": "<strong>भूमिका:</strong> अतिथि प्रशिक्षक",
   "home.timeline.institution-arizona-state-university-department": "<strong>संस्थान:</strong> Arizona State University | <strong>विभाग:</strong> School of Earth and Space Exploration (SESE)",
-  "home.timeline.semester-fall-2026": "<strong>सत्र:</strong> शरद 2026",
   "home.timeline.ast-121-introduction-to-astronomy-laboratory": "AST 121: Introduction to Astronomy Laboratory",
   "home.timeline.role-teaching-assistant-three-lab-sections": "<strong>भूमिका:</strong> शिक्षण सहायक, तीन लैब सेक्शन",
   "home.timeline.semester-spring-2025": "<strong>सत्र:</strong> वसंत 2025",
@@ -354,5 +351,8 @@
   "js.form_offline": "संदेश नहीं भेजा जा सका। कृपया अपना कनेक्शन जाँचें, या मुझे {email} पर ईमेल करें।",
   "js.motion_system": "आपके सिस्टम में पहले से ही गति कम करने की सेटिंग चालू है।",
   "js.form_sending": "भेजा जा रहा है...",
-  "home.liquid-nav.sections": "अनुभाग"
+  "home.liquid-nav.sections": "अनुभाग",
+  "home.home.spring-2026": "वसंत 2026",
+  "home.timeline.semester-spring-2026": "<strong>सत्र:</strong> वसंत 2026",
+  "home.home.work-on-o-vi-in-galaxy": "आकाशगंगा समूहों में O VI पर कार्य <a href=\"https://doi.org/10.3847/1538-4357/ae632b\" target=\"_blank\" rel=\"noopener\">ApJ</a> में प्रकाशित हुआ"
 }

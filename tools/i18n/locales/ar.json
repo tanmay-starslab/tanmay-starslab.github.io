@@ -33,14 +33,12 @@
   "home.home.primary-actions": "الإجراءات الرئيسية",
   "home.home.quick-links": "روابط سريعة",
   "home.home.news": "الأخبار",
-  "home.home.fall-2026": "خريف 2026",
   "home.home.i-was-a-guest-instructor-for": "كنت محاضرًا ضيفًا في مقرر الدراسات العليا AST 531 عن المجرات وعلم الكونيات في ASU",
   "home.home.jul-2026": "يوليو 2026",
   "home.home.i-gave-an-invited-talk-at": "ألقيت محاضرة بدعوة من <a href=\"https://www.roe.ac.uk/\" target=\"_blank\" rel=\"noopener\">Royal Observatory Edinburgh</a>",
   "home.home.jun-2026": "يونيو 2026",
   "home.home.i-gave-a-contributed-talk-at": "قدّمت عرضًا شفهيًا في <a href=\"https://sbi-galev.github.io/2026/\" target=\"_blank\" rel=\"noopener\">SBI for Galaxy Evolution 2026</a>، Cambridge",
   "home.home.may-2026": "مايو 2026",
-  "home.home.my-paper-on-o-vi-in": "نُشرت ورقتي البحثية عن O VI في مجموعات المجرات في <a href=\"https://doi.org/10.3847/1538-4357/ae632b\" target=\"_blank\" rel=\"noopener\">ApJ</a>",
   "home.home.portrait-of-tanmay-singh": "صورة شخصية لـ Tanmay Singh",
   "home.about.background-and-current-focus": "الخلفية ومجال التركيز الحالي",
   "home.about.prior-to-coming-to-asu-i": "قبل انضمامي إلى ASU، حصلت على درجة B.Tech في الفيزياء الهندسية من <a href=\"https://en.wikipedia.org/wiki/IIT_Delhi\" target=\"_blank\" rel=\"noopener\">Indian Institute of Technology Delhi</a> في يوليو 2023. كما عملت طالبًا زائرًا في <a href=\"https://en.wikipedia.org/wiki/Raman_Research_Institute\" target=\"_blank\" rel=\"noopener\">Raman Research Institute</a> في Bangalore من مايو إلى يوليو 2022. وُلدت ونشأت في <a href=\"https://en.wikipedia.org/wiki/Lucknow\" target=\"_blank\" rel=\"noopener\">Lucknow، الهند</a>.",
@@ -179,7 +177,6 @@
   "home.timeline.ast-531-graduate-galaxies-cosmology": "AST 531: المجرات وعلم الكونيات (دراسات عليا)",
   "home.timeline.role-guest-instructor": "<strong>الدور:</strong> محاضر ضيف",
   "home.timeline.institution-arizona-state-university-department": "<strong>المؤسسة:</strong> Arizona State University | <strong>القسم:</strong> School of Earth and Space Exploration (SESE)",
-  "home.timeline.semester-fall-2026": "<strong>الفصل الدراسي:</strong> خريف 2026",
   "home.timeline.ast-121-introduction-to-astronomy-laboratory": "AST 121: مختبر مقدمة في علم الفلك",
   "home.timeline.role-teaching-assistant-three-lab-sections": "<strong>الدور:</strong> مساعد تدريس لثلاث شعب مختبرية",
   "home.timeline.semester-spring-2025": "<strong>الفصل الدراسي:</strong> ربيع 2025",
@@ -354,5 +351,8 @@
   "js.form_offline": "لم تُرسَل الرسالة. يُرجى التحقق من اتصالك، أو مراسلتي على {email}.",
   "js.motion_system": "يطلب نظامك بالفعل تقليل الحركة.",
   "js.form_sending": "جارٍ الإرسال...",
-  "home.liquid-nav.sections": "الأقسام"
+  "home.liquid-nav.sections": "الأقسام",
+  "home.home.spring-2026": "ربيع 2026",
+  "home.timeline.semester-spring-2026": "<strong>الفصل الدراسي:</strong> ربيع 2026",
+  "home.home.work-on-o-vi-in-galaxy": "نُشر عمل عن O VI في مجموعات المجرات في <a href=\"https://doi.org/10.3847/1538-4357/ae632b\" target=\"_blank\" rel=\"noopener\">ApJ</a>"
 }

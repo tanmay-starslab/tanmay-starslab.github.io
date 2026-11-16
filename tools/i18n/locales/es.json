@@ -101,9 +101,6 @@
   "home.home.news": {
     "text": "Novedades"
   },
-  "home.home.fall-2026": {
-    "text": "Otoño 2026"
-  },
   "home.home.i-was-a-guest-instructor-for": {
     "text": "Fui profesor invitado en AST 531, Graduate Galaxies & Cosmology, en la ASU"
   },
@@ -121,9 +118,6 @@
   },
   "home.home.may-2026": {
     "text": "may. 2026"
-  },
-  "home.home.my-paper-on-o-vi-in": {
-    "text": "Mi artículo sobre el O VI en grupos de galaxias se publicó en <a href=\"https://doi.org/10.3847/1538-4357/ae632b\" target=\"_blank\" rel=\"noopener\">ApJ</a>"
   },
   "home.home.portrait-of-tanmay-singh": {
     "text": "Retrato de Tanmay Singh"
@@ -538,9 +532,6 @@
   },
   "home.timeline.institution-arizona-state-university-department": {
     "text": "<strong>Institución:</strong> Arizona State University | <strong>Departamento:</strong> School of Earth and Space Exploration (SESE)"
-  },
-  "home.timeline.semester-fall-2026": {
-    "text": "<strong>Semestre:</strong> otoño de 2026"
   },
   "home.timeline.ast-121-introduction-to-astronomy-laboratory": {
     "text": "AST 121: Introduction to Astronomy Laboratory"
@@ -1062,5 +1053,8 @@
   "js.form_sending": "Enviando...",
   "home.liquid-nav.sections": {
     "text": "Secciones"
-  }
+  },
+  "home.home.spring-2026": {"text": "Primavera 2026"},
+  "home.timeline.semester-spring-2026": {"text": "<strong>Semestre:</strong> primavera de 2026"},
+  "home.home.work-on-o-vi-in-galaxy": {"text": "Se publicó en <a href=\"https://doi.org/10.3847/1538-4357/ae632b\" target=\"_blank\" rel=\"noopener\">ApJ</a> un trabajo sobre el O VI en grupos de galaxias"}
 }

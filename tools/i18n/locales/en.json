@@ -135,14 +135,6 @@
     "text": "News",
     "context": "index.html #home: paragraph"
   },
-  "home.home.fall-2026": {
-    "text": "Fall 2026",
-    "context": "index.html #home: date"
-  },
-  "home.home.i-was-a-guest-instructor-for": {
-    "text": "I was a guest instructor for AST 531, Graduate Galaxies & Cosmology, at ASU",
-    "context": "index.html #home: span"
-  },
   "home.home.jul-2026": {
     "text": "Jul 2026",
     "context": "index.html #home: date; index.html #talks: date"
@@ -163,9 +155,17 @@
     "text": "May 2026",
     "context": "index.html #home: date; index.html #talks: date"
   },
-  "home.home.my-paper-on-o-vi-in": {
-    "text": "My paper on O VI in galaxy groups was published in <a href=\"https://doi.org/10.3847/1538-4357/ae632b\" target=\"_blank\" rel=\"noopener\">ApJ</a>",
+  "home.home.work-on-o-vi-in-galaxy": {
+    "text": "Work on O VI in galaxy groups was published in <a href=\"https://doi.org/10.3847/1538-4357/ae632b\" target=\"_blank\" rel=\"noopener\">ApJ</a>",
     "context": "index.html #home: span; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
+  },
+  "home.home.spring-2026": {
+    "text": "Spring 2026",
+    "context": "index.html #home: date"
+  },
+  "home.home.i-was-a-guest-instructor-for": {
+    "text": "I was a guest instructor for AST 531, Graduate Galaxies & Cosmology, at ASU",
+    "context": "index.html #home: span"
   },
   "home.home.portrait-of-tanmay-singh": {
     "text": "Portrait of Tanmay Singh",
@@ -719,8 +719,8 @@
     "text": "<strong>Institution:</strong> Arizona State University | <strong>Department:</strong> School of Earth and Space Exploration (SESE)",
     "context": "index.html #timeline: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
   },
-  "home.timeline.semester-fall-2026": {
-    "text": "<strong>Semester:</strong> Fall 2026",
+  "home.timeline.semester-spring-2026": {
+    "text": "<strong>Semester:</strong> Spring 2026",
     "context": "index.html #timeline: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
   },
   "home.timeline.ast-121-introduction-to-astronomy-laboratory": {

@@ -135,10 +135,6 @@
     "text": "お知らせ",
     "context": "index.html #home: paragraph"
   },
-  "home.home.fall-2026": {
-    "text": "2026年秋",
-    "context": "index.html #home: date"
-  },
   "home.home.i-was-a-guest-instructor-for": {
     "text": "ASU の AST 531（大学院 銀河と宇宙論）でゲスト講師を務めました",
     "context": "index.html #home: span"
@@ -162,10 +158,6 @@
   "home.home.may-2026": {
     "text": "2026年5月",
     "context": "index.html #home: date; index.html #talks: date"
-  },
-  "home.home.my-paper-on-o-vi-in": {
-    "text": "銀河群における O VI に関する論文が <a href=\"https://doi.org/10.3847/1538-4357/ae632b\" target=\"_blank\" rel=\"noopener\">ApJ</a> に掲載されました",
-    "context": "index.html #home: span; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
   },
   "home.home.portrait-of-tanmay-singh": {
     "text": "Tanmay Singh の肖像",
@@ -717,10 +709,6 @@
   },
   "home.timeline.institution-arizona-state-university-department": {
     "text": "<strong>所属機関：</strong>Arizona State University | <strong>学部：</strong>School of Earth and Space Exploration (SESE)",
-    "context": "index.html #timeline: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
-  },
-  "home.timeline.semester-fall-2026": {
-    "text": "<strong>学期：</strong>2026年秋学期",
     "context": "index.html #timeline: paragraph; HTML fragment: keep every tag and attribute exactly, move them with the words they wrap"
   },
   "home.timeline.ast-121-introduction-to-astronomy-laboratory": {
@@ -1416,5 +1404,8 @@
   "home.liquid-nav.sections": {
     "text": "セクション",
     "context": "index.html #head: browser tab / search result title; index.html #head: link-preview title; index.html #head: link-preview title (X/Twitter)"
-  }
+  },
+  "home.home.spring-2026": {"text": "2026年春"},
+  "home.timeline.semester-spring-2026": {"text": "<strong>学期：</strong>2026年春学期"},
+  "home.home.work-on-o-vi-in-galaxy": {"text": "銀河群における O VI に関する研究が <a href=\"https://doi.org/10.3847/1538-4357/ae632b\" target=\"_blank\" rel=\"noopener\">ApJ</a> に掲載されました"}
 }

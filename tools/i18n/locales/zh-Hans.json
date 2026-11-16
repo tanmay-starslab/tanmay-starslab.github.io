@@ -101,9 +101,6 @@
   "home.home.news": {
     "text": "动态"
   },
-  "home.home.fall-2026": {
-    "text": "2026 年秋季"
-  },
   "home.home.i-was-a-guest-instructor-for": {
     "text": "我在 ASU 担任 AST 531（研究生课程“星系与宇宙学”）的客座讲师"
   },
@@ -121,9 +118,6 @@
   },
   "home.home.may-2026": {
     "text": "2026 年 5 月"
-  },
-  "home.home.my-paper-on-o-vi-in": {
-    "text": "我关于星系群中 O VI 的论文已在 <a href=\"https://doi.org/10.3847/1538-4357/ae632b\" target=\"_blank\" rel=\"noopener\">ApJ</a> 发表"
   },
   "home.home.portrait-of-tanmay-singh": {
     "text": "Tanmay Singh 的肖像"
@@ -538,9 +532,6 @@
   },
   "home.timeline.institution-arizona-state-university-department": {
     "text": "<strong>学校：</strong>Arizona State University | <strong>院系：</strong>地球与空间探索学院（SESE）"
-  },
-  "home.timeline.semester-fall-2026": {
-    "text": "<strong>学期：</strong>2026 年秋季"
   },
   "home.timeline.ast-121-introduction-to-astronomy-laboratory": {
     "text": "AST 121：天文学入门实验"
@@ -1062,5 +1053,8 @@
   "js.form_sending": "正在发送……",
   "home.liquid-nav.sections": {
     "text": "页面栏目"
-  }
+  },
+  "home.home.spring-2026": {"text": "2026年春季"},
+  "home.timeline.semester-spring-2026": {"text": "<strong>学期：</strong>2026年春季"},
+  "home.home.work-on-o-vi-in-galaxy": {"text": "关于星系群中 O VI 的研究发表于 <a href=\"https://doi.org/10.3847/1538-4357/ae632b\" target=\"_blank\" rel=\"noopener\">ApJ</a>"}
 }
