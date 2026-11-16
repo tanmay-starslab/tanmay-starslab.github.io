@@ -19,11 +19,12 @@
     transform:translateX(-50%);width:min(440px,calc(100vw - 24px));
     transition:opacity .35s ease,transform .45s cubic-bezier(.2,.8,.2,1)}
   :root[data-theme="light"] .liquid-nav{   /* Light: clear glass on paper */
-    --ln-glass:rgba(255,253,248,.62);--ln-rim:rgba(255,255,255,.95);--ln-edge:rgba(60,50,30,.12);
+    --ln-glass:rgba(255,253,248,.62);--ln-glass:color-mix(in srgb,var(--ink-panel,#fffdf8) 62%,transparent);
+    --ln-rim:rgba(255,255,255,.95);--ln-edge:rgba(60,50,30,.12);--ln-edge:color-mix(in srgb,var(--ink-edge,#bfb5a3) 45%,transparent);
     --ln-water:rgb(255,255,255);--ln-water-a:.55;--ln-spec:rgb(255,255,255);--ln-dark:0;
     --ln-drop-bg:rgba(255,255,255,.92);--ln-shadow:0 10px 30px -10px rgba(60,50,30,.32),0 2px 6px rgba(60,50,30,.10)}
-  :root[data-theme="dark"] .liquid-nav{   /* Dark: smoked near-black glass */
-    --ln-glass:rgba(14,15,18,.66);--ln-rim:rgba(255,255,255,.24);--ln-edge:rgba(255,255,255,.09);
+  :root[data-theme="dark"] .liquid-nav{   /* Dark: smoked black glass from the sidebar chrome token */
+    --ln-glass:rgba(var(--chrome-rgb,10,10,11),.68);--ln-rim:rgba(255,255,255,.24);--ln-edge:rgba(255,255,255,.09);
     --ln-water:rgb(214,218,228);--ln-water-a:.26;--ln-spec:rgb(240,242,246);--ln-dark:1;
     --ln-drop-bg:rgba(255,255,255,.16);--ln-shadow:0 14px 34px -12px rgba(0,0,0,.8),0 2px 6px rgba(0,0,0,.4)}
   .ln-pill{position:relative;display:flex;align-items:stretch;padding:5px;border-radius:999px;isolation:isolate;
@@ -57,8 +58,15 @@
   html.intro-active .liquid-nav,body.intro-active .liquid-nav{opacity:0;pointer-events:none;transform:translate(-50%,24px)}
   /* the back-to-top button sits above the pill instead of beside it */
   .scroll-top{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+  /* the one-time language suggestion chip (i18n.css) floats above the pill, not on it */
+  .lang-suggest{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
   /* keep content clear of the pill */
   body{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+}
+/* the site's own motion toggle (html.motion-off) counts as reduced motion too */
+@media (max-width:900px){
+  html.motion-off .liquid-nav,html.motion-off .liquid-nav.ln-ready .ln-drop,html.motion-off .liquid-nav.ln-ready[data-dir=l] .ln-drop,html.motion-off .ln-item{transition:none}
+  html.motion-off .ln-icon.ln-pop,html.motion-off .ln-icon.ln-hop{animation:none}
 }
 @media (max-width:900px) and (prefers-reduced-motion:reduce){
   .liquid-nav,.liquid-nav.ln-ready .ln-drop,.liquid-nav.ln-ready[data-dir=l] .ln-drop,.ln-item{transition:none}
