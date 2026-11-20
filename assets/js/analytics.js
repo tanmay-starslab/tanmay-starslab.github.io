@@ -20,10 +20,20 @@
   gtag("js", new Date());
   gtag("config", MEASUREMENT_ID);
 
-  var tag = document.createElement("script");
-  tag.async = true;
-  tag.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(MEASUREMENT_ID);
-  document.head.appendChild(tag);
+  // gtag.js (~184 KB) waits for the load event and an idle moment; events
+  // queue in dataLayer until then, so nothing is lost.
+  function loadTag() {
+    var tag = document.createElement("script");
+    tag.async = true;
+    tag.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(MEASUREMENT_ID);
+    document.head.appendChild(tag);
+  }
+  function whenIdle() {
+    if (window.requestIdleCallback) window.requestIdleCallback(loadTag, { timeout: 4000 });
+    else window.setTimeout(loadTag, 1500);
+  }
+  if (document.readyState === "complete") whenIdle();
+  else window.addEventListener("load", whenIdle, { once: true });
 
   function sectionOf(node) {
     var section = node.closest && node.closest("section[id]");
