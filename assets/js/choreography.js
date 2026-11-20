@@ -113,7 +113,8 @@
      parked after 3s. A blocked CDN therefore degrades to plain, fully visible,
      correctly styled headings. */
   function riseHeadings() {
-    if (!window.SplitText) return;
+    // Desktop only: on a phone the line rise replayed on every scroll back and read as shaking.
+    if (!window.SplitText || !window.matchMedia("(min-width: 900px)").matches) return;
     var targets = document.querySelectorAll("[data-split]");
     if (!targets.length) return;
     targets.forEach(function (el) {

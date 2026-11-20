@@ -70,6 +70,16 @@
   backdrop-filter: blur(8px);
   font-size: 0.86rem;
 }
+/* Phones: lift the chip clear of the back-to-top button (16px + 44px + a gap). */
+@media (max-width: 900px) {
+  html .lang-suggest { bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
+  html .lang-suggest a { display: inline-flex; align-items: center; min-height: 44px; white-space: nowrap; }
+  html.drawer-open .lang-suggest { display: none; }
+  html .lang-suggest button { flex: 0 0 44px; width: 44px; height: 44px; }
+}
+@media (min-width: 641px) and (max-width: 900px) and (min-height: 501px) {
+  html .lang-suggest { bottom: calc(140px + env(safe-area-inset-bottom, 0px)); }
+}
 .lang-suggest a { color: var(--ink-text); text-decoration: none; }
 .lang-suggest a:hover { text-decoration: underline; }
 .lang-suggest button {

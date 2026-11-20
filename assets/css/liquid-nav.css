@@ -63,6 +63,13 @@
   /* keep content clear of the pill */
   body{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
 }
+/* Phones (owner 2026-11-20): the top bar and its drawer are the one navigation; the pill stays for 641-900 px.
+   Landscape phones drop it too: on a 390 px tall screen it would cover a fifth of the page. */
+@media (max-width:640px),(max-width:900px) and (max-height:500px) and (orientation:landscape){
+  .liquid-nav{display:none}
+  body{padding-bottom:0}
+  .scroll-top{bottom:calc(16px + env(safe-area-inset-bottom,0px))}
+}
 /* the site's own motion toggle (html.motion-off) counts as reduced motion too */
 @media (max-width:900px){
   html.motion-off .liquid-nav,html.motion-off .liquid-nav.ln-ready .ln-drop,html.motion-off .liquid-nav.ln-ready[data-dir=l] .ln-drop,html.motion-off .ln-item{transition:none}

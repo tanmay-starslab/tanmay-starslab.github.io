@@ -108,10 +108,17 @@
   // fine, because the shader does not run on the CPU.
   var name = softwareGL || veryWeak ? "minimal" : (weak ? "reduced" : "full");
 
+  // Touch phones and small tablets (owner 2026-11-20): no WebGL field, a still merger frame,
+  // and the CSS in snapfolio-astro.css keyed off html.touch-lite drops the heavy blur layers.
+  var touchLite = false;
+  try { touchLite = window.matchMedia("(pointer: coarse) and (max-width: 899px)").matches; } catch (e) {}
+  if (touchLite) reasons.push("touch-lite");
+
   var tier = {
     name: name,
     // May the volumetric raymarch run at all?
-    gl: !softwareGL,
+    gl: !softwareGL && !touchLite,
+    lite: touchLite,
     // Canvas-2D starfield budget.
     stars: name === "minimal" ? 70 : (name === "reduced" ? 160 : null), // null = unchanged
     // The two O(n*k) neighbour-linking passes — the most expensive part of
@@ -215,6 +222,7 @@
   // decision without re-deriving it.
   try {
     document.documentElement.setAttribute("data-perf-tier", name);
+    if (touchLite) document.documentElement.classList.add("touch-lite");
     // Separate from the tier on purpose. The tier mixes CPU and memory, but
     // the continuous CSS animations are a RASTERISATION cost: a 2-core
     // machine with a real GPU composites them fine, and should keep them.

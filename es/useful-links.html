@@ -4,7 +4,7 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="dark light">
   <script>
     /* Theme before first paint, so the page never flashes the wrong one: the
@@ -50,7 +50,7 @@
   <meta property="og:locale:alternate" content="ja_JP">
   <meta property="og:locale:alternate" content="de_DE">
   <meta property="og:locale:alternate" content="ko_KR">
-  <link href="/assets/css/i18n.css?v=2" rel="stylesheet">
+  <link href="/assets/css/i18n.css?v=3" rel="stylesheet">
   <script>window.I18N = {"js.bibtex_copied": "BibTeX copiado al portapapeles", "js.bibtex_failed": "No se pudo copiar el BibTeX", "js.cite": "Citar", "js.cite_for": "Copiar BibTeX de {title}", "js.copied": "Copiado", "js.copy_failed": "Error al copiar", "js.form_captcha": "Complete primero el CAPTCHA.", "js.form_checking": "Comprobando su dirección de correo...", "js.form_disposable": "Use una dirección de correo que consulte habitualmente, para que pueda responderle.", "js.form_domain": "Ese dominio de correo no parece existir o no acepta mensajes. Revise la dirección.", "js.form_email": "Introduzca una dirección de correo válida para que pueda responderle.", "js.form_failed": "No se pudo enviar; también puede escribirme a {email}.", "js.form_mailapp": "Su aplicación de correo debería abrirse con el mensaje listo para enviar.", "js.form_name": "Por favor, indique su nombre.", "js.form_offline": "No se pudo enviar. Revise su conexión o escríbame a {email}.", "js.form_ratelimit": "Demasiados mensajes desde esta conexión. Inténtelo de nuevo dentro de una hora.", "js.form_sending": "Enviando...", "js.form_sent": "Gracias, su mensaje está en camino. Le responderé pronto.", "js.form_short": "Por favor, escriba un poco más en su mensaje.", "js.motion_system": "Tu sistema ya solicita reducir el movimiento.", "js.nav_close": "Cerrar menú", "js.nav_open": "Abrir menú", "js.new_tab": "Se abre en una pestaña nueva", "js.pubs_all": "Ver todas las publicaciones", "js.pubs_fewer": "Ver menos publicaciones", "js.read_less": "Leer menos", "js.read_more": "Leer más", "js.theme_button": "Tema: {current}. Cambiar a {next}.", "js.theme_current": "Tema: {name}", "js.theme_name_dark": "Oscuro", "js.theme_name_light": "Claro", "js.theme_name_midnight": "Medianoche", "js.this_paper": "este artículo"};</script>
   <!-- /i18n:head -->
 
@@ -79,7 +79,7 @@
   <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link rel="preload" href="/assets/fonts/plate-display.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/plate-text.woff2" as="font" type="font/woff2" crossorigin>
-  <link href="/assets/css/snapfolio-astro.css?v=16" rel="stylesheet">
+  <link href="/assets/css/snapfolio-astro.css?v=17" rel="stylesheet">
   <link href="/assets/css/light-theme.css?v=4" rel="stylesheet">
   <link href="/assets/css/dark-theme.css?v=4" rel="stylesheet">
   <link href="/assets/css/liquid-glass.css?v=1" rel="stylesheet">
@@ -169,13 +169,14 @@
         </ul>
       </nav>
 
-      <p class="motion-toggle-row theme-toggle-row">
-        <button type="button" class="motion-toggle theme-toggle" id="theme-toggle">
-          <i class="bi bi-moon" aria-hidden="true"></i>
-          <span>Tema</span>
-        </button>
-      </p>
-      <!-- i18n:picker -->
+      <div class="drawer-foot">
+        <p class="motion-toggle-row theme-toggle-row">
+          <button type="button" class="motion-toggle theme-toggle" id="theme-toggle">
+            <i class="bi bi-moon" aria-hidden="true"></i>
+            <span>Tema</span>
+          </button>
+        </p>
+        <!-- i18n:picker -->
       <details class="lang-picker" data-lang-picker>
         <summary class="motion-toggle lang-toggle" aria-label="Idioma: Español"><i class="bi bi-translate" aria-hidden="true"></i><span lang="es">Español</span></summary>
         <ul class="lang-menu">
@@ -194,11 +195,12 @@
         </ul>
       </details>
       <!-- /i18n:picker -->
-      <div class="social-links" role="group" aria-label="Enlaces de perfil">
-        <a href="mailto:tsingh65@asu.edu" aria-label="Escribir a Tanmay Singh"><i class="bi bi-envelope" aria-hidden="true"></i></a>
-        <a href="https://scholar.google.com/citations?user=Sfeb8fMAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Tanmay Singh en Google Scholar"><i class="bi bi-mortarboard" aria-hidden="true"></i></a>
-        <a href="https://github.com/tanmay-starslab" target="_blank" rel="noopener" aria-label="Tanmay Singh en GitHub"><i class="bi bi-github" aria-hidden="true"></i></a>
-        <a href="https://www.linkedin.com/in/tanmay-singh-21574a1aa/" target="_blank" rel="noopener" aria-label="Tanmay Singh en LinkedIn"><i class="bi bi-linkedin" aria-hidden="true"></i></a>
+        <div class="social-links" role="group" aria-label="Enlaces de perfil">
+          <a href="mailto:tsingh65@asu.edu" aria-label="Escribir a Tanmay Singh"><i class="bi bi-envelope" aria-hidden="true"></i></a>
+          <a href="https://scholar.google.com/citations?user=Sfeb8fMAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Tanmay Singh en Google Scholar"><i class="bi bi-mortarboard" aria-hidden="true"></i></a>
+          <a href="https://github.com/tanmay-starslab" target="_blank" rel="noopener" aria-label="Tanmay Singh en GitHub"><i class="bi bi-github" aria-hidden="true"></i></a>
+          <a href="https://www.linkedin.com/in/tanmay-singh-21574a1aa/" target="_blank" rel="noopener" aria-label="Tanmay Singh en LinkedIn"><i class="bi bi-linkedin" aria-hidden="true"></i></a>
+        </div>
       </div>
     </div>
   </header>
@@ -381,13 +383,13 @@
 
   <!-- This page runs the same sky canvas, so it gets the same device budget.
        Synchronous and first, so the deferred cosmos.js reads it. -->
-  <script src="/assets/js/perf-tier.js?v=4"></script>
+  <script src="/assets/js/perf-tier.js?v=5"></script>
   <script src="/assets/js/theme-toggle.js?v=5" defer></script>
-  <script src="/assets/js/snapfolio-astro.js?v=7"></script>
-  <script src="/assets/js/cosmos.js?v=7" defer></script>
+  <script src="/assets/js/snapfolio-astro.js?v=8"></script>
+  <script src="/assets/js/cosmos.js?v=8" defer></script>
   <script src="/assets/js/liquid-glass.js?v=1" defer></script>
   <!-- i18n:script -->
-  <script src="/assets/js/i18n.js?v=2" defer></script>
+  <script src="/assets/js/i18n.js?v=3" defer></script>
   <!-- /i18n:script -->
 </body>
 

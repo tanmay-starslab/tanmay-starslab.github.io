@@ -66,6 +66,8 @@
   var perfTier = window.__perfTier || null;
   var tierName = perfTier ? perfTier.name : "full";
   var staticSky = tierName === "minimal";
+  // Touch phones get the same still frame, but keep the full particle budget so it reads as a galaxy.
+  var stillSky = staticSky || !!(perfTier && perfTier.lite);
 
   // ---- seed --------------------------------------------------------------
   var seed = (function () {
@@ -558,7 +560,7 @@
   }
 
   // ---- loop -------------------------------------------------------------------
-  var frozen = motionOff() || staticSky, rafId = 0, prev = 0, shown = !document.hidden, times = [], governed = false;
+  var frozen = motionOff() || stillSky, rafId = 0, prev = 0, shown = !document.hidden, times = [], governed = false;
   // Separate from `frozen` and `shown` on purpose, as in plate-field.js: each
   // pause has its own owner, and every resume re-checks all of them, so the
   // hero coming back cannot restart a loop the governor or a hidden tab
@@ -650,7 +652,7 @@
   // Respects the budget as well as the toggle: a weak client must not be
   // started by the intro handing control over.
   window.__startGalaxy = function () {
-    frozen = motionOff() || staticSky || governed;
+    frozen = motionOff() || stillSky || governed;
     if (!frozen) start();
   };
 
