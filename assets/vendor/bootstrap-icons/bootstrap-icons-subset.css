@@ -1,0 +1,63 @@
+/*! Subset of
+ * Bootstrap Icons v1.13.1 (https://icons.getbootstrap.com/)
+ * Copyright 2019-2024 The Bootstrap Authors
+ * Licensed under MIT (https://github.com/twbs/icons/blob/main/LICENSE)
+ */
+
+@font-face {
+  font-display: block;
+  font-family: "bootstrap-icons";
+  src: url("./fonts/bootstrap-icons-subset.woff2") format("woff2");
+}
+
+.bi::before,
+[class^="bi-"]::before,
+[class*=" bi-"]::before {
+  display: inline-block;
+  font-family: bootstrap-icons !important;
+  font-style: normal;
+  font-weight: normal !important;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  vertical-align: -.125em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.bi-activity::before { content: "\f66b"; }
+.bi-arrow-left::before { content: "\f12f"; }
+.bi-arrow-right::before { content: "\f138"; }
+.bi-arrow-up-short::before { content: "\f145"; }
+.bi-award::before { content: "\f154"; }
+.bi-book::before { content: "\f194"; }
+.bi-bullseye::before { content: "\f1de"; }
+.bi-chevron-down::before { content: "\f282"; }
+.bi-compass::before { content: "\f2d1"; }
+.bi-diagram-3::before { content: "\f2ee"; }
+.bi-envelope::before { content: "\f32f"; }
+.bi-envelope-fill::before { content: "\f32c"; }
+.bi-file-earmark-person::before { content: "\f379"; }
+.bi-github::before { content: "\f3ed"; }
+.bi-globe-central-south-asia::before { content: "\f884"; }
+.bi-grid-3x3-gap::before { content: "\f3f9"; }
+.bi-house::before { content: "\f425"; }
+.bi-journal-text::before { content: "\f444"; }
+.bi-link-45deg::before { content: "\f470"; }
+.bi-linkedin::before { content: "\f472"; }
+.bi-list::before { content: "\f479"; }
+.bi-mic::before { content: "\f490"; }
+.bi-moon::before { content: "\f497"; }
+.bi-moon-stars::before { content: "\f496"; }
+.bi-mortarboard::before { content: "\f6fe"; }
+.bi-mortarboard-fill::before { content: "\f6fd"; }
+.bi-music-note-beamed::before { content: "\f49e"; }
+.bi-person::before { content: "\f4e1"; }
+.bi-quote::before { content: "\f6b0"; }
+.bi-send::before { content: "\f6c0"; }
+.bi-stars::before { content: "\f589"; }
+.bi-sun::before { content: "\f5a2"; }
+.bi-translate::before { content: "\f658"; }
+.bi-trophy::before { content: "\f5e7"; }
+.bi-x::before { content: "\f62a"; }
+.bi-x-lg::before { content: "\f659"; }

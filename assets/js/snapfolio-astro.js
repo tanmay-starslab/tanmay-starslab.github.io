@@ -143,6 +143,12 @@
       icon.classList.toggle("bi-x", expanded);
     }
     syncDrawerInert(expanded);
+    // Scroll lock while the drawer covers the page (the scrim is .site-header::before).
+    body.classList.toggle("drawer-open", expanded && drawerQuery.matches);
+    if (expanded && drawerQuery.matches) {
+      const first = document.querySelector("#navmenu a");
+      if (first) first.focus({ preventScroll: true });
+    }
     if (!expanded && headerPanel && headerPanel.contains(document.activeElement)) {
       headerToggleBtn.focus();
     }
@@ -152,6 +158,7 @@
   if (typeof drawerQuery.addEventListener === "function") {
     drawerQuery.addEventListener("change", () => {
       syncDrawerInert(header ? header.classList.contains("header-show") : false);
+      if (!drawerQuery.matches) body.classList.remove("drawer-open");
     });
   }
 
@@ -165,6 +172,13 @@
   if (headerToggleBtn) {
     headerToggleBtn.addEventListener("click", () => {
       setHeaderExpanded(!header.classList.contains("header-show"));
+    });
+  }
+
+  // A tap on the scrim lands on the header itself (the scrim is its ::before).
+  if (header) {
+    header.addEventListener("click", (e) => {
+      if (e.target === header && header.classList.contains("header-show")) setHeaderExpanded(false);
     });
   }
 

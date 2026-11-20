@@ -2812,134 +2812,14 @@ html.js-reveal .reveal.is-visible {
 @media (max-width: 640px) {
   html,
   body,
-  .main,
-  .section,
-  .hero,
-  .container,
-  .hero-shell,
-  .hero-copy {
-    width: 100%;
+  .main {
     max-width: 100%;
     overflow-x: clip;
-  }
-
-  .hero {
-    min-height: auto;
-    padding-top: 92px;
-    padding-bottom: 56px;
-  }
-
-  .hero-shell {
-    gap: 26px;
-  }
-
-  /* On a phone a full section of empty sky between every heading reads as
-     the page having stopped; the step between sections stays clearly larger
-     than any gap inside one. */
-  .section:not(.hero) {
-    padding: 60px 0;
-  }
-
-  .site-header {
-    width: min(calc(100vw - 28px), 330px);
-    padding: 16px 14px;
-  }
-
-  .site-header .header-container {
-    max-height: min(82vh, 620px);
-  }
-
-  html.intro-hold .site-header .header-container {
-    transform: translateX(calc(50vw - 50% - 14px)) scale(1) !important;
-  }
-
-  .container {
-    max-width: 100vw !important;
-    padding-right: 18px;
-    padding-left: 18px;
-  }
-
-  .hero-copy {
-    width: min(calc(100vw - 36px), 354px);
-    max-width: min(calc(100vw - 36px), 354px);
-  }
-
-  .hero-portrait {
-    justify-self: center;
-    width: min(64vw, 248px);
-    max-width: 248px;
-    padding: 8px;
-    border-radius: 22px;
-  }
-
-  .hero-portrait img,
-  .hero-portrait::after {
-    border-radius: 18px;
-  }
-
-  .hero-portrait::before {
-    border-radius: 22px;
   }
 
   .eyebrow::before {
     width: 22px;
     flex: 0 0 22px;
-  }
-
-  .hero h1 {
-    max-width: min(calc(100vw - 36px), 354px);
-    font-size: clamp(3.2rem, 16vw, 4.75rem);
-  }
-
-  .hero-role {
-    max-width: min(calc(100vw - 36px), 330px);
-    font-size: clamp(1.08rem, 7vw, 1.45rem);
-    overflow-wrap: anywhere;
-    word-break: break-word;
-  }
-
-  .hero-subtitle,
-  .section-heading p:last-child {
-    max-width: min(calc(100vw - 36px), 354px);
-    overflow-wrap: break-word;
-    word-break: break-word;
-  }
-
-  .section-heading,
-  .section-heading h2 {
-    width: min(calc(100vw - 36px), 354px);
-    max-width: min(calc(100vw - 36px), 354px);
-    overflow-wrap: break-word;
-    word-break: normal;
-  }
-
-  .section-heading h2 {
-    font-size: clamp(2rem, 10vw, 3rem);
-    line-height: 1.05;
-  }
-
-  .hero-actions,
-  .hero-actions .btn {
-    width: calc(100vw - 36px);
-    max-width: calc(100vw - 36px);
-  }
-
-  .hero-links {
-    gap: 8px;
-    width: calc(100vw - 36px);
-    max-width: calc(100vw - 36px);
-  }
-
-  .hero-links a {
-    flex: 1 1 auto;
-    min-width: 0;
-  }
-
-  /* The chip row in the contact panel sits inside the panel's padding, so
-     the hero row's full-screen width would push it past the panel's edge. */
-  .contact-links {
-    width: auto;
-    max-width: 100%;
   }
 }
 
@@ -4490,3 +4370,356 @@ html[data-gpu="software"] body::before {
   -webkit-text-stroke: 0.45px currentColor;
   paint-order: stroke fill;
 }
+
+/* ═══════════════════════════════════════════════ PHONE AND TABLET SHELL
+   owner 2026-11-20. Below 1200px there is one navigation: a fixed 56px top bar
+   with the menu button on the LEFT (also in RTL, deliberately), opening a
+   full-height drawer from the left over a scrim. The bar is .site-header::after
+   and the scrim .site-header::before, so no markup is added; a tap on either
+   lands on #header, which snapfolio-astro.js treats as "close". The drawer's
+   theme, motion and language controls sit in .drawer-foot, pinned to the
+   bottom; at 1200px and up .drawer-foot is display:contents, so the desktop
+   rail is laid out exactly as before. */
+.drawer-foot { display: contents; }
+
+@media (max-width: 1199px) {
+  :root { --bar-h: 56px; --gutter: max(20px, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px)); }
+
+  .site-header {
+    inset: 0 auto 0 0;
+    width: min(84vw, 320px);
+    padding: 0;
+  }
+
+  /* the bar */
+  .site-header::after {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: -2;
+    height: calc(var(--bar-h) + env(safe-area-inset-top, 0px));
+    pointer-events: auto;
+    content: "";
+    background: rgba(var(--chrome-rgb), 0.72);
+    border-bottom: 1px solid var(--border);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+    backdrop-filter: blur(16px) saturate(1.4);
+  }
+
+  /* the scrim */
+  .site-header::before {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    content: "";
+    background: rgba(2, 3, 6, 0.55);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    transition: opacity 320ms ease;
+  }
+  .site-header.header-show::before { opacity: 1; pointer-events: auto; }
+  html.drawer-open { overflow: hidden; }
+
+  :root .site-header > .header-toggle {
+    top: calc(env(safe-area-inset-top, 0px) + 6px);
+    right: auto;
+    left: max(8px, env(safe-area-inset-left, 0px));
+    width: 44px;
+    height: 44px;
+    font-size: 1.5rem;
+    background: transparent;
+    border: 0;
+    border-radius: 12px;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  :root .site-header > .header-toggle:focus-visible { outline: 2px solid var(--a-cyan); outline-offset: -2px; }
+
+  /* the drawer: full height, flush to the left edge, nav scrolls and the foot stays put */
+  .site-header .header-container {
+    height: 100vh;
+    height: 100dvh;
+    max-height: none;
+    padding: calc(var(--bar-h) + env(safe-area-inset-top, 0px) + 8px) 16px calc(16px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+    overflow: hidden;
+    border-width: 0 1px 0 0;
+    border-radius: 0;
+  }
+  .site-header .header-container,
+  html:not(.intro-active) .site-header:not(.header-show) .header-container,
+  html.intro-hold .site-header .header-container,
+  html.intro-moving .site-header .header-container,
+  html.intro-complete .site-header .header-container {
+    transform: translateX(calc(-100% - 32px)) !important;
+  }
+  html.intro-hold .site-header .header-container { opacity: 0; }
+  .site-header.header-show .header-container,
+  html.intro-complete .site-header.header-show .header-container {
+    transform: translateX(0) !important;
+  }
+
+  .site-header .brand-lockup { margin-bottom: 12px; }
+  .site-header .navmenu {
+    flex: 1 1 auto;
+    min-height: 0;
+    margin: 0 -8px;
+    padding: 0 8px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .site-header .navmenu a { margin: 2px 0; }
+
+  .site-header .drawer-foot {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 12px;
+    margin-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+  .site-header .drawer-foot .motion-toggle-row,
+  .site-header .drawer-foot .lang-picker { flex: 1 1 auto; margin: 0; }
+  .site-header .drawer-foot .lang-picker > summary { width: 100%; }
+  .site-header .drawer-foot .motion-toggle {
+    width: 100%;
+    min-height: 44px;
+    padding: 0 14px;
+    gap: 8px;
+    color: var(--ink-text-2);
+    font-size: 0.875rem;
+    background: rgba(255, 255, 255, 0.05);
+  }
+  /* the language list opens upward, over the nav, so the foot never grows off screen */
+  .site-header .drawer-foot .lang-picker { position: relative; }
+  .site-header .drawer-foot .lang-menu {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 0;
+    z-index: 2;
+    margin: 0;
+    background: color-mix(in oklab, var(--ink-void) 96%, transparent);
+    box-shadow: var(--shadow);
+  }
+  .site-header .drawer-foot .lang-menu a { padding: 11px 12px; font-size: 0.9rem; }
+  .site-header .drawer-foot .social-links {
+    flex-basis: 100%;
+    gap: 8px;
+    padding-top: 4px;
+    margin-top: 0;
+  }
+  .site-header .drawer-foot .social-links a { width: 44px; height: 44px; }
+
+  html[data-theme="light"] .site-header::after {
+    background: rgba(255, 253, 248, 0.82);
+    border-bottom-color: var(--ink-hairline);
+  }
+  html[data-theme="light"] .site-header::before { background: rgba(30, 28, 40, 0.28); }
+  html[data-theme="light"] .site-header .drawer-foot .motion-toggle { background: rgba(30, 28, 40, 0.04); }
+  html[data-theme="light"] .site-header .drawer-foot .lang-menu { background: var(--ink-panel); }
+
+  .hero { padding-top: calc(var(--bar-h) + env(safe-area-inset-top, 0px) + 40px); }
+  /* the portrait shares the copy's left axis instead of floating centred over it */
+  .hero-portrait { justify-self: start; }
+  .container {
+    padding-right: max(24px, env(safe-area-inset-right, 0px));
+    padding-left: max(24px, env(safe-area-inset-left, 0px));
+  }
+}
+
+/* ═══════════════════════════════════════════════ PHONES (≤640px)
+   One left axis at the gutter: photo, name, role, bio, buttons, section
+   headings and cards all start on it. No width here is derived from 100vw. */
+@media (max-width: 640px) {
+  .container {
+    padding-right: var(--gutter);
+    padding-left: var(--gutter);
+  }
+
+  .hero {
+    min-height: auto;
+    padding-top: calc(var(--bar-h) + env(safe-area-inset-top, 0px) + 24px);
+    padding-bottom: 48px;
+  }
+  .hero-shell { gap: 20px; }
+
+  .hero-portrait,
+  .hero-portrait:hover {
+    order: -1;
+    justify-self: start;
+    width: 112px;
+    max-width: none;
+    aspect-ratio: 1;
+    padding: 0;
+    background: none;
+    border: 0;
+    border-radius: 24px;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+    filter: none;
+    transform: none;
+  }
+  .hero-portrait img { width: 112px; height: 112px; border-radius: 24px; }
+  /* the thin glass ring; the fiducials, caption, halo and light table are a desktop composition */
+  .hero-portrait::after {
+    inset: 0;
+    border-radius: 24px;
+    animation: none;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.08) 55%, rgba(255, 255, 255, 0.16));
+  }
+  .hero-portrait::before,
+  .hero-portrait .plate-label,
+  .hero-portrait .portrait-halo,
+  .hero-portrait .plate-light { display: none; }
+
+  .hero h1 {
+    margin-bottom: 8px;
+    font-size: clamp(2.25rem, 10vw, 2.75rem);
+    line-height: 1.05;
+  }
+  .hero-role {
+    margin-bottom: 16px;
+    font-size: 1.0625rem;
+    line-height: 1.4;
+  }
+  .hero-subtitle {
+    margin-bottom: 24px;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .hero-actions { gap: 8px; margin-bottom: 16px; }
+  .hero-actions .btn {
+    flex: 0 0 auto;
+    gap: 6px;
+    min-height: 44px;
+    padding: 0 14px;
+    font-size: 0.9375rem;
+  }
+
+  /* Email, Scholar, GitHub, LinkedIn: icon-only circles; the label stays for screen readers and translations */
+  .hero-copy .hero-links { gap: 8px; margin-bottom: 0; }
+  .hero-copy .hero-links a {
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    min-height: 44px;
+    padding: 0;
+    border-radius: 50%;
+  }
+  .hero-copy .hero-links a i { font-size: 1.15rem; }
+  .hero-copy .hero-links a span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .hero-news { margin-top: 32px; }
+
+  .section:not(.hero) { padding: 56px 0; }
+  .section-heading { margin-bottom: 24px; }
+  .section-heading h2 {
+    font-size: clamp(1.75rem, 7.5vw, 2.125rem);
+    line-height: 1.12;
+    overflow-wrap: break-word;
+  }
+
+  .about-panel,
+  .research-card,
+  .project-card,
+  .publication-card,
+  .cv-panel,
+  .timeline-content,
+  .teaching-panel,
+  .personal-panel,
+  .contact-panel,
+  .link-section {
+    padding: 16px;
+    border-radius: 20px;
+  }
+
+  .scroll-top {
+    right: max(16px, env(safe-area-inset-right, 0px));
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* Touch targets on phones, portrait and landscape: link chips are 44px tall,
+   and the publication chips stay 36px to the eye with a 44px hit area. */
+@media (max-width: 640px), (max-height: 500px) and (max-width: 1199px) and (orientation: landscape) {
+  .hero-links a { min-height: 44px; }
+  .chip-link { min-height: 36px; overflow: visible; }
+  .chip-link::after {
+    position: absolute;
+    inset: -4px 0;
+    content: "";
+  }
+}
+
+/* ═══════════════════════════════════════════════ LANDSCAPE PHONES
+   Short and wide: photo beside the copy, so the name is on the first screen. */
+@media (max-height: 500px) and (max-width: 1199px) and (orientation: landscape) {
+  .container {
+    padding-right: max(24px, env(safe-area-inset-right, 0px));
+    padding-left: max(24px, env(safe-area-inset-left, 0px));
+  }
+  .hero {
+    min-height: auto;
+    padding-top: calc(var(--bar-h) + 24px);
+    padding-bottom: 40px;
+  }
+  .hero-shell {
+    grid-template-columns: 120px minmax(0, 1fr);
+    gap: 28px;
+    align-items: start;
+  }
+  .hero-portrait,
+  .hero-portrait:hover {
+    grid-row: 1;
+    grid-column: 1;
+    justify-self: start;
+    width: 120px;
+    max-width: none;
+    padding: 0;
+    background: none;
+    border: 0;
+    border-radius: 24px;
+    filter: none;
+    transform: none;
+  }
+  .hero-portrait img { width: 120px; height: 120px; border-radius: 24px; }
+  .hero-portrait::after { inset: 0; border-radius: 24px; animation: none; }
+  .hero-portrait::before,
+  .hero-portrait .plate-label,
+  .hero-portrait .portrait-halo,
+  .hero-portrait .plate-light { display: none; }
+  .hero-copy { grid-row: 1; grid-column: 2; }
+  .hero h1 { margin-bottom: 8px; font-size: 2.5rem; line-height: 1.05; }
+  .hero-role { margin-bottom: 12px; font-size: 1.0625rem; }
+  .hero-subtitle { margin-bottom: 20px; font-size: 1rem; line-height: 1.6; }
+  .hero-actions { gap: 8px; }
+  .hero-actions .btn { min-height: 44px; padding: 0 18px; }
+  .section:not(.hero) { padding: 56px 0; }
+}
+
+/* ═══════════════════════════════════════════════ TOUCH-LITE
+   perf-tier.js sets html.touch-lite on coarse-pointer screens under 900px.
+   The WebGL plate field never starts and the merger is a still frame (JS);
+   here the remaining full-viewport costs go: the drifting nebula and its
+   blur, the portrait halo, and every backdrop blur except the bar, drawer
+   and scrim (pseudo-elements, which `*` does not match) and the tablet pill.
+   Reveals become a plain fade. */
+html.touch-lite .hero-nebula,
+html.touch-lite .hero-portrait .portrait-halo,
+html.touch-lite .hero-portrait .plate-light { display: none; }
+html.touch-lite body::after { animation: none; filter: none; transform: none; }
+html.touch-lite .hero-portrait::after { animation: none; }
+html.touch-lite body *:not(.header-container):not(.ln-pill) {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+@keyframes revealFade { from { opacity: 0; } to { opacity: 1; } }
+html.touch-lite.js-reveal .reveal { translate: none; }
+html.touch-lite.js-reveal .reveal.is-visible { animation-name: revealFade; animation-duration: 420ms; }

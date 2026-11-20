@@ -46,10 +46,29 @@
     // The widget takes its colours once, when it renders: match the page.
     if (captcha) captcha.setAttribute("data-theme",
       document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark");
-    var s = document.createElement("script");
-    s.src = "https://web3forms.com/client/script.js";
-    s.async = true; s.defer = true;
-    document.body.appendChild(s);
+    // Loaded on demand, not at page load: the script pulls in hCaptcha (about
+    // 2.2 MB and a multi-second main-thread task). It comes in when the form
+    // nears the viewport or gets focus; until the token exists, submit is
+    // refused below with the "complete the CAPTCHA" message.
+    var loaded = false;
+    var loadCaptcha = function () {
+      if (loaded) return;
+      loaded = true;
+      var s = document.createElement("script");
+      s.src = "https://web3forms.com/client/script.js";
+      s.async = true; s.defer = true;
+      document.body.appendChild(s);
+    };
+    form.addEventListener("focusin", loadCaptcha, { once: true });
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (entries) {
+        if (entries.some(function (e) { return e.isIntersecting; })) { io.disconnect(); loadCaptcha(); }
+      }, { rootMargin: "400px 0px" });
+      io.observe(form);
+    } else {
+      loadCaptcha();
+    }
+    form.addEventListener("submit", loadCaptcha);
   } else if (captcha) {
     captcha.hidden = true;
   }
